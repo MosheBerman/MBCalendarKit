@@ -23,6 +23,16 @@
 		46BFBCE91715FB3F00D4733E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC41715FB3F00D4733E /* Foundation.framework */; };
 		46BFBCF11715FB3F00D4733E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 46BFBCEF1715FB3F00D4733E /* InfoPlist.strings */; };
 		46BFBCF41715FB3F00D4733E /* MBChocolateCakeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBCF31715FB3F00D4733E /* MBChocolateCakeTests.m */; };
+		46BFBD1F171603BB00D4733E /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD16171603BB00D4733E /* UIColor+HexString.m */; };
+		46BFBD20171603BB00D4733E /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD16171603BB00D4733E /* UIColor+HexString.m */; };
+		46BFBD271716046E00D4733E /* NSString+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD261716046E00D4733E /* NSString+Color.m */; };
+		46BFBD281716046E00D4733E /* NSString+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD261716046E00D4733E /* NSString+Color.m */; };
+		46BFBD2E171605C500D4733E /* CKCakeMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD2B171605C500D4733E /* CKCakeMonthCell.m */; };
+		46BFBD2F171605C500D4733E /* CKCakeMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD2B171605C500D4733E /* CKCakeMonthCell.m */; };
+		46BFBD30171605C500D4733E /* CKCakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD2D171605C500D4733E /* CKCakeView.m */; };
+		46BFBD31171605C500D4733E /* CKCakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD2D171605C500D4733E /* CKCakeView.m */; };
+		46BFBD341716152300D4733E /* NSCalendar+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD331716152300D4733E /* NSCalendar+Ranges.m */; };
+		46BFBD351716152300D4733E /* NSCalendar+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD331716152300D4733E /* NSCalendar+Ranges.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +68,19 @@
 		46BFBCF01715FB3F00D4733E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		46BFBCF21715FB3F00D4733E /* MBChocolateCakeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBChocolateCakeTests.h; sourceTree = "<group>"; };
 		46BFBCF31715FB3F00D4733E /* MBChocolateCakeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBChocolateCakeTests.m; sourceTree = "<group>"; };
+		46BFBD15171603BB00D4733E /* UIColor+HexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
+		46BFBD16171603BB00D4733E /* UIColor+HexString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexString.m"; sourceTree = "<group>"; };
+		46BFBD1C171603BB00D4733E /* CKCakeCellColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeCellColors.h; sourceTree = "<group>"; };
+		46BFBD1D171603BB00D4733E /* CKCakeMonthCellStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeMonthCellStates.h; sourceTree = "<group>"; };
+		46BFBD1E171603BB00D4733E /* CKCakeViewModes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeViewModes.h; sourceTree = "<group>"; };
+		46BFBD251716046E00D4733E /* NSString+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Color.h"; sourceTree = "<group>"; };
+		46BFBD261716046E00D4733E /* NSString+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Color.m"; sourceTree = "<group>"; };
+		46BFBD2A171605C500D4733E /* CKCakeMonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeMonthCell.h; sourceTree = "<group>"; };
+		46BFBD2B171605C500D4733E /* CKCakeMonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCakeMonthCell.m; sourceTree = "<group>"; };
+		46BFBD2C171605C500D4733E /* CKCakeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeView.h; sourceTree = "<group>"; };
+		46BFBD2D171605C500D4733E /* CKCakeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCakeView.m; sourceTree = "<group>"; };
+		46BFBD321716152300D4733E /* NSCalendar+Ranges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Ranges.h"; sourceTree = "<group>"; };
+		46BFBD331716152300D4733E /* NSCalendar+Ranges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Ranges.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +110,7 @@
 		46BFBCB61715FB3F00D4733E = {
 			isa = PBXGroup;
 			children = (
+				46BFBD13171603BB00D4733E /* CKCakeView */,
 				46BFBCC81715FB3F00D4733E /* MBChocolateCake */,
 				46BFBCEC1715FB3F00D4733E /* MBChocolateCakeTests */,
 				46BFBCC11715FB3F00D4733E /* Frameworks */,
@@ -158,6 +182,51 @@
 				46BFBCEF1715FB3F00D4733E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		46BFBD13171603BB00D4733E /* CKCakeView */ = {
+			isa = PBXGroup;
+			children = (
+				46BFBD29171605C500D4733E /* Core */,
+				46BFBD1B171603BB00D4733E /* Headers */,
+				46BFBD14171603BB00D4733E /* Categories */,
+			);
+			name = CKCakeView;
+			path = MBChocolateCake/MBChocolateCake;
+			sourceTree = "<group>";
+		};
+		46BFBD14171603BB00D4733E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				46BFBD15171603BB00D4733E /* UIColor+HexString.h */,
+				46BFBD16171603BB00D4733E /* UIColor+HexString.m */,
+				46BFBD251716046E00D4733E /* NSString+Color.h */,
+				46BFBD261716046E00D4733E /* NSString+Color.m */,
+				46BFBD321716152300D4733E /* NSCalendar+Ranges.h */,
+				46BFBD331716152300D4733E /* NSCalendar+Ranges.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		46BFBD1B171603BB00D4733E /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				46BFBD1C171603BB00D4733E /* CKCakeCellColors.h */,
+				46BFBD1D171603BB00D4733E /* CKCakeMonthCellStates.h */,
+				46BFBD1E171603BB00D4733E /* CKCakeViewModes.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		46BFBD29171605C500D4733E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				46BFBD2A171605C500D4733E /* CKCakeMonthCell.h */,
+				46BFBD2B171605C500D4733E /* CKCakeMonthCell.m */,
+				46BFBD2C171605C500D4733E /* CKCakeView.h */,
+				46BFBD2D171605C500D4733E /* CKCakeView.m */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +343,11 @@
 				46BFBCCF1715FB3F00D4733E /* main.m in Sources */,
 				46BFBCD31715FB3F00D4733E /* CKAppDelegate.m in Sources */,
 				46BFBCDC1715FB3F00D4733E /* CKViewController.m in Sources */,
+				46BFBD1F171603BB00D4733E /* UIColor+HexString.m in Sources */,
+				46BFBD271716046E00D4733E /* NSString+Color.m in Sources */,
+				46BFBD2E171605C500D4733E /* CKCakeMonthCell.m in Sources */,
+				46BFBD30171605C500D4733E /* CKCakeView.m in Sources */,
+				46BFBD341716152300D4733E /* NSCalendar+Ranges.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +356,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				46BFBCF41715FB3F00D4733E /* MBChocolateCakeTests.m in Sources */,
+				46BFBD20171603BB00D4733E /* UIColor+HexString.m in Sources */,
+				46BFBD281716046E00D4733E /* NSString+Color.m in Sources */,
+				46BFBD2F171605C500D4733E /* CKCakeMonthCell.m in Sources */,
+				46BFBD31171605C500D4733E /* CKCakeView.m in Sources */,
+				46BFBD351716152300D4733E /* NSCalendar+Ranges.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
