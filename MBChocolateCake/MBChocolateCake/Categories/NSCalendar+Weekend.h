@@ -10,10 +10,20 @@
 
 @interface NSCalendar (Weekend)
 
+#pragma mark - First/Last of Week
+
 - (NSDate *)firstDayOfTheWeek;
 - (NSDate *)firstDayOfTheWeekUsingReferenceDate:(NSDate *)date;
 
+- (NSDate *)lastDayOfTheWeek;
+- (NSDate *)lastDayOfTheWeekUsingReferenceDate:(NSDate *)date;
+
+#pragma mark - First/Last of Month
+
 - (NSDate *)firstDayOfTheMonth;
 - (NSDate *)firstDayOfTheMonthUsingReferenceDate:(NSDate *)date;
+
+- (NSDate *)lastDayOfTheMonth;
+- (NSDate *)lastDayOfTheMonthUsingReferenceDate:(NSDate *)date;
 
 @end

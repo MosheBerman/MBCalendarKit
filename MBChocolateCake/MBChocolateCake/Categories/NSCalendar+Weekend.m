@@ -11,7 +11,7 @@
 
 @implementation NSCalendar (Weekend)
 
-#pragma mark - First/Last Week
+#pragma mark - First/Last of Week
 
 - (NSDate *)firstDayOfTheWeek
 {
