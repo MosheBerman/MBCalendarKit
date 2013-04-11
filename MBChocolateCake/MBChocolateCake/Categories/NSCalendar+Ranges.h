@@ -10,12 +10,12 @@
 
 @interface NSCalendar (Ranges)
 
-#pragma mark - Per Weeks
+#pragma mark - Units Per Week
 
 - (NSUInteger)daysPerWeek;
 - (NSUInteger)daysPerWeekUsingReferenceDate:(NSDate *)date;
 
-#pragma mark - Per Month
+#pragma mark - Units Per Month
 
 - (NSUInteger)daysPerMonth;
 - (NSUInteger)daysPerMonthUsingReferenceDate:(NSDate *)date;
@@ -23,7 +23,7 @@
 - (NSUInteger)weeksPerMonth;
 - (NSUInteger)weeksPerMonthUsingDate:(NSDate *)date;
 
-#pragma mark - Per Year
+#pragma mark - Units Per Year
 
 - (NSUInteger)daysPerYear;
 - (NSUInteger)daysPerYearUsingReferenceDate:(NSDate *)date;
