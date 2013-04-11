@@ -81,9 +81,24 @@
 
 #pragma mark - Number of Units Between Dates
 
-- (NSInteger)numberOfDaysFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate
+- (NSInteger)daysFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate
 {
-    return [[self components:NSDayCalendarUnit fromDate:fromDate toDate:toDate options:0] day] + 1;
+    return [[self components:NSDayCalendarUnit fromDate:fromDate toDate:toDate options:0] day];
+}
+
+- (NSInteger)weeksFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate
+{
+    return [[self components:NSWeekCalendarUnit fromDate:fromDate toDate:toDate options:0] week];
+}
+
+- (NSInteger)monthsFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate
+{
+    return [[self components:NSMonthCalendarUnit fromDate:fromDate toDate:toDate options:0] month];
+}
+
+- (NSInteger)yearsFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate
+{
+    return [[self components:NSYearCalendarUnit fromDate:fromDate toDate:toDate options:0] year];
 }
 
 @end
