@@ -12,7 +12,7 @@
 
 @interface CKCakeView : UIView
 
-@property (nonatomic, assign) CKCakeViewMode calendarMode;
+@property (nonatomic, assign) CKCakeDisplayMode displayMode;
 
 @property(nonatomic, strong) NSLocale       *locale;            // default is [NSLocale currentLocale]. setting nil returns to default
 @property(nonatomic, copy)   NSCalendar     *calendar;          // default is [NSCalendar currentCalendar]. setting nil returns to default
@@ -21,15 +21,5 @@
 @property (nonatomic, strong) NSDate *date;
 
 @property (nonatomic, assign) NSUInteger firstDayOfTheWeek;     // A NSDateComponents weekday value
-
-/* Calculate the number of weeks in a month - uses the current date */
-- (NSUInteger)weeksPerMonth;
-
-/* Calculate the number of weeks in a month - uses the current date */
-- (NSUInteger)daysPerMonth;
-
-/* Calculate the number of days in a week - uses the current date*/
-- (NSUInteger)daysPerWeek;
-
 
 @end

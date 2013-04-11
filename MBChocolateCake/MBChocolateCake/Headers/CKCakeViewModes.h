@@ -13,6 +13,6 @@ typedef enum {
     CKCakeViewModeMonth = 0,
     CKCakeViewModeWeek = 1,
     CKCakeViewModeDay = 2
-    } CKCakeViewMode;
+    } CKCakeDisplayMode;
 
 #endif
