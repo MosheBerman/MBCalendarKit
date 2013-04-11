@@ -21,7 +21,7 @@
 - (NSUInteger)daysPerMonthUsingReferenceDate:(NSDate *)date;
 
 - (NSUInteger)weeksPerMonth;
-- (NSUInteger)weeksPerMonthUsingDate:(NSDate *)date;
+- (NSUInteger)weeksPerMonthUsingReferenceDate:(NSDate *)date;
 
 #pragma mark - Units Per Year
 

@@ -38,10 +38,10 @@
 
 - (NSUInteger)weeksPerMonth
 {
-    return [self weeksPerMonthUsingDate:[NSDate date]];
+    return [self weeksPerMonthUsingReferenceDate:[NSDate date]];
 }
 
-- (NSUInteger)weeksPerMonthUsingDate:(NSDate *)date
+- (NSUInteger)weeksPerMonthUsingReferenceDate:(NSDate *)date
 {
     return [self rangeOfUnit:NSWeekCalendarUnit inUnit:NSMonthCalendarUnit forDate:date].length;
 }
@@ -60,7 +60,7 @@
 
 - (NSUInteger)weeksPerYear
 {
-    return [self weeksPerMonthUsingDate:[NSDate date]];
+    return [self weeksPerMonthUsingReferenceDate:[NSDate date]];
 }
 
 - (NSUInteger)weeksPerYearUsingReferenceDate:(NSDate *)date
