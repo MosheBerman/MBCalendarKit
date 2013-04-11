@@ -36,6 +36,7 @@
 
 #pragma mark - Ranges Between Dates
 
+//  Negative values indicate that fromDate is after toDate
 - (NSInteger)daysFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate;
 - (NSInteger)weeksFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate;
 - (NSInteger)monthsFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate;
