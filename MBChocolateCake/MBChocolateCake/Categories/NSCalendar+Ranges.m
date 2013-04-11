@@ -79,4 +79,11 @@
     return [self rangeOfUnit:NSMonthCalendarUnit inUnit:NSYearCalendarUnit forDate:date].length;
 }
 
+#pragma mark - Number of Units Between Dates
+
+- (NSInteger)numberOfDaysFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate
+{
+    return [[self components:NSDayCalendarUnit fromDate:fromDate toDate:toDate options:0] day] + 1;
+}
+
 @end

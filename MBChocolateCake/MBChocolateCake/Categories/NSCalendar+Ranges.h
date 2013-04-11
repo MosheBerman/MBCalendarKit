@@ -34,4 +34,8 @@
 - (NSUInteger)monthsPerYear;
 - (NSUInteger)monthsPerYearUsingReferenceDate:(NSDate *)date;
 
+#pragma mark - Between Dates
+
+- (NSInteger)numberOfDaysFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate;
+
 @end
