@@ -9,8 +9,11 @@
 #import "CKCakeView.h"
 
 //  Categories
+#import "NSCalendar+DateManipulation.h"
 #import "NSCalendar+Ranges.h"
 #import "NSCalendar+Weekend.h"
+#import "NSCalendar+Components.h"
+
 
 //  Cells
 #import "CKCakeMonthCell.h"
@@ -58,11 +61,20 @@
     return self;
 }
 
-#pragma mark - 
+#pragma mark - View Hierarchy
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     [self layoutSubviews];
+}
+
+-(void)removeFromSuperview
+{
+    for (CKCakeMonthCell *cell in [self usedCells]) {
+        [cell removeFromSuperview];
+    }
+    
+    [super removeFromSuperview];
 }
 
 #pragma mark - Size and Layout
@@ -72,7 +84,7 @@
     CGRect frame = [self rectForDisplayMode:[self displayMode]];
     [self setFrame:frame];
     
-    [self layoutCellsAnimated:YES];
+    [self layoutCellsAnimated:NO];
 }
 
 - (CGRect)rectForDisplayMode:(CKCakeDisplayMode)displayMode
@@ -132,11 +144,16 @@
         [[self usedCells] removeObject:cell];
     }
 
+    //  Count the rows and columns that we'll need
     NSUInteger rowCount = [self _rowCountForDisplayMode:[self displayMode]];
     NSUInteger columnCount = [self _columnCountForDisplayMode:[self displayMode]];
 
+    //  Cache the cell values for easier readability below
     CGFloat width = [self cellSize].width;
     CGFloat height = [self cellSize].height;
+    
+    //  Cache the start date
+    NSDate *workingDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
     
     for (NSUInteger row = 0; row < rowCount; row++) {
         for (NSUInteger column = 0; column < columnCount; column++) {
@@ -146,9 +163,15 @@
             CGRect frame = CGRectMake(column*width, row*height, width, height);
             [cell setFrame:frame];
             
-            [cell setNumber:@(0)];
+            //  Count from the start date
+            NSUInteger day = [[self calendar] daysInDate:workingDate];
+            
+            [cell setNumber:@(day)];
             
             [self addSubview:cell];
+            
+            //  Move to the next date
+            workingDate = [[self calendar] dateByAddingDays:1 toDate:workingDate];
         }
     }
     
