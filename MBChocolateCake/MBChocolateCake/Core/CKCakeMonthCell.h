@@ -31,6 +31,9 @@
 @property (nonatomic, strong) UIColor *dotColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *selectedDotColor UI_APPEARANCE_SELECTOR;
 
+@property (nonatomic, strong) UIColor *cellBorderColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *selectedCellBorderColor UI_APPEARANCE_SELECTOR;
+
 - (id)initWithSize:(CGSize)size;
 
 -(void)prepareForReuse;

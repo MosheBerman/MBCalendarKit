@@ -9,6 +9,8 @@
 #import "CKCakeMonthCell.h"
 #import "CKCakeCellColors.h"
 
+#import "UIView+Border.h"
+
 @interface CKCakeMonthCell (){
     CGSize _size;
 }
@@ -43,6 +45,9 @@
         
         _dotColor = kCakeColorDarkTextGradient;
         _selectedDotColor = [UIColor whiteColor];
+        
+        _cellBorderColor = kCakeColorCellBorder;
+        _selectedCellBorderColor = kCakeColorSelectedCellBorder;
         
         // Label
         _label = [UILabel new];
@@ -83,6 +88,7 @@
     }
     
     _state = state;
+    
     [self applyColors];
 }
 
@@ -123,6 +129,7 @@
     [[self label]setAlpha:1.0];
     
     [self applyColorsForState:[self state]];
+    [self showBorder];
 }
 
 //  TODO: Make the cell states bitwise, so we can use masks and clean this up a bit
@@ -133,6 +140,8 @@
     [[self label] setShadowColor:[self textShadowColor]];
     [[self label] setShadowOffset:CGSizeMake(0, 0.5)];
     
+    [self setBorderColor:[self cellBorderColor]];
+    [self setBorderWidth:0.5];
     [self setBackgroundColor:[self normalBackgroundColor]];
     
     //  Today cell
@@ -140,20 +149,22 @@
     {
         [self setBackgroundColor:[self todaySelectedBackgroundColor]];
         [[self label] setShadowColor:[self todayShadowColor]];
+        [self setBorderColor:nil];
     }
     
     //  Today cell, selected
     else if(state == CKCakeMonthCellStateTodayDeselected)
     {
         [self setBackgroundColor:[self todayBackgroundColor]];
-        
         [[self label] setShadowColor:[self todayShadowColor]];
+        [self setBorderColor:nil];        
     }
     
     //  Selected cells in the active month have a special background color
     else if(state == CKCakeMonthCellStateSelected)
     {
         [self setBackgroundColor:[self selectedBackgroundColor]];
+        [self setBorderColor:[self selectedCellBorderColor]];
         [[self label] setShadowOffset:CGSizeMake(0, -1)];
     }
     
