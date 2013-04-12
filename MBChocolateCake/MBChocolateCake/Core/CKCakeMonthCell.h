@@ -38,6 +38,7 @@
 
 -(void)prepareForReuse;
 
-
+- (void)setSelected;
+- (void)setDeselected;
 
 @end

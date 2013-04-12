@@ -83,13 +83,13 @@
 
 - (void)setState:(CKCakeMonthCellState)state
 {
-    if (state < CKCakeMonthCellStateInactiveSelected || state < CKCakeMonthCellStateTodaySelected) {
+    if (state > CKCakeMonthCellStateInactiveSelected || state < CKCakeMonthCellStateTodaySelected) {
         return;
     }
     
     _state = state;
     
-    [self applyColors];
+    [self applyColorsForState:_state];
 }
 
 - (void)setNumber:(NSNumber *)number
@@ -165,12 +165,49 @@
     {
         [self setBackgroundColor:[self selectedBackgroundColor]];
         [self setBorderColor:[self selectedCellBorderColor]];
-        [[self label] setShadowOffset:CGSizeMake(0, -1)];
+        [[self label] setShadowOffset:CGSizeMake(0, -0.5)];
     }
     
     if (state == CKCakeMonthCellStateInactive || state == CKCakeMonthCellStateInactiveSelected) {
         [[self label] setAlpha:0.5];    //  Label alpha needs to be lowered
         [[self label] setShadowOffset:CGSizeZero];
+    }
+}
+
+#pragma mark - Selection State Handling
+
+- (void)setSelected
+{
+    
+    CKCakeMonthCellState state = [self state];
+    
+    if (state == CKCakeMonthCellStateInactive) {
+        [self setState:CKCakeMonthCellStateInactiveSelected];
+    }
+    else if(state == CKCakeMonthCellStateNormal)
+    {
+        [self setState:CKCakeMonthCellStateSelected];
+    }
+    else if(state == CKCakeMonthCellStateTodayDeselected)
+    {
+        [self setState:CKCakeMonthCellStateTodaySelected];
+    }
+}
+
+- (void)setDeselected
+{
+    CKCakeMonthCellState state = [self state];
+    
+    if (state == CKCakeMonthCellStateInactiveSelected) {
+        [self setState:CKCakeMonthCellStateInactive];
+    }
+    else if(state == CKCakeMonthCellStateSelected)
+    {
+        [self setState:CKCakeMonthCellStateNormal];
+    }
+    else if(state == CKCakeMonthCellStateTodaySelected)
+    {
+        [self setState:CKCakeMonthCellStateTodayDeselected];
     }
 }
 
