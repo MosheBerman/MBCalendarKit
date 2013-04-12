@@ -10,6 +10,13 @@
 
 @implementation NSCalendar (Components)
 
+- (NSInteger)weekdayInDate:(NSDate*)date
+{
+    NSDateComponents *comps = [self components:NSWeekdayCalendarUnit fromDate:date];
+    return [comps weekday];
+}
+
+
 - (NSInteger)secondsInDate:(NSDate*)date
 {
     NSDateComponents *comps = [self components:NSSecondCalendarUnit fromDate:date];

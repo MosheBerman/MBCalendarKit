@@ -10,6 +10,7 @@
 
 @interface NSCalendar (Components)
 
+- (NSInteger)weekdayInDate:(NSDate*)date;
 - (NSInteger)secondsInDate:(NSDate*)date;
 - (NSInteger)minutesInDate:(NSDate*)date;
 - (NSInteger)hoursInDate:(NSDate*)date;
