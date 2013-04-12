@@ -15,6 +15,7 @@ typedef enum {
     CKCakeMonthCellStateNormal,                 //  Cells that are part of this month, unselected
     CKCakeMonthCellStateSelected,               //  Cells that are part of this month, selected
     CKCakeMonthCellStateInactive,               //  Cells that are not part of this month
+    CKCakeMonthCellStateInactiveSelected        //  Transient state for out of month cells 
     
 } CKCakeMonthCellState;
 

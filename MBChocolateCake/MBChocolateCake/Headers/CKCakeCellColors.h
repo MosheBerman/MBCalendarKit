@@ -31,6 +31,10 @@
 #define kCakeColorLightGray [@"#e2e2e4" toColor]
 #define kCakeColorDarkGray [@"#cccbd0" toColor]
 
+#define kCakeColorBluishGray [@"#7389a5" toColor]
+#define kCakeColorTodayShadowBlue [@"#394452" toColor]
+#define kCakeColorSelectedShadowBlue [@"#294f75" toColor]
+
 #define kCakeColorDarkTextGradient [@"#2b3540" toColor]
 #define kCakeColorLightTextGradient [@"#495a6d" toColor]
 
