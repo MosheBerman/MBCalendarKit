@@ -64,7 +64,7 @@
     return self;
 }
 
-#pragma mark - Layout
+#pragma mark - View Hierarchy
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
@@ -72,6 +72,8 @@
     [self setFrame:CGRectMake(origin.x, origin.y, _size.width, _size.height)];
     [self layoutSubviews];
 }
+
+#pragma mark - Layout
 
 - (void)layoutSubviews
 {
@@ -174,7 +176,7 @@
     }
 }
 
-#pragma mark - Selection State Handling
+#pragma mark - Selection State
 
 - (void)setSelected
 {
