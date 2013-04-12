@@ -10,6 +10,8 @@
 
 #import "CKCakeViewModes.h"
 
+#import "UIView+Border.h"
+
 @interface CKCakeView : UIView
 
 @property (nonatomic, assign) CKCakeDisplayMode displayMode;
@@ -20,6 +22,8 @@
 
 @property (nonatomic, strong) NSDate *date;
 
-@property (nonatomic, assign) NSUInteger firstDayOfTheWeek;     // A NSDateComponents weekday value
+- (id)initWithMode:(CKCakeDisplayMode)cakeDisplayMode;
+
+- (void)setDisplayMode:(CKCakeDisplayMode)displayMode animated:(BOOL)animated;
 
 @end
