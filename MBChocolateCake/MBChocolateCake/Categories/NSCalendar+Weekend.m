@@ -7,7 +7,9 @@
 //
 
 #import "NSCalendar+Weekend.h"
-#import "NSCalendar+Ranges.h"   //  To get the number of days in a week
+#import "NSCalendar+Ranges.h"       //  To get the number of days in a week
+#import "NSCalendar+Components.h"   //  To get specific components
+#import "NSCalendar+DateManipulation.h"
 
 @implementation NSCalendar (Weekend)
 
@@ -18,16 +20,11 @@
     return [self firstDayOfTheWeekUsingReferenceDate:[NSDate date]];
 }
 
+//  FIXME: This seems broken...
 - (NSDate *)firstDayOfTheWeekUsingReferenceDate:(NSDate *)date
-{
-    
-    NSUInteger allComponents = NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekCalendarUnit;
-    
-    NSDateComponents *c = [self components:allComponents fromDate:date];
-    
-    [c setWeekday:1];
-    
-    return [self dateFromComponents:c];
+{    
+    NSInteger weekday = [self weekdayInDate:date]-1;
+    return [self dateBySubtractingDays:weekday fromDate:date];
 }
 
 - (NSDate *)lastDayOfTheWeek
@@ -38,9 +35,7 @@
 - (NSDate *)lastDayOfTheWeekUsingReferenceDate:(NSDate *)date
 {
     
-    NSUInteger allComponents = NSEraCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekCalendarUnit;
-    
-    NSDateComponents *c = [self components:allComponents fromDate:date];
+    NSDateComponents *c = [self components: NSYearForWeekOfYearCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
     
     [c setWeekday:[self daysPerWeekUsingReferenceDate:date]];
     
