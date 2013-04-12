@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4645540E1718C87600074C6F /* NSCalendar+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = 4645540D1718C87600074C6F /* NSCalendar+Components.m */; };
+		4645540F1718C87600074C6F /* NSCalendar+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = 4645540D1718C87600074C6F /* NSCalendar+Components.m */; };
 		46A60E77171646F4002F150B /* NSCalendar+Weekend.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A60E76171646F4002F150B /* NSCalendar+Weekend.m */; };
 		46A60E78171646F4002F150B /* NSCalendar+Weekend.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A60E76171646F4002F150B /* NSCalendar+Weekend.m */; };
 		46A60E7B1716639B002F150B /* NSCalendar+DateManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A60E7A1716639B002F150B /* NSCalendar+DateManipulation.m */; };
@@ -57,6 +59,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4645540C1718C87600074C6F /* NSCalendar+Components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Components.h"; sourceTree = "<group>"; };
+		4645540D1718C87600074C6F /* NSCalendar+Components.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Components.m"; sourceTree = "<group>"; };
 		46A60E75171646F4002F150B /* NSCalendar+Weekend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Weekend.h"; sourceTree = "<group>"; };
 		46A60E76171646F4002F150B /* NSCalendar+Weekend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Weekend.m"; sourceTree = "<group>"; };
 		46A60E791716639B002F150B /* NSCalendar+DateManipulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+DateManipulation.h"; sourceTree = "<group>"; };
@@ -236,6 +240,8 @@
 				46F1BC791718949600F8356F /* NSDate+Components.m */,
 				46F1BC7C171897AF00F8356F /* NSDateComponents+AllComponents.h */,
 				46F1BC7D171897AF00F8356F /* NSDateComponents+AllComponents.m */,
+				4645540C1718C87600074C6F /* NSCalendar+Components.h */,
+				4645540D1718C87600074C6F /* NSCalendar+Components.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -385,6 +391,7 @@
 				46F1BC72171885E200F8356F /* UIView+Border.m in Sources */,
 				46F1BC7A1718949600F8356F /* NSDate+Components.m in Sources */,
 				46F1BC7E171897AF00F8356F /* NSDateComponents+AllComponents.m in Sources */,
+				4645540E1718C87600074C6F /* NSCalendar+Components.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +410,7 @@
 				46F1BC711718853100F8356F /* UIView+Border.m in Sources */,
 				46F1BC7B1718949600F8356F /* NSDate+Components.m in Sources */,
 				46F1BC7F171897AF00F8356F /* NSDateComponents+AllComponents.m in Sources */,
+				4645540F1718C87600074C6F /* NSCalendar+Components.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
