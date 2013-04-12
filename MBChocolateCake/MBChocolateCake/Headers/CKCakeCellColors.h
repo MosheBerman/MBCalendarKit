@@ -38,7 +38,7 @@
 #define kCakeColorDarkTextGradient [@"#2b3540" toColor]
 #define kCakeColorLightTextGradient [@"#495a6d" toColor]
 
-#define kCakeColorCellBorder [@"9da0a9" toColor]
-#define kCakeColorSelectedCellBorder [@"9da0a9" toColor]
+#define kCakeColorCellBorder [@"#9da0a9" toColor]
+#define kCakeColorSelectedCellBorder [@"#293649" toColor]
 
 #endif
