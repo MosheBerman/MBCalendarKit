@@ -38,6 +38,12 @@
 		46BFBD341716152300D4733E /* NSCalendar+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD331716152300D4733E /* NSCalendar+Ranges.m */; };
 		46BFBD351716152300D4733E /* NSCalendar+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD331716152300D4733E /* NSCalendar+Ranges.m */; };
 		46F1BC711718853100F8356F /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F1BC701718853100F8356F /* UIView+Border.m */; };
+		46F1BC72171885E200F8356F /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F1BC701718853100F8356F /* UIView+Border.m */; };
+		46F1BC7317188D7200F8356F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC61715FB3F00D4733E /* CoreGraphics.framework */; };
+		46F1BC7A1718949600F8356F /* NSDate+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F1BC791718949600F8356F /* NSDate+Components.m */; };
+		46F1BC7B1718949600F8356F /* NSDate+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F1BC791718949600F8356F /* NSDate+Components.m */; };
+		46F1BC7E171897AF00F8356F /* NSDateComponents+AllComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F1BC7D171897AF00F8356F /* NSDateComponents+AllComponents.m */; };
+		46F1BC7F171897AF00F8356F /* NSDateComponents+AllComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F1BC7D171897AF00F8356F /* NSDateComponents+AllComponents.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +98,10 @@
 		46BFBD331716152300D4733E /* NSCalendar+Ranges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Ranges.m"; sourceTree = "<group>"; };
 		46F1BC6F1718853100F8356F /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
 		46F1BC701718853100F8356F /* UIView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Border.m"; sourceTree = "<group>"; };
+		46F1BC781718949600F8356F /* NSDate+Components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Components.h"; sourceTree = "<group>"; };
+		46F1BC791718949600F8356F /* NSDate+Components.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Components.m"; sourceTree = "<group>"; };
+		46F1BC7C171897AF00F8356F /* NSDateComponents+AllComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateComponents+AllComponents.h"; sourceTree = "<group>"; };
+		46F1BC7D171897AF00F8356F /* NSDateComponents+AllComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateComponents+AllComponents.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46F1BC7317188D7200F8356F /* CoreGraphics.framework in Frameworks */,
 				46BFBCE71715FB3F00D4733E /* SenTestingKit.framework in Frameworks */,
 				46BFBCE81715FB3F00D4733E /* UIKit.framework in Frameworks */,
 				46BFBCE91715FB3F00D4733E /* Foundation.framework in Frameworks */,
@@ -221,6 +232,10 @@
 				46A60E76171646F4002F150B /* NSCalendar+Weekend.m */,
 				46A60E791716639B002F150B /* NSCalendar+DateManipulation.h */,
 				46A60E7A1716639B002F150B /* NSCalendar+DateManipulation.m */,
+				46F1BC781718949600F8356F /* NSDate+Components.h */,
+				46F1BC791718949600F8356F /* NSDate+Components.m */,
+				46F1BC7C171897AF00F8356F /* NSDateComponents+AllComponents.h */,
+				46F1BC7D171897AF00F8356F /* NSDateComponents+AllComponents.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -367,6 +382,9 @@
 				46BFBD341716152300D4733E /* NSCalendar+Ranges.m in Sources */,
 				46A60E77171646F4002F150B /* NSCalendar+Weekend.m in Sources */,
 				46A60E7B1716639B002F150B /* NSCalendar+DateManipulation.m in Sources */,
+				46F1BC72171885E200F8356F /* UIView+Border.m in Sources */,
+				46F1BC7A1718949600F8356F /* NSDate+Components.m in Sources */,
+				46F1BC7E171897AF00F8356F /* NSDateComponents+AllComponents.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,6 +401,8 @@
 				46A60E78171646F4002F150B /* NSCalendar+Weekend.m in Sources */,
 				46A60E7C1716639B002F150B /* NSCalendar+DateManipulation.m in Sources */,
 				46F1BC711718853100F8356F /* UIView+Border.m in Sources */,
+				46F1BC7B1718949600F8356F /* NSDate+Components.m in Sources */,
+				46F1BC7F171897AF00F8356F /* NSDateComponents+AllComponents.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
