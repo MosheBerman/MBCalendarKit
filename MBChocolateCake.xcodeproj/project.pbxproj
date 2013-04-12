@@ -37,6 +37,7 @@
 		46BFBD31171605C500D4733E /* CKCakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD2D171605C500D4733E /* CKCakeView.m */; };
 		46BFBD341716152300D4733E /* NSCalendar+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD331716152300D4733E /* NSCalendar+Ranges.m */; };
 		46BFBD351716152300D4733E /* NSCalendar+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD331716152300D4733E /* NSCalendar+Ranges.m */; };
+		46F1BC711718853100F8356F /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F1BC701718853100F8356F /* UIView+Border.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,8 @@
 		46BFBD2D171605C500D4733E /* CKCakeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCakeView.m; sourceTree = "<group>"; };
 		46BFBD321716152300D4733E /* NSCalendar+Ranges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Ranges.h"; sourceTree = "<group>"; };
 		46BFBD331716152300D4733E /* NSCalendar+Ranges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Ranges.m"; sourceTree = "<group>"; };
+		46F1BC6F1718853100F8356F /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
+		46F1BC701718853100F8356F /* UIView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Border.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +211,8 @@
 			children = (
 				46BFBD15171603BB00D4733E /* UIColor+HexString.h */,
 				46BFBD16171603BB00D4733E /* UIColor+HexString.m */,
+				46F1BC6F1718853100F8356F /* UIView+Border.h */,
+				46F1BC701718853100F8356F /* UIView+Border.m */,
 				46BFBD251716046E00D4733E /* NSString+Color.h */,
 				46BFBD261716046E00D4733E /* NSString+Color.m */,
 				46BFBD321716152300D4733E /* NSCalendar+Ranges.h */,
@@ -377,6 +382,7 @@
 				46BFBD351716152300D4733E /* NSCalendar+Ranges.m in Sources */,
 				46A60E78171646F4002F150B /* NSCalendar+Weekend.m in Sources */,
 				46A60E7C1716639B002F150B /* NSCalendar+DateManipulation.m in Sources */,
+				46F1BC711718853100F8356F /* UIView+Border.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
