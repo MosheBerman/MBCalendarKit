@@ -18,4 +18,20 @@
     return [formatter stringFromDate:self];
 }
 
+- (NSString *)monthNameOnCalendar:(NSCalendar *)calendar
+{
+    NSDateFormatter *f = [NSDateFormatter new];
+    [f setCalendar:calendar];
+    [f setDateFormat:@"MMMM"];
+    return [f stringFromDate:self];
+}
+
+- (NSString *)monthAbbreviationOnCalendar:(NSCalendar *)calendar
+{
+    NSDateFormatter *f = [NSDateFormatter new];
+    [f setCalendar:calendar];
+    [f setDateFormat:@"MMM"];
+    return [f stringFromDate:self];
+}
+
 @end

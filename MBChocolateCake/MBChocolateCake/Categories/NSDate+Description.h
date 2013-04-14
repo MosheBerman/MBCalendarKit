@@ -12,4 +12,9 @@
 
 - (NSString *)description;
 
+//  Prints out "January", "February", etc for Gregorian dates.
+- (NSString *)monthNameOnCalendar:(NSCalendar *)calendar;
+
+//  Prints out "Jan", "Feb", etc for Gregorian dates.
+- (NSString *)monthAbbreviationOnCalendar:(NSCalendar *)calendar;
 @end
