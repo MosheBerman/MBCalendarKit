@@ -18,11 +18,27 @@
     return [formatter stringFromDate:self];
 }
 
+- (NSString *)dayNameOnCalendar:(NSCalendar *)calendar
+{
+    NSDateFormatter *f = [NSDateFormatter new];
+    [f setCalendar:calendar];
+    [f setDateFormat:@"ccc"];
+    return [f stringFromDate:self];
+}
+
 - (NSString *)monthNameOnCalendar:(NSCalendar *)calendar
 {
     NSDateFormatter *f = [NSDateFormatter new];
     [f setCalendar:calendar];
     [f setDateFormat:@"MMMM"];
+    return [f stringFromDate:self];
+}
+
+- (NSString *)monthNameAndYearOnCalendar:(NSCalendar *)calendar
+{
+    NSDateFormatter *f = [NSDateFormatter new];
+    [f setCalendar:calendar];
+    [f setDateFormat:@"MMMM yyyy"];
     return [f stringFromDate:self];
 }
 
