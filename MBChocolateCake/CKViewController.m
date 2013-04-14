@@ -8,7 +8,11 @@
 
 #import "CKViewController.h"
 
+#import "CKCakeView.h"
+
 @interface CKViewController ()
+
+@property (nonatomic, strong) CKCakeView *cakeView;
 
 @end
 
@@ -18,6 +22,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    [[self view] setBackgroundColor:[UIColor orangeColor]];
+    
+    [self setCakeView:[CKCakeView new]];
+    [[self view] addSubview:[self cakeView]];
 }
 
 - (void)didReceiveMemoryWarning
