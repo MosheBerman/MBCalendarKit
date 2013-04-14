@@ -12,9 +12,14 @@
 
 #import "NSDate+Components.h"
 
+#import "NSCalendar+Juncture.h"
+
+#import "NSCalendar+Components.h"
+
 @interface MBChocolateCakeTests ()
 
 @property (nonatomic, strong) NSCalendar *gregorianCalendar;
+@property (nonatomic, strong) NSCalendar *hebrewCalendar;
 @property (nonatomic, strong) NSDate *workingDate;
 
 @end
@@ -27,6 +32,8 @@
     
     // Set-up code here.
     _gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    _hebrewCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSHebrewCalendar];
+    
     _workingDate = nil;
 }
 
@@ -40,17 +47,20 @@
     [super tearDown];
 }
 
-#pragma mark - Convenience Date Methods
+#pragma mark - NSDate+Components
 
 /* 
  
  For this test, we create a date using NSDateComponents
  and another from the convenience method. Then assert
  that the resultant date objects are equal.
+ 
+ Each test uses a different calendar, but the process 
+ remains the same.
 
  */
 
-- (void)testDayMonthYear
+- (void)testDayMonthYearDateConvenienceInitializerWithGregorianCalendar
 {
     NSDateComponents *comps = [NSDateComponents new];
     [comps setYear:2013];
@@ -63,10 +73,61 @@
     STAssertEqualObjects(dateFromComponents, dateFromConvenienceMethod, @"The date objects are not supposed to be different.");
 }
 
+- (void)testDayMonthYearDateConvenienceInitializerWithHebrewCalendar
+{
+    NSDateComponents *comps = [NSDateComponents new];
+    [comps setYear:5773];
+    [comps setMonth:1];
+    [comps setDay:1];
+    
+    NSDate *dateFromComponents = [[self hebrewCalendar] dateFromComponents:comps];
+    NSDate *dateFromConvenienceMethod = [NSDate dateWithDay:1 Month:1 Year:5773 andCalendar:[self hebrewCalendar]];
+    
+    STAssertEqualObjects(dateFromComponents, dateFromConvenienceMethod, @"The date objects are not supposed to be different.");
+}
 
-#pragma mark - Gregorian Range Tests
+#pragma mark - NSCalendar+Components
 
-- (void)testDaysPerWeek
+/* 
+    
+ For this test, we create a date using convenience intializer
+ which we tested in the preceeding tests. Then we pull out the
+ date components using our convenience methods. We assert that
+ the resulting integers are equal to the values that we passed
+ in to the initializer.
+ 
+ */
+
+- (void)testDayMonthYearCalendarComponentsWithGregorianCalendar
+{
+    NSDate *workingDate = [NSDate dateWithDay:23 Month:10 Year:1991 andCalendar:[self gregorianCalendar]];
+    
+    NSInteger day = [[self gregorianCalendar] daysInDate:workingDate];
+    NSInteger month = [[self gregorianCalendar] monthsInDate:workingDate];
+    NSInteger year = [[self gregorianCalendar] yearsInDate:workingDate];
+    
+    STAssertEquals(day, 23, @"Day: %i", day);
+    STAssertEquals(month, 10, @"Month: %i", month);
+    STAssertEquals(year, 1991, @"Year:%i", year);
+}
+
+- (void)testDayMonthYearCalendarComponentsWithHebrewCalendar
+{
+    NSDate *workingDate = [NSDate dateWithDay:1 Month:1 Year:5773 andCalendar:[self gregorianCalendar]];
+    
+    NSInteger day = [[self gregorianCalendar] daysInDate:workingDate];
+    NSInteger month = [[self gregorianCalendar] monthsInDate:workingDate];
+    NSInteger year = [[self gregorianCalendar] yearsInDate:workingDate];
+    
+    STAssertEquals(day, 1, @"Day: %i", day);
+    STAssertEquals(month, 1, @"Month: %i", month);
+    STAssertEquals(year, 5773, @"Year:%i", year);
+}
+
+
+#pragma mark - NSCalendar+Range 
+
+- (void)testDaysPerWeekForGregorianCalendar
 {
     NSInteger daysPerWeek = [[self gregorianCalendar] daysPerWeek];
     STAssertEquals(@(daysPerWeek), @(7), @"Since when are there not 7 days in a Gregorian week?");
@@ -154,5 +215,29 @@
     
 }
 
+#pragma mark - NSCalendar+Juncture
+
+- (void)testFirstDayOfTheWeek
+{
+    //  April 12, 2013 is a Friday. The preceeding sunday is April 7
+    NSDate *april12 = [NSDate dateWithDay:12 month:4 year:2013];
+    NSDate *april7 = [NSDate dateWithDay:7 month:4 year:2013];
+    
+    NSDate *result = [[self gregorianCalendar] firstDayOfTheWeekUsingReferenceDate:april12];
+    
+    STAssertEqualObjects(result, april7, @"Result :%@", result);
+}
+
+- (void)testLastDayOfTheWeek
+{
+    //  April 15, 2013 is a Monday. The preceeding sunday is April 7
+    NSDate *april15 = [NSDate dateWithDay:15 month:4 year:2013];
+    NSDate *april20 = [NSDate dateWithDay:20 month:4 year:2013];
+    
+    NSDate *result = [[self gregorianCalendar] lastDayOfTheWeekUsingReferenceDate:april15];
+                      
+    
+    STAssertEqualObjects(result, april20, @"Result :%@", result);
+}
 
 @end
