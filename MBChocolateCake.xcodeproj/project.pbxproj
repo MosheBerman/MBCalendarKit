@@ -327,10 +327,10 @@
 			children = (
 				46BFBD2A171605C500D4733E /* CKCakeMonthCell.h */,
 				46BFBD2B171605C500D4733E /* CKCakeMonthCell.m */,
-				46BFBD2C171605C500D4733E /* CKCakeView.h */,
-				46BFBD2D171605C500D4733E /* CKCakeView.m */,
 				46B36794171A8A34000F1B25 /* CKCakeHeaderView.h */,
 				46B36795171A8A34000F1B25 /* CKCakeHeaderView.m */,
+				46BFBD2C171605C500D4733E /* CKCakeView.h */,
+				46BFBD2D171605C500D4733E /* CKCakeView.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
