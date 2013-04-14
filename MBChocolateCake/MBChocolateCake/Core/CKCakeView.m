@@ -10,7 +10,7 @@
 
 //  Cells
 #import "CKCakeHeaderView.h"
-#import "CKCakeMonthCell.h"
+#import "CKCakeCell.h"
 
 #import "NSCalendarCategories.h"
 #import "NSDate+Description.h"
@@ -71,7 +71,7 @@
 
 -(void)removeFromSuperview
 {
-    for (CKCakeMonthCell *cell in [self usedCells]) {
+    for (CKCakeCell *cell in [self usedCells]) {
         [cell removeFromSuperview];
     }
     
@@ -175,12 +175,12 @@
 - (void)_layoutCells
 {
     
-    for (CKCakeMonthCell *cell in [self usedCells]) {
+    for (CKCakeCell *cell in [self usedCells]) {
         [[self spareCells] addObject:cell];
         [cell removeFromSuperview];
     }
     
-    for (CKCakeMonthCell *cell in [self spareCells]) {
+    for (CKCakeCell *cell in [self spareCells]) {
         [[self usedCells] removeObject:cell];
     }
     
@@ -205,7 +205,7 @@
 
             /* STEP 1: create and position the cell */
             
-            CKCakeMonthCell *cell = [self _dequeueCell];
+            CKCakeCell *cell = [self _dequeueCell];
             
             CGRect frame = CGRectMake(column*width, headerOffset + (row*height), width, height);
             [cell setFrame:frame];
@@ -260,12 +260,12 @@
     
 }
 
-- (CKCakeMonthCell *)_dequeueCell
+- (CKCakeCell *)_dequeueCell
 {
-    CKCakeMonthCell *cell = [[self spareCells] anyObject];
+    CKCakeCell *cell = [[self spareCells] anyObject];
     
     if (!cell) {
-        cell = [[CKCakeMonthCell alloc] initWithSize:[self _cellSize]];
+        cell = [[CKCakeCell alloc] initWithSize:[self _cellSize]];
     }
     
     //  Move the used cells to the appropriate set
@@ -504,7 +504,7 @@
     
     NSUInteger index = [self selectedIndex];
     
-    for (CKCakeMonthCell *cell in [self usedCells]) {
+    for (CKCakeCell *cell in [self usedCells]) {
         CGRect rect = [cell frame];
         if (CGRectContainsPoint(rect, point)) {
             [cell setSelected];

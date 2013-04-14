@@ -39,8 +39,8 @@
 		46BFBD20171603BB00D4733E /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD16171603BB00D4733E /* UIColor+HexString.m */; };
 		46BFBD271716046E00D4733E /* NSString+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD261716046E00D4733E /* NSString+Color.m */; };
 		46BFBD281716046E00D4733E /* NSString+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD261716046E00D4733E /* NSString+Color.m */; };
-		46BFBD2E171605C500D4733E /* CKCakeMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD2B171605C500D4733E /* CKCakeMonthCell.m */; };
-		46BFBD2F171605C500D4733E /* CKCakeMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD2B171605C500D4733E /* CKCakeMonthCell.m */; };
+		46BFBD2E171605C500D4733E /* CKCakeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD2B171605C500D4733E /* CKCakeCell.m */; };
+		46BFBD2F171605C500D4733E /* CKCakeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD2B171605C500D4733E /* CKCakeCell.m */; };
 		46BFBD30171605C500D4733E /* CKCakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD2D171605C500D4733E /* CKCakeView.m */; };
 		46BFBD31171605C500D4733E /* CKCakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD2D171605C500D4733E /* CKCakeView.m */; };
 		46BFBD341716152300D4733E /* NSCalendar+Ranges.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBD331716152300D4733E /* NSCalendar+Ranges.m */; };
@@ -108,8 +108,8 @@
 		46BFBD1E171603BB00D4733E /* CKCakeViewModes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeViewModes.h; sourceTree = "<group>"; };
 		46BFBD251716046E00D4733E /* NSString+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Color.h"; sourceTree = "<group>"; };
 		46BFBD261716046E00D4733E /* NSString+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Color.m"; sourceTree = "<group>"; };
-		46BFBD2A171605C500D4733E /* CKCakeMonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeMonthCell.h; sourceTree = "<group>"; };
-		46BFBD2B171605C500D4733E /* CKCakeMonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCakeMonthCell.m; sourceTree = "<group>"; };
+		46BFBD2A171605C500D4733E /* CKCakeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeCell.h; sourceTree = "<group>"; };
+		46BFBD2B171605C500D4733E /* CKCakeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCakeCell.m; sourceTree = "<group>"; };
 		46BFBD2C171605C500D4733E /* CKCakeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeView.h; sourceTree = "<group>"; };
 		46BFBD2D171605C500D4733E /* CKCakeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCakeView.m; sourceTree = "<group>"; };
 		46BFBD321716152300D4733E /* NSCalendar+Ranges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Ranges.h"; sourceTree = "<group>"; };
@@ -291,7 +291,7 @@
 		46BFBD13171603BB00D4733E /* CKCakeView */ = {
 			isa = PBXGroup;
 			children = (
-				46BFBD29171605C500D4733E /* Core */,
+				46BFBD29171605C500D4733E /* CoreUI */,
 				46BFBD1B171603BB00D4733E /* Headers */,
 				46BFBD14171603BB00D4733E /* Categories */,
 			);
@@ -324,16 +324,17 @@
 			path = Headers;
 			sourceTree = "<group>";
 		};
-		46BFBD29171605C500D4733E /* Core */ = {
+		46BFBD29171605C500D4733E /* CoreUI */ = {
 			isa = PBXGroup;
 			children = (
-				46BFBD2A171605C500D4733E /* CKCakeMonthCell.h */,
-				46BFBD2B171605C500D4733E /* CKCakeMonthCell.m */,
+				46BFBD2A171605C500D4733E /* CKCakeCell.h */,
+				46BFBD2B171605C500D4733E /* CKCakeCell.m */,
 				46B36794171A8A34000F1B25 /* CKCakeHeaderView.h */,
 				46B36795171A8A34000F1B25 /* CKCakeHeaderView.m */,
 				46BFBD2C171605C500D4733E /* CKCakeView.h */,
 				46BFBD2D171605C500D4733E /* CKCakeView.m */,
 			);
+			name = CoreUI;
 			path = Core;
 			sourceTree = "<group>";
 		};
@@ -453,7 +454,7 @@
 				46BFBCDC1715FB3F00D4733E /* CKViewController.m in Sources */,
 				46BFBD1F171603BB00D4733E /* UIColor+HexString.m in Sources */,
 				46BFBD271716046E00D4733E /* NSString+Color.m in Sources */,
-				46BFBD2E171605C500D4733E /* CKCakeMonthCell.m in Sources */,
+				46BFBD2E171605C500D4733E /* CKCakeCell.m in Sources */,
 				46BFBD30171605C500D4733E /* CKCakeView.m in Sources */,
 				46BFBD341716152300D4733E /* NSCalendar+Ranges.m in Sources */,
 				46A60E77171646F4002F150B /* NSCalendar+Juncture.m in Sources */,
@@ -475,7 +476,7 @@
 				46BFBCF41715FB3F00D4733E /* MBChocolateCakeTests.m in Sources */,
 				46BFBD20171603BB00D4733E /* UIColor+HexString.m in Sources */,
 				46BFBD281716046E00D4733E /* NSString+Color.m in Sources */,
-				46BFBD2F171605C500D4733E /* CKCakeMonthCell.m in Sources */,
+				46BFBD2F171605C500D4733E /* CKCakeCell.m in Sources */,
 				46BFBD31171605C500D4733E /* CKCakeView.m in Sources */,
 				46BFBD351716152300D4733E /* NSCalendar+Ranges.m in Sources */,
 				46A60E78171646F4002F150B /* NSCalendar+Juncture.m in Sources */,
