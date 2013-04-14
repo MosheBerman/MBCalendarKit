@@ -1,5 +1,5 @@
 //
-//  NSCalendar+Weekend.m
+//  NSCalendar+Junction.m
 //  MBChocolateCake
 //
 //  Created by Moshe Berman on 4/10/13.
