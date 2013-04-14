@@ -87,6 +87,7 @@
     /* Show the title Label */
     CGRect frame = CGRectMake(0, 0, [self frame].size.width, 29);
     [[self monthTitle] setFrame:frame];
+    [self addSubview:[self monthTitle]];
     
     /* Show the forward and back buttons */
     
