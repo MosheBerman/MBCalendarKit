@@ -31,4 +31,6 @@
 @property (nonatomic, assign) id<CKCakeHeaderViewDataSource> dataSource;
 @property (nonatomic, assign) id<CKCakeHeaderViewDelegate> delegate;
 
+- (void)reload;
+
 @end
