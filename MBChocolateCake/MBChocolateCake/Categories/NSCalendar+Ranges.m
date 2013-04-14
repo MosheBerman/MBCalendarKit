@@ -21,7 +21,7 @@
 
 - (NSUInteger)daysPerWeekUsingReferenceDate:(NSDate *)date
 {
-    return [self rangeOfUnit:NSDayCalendarUnit inUnit:NSWeekCalendarUnit forDate:date].length;
+    return [self ordinalityOfUnit:NSDayCalendarUnit inUnit:NSWeekCalendarUnit forDate:date];
 }
 
 #pragma mark - Units Per Month
