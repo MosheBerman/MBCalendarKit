@@ -9,6 +9,8 @@
 #ifndef MBChocolateCake_CKCakeHeaderColors_h
 #define MBChocolateCake_CKCakeHeaderColors_h
 
+#import "NSString+Color.h"
+
 #define kCakeColorHeaderWeekdayTitle    [@"#545454" toColor]
 #define kCakeColorHeaderWeekdayShadow   [@"#f3f3f4" toColor]
 
