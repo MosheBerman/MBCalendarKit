@@ -203,8 +203,7 @@
              */
             
             if (cellRepresentsToday) {
-                [cell setState:CKCakeMonthCellStateTodaySelected];
-                [self setSelectedIndex:cellIndex];
+                [cell setState:CKCakeMonthCellStateTodayDeselected];
             }
             else if (!isThisMonth) {
                 [cell setState:CKCakeMonthCellStateInactive];
@@ -220,6 +219,10 @@
             
             /* STEP 5: Set the index */
             [cell setIndex:cellIndex];
+            
+            if (cellIndex == [self selectedIndex]) {
+                [cell setSelected];
+            }
             
             /* STEP 6: Install the cell in the view hierarchy. */
             [self addSubview:cell];
@@ -257,6 +260,7 @@
 
 
 #pragma mark - Setters
+
 - (void)setCalendar:(NSCalendar *)calendar
 {
     if (calendar == nil) {
@@ -316,13 +320,22 @@
 
 - (void)setDate:(NSDate *)date animated:(BOOL)animated
 {
-    
-    date = [NSDate date];
+
+    if (!date) {
+        date = [NSDate date];
+    }
     
     _date = date;
     
+    //  Update the index
+    NSDate *newFirstVisible = [self _firstVisibleDateForDisplayMode:[self displayMode]];
+    NSUInteger index = [[self calendar] daysFromDate:newFirstVisible toDate:date];
+    [self setSelectedIndex:index];
+    
+    //  Layout
     [self _layoutCellsAnimated:animated];
     
+    //  TODO: Call delegate "didSelectDate:"
 }
 
 #pragma mark - Rows and Columns
@@ -361,7 +374,9 @@
     {
         NSDate *firstOfTheMonth = [[self calendar] firstDayOfTheMonthUsingReferenceDate:[self date]];
         
-        return [[self calendar] firstDayOfTheWeekUsingReferenceDate:firstOfTheMonth];
+        NSDate *firstVisible = [[self calendar] firstDayOfTheWeekUsingReferenceDate:firstOfTheMonth];
+        
+        return firstVisible;
     }
     
     return [self date];
@@ -457,5 +472,16 @@
     return [super pointInside:point withEvent:event];
 }
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    
+    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
+    NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
+    
+    BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
+    
+    [self setDate:dateToSelect animated:animated];
+    
+}
 
 @end
