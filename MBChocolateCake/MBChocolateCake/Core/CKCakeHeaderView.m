@@ -8,6 +8,10 @@
 
 #import "CKCakeHeaderView.h"
 
+#import "UIView+Border.h"
+
+#import "CKCakeHeaderColors.h"
+
 @interface CKCakeHeaderView ()
 {
     NSUInteger _columnCount;
@@ -29,7 +33,8 @@
     if (self) {
 
         _monthTitle = [UILabel new];
-        [_monthTitle setTextColor:[UIColor darkGrayColor]];
+        [_monthTitle setTextColor:kCakeColorHeaderMonth];
+        [_monthTitle setShadowColor:kCakeColorHeaderMonthShadow];
         [_monthTitle setShadowOffset:CGSizeMake(0, 1)];
         [_monthTitle setBackgroundColor:[UIColor clearColor]];
         [_monthTitle setTextAlignment:NSTextAlignmentCenter];
@@ -48,6 +53,8 @@
 {
     [self reload];
     [self layoutSubviews];
+    [super willMoveToSuperview:newSuperview];
+    [self setBackgroundColor:kCakeColorHeaderGradientDark];
 }
 
 - (void)layoutSubviews
@@ -60,10 +67,10 @@
     
     [[self columnLabels] removeAllObjects];
     
-    /* Arrange the new labels */
+    /* Convert title strings into labels and lay them out */
     
     CGFloat labelWidth = [self frame].size.width/_columnCount;
-    CGFloat labelHeight = 15;
+    CGFloat labelHeight = 22;
     
     for (NSUInteger i = 0; i < [[self columnLabels] count]; i++) {
         NSString *title = [self columnTitles][i];
@@ -91,11 +98,13 @@
 {
     UILabel *l = [UILabel new];
     [l setBackgroundColor:[UIColor clearColor]];
-    [l setTextColor:[UIColor darkGrayColor]];
-    [l setFont:[UIFont systemFontOfSize:10]];
-    [l setShadowColor:[UIColor whiteColor]];
-    [l setShadowOffset:CGSizeMake(0, 0.5)];
+    [l setTextColor:kCakeColorHeaderWeekdayTitle];
+    [l setShadowColor:kCakeColorHeaderWeekdayShadow];    
+    [l setTextAlignment:NSTextAlignmentCenter];
+    [l setFont:[UIFont boldSystemFontOfSize:10]];
+    [l setShadowOffset:CGSizeMake(0, 1)];
     [l setText:title];
+    
     return l;
 }
 
