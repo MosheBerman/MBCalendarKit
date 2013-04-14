@@ -45,6 +45,7 @@
         _date = [NSDate date];
         _displayMode = CKCakeViewModeMonth;
         _cells = [NSMutableSet new];
+        _selectedIndex = 0;
     }
     return self;
 }
@@ -84,19 +85,7 @@
     [super setFrame:frame];
 }
 
-#pragma mark - Layout
-
-- (void)layoutSubviews
-{
-    CGRect frame = [self rectForDisplayMode:[self displayMode]];
-    CGPoint origin = [self frame].origin;
-    frame.origin = origin;
-    [self setFrame:frame];
-    
-    [self layoutCellsAnimated:NO];
-}
-
-- (CGRect)rectForDisplayMode:(CKCakeDisplayMode)displayMode
+- (CGRect)_rectForDisplayMode:(CKCakeDisplayMode)displayMode
 {
     CGSize cellSize = [self cellSize];
     
@@ -122,31 +111,43 @@
     
     //  Show enough for all the visible weeks
     else if(displayMode == CKCakeViewModeMonth)
-    {        
+    {
         CGFloat width = (CGFloat)[self _columnCountForDisplayMode:CKCakeViewModeMonth] * cellSize.width;
         CGFloat height = (CGFloat)[self _rowCountForDisplayMode:CKCakeViewModeMonth] * cellSize.height;
         height += [[self titleView] frame].size.height;
         
         rect = CGRectMake(0, 0, width, height);
     }
-
+    
     return rect;
 }
 
-- (void)layoutCellsAnimated:(BOOL)animated
+#pragma mark - Layout
+
+- (void)layoutSubviews
+{
+    CGRect frame = [self _rectForDisplayMode:[self displayMode]];
+    CGPoint origin = [self frame].origin;
+    frame.origin = origin;
+    [self setFrame:frame];
+    
+    [self _layoutCellsAnimated:NO];
+}
+
+- (void)_layoutCellsAnimated:(BOOL)animated
 {
     if (animated) {
         [UIView animateWithDuration:0.4 animations:^{
-            [self layoutCells];
+            [self _layoutCells];
         }];
     }
     else
     {
-        [self layoutCells];
+        [self _layoutCells];
     }
 }
 
-- (void)layoutCells
+- (void)_layoutCells
 {
     
     for (CKCakeMonthCell *cell in [self cells]) {
@@ -246,7 +247,7 @@
     
     [[self calendar] setTimeZone:timeZone];
     
-    [self layoutCellsAnimated:animated];
+    [self _layoutCellsAnimated:animated];
 }
 
 - (void)setDisplayMode:(CKCakeDisplayMode)displayMode
@@ -258,7 +259,7 @@
 {
     _displayMode = displayMode;
     
-    [self layoutCellsAnimated:animated];
+    [self _layoutCellsAnimated:animated];
 }
 
 - (void)setDate:(NSDate *)date
@@ -273,7 +274,7 @@
     
     _date = date;
     
-    [self layoutCellsAnimated:animated];
+    [self _layoutCellsAnimated:animated];
     
 }
 
