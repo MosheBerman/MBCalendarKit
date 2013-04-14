@@ -21,11 +21,14 @@
 
 @interface CKCakeView ()
 
-@property (nonatomic, strong) NSMutableSet* cells;
+@property (nonatomic, strong) NSMutableSet* spareCells;
+@property (nonatomic, strong) NSMutableSet* usedCells;
 
 @property (nonatomic, strong) NSDateFormatter *formatter;
 
 @property (nonatomic, strong) UIView *titleView;
+
+@property (nonatomic, assign) NSUInteger selectedIndex;
 
 @end
 
@@ -44,7 +47,8 @@
         _timeZone = nil;
         _date = [NSDate date];
         _displayMode = CKCakeViewModeMonth;
-        _cells = [NSMutableSet new];
+        _spareCells = [NSMutableSet new];
+        _usedCells = [NSMutableSet new];
         _selectedIndex = 0;
     }
     return self;
@@ -68,7 +72,7 @@
 
 -(void)removeFromSuperview
 {
-    for (CKCakeMonthCell *cell in [self cells]) {
+    for (CKCakeMonthCell *cell in [self usedCells]) {
         [cell removeFromSuperview];
     }
     
@@ -150,8 +154,13 @@
 - (void)_layoutCells
 {
     
-    for (CKCakeMonthCell *cell in [self cells]) {
+    for (CKCakeMonthCell *cell in [self usedCells]) {
+        [[self spareCells] addObject:cell];
         [cell removeFromSuperview];
+    }
+    
+    for (CKCakeMonthCell *cell in [self spareCells]) {
+        [[self usedCells] removeObject:cell];
     }
     
     //  Count the rows and columns that we'll need
@@ -164,33 +173,61 @@
     
     //  Cache the start date
     NSDate *workingDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
+    NSUInteger cellIndex = 0;
     
     for (NSUInteger row = 0; row < rowCount; row++) {
         for (NSUInteger column = 0; column < columnCount; column++) {
 
-            NSUInteger day = [[self calendar] daysInDate:workingDate];
-            
-            BOOL cellRepresentsToday = [[self calendar] date:workingDate isSameDayAs:[NSDate date]];
-            BOOL isThisMonth = [[self calendar] date:workingDate isSameMonthAs:[self date]];
+
+            /* STEP 1: create and position the cell */
             
             CKCakeMonthCell *cell = [self dequeueCell];
             
             CGRect frame = CGRectMake(column*width, row*height, width, height);
             [cell setFrame:frame];
             
-            [cell setNumber:@(day)];
+            /* STEP 2:  We need to know some information about the cells - namely, if they're in
+                        the same month as the selected date and if any of them represent the system's
+                        value representing "today".
+             */
+            
+            BOOL cellRepresentsToday = [[self calendar] date:workingDate isSameDayAs:[NSDate date]];
+            BOOL isThisMonth = [[self calendar] date:workingDate isSameMonthAs:[self date]];
+            
+            /* STEP 3:  Here we style the cells accordingly.
+             
+                        If the cell represents "today" then select it, and set
+                        the selectedIndex.
+             
+                        If the cell is part of another month, gray it out.
+             */
             
             if (cellRepresentsToday) {
                 [cell setState:CKCakeMonthCellStateTodaySelected];
+                [self setSelectedIndex:cellIndex];
             }
-            if (!isThisMonth) {
+            else if (!isThisMonth) {
                 [cell setState:CKCakeMonthCellStateInactive];
             }
+            else{
+                [cell setState:CKCakeMonthCellStateNormal];
+            }
             
+            /* STEP 4: Show the day of the month in the cell. */
+            
+            NSUInteger day = [[self calendar] daysInDate:workingDate];
+            [cell setNumber:@(day)];
+            
+            /* STEP 5: Set the index */
+            [cell setIndex:cellIndex];
+            
+            /* STEP 6: Install the cell in the view hierarchy. */
             [self addSubview:cell];
             
-            //  Move to the next date
+            /* STEP 7: Move to the next date before we continue iterating. */
+            
             workingDate = [[self calendar] dateByAddingDays:1 toDate:workingDate];
+            cellIndex++;
         }
     }
     
@@ -198,10 +235,20 @@
 
 - (CKCakeMonthCell *)dequeueCell
 {
-    CKCakeMonthCell *cell = [[CKCakeMonthCell alloc] initWithSize:[self cellSize]];
+    CKCakeMonthCell *cell = [[self spareCells] anyObject];
+    
+    if (!cell) {
+        cell = [[CKCakeMonthCell alloc] initWithSize:[self cellSize]];
+    }
+    
+    
     
     //  Move the used cells to the appropriate set
-    [[self cells] addObject:cell];
+    [[self usedCells] addObject:cell];
+    
+    if ([[self spareCells] containsObject:cell]) {
+        [[self spareCells] removeObject:cell];
+    }
     
     [cell prepareForReuse];
     
@@ -391,16 +438,22 @@
         return NO;
     }
     
-    for (CKCakeMonthCell *cell in [self cells]) {
+    NSUInteger index = [self selectedIndex];
+    
+    for (CKCakeMonthCell *cell in [self usedCells]) {
         CGRect rect = [cell frame];
         if (CGRectContainsPoint(rect, point)) {
             [cell setSelected];
+            index = [cell index];
         }
         else
         {
             [cell setDeselected];
         }
     }
+    
+    [self setSelectedIndex:index];
+    
     return [super pointInside:point withEvent:event];
 }
 
