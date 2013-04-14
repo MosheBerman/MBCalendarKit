@@ -8,26 +8,23 @@
 
 #import "CKCakeView.h"
 
-//  Categories
-#import "NSCalendar+DateManipulation.h"
-#import "NSCalendar+Ranges.h"
-#import "NSCalendar+Weekend.h"
-#import "NSCalendar+Components.h"
-#import "NSCalendar+DateComparison.h"
-
 //  Cells
+#import "CKCakeHeaderView.h"
 #import "CKCakeMonthCell.h"
-//Cell for hourly events
 
-@interface CKCakeView ()
+#import "NSCalendarCategories.h"
+#import "NSDate+Description.h"
+
+@interface CKCakeView () <CKCakeHeaderViewDataSource, CKCakeHeaderViewDelegate>
 
 @property (nonatomic, strong) NSMutableSet* spareCells;
 @property (nonatomic, strong) NSMutableSet* usedCells;
 
 @property (nonatomic, strong) NSDateFormatter *formatter;
 
-@property (nonatomic, strong) UIView *titleView;
+@property (nonatomic, strong) CKCakeHeaderView *headerView;
 
+//  The index of the highlighted cell
 @property (nonatomic, assign) NSUInteger selectedIndex;
 
 @end
@@ -50,6 +47,7 @@
         _spareCells = [NSMutableSet new];
         _usedCells = [NSMutableSet new];
         _selectedIndex = 0;
+        _headerView = [CKCakeHeaderView new];
     }
     return self;
 }
@@ -68,6 +66,7 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     [self layoutSubviews];
+    [super willMoveToSuperview:newSuperview];
 }
 
 -(void)removeFromSuperview
@@ -75,6 +74,8 @@
     for (CKCakeMonthCell *cell in [self usedCells]) {
         [cell removeFromSuperview];
     }
+    
+    [[self headerView] removeFromSuperview];
     
     [super removeFromSuperview];
 }
@@ -110,7 +111,7 @@
     if (displayMode == CKCakeViewModeWeek) {
         NSUInteger daysPerWeek = [[self calendar] daysPerWeekUsingReferenceDate:[self date]];
         rect = CGRectMake(0, 0, (CGFloat)daysPerWeek*cellSize.width, cellSize.height);
-        rect.size.height += [[self titleView] frame].size.height;
+        rect.size.height += [[self headerView] frame].size.height;
     }
     
     //  Show enough for all the visible weeks
@@ -118,7 +119,7 @@
     {
         CGFloat width = (CGFloat)[self _columnCountForDisplayMode:CKCakeViewModeMonth] * cellSize.width;
         CGFloat height = (CGFloat)[self _rowCountForDisplayMode:CKCakeViewModeMonth] * cellSize.height;
-        height += [[self titleView] frame].size.height;
+        height += [[self headerView] frame].size.height;
         
         rect = CGRectMake(0, 0, width, height);
     }
@@ -136,12 +137,25 @@
 
 - (void)layoutSubviews
 {
-    //  Enforce view dimensions appropriate for given display mode
+    //  Enforce view dimensions appropriate for given mode
     CGRect frame = [self _rectForDisplayMode:[self displayMode]];
     CGPoint origin = [self frame].origin;
     frame.origin = origin;
     [self setFrame:frame];
     
+    CGFloat width = [self _cellSize].width * (CGFloat)[[self calendar] daysPerWeekUsingReferenceDate:[self date]];
+        
+    CGRect headerFrame = CGRectMake(0, 0, width, 44);
+        
+    CKCakeHeaderView *header = [self headerView];
+    [header setFrame:headerFrame];
+    [header setDelegate:self];
+    [header setDataSource:self];
+    
+    //  Show the header
+    [self addSubview:[self headerView]];
+    
+    //  Show the cells
     [self _layoutCellsAnimated:NO];
 }
 
@@ -178,8 +192,11 @@
     CGFloat width = [self _cellSize].width;
     CGFloat height = [self _cellSize].height;
     
-    //  Cache the start date
+    //  Cache the start date & header offset
     NSDate *workingDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
+    CGFloat headerOffset = [[self headerView] frame].size.height;
+    
+    //  A working index...
     NSUInteger cellIndex = 0;
     
     for (NSUInteger row = 0; row < rowCount; row++) {
@@ -190,7 +207,7 @@
             
             CKCakeMonthCell *cell = [self _dequeueCell];
             
-            CGRect frame = CGRectMake(column*width, row*height, width, height);
+            CGRect frame = CGRectMake(column*width, headerOffset + (row*height), width, height);
             [cell setFrame:frame];
             
             /* STEP 2:  We need to know some information about the cells - namely, if they're in
@@ -340,7 +357,41 @@
     //  Layout
     [self _layoutCellsAnimated:animated];
     
+    
+    [[self headerView] reload];
     //  TODO: Call delegate "didSelectDate:"
+}
+
+#pragma mark - CKCakeHeaderViewDataSource
+
+- (NSString *)titleForHeader:(CKCakeHeaderView *)header
+{
+    return [[self date] monthNameAndYearOnCalendar:[self calendar]];
+}
+
+- (NSUInteger)numberOfColumnsForHeader:(CKCakeHeaderView *)header
+{
+    return [self _columnCountForDisplayMode:[self displayMode]];
+}
+
+- (NSString *)titleForColumnAtIndex:(NSUInteger)index inHeader:(CKCakeHeaderView *)header
+{
+    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
+    NSDate *columnToShow = [[self calendar] dateByAddingDays:index toDate:firstDate];
+    
+    return [columnToShow dayNameOnCalendar:[self calendar]];
+}
+
+#pragma mark - CKCakeHeaderViewDelegate
+
+- (void)forwardTapped
+{
+    
+}
+
+- (void)backwardTapped
+{
+    
 }
 
 #pragma mark - Rows and Columns

@@ -10,8 +10,6 @@
 
 #import "CKCakeViewModes.h"
 
-#import "UIView+Border.h"
-
 @interface CKCakeView : UIView
 
 @property (nonatomic, assign) CKCakeDisplayMode displayMode;
