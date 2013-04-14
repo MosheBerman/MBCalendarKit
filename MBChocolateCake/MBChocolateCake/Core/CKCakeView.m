@@ -181,7 +181,7 @@
 
             /* STEP 1: create and position the cell */
             
-            CKCakeMonthCell *cell = [self dequeueCell];
+            CKCakeMonthCell *cell = [self _dequeueCell];
             
             CGRect frame = CGRectMake(column*width, row*height, width, height);
             [cell setFrame:frame];
@@ -236,15 +236,13 @@
     
 }
 
-- (CKCakeMonthCell *)dequeueCell
+- (CKCakeMonthCell *)_dequeueCell
 {
     CKCakeMonthCell *cell = [[self spareCells] anyObject];
     
     if (!cell) {
         cell = [[CKCakeMonthCell alloc] initWithSize:[self cellSize]];
     }
-    
-    
     
     //  Move the used cells to the appropriate set
     [[self usedCells] addObject:cell];
