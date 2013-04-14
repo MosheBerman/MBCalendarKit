@@ -19,4 +19,7 @@
 - (NSInteger)yearsInDate:(NSDate*)date;
 - (NSInteger)eraInDate:(NSDate*)date;
 
+- (NSInteger)weekOfMonthInDate:(NSDate*)date;
+- (NSInteger)weekOfYearInDate:(NSDate*)date;
+
 @end

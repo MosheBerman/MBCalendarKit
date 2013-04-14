@@ -10,6 +10,19 @@
 
 @implementation NSCalendar (Components)
 
+- (NSInteger)weekOfMonthInDate:(NSDate*)date
+{
+    NSDateComponents *comps = [self components:NSWeekOfMonthCalendarUnit fromDate:date];
+    return [comps weekOfMonth];
+}
+
+
+- (NSInteger)weekOfYearInDate:(NSDate*)date
+{
+    NSDateComponents *comps = [self components:NSWeekOfYearCalendarUnit fromDate:date];
+    return [comps weekOfYear];
+}
+
 - (NSInteger)weekdayInDate:(NSDate*)date
 {
     NSDateComponents *comps = [self components:NSWeekdayCalendarUnit fromDate:date];

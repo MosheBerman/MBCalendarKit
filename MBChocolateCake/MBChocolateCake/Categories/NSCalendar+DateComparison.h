@@ -11,6 +11,7 @@
 @interface NSCalendar (DateComparison)
 
 - (BOOL)date:(NSDate *)firstDate isSameDayAs:(NSDate *)anotherDate;
+- (BOOL)date:(NSDate*)firstDate isSameWeekAs:(NSDate *)anotherDate;
 - (BOOL)date:(NSDate*)firstDate isSameMonthAs:(NSDate *)anotherDate;
 - (BOOL)date:(NSDate *)firstDate isSameYearAs:(NSDate *)anotherDate;
 - (BOOL)date:(NSDate *)firstDate isSameEraAs:(NSDate *)anotherDate;

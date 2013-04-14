@@ -23,6 +23,19 @@
     return sameMonth && sameDay;
 }
 
+- (BOOL)date:(NSDate*)firstDate isSameWeekAs:(NSDate *)anotherDate
+{
+    
+    NSInteger firstMonth = [self weekOfYearInDate:firstDate];
+    NSInteger secondMonth = [self weekOfYearInDate:anotherDate];
+    
+    BOOL sameMonth = firstMonth == secondMonth;
+    BOOL sameYear = [self date:firstDate isSameYearAs:anotherDate];
+    
+    return sameYear && sameMonth;
+}
+
+
 - (BOOL)date:(NSDate*)firstDate isSameMonthAs:(NSDate *)anotherDate
 {
     
