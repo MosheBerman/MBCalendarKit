@@ -45,6 +45,9 @@
 
         _forwardButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         _backwardButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        
+        [_forwardButton addTarget:self action:@selector(forwardButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        [_backwardButton addTarget:self action:@selector(backwardButton) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
 }
@@ -86,11 +89,21 @@
     }
     
     /* Show the title Label */
+    
     CGRect frame = CGRectMake(5, 0, [self frame].size.width, 27);
     [[self monthTitle] setFrame:frame];
     [self addSubview:[self monthTitle]];
     
     /* Show the forward and back buttons */
+    
+    CGRect backFrame = CGRectMake(0, 0, 44, 44);
+    [[self backwardButton] setFrame:backFrame];
+    [self addSubview:[self backwardButton]];
+    
+    CGRect forwardFrame = CGRectMake([self frame].size.width-44, 0, 44, 44);
+    [[self forwardButton] setFrame:forwardFrame];
+    [self addSubview:[self forwardButton]];
+    
     
 }
 
