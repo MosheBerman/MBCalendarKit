@@ -31,11 +31,13 @@
         //  Normal Cell Colors
         _normalBackgroundColor = kCakeColorLightGray;
         _selectedBackgroundColor = kCakeColorBlue;
+        _inactiveSelectedBackgroundColor = kCakeColorDarkGray;
         
         //  Today Cell Colors
         _todayBackgroundColor = kCakeColorBluishGray;
         _todaySelectedBackgroundColor = kCakeColorBlue;
         _todayShadowColor = kCakeColorTodayShadowBlue;
+        _todayTextColor = [UIColor whiteColor];
         
         //  Text Colors
         _textColor = kCakeColorDarkTextGradient;
@@ -71,6 +73,7 @@
     CGPoint origin = [self frame].origin;
     [self setFrame:CGRectMake(origin.x, origin.y, _size.width, _size.height)];
     [self layoutSubviews];
+    [self applyColors];
 }
 
 #pragma mark - Layout
@@ -151,7 +154,8 @@
     {
         [self setBackgroundColor:[self todaySelectedBackgroundColor]];
         [[self label] setShadowColor:[self todayShadowColor]];
-        [self setBorderColor:nil];
+        [[self label] setTextColor:[self todayTextColor]];
+        [self setBorderColor:[self backgroundColor]];
     }
     
     //  Today cell, selected
@@ -159,7 +163,9 @@
     {
         [self setBackgroundColor:[self todayBackgroundColor]];
         [[self label] setShadowColor:[self todayShadowColor]];
-        [self setBorderColor:nil];        
+        [[self label] setTextColor:[self todayTextColor]];
+        [self setBorderColor:[self backgroundColor]];
+        [self showBorder];
     }
     
     //  Selected cells in the active month have a special background color
@@ -172,9 +178,15 @@
         [[self label] setShadowOffset:CGSizeMake(0, -0.5)];
     }
     
-    if (state == CKCakeMonthCellStateInactive || state == CKCakeMonthCellStateInactiveSelected) {
+    if (state == CKCakeMonthCellStateInactive) {
         [[self label] setAlpha:0.5];    //  Label alpha needs to be lowered
         [[self label] setShadowOffset:CGSizeZero];
+    }
+    else if (state == CKCakeMonthCellStateInactiveSelected)
+    {
+        [[self label] setAlpha:0.5];    //  Label alpha needs to be lowered
+        [[self label] setShadowOffset:CGSizeZero];
+        [self setBackgroundColor:[self inactiveSelectedBackgroundColor]];
     }
 }
 
