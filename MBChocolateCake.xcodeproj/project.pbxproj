@@ -15,6 +15,8 @@
 		46A60E7C1716639B002F150B /* NSCalendar+DateManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A60E7A1716639B002F150B /* NSCalendar+DateManipulation.m */; };
 		46B3678A171A3C1F000F1B25 /* NSCalendar+DateComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B36789171A3C1F000F1B25 /* NSCalendar+DateComparison.m */; };
 		46B3678B171A3C1F000F1B25 /* NSCalendar+DateComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B36789171A3C1F000F1B25 /* NSCalendar+DateComparison.m */; };
+		46B36792171A7E0C000F1B25 /* NSDate+Description.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B36791171A7E0C000F1B25 /* NSDate+Description.m */; };
+		46B36793171A7E0C000F1B25 /* NSDate+Description.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B36791171A7E0C000F1B25 /* NSDate+Description.m */; };
 		46BFBCC31715FB3F00D4733E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC21715FB3F00D4733E /* UIKit.framework */; };
 		46BFBCC51715FB3F00D4733E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC41715FB3F00D4733E /* Foundation.framework */; };
 		46BFBCC71715FB3F00D4733E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC61715FB3F00D4733E /* CoreGraphics.framework */; };
@@ -69,6 +71,8 @@
 		46A60E7A1716639B002F150B /* NSCalendar+DateManipulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+DateManipulation.m"; sourceTree = "<group>"; };
 		46B36788171A3C1F000F1B25 /* NSCalendar+DateComparison.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+DateComparison.h"; sourceTree = "<group>"; };
 		46B36789171A3C1F000F1B25 /* NSCalendar+DateComparison.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+DateComparison.m"; sourceTree = "<group>"; };
+		46B36790171A7E0C000F1B25 /* NSDate+Description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Description.h"; sourceTree = "<group>"; };
+		46B36791171A7E0C000F1B25 /* NSDate+Description.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Description.m"; sourceTree = "<group>"; };
 		46BFBCBF1715FB3F00D4733E /* MBChocolateCake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MBChocolateCake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46BFBCC21715FB3F00D4733E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		46BFBCC41715FB3F00D4733E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -248,6 +252,8 @@
 				4645540D1718C87600074C6F /* NSCalendar+Components.m */,
 				46B36788171A3C1F000F1B25 /* NSCalendar+DateComparison.h */,
 				46B36789171A3C1F000F1B25 /* NSCalendar+DateComparison.m */,
+				46B36790171A7E0C000F1B25 /* NSDate+Description.h */,
+				46B36791171A7E0C000F1B25 /* NSDate+Description.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -399,6 +405,7 @@
 				46F1BC7E171897AF00F8356F /* NSDateComponents+AllComponents.m in Sources */,
 				4645540E1718C87600074C6F /* NSCalendar+Components.m in Sources */,
 				46B3678A171A3C1F000F1B25 /* NSCalendar+DateComparison.m in Sources */,
+				46B36792171A7E0C000F1B25 /* NSDate+Description.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +426,7 @@
 				46F1BC7F171897AF00F8356F /* NSDateComponents+AllComponents.m in Sources */,
 				4645540F1718C87600074C6F /* NSCalendar+Components.m in Sources */,
 				46B3678B171A3C1F000F1B25 /* NSCalendar+DateComparison.m in Sources */,
+				46B36793171A7E0C000F1B25 /* NSDate+Description.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
