@@ -46,7 +46,7 @@
         _displayMode = CKCakeViewModeMonth;
         _spareCells = [NSMutableSet new];
         _usedCells = [NSMutableSet new];
-        _selectedIndex = 0;
+        _selectedIndex = [_calendar daysFromDate:[self _firstVisibleDateForDisplayMode:_displayMode] toDate:_date];
         _headerView = [CKCakeHeaderView new];
     }
     return self;
@@ -384,14 +384,76 @@
 
 #pragma mark - CKCakeHeaderViewDelegate
 
+/*
+ 
+ Moving forward or backwards for month mode
+ should select the first day of the month,
+ unless the newlty visible month contains
+ [NSDate date], in which case we want to
+ highlight that day instead.
+ 
+ */
+
 - (void)forwardTapped
 {
-    
+    if ([self displayMode] == CKCakeViewModeMonth) {
+
+        NSDate *date = [self date];
+        NSDate *today = [NSDate date];
+        
+        NSUInteger day = [[self calendar] daysInDate:date];
+
+        date = [[self calendar] dateByAddingMonths:1 toDate:date];              //  Add a month
+        date = [[self calendar] dateBySubtractingDays:day-1 fromDate:date];     //  Go to the first of the month
+        
+        //  If today is in the visible month, jump to today
+        if([[self calendar] date:date isSameMonthAs:[NSDate date]]){
+            NSUInteger distance = [[self calendar] daysFromDate:date toDate:today];
+            date = [[self calendar] dateByAddingDays:distance toDate:date];
+        }
+        
+        //apply the new date
+        [self setDate:date animated:YES];
+    }
+    else if([self displayMode] == CKCakeViewModeWeek)
+    {
+        
+    }
+    else{
+        
+    }
 }
 
 - (void)backwardTapped
 {
+
+    NSDate *date = [self date];
+    NSDate *today = [NSDate date];
     
+    if ([self displayMode] == CKCakeViewModeMonth) {
+
+        
+        NSUInteger day = [[self calendar] daysInDate:date];
+        
+        date = [[self calendar] dateBySubtractingMonths:1 fromDate:date];       //  Subtract a month
+        date = [[self calendar] dateBySubtractingDays:day-1 fromDate:date];     //  Go to the first of the month
+        
+        //  If today is in the visible month, jump to today
+        if([[self calendar] date:date isSameMonthAs:[NSDate date]]){
+            NSUInteger distance = [[self calendar] daysFromDate:date toDate:today];
+            date = [[self calendar] dateByAddingDays:distance toDate:date];
+        }
+        
+        //apply the new date
+        [self setDate:date animated:YES];
+    }
+    else if([self displayMode] == CKCakeViewModeWeek)
+    {
+        
+    }
+    else{
+        
+    }
 }
 
 #pragma mark - Rows and Columns

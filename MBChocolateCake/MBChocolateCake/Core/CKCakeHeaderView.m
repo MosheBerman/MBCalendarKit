@@ -47,7 +47,7 @@
         _backwardButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
         [_forwardButton addTarget:self action:@selector(forwardButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-        [_backwardButton addTarget:self action:@selector(backwardButton) forControlEvents:UIControlEventTouchUpInside];
+        [_backwardButton addTarget:self action:@selector(backwardButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
 }
