@@ -15,13 +15,14 @@
 @interface CKCakeHeaderView ()
 {
     NSUInteger _columnCount;
+    CGFloat _columnTitleHeight;
 }
 
 @property (nonatomic, strong) UILabel *monthTitle;
 @property (nonatomic, strong) NSMutableArray *columnTitles;
 @property (nonatomic, strong) NSMutableArray *columnLabels;
-@property (nonatomic, strong) UIButton *forwardButton;
-@property (nonatomic, strong) UIButton *backwardButton;
+@property (nonatomic, strong) UIView *forwardButton;
+@property (nonatomic, strong) UIView *backwardButton;
 
 @end
 
@@ -43,11 +44,10 @@
         _columnTitles = [NSMutableArray new];
         _columnLabels = [NSMutableArray new];
 
-        _forwardButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        _backwardButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _forwardButton = [UIView new];
+        _backwardButton = [UIView new];
         
-        [_forwardButton addTarget:self action:@selector(forwardButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-        [_backwardButton addTarget:self action:@selector(backwardButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        _columnTitleHeight = 10;
     }
     return self;
 }
@@ -74,7 +74,7 @@
     /* Convert title strings into labels and lay them out */
     
     CGFloat labelWidth = [self frame].size.width/_columnCount;
-    CGFloat labelHeight = 15;
+    CGFloat labelHeight = _columnTitleHeight;
     
     for (NSUInteger i = 0; i < [[self columnTitles] count]; i++) {
         NSString *title = [self columnTitles][i];
@@ -90,7 +90,10 @@
     
     /* Show the title Label */
     
-    CGRect frame = CGRectMake(5, 0, [self frame].size.width, 27);
+    CGFloat upperRegionHeight = [self frame].size.height - _columnTitleHeight;
+    CGFloat titleLabelHeight = 27;
+    
+    CGRect frame = CGRectMake(0, upperRegionHeight/2 - titleLabelHeight/2, [self frame].size.width, titleLabelHeight);
     [[self monthTitle] setFrame:frame];
     [self addSubview:[self monthTitle]];
     
@@ -109,6 +112,8 @@
 
 #pragma mark - Convenience Methods
 
+/* Creates and configures a label for a column title */
+
 - (UILabel *)_columnLabelWithTitle:(NSString *)title
 {
     UILabel *l = [UILabel new];
@@ -122,6 +127,8 @@
     
     return l;
 }
+
+#pragma mark - Reload 
 
 - (void)reload
 {
@@ -144,6 +151,21 @@
     /* STEP 4: Month Name */
     NSString *title = [[self dataSource] titleForHeader:self];
     [[self monthTitle] setText:title];
+}
+
+#pragma mark - Touch Handling
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *t = [touches anyObject];
+    
+    if (CGRectContainsPoint([[self forwardButton] frame], [t locationInView:self])) {
+        [self forwardButtonTapped];
+    }
+    else if(CGRectContainsPoint([[self backwardButton] frame], [t locationInView:self]))
+    {
+        [self backwardButtonTapped];
+    }
 }
 
 #pragma mark - Button Handling
