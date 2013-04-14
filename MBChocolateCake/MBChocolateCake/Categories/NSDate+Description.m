@@ -34,7 +34,7 @@
     return [f stringFromDate:self];
 }
 
-- (NSString *)monthNameAndYearOnCalendar:(NSCalendar *)calendar
+- (NSString *)monthAndYearOnCalendar:(NSCalendar *)calendar
 {
     NSDateFormatter *f = [NSDateFormatter new];
     [f setCalendar:calendar];
@@ -47,6 +47,39 @@
     NSDateFormatter *f = [NSDateFormatter new];
     [f setCalendar:calendar];
     [f setDateFormat:@"MMM"];
+    return [f stringFromDate:self];
+}
+
+- (NSString *)monthAndDayOnCalendar:(NSCalendar *)calendar
+{
+    NSDateFormatter *f = [NSDateFormatter new];
+    [f setCalendar:calendar];
+    [f setDateFormat:@"MMM dd"];
+    return [f stringFromDate:self];
+}
+
+- (NSString *)dayOfMonthOnCalendar:(NSCalendar *)calendar
+{
+    NSDateFormatter *f = [NSDateFormatter new];
+    [f setCalendar:calendar];
+    [f setDateFormat:@"dd"];
+    return [f stringFromDate:self];
+}
+
+- (NSString *)monthAndDayAndYearOnCalendar:(NSCalendar *)calendar
+{
+    NSDateFormatter *f = [NSDateFormatter new];
+    [f setCalendar:calendar];
+    [f setDateFormat:@"MMM dd, yyyy"];
+    return [f stringFromDate:self];
+}
+
+
+- (NSString *)dayOfMonthAndYearOnCalendar:(NSCalendar *)calendar
+{
+    NSDateFormatter *f = [NSDateFormatter new];
+    [f setCalendar:calendar];
+    [f setDateFormat:@"dd, yyyy"];
     return [f stringFromDate:self];
 }
 
