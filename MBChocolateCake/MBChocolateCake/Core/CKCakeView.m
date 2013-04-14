@@ -530,7 +530,16 @@
     BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
     
     [self setDate:dateToSelect animated:animated];
+}
+
+// If a touch was cancelled, reset the index
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
     
+    NSUInteger index = [[self calendar] daysFromDate:firstDate toDate:[self date]];
+    
+    [self setSelectedIndex:index];
 }
 
 @end
