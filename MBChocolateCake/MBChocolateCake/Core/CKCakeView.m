@@ -105,19 +105,15 @@
     
     CGRect rect = CGRectZero;
     
-    //  Attempt to use the superview bounds as the default frame
-    if ([self superview]) {
-        rect = [[self superview] bounds];
-    }
-    
-    //  Otherwise, the default is the bounds of the key window
-    else
+    if(displayMode == CKCakeViewModeDay)
     {
-        rect = [[[UIApplication sharedApplication] keyWindow] bounds];
+        //  Hide the cells entirely and only show the events table
+        rect = CGRectMake(0, 0, rect.size.width, 0);
+        rect.size.height += [[self headerView] frame].size.height;
     }
     
     //  Show one row of days for week mode
-    if (displayMode == CKCakeViewModeWeek) {
+    else if (displayMode == CKCakeViewModeWeek) {
         NSUInteger daysPerWeek = [[self calendar] daysPerWeekUsingReferenceDate:[self date]];
         rect = CGRectMake(0, 0, (CGFloat)daysPerWeek*cellSize.width, cellSize.height);
         rect.size.height += [[self headerView] frame].size.height;
@@ -133,6 +129,7 @@
         rect = CGRectMake(0, 0, width, height);
     }
     
+
     return rect;
 }
 
@@ -586,7 +583,8 @@
         return [[self calendar] weeksPerMonthUsingReferenceDate:[self date]];
     }
     
-    return 1; 
+    return 0
+;
 }
 
 - (NSUInteger)_columnCountForDisplayMode:(NSUInteger)displayMode
