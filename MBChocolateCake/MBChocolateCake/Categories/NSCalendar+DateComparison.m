@@ -26,8 +26,8 @@
 - (BOOL)date:(NSDate*)firstDate isSameMonthAs:(NSDate *)anotherDate
 {
     
-    NSInteger firstMonth = [self yearsInDate:firstDate];
-    NSInteger secondMonth = [self yearsInDate:anotherDate];
+    NSInteger firstMonth = [self monthsInDate:firstDate];
+    NSInteger secondMonth = [self monthsInDate:anotherDate];
     
     BOOL sameMonth = firstMonth == secondMonth;
     BOOL sameYear = [self date:firstDate isSameYearAs:anotherDate];
