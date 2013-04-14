@@ -7,6 +7,7 @@
 //
 
 #import "NSCalendar+Ranges.h"
+#import "NSCalendar+DateManipulation.h"
 
 @implementation NSCalendar (Ranges)
 
@@ -21,7 +22,8 @@
 
 - (NSUInteger)daysPerWeekUsingReferenceDate:(NSDate *)date
 {
-    return [self ordinalityOfUnit:NSDayCalendarUnit inUnit:NSWeekCalendarUnit forDate:date];
+    NSDate *weekLater = [self dateByAddingWeeks:1 toDate:date];
+    return [[self components:NSDayCalendarUnit fromDate:date toDate:weekLater options:0] day];
 }
 
 #pragma mark - Units Per Month
