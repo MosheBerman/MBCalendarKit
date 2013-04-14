@@ -167,6 +167,8 @@
     {
         [self setBackgroundColor:[self selectedBackgroundColor]];
         [self setBorderColor:[self selectedCellBorderColor]];
+        [[self label] setTextColor:[self textSelectedColor]];
+        [[self label] setShadowColor:[self textSelectedShadowColor]];
         [[self label] setShadowOffset:CGSizeMake(0, -0.5)];
     }
     
