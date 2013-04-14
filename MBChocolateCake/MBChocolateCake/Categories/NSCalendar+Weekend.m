@@ -52,7 +52,6 @@
 
 - (NSDate *)firstDayOfTheMonthUsingReferenceDate:(NSDate *)date
 {
-    
     NSDateComponents *c = [self components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
     
     [c setDay:1];
