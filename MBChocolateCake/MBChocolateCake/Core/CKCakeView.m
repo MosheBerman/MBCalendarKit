@@ -80,7 +80,7 @@
 //  Ensure that the calendar always has the correct size.
 - (void)setFrame:(CGRect)frame
 {
-    frame.size = [self rectForDisplayMode:[self displayMode]].size;
+    frame.size = [self _rectForDisplayMode:[self displayMode]].size;
     
     [super setFrame:frame];
 }
