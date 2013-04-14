@@ -390,22 +390,32 @@
         if ([[self calendar] date:firstVisibleDay isSameYearAs:lastVisibleDay]) {
             [result appendString:[firstVisibleDay monthAndDayOnCalendar:[self calendar]]];
             [result appendString:@" - "];
-            [result appendString:[lastVisibleDay monthDayYearOnCalendar:[self calendar]]];
+            
+            //  Show the day and year
+            if ([[self calendar] date:firstVisibleDay isSameMonthAs:lastVisibleDay]) {
+                [result appendString:[lastVisibleDay dayOfMonthAndYearOnCalendar:[self calendar]]];
+            }
+            
+            //  Show the different month, date, and year
+            else
+            {
+                [result appendString:[lastVisibleDay monthAndDayAndYearOnCalendar:[self calendar]]];
+            }
         }
         
         //  Otherwise, show MMM DD YYYY - MMM DD YYYY
         else
         {
-            [result appendString:[firstVisibleDay monthDayYearOnCalendar:[self calendar]]];
+            [result appendString:[firstVisibleDay monthAndDayAndYearOnCalendar:[self calendar]]];
             [result appendString:@" - "];            
-            [result appendString:[lastVisibleDay monthDayYearOnCalendar:[self calendar]]];
+            [result appendString:[lastVisibleDay monthAndDayAndYearOnCalendar:[self calendar]]];
         }
         
         return result;
     }
     
     //Otherwise, return today's date as a string
-    return [[self date] monthDayYearOnCalendar:[self calendar]];
+    return [[self date] monthAndDayAndYearOnCalendar:[self calendar]];
 }
 
 - (NSUInteger)numberOfColumnsForHeader:(CKCakeHeaderView *)header
