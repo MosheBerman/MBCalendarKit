@@ -15,6 +15,8 @@
 @property (nonatomic, assign) CKCakeMonthCellState state;
 @property (nonatomic, strong) NSNumber *number;
 
+@property (nonatomic, assign) NSUInteger index;
+
 @property (nonatomic, strong) UIColor *normalBackgroundColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *selectedBackgroundColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *inactiveSelectedBackgroundColor UI_APPEARANCE_SELECTOR;
