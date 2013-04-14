@@ -20,7 +20,6 @@
     return [self firstDayOfTheWeekUsingReferenceDate:[NSDate date]];
 }
 
-//  FIXME: This seems broken...
 - (NSDate *)firstDayOfTheWeekUsingReferenceDate:(NSDate *)date
 {    
     NSInteger weekday = [self weekdayInDate:date]-1;
@@ -29,17 +28,15 @@
 
 - (NSDate *)lastDayOfTheWeek
 {
-    return [self firstDayOfTheWeekUsingReferenceDate:[NSDate date]];
+    return [self lastDayOfTheWeekUsingReferenceDate:[NSDate date]];
 }
 
 - (NSDate *)lastDayOfTheWeekUsingReferenceDate:(NSDate *)date
 {
     
-    NSDateComponents *c = [self components: NSYearForWeekOfYearCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
-    
-    [c setWeekday:[self daysPerWeekUsingReferenceDate:date]];
-    
-    return [self dateFromComponents:c];
+    NSDate *d = [self firstDayOfTheWeekUsingReferenceDate:date];
+    NSUInteger daysPerWeek = [self daysPerWeekUsingReferenceDate:d];
+    return [self dateByAddingDays:daysPerWeek-1 toDate:d];
 }
 
 
