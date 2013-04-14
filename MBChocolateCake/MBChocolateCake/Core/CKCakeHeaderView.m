@@ -72,7 +72,7 @@
     CGFloat labelWidth = [self frame].size.width/_columnCount;
     CGFloat labelHeight = 22;
     
-    for (NSUInteger i = 0; i < [[self columnLabels] count]; i++) {
+    for (NSUInteger i = 0; i < [[self columnTitles] count]; i++) {
         NSString *title = [self columnTitles][i];
 
         UILabel *label = [self _columnLabelWithTitle:title];
