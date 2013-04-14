@@ -560,9 +560,15 @@
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
     
-    if (!CGRectContainsPoint([self bounds], point)) {
-        return NO;
+    CGRect bounds = [self bounds];
+    bounds.origin.y += [self headerView].frame.size.height;
+    bounds.size.height -= [self headerView].frame.size.height;
+    
+    if (!CGRectContainsPoint(bounds, point)) {
+        return YES;
     }
+    
+    /* Highlight and select the appropriate cell */
     
     NSUInteger index = [self selectedIndex];
     
