@@ -372,7 +372,40 @@
 
 - (NSString *)titleForHeader:(CKCakeHeaderView *)header
 {
-    return [[self date] monthNameAndYearOnCalendar:[self calendar]];
+    CKCakeDisplayMode mode = [self displayMode];
+    
+    if(mode == CKCakeViewModeMonth)
+    {
+        return [[self date] monthAndYearOnCalendar:[self calendar]];
+    }
+    
+    else if (mode == CKCakeViewModeWeek)
+    {
+        NSDate *firstVisibleDay = [self _firstVisibleDateForDisplayMode:mode];
+        NSDate *lastVisibleDay = [self _lastVisibleDateForDisplayMode:mode];
+        
+        NSMutableString *result = [NSMutableString new];
+        
+        //  If the dates are the same years, show MMM DD - DD YYYY
+        if ([[self calendar] date:firstVisibleDay isSameYearAs:lastVisibleDay]) {
+            [result appendString:[firstVisibleDay monthAndDayOnCalendar:[self calendar]]];
+            [result appendString:@" - "];
+            [result appendString:[lastVisibleDay monthDayYearOnCalendar:[self calendar]]];
+        }
+        
+        //  Otherwise, show MMM DD YYYY - MMM DD YYYY
+        else
+        {
+            [result appendString:[firstVisibleDay monthDayYearOnCalendar:[self calendar]]];
+            [result appendString:@" - "];            
+            [result appendString:[lastVisibleDay monthDayYearOnCalendar:[self calendar]]];
+        }
+        
+        return result;
+    }
+    
+    //Otherwise, return today's date as a string
+    return [[self date] monthDayYearOnCalendar:[self calendar]];
 }
 
 - (NSUInteger)numberOfColumnsForHeader:(CKCakeHeaderView *)header
@@ -390,22 +423,24 @@
 
 #pragma mark - CKCakeHeaderViewDelegate
 
-/*
- 
- Moving forward or backwards for month mode
- should select the first day of the month,
- unless the newlty visible month contains
- [NSDate date], in which case we want to
- highlight that day instead.
- 
- */
 
 - (void)forwardTapped
 {
-    if ([self displayMode] == CKCakeViewModeMonth) {
+    NSDate *date = [self date];
+    NSDate *today = [NSDate date];
+   
+    /*
+     
+     Moving forward or backwards for month mode
+     should select the first day of the month,
+     unless the newly visible month contains
+     [NSDate date], in which case we want to
+     highlight that day instead.
+     
+     */
 
-        NSDate *date = [self date];
-        NSDate *today = [NSDate date];
+    
+    if ([self displayMode] == CKCakeViewModeMonth) {
         
         NSUInteger day = [[self calendar] daysInDate:date];
 
@@ -421,13 +456,43 @@
         //apply the new date
         [self setDate:date animated:YES];
     }
+    
+    /* 
+     
+     For week mode, we move ahead by a week, then jump to 
+     the first day of the week. If the newly visible week 
+     contains today, we set today as the active date.
+     
+     */
+    
     else if([self displayMode] == CKCakeViewModeWeek)
     {
         
-    }
-    else{
+        date = [[self calendar] dateByAddingWeeks:1 toDate:date];               //  Add a week
+
+        NSUInteger dayOfWeek = [[self calendar] weekdayInDate:date];
+        date = [[self calendar] dateBySubtractingDays:dayOfWeek-1 fromDate:date];   //  Jump to sunday
         
+        //  If today is in the visible week, jump to today
+        if ([[self calendar] date:date isSameWeekAs:today]) {
+            NSUInteger distance = [[self calendar] daysFromDate:date toDate:today];
+            date = [[self calendar] dateByAddingDays:distance toDate:date];
+        }
+
     }
+    
+    /*
+    
+     In day mode, simply move ahead by one day.
+     
+     */
+    
+    else{
+        date = [[self calendar] dateByAddingDays:1 toDate:date];
+    }
+    
+    //apply the new date
+    [self setDate:date animated:YES];
 }
 
 - (void)backwardTapped
@@ -436,9 +501,18 @@
     NSDate *date = [self date];
     NSDate *today = [NSDate date];
     
+    /*
+     
+     Moving forward or backwards for month mode
+     should select the first day of the month,
+     unless the newly visible month contains
+     [NSDate date], in which case we want to
+     highlight that day instead.
+     
+     */
+    
     if ([self displayMode] == CKCakeViewModeMonth) {
 
-        
         NSUInteger day = [[self calendar] daysInDate:date];
         
         date = [[self calendar] dateBySubtractingMonths:1 fromDate:date];       //  Subtract a month
@@ -449,17 +523,45 @@
             NSUInteger distance = [[self calendar] daysFromDate:date toDate:today];
             date = [[self calendar] dateByAddingDays:distance toDate:date];
         }
-        
-        //apply the new date
-        [self setDate:date animated:YES];
     }
+    
+    /*
+     
+     For week mode, we move backward by a week, then jump 
+     to the first day of the week. If the newly visible 
+     week contains today, we set today as the active date.
+     
+     */
+    
     else if([self displayMode] == CKCakeViewModeWeek)
     {
         
-    }
-    else{
+        
+        date = [[self calendar] dateBySubtractingWeeks:1 fromDate:date];               //  Add a week
+        
+        NSUInteger dayOfWeek = [[self calendar] weekdayInDate:date];
+        date = [[self calendar] dateBySubtractingDays:dayOfWeek-1 fromDate:date];   //  Jump to sunday
+        
+        //  If today is in the visible week, jump to today
+        if ([[self calendar] date:date isSameWeekAs:today]) {
+            NSUInteger distance = [[self calendar] daysFromDate:date toDate:today];
+            date = [[self calendar] dateByAddingDays:distance toDate:date];
+        }
         
     }
+    
+    /*
+     
+     In day mode, simply move backward by one day.
+     
+     */
+    
+    else{
+        date = [[self calendar] dateBySubtractingDays:1 fromDate:date];
+    }
+    
+    //apply the new date
+    [self setDate:date animated:YES];
 }
 
 #pragma mark - Rows and Columns
