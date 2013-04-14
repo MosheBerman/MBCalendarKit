@@ -38,6 +38,7 @@
         [_monthTitle setShadowOffset:CGSizeMake(0, 1)];
         [_monthTitle setBackgroundColor:[UIColor clearColor]];
         [_monthTitle setTextAlignment:NSTextAlignmentCenter];
+        [_monthTitle setFont:[UIFont boldSystemFontOfSize:22]];
         
         _columnTitles = [NSMutableArray new];
         _columnLabels = [NSMutableArray new];
@@ -70,7 +71,7 @@
     /* Convert title strings into labels and lay them out */
     
     CGFloat labelWidth = [self frame].size.width/_columnCount;
-    CGFloat labelHeight = 22;
+    CGFloat labelHeight = 15;
     
     for (NSUInteger i = 0; i < [[self columnTitles] count]; i++) {
         NSString *title = [self columnTitles][i];
@@ -85,7 +86,7 @@
     }
     
     /* Show the title Label */
-    CGRect frame = CGRectMake(0, 0, [self frame].size.width, 29);
+    CGRect frame = CGRectMake(5, 0, [self frame].size.width, 27);
     [[self monthTitle] setFrame:frame];
     [self addSubview:[self monthTitle]];
     
