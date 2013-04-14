@@ -91,7 +91,7 @@
 
 - (CGRect)_rectForDisplayMode:(CKCakeDisplayMode)displayMode
 {
-    CGSize cellSize = [self cellSize];
+    CGSize cellSize = [self _cellSize];
     
     CGRect rect = CGRectZero;
     
@@ -126,10 +126,17 @@
     return rect;
 }
 
+- (CGSize)_cellSize
+{
+    // These values must be hard coded in order for rectForDisplayMode: to work correctly
+    return CGSizeMake(46, 44);
+}
+
 #pragma mark - Layout
 
 - (void)layoutSubviews
 {
+    //  Enforce view dimensions appropriate for given display mode
     CGRect frame = [self _rectForDisplayMode:[self displayMode]];
     CGPoint origin = [self frame].origin;
     frame.origin = origin;
@@ -168,8 +175,8 @@
     NSUInteger columnCount = [self _columnCountForDisplayMode:[self displayMode]];
     
     //  Cache the cell values for easier readability below
-    CGFloat width = [self cellSize].width;
-    CGFloat height = [self cellSize].height;
+    CGFloat width = [self _cellSize].width;
+    CGFloat height = [self _cellSize].height;
     
     //  Cache the start date
     NSDate *workingDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
@@ -241,7 +248,7 @@
     CKCakeMonthCell *cell = [[self spareCells] anyObject];
     
     if (!cell) {
-        cell = [[CKCakeMonthCell alloc] initWithSize:[self cellSize]];
+        cell = [[CKCakeMonthCell alloc] initWithSize:[self _cellSize]];
     }
     
     //  Move the used cells to the appropriate set
@@ -424,13 +431,6 @@
     
     //  Default to 1;
     return 1;
-}
-
-#pragma mark - Cell Size
-
-- (CGSize)cellSize
-{
-    return CGSizeMake(46, 44);
 }
 
 #pragma mark - Touch Handling
