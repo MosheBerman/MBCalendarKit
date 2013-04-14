@@ -13,7 +13,7 @@
 #import "NSCalendar+Ranges.h"
 #import "NSCalendar+Weekend.h"
 #import "NSCalendar+Components.h"
-
+#import "NSCalendar+DateComparison.h"
 
 //  Cells
 #import "CKCakeMonthCell.h"
@@ -21,13 +21,11 @@
 
 @interface CKCakeView ()
 
-@property (nonatomic, strong) NSMutableSet* usedCells;
-@property (nonatomic, strong) NSMutableSet* spareCells;
+@property (nonatomic, strong) NSMutableSet* cells;
 
 @property (nonatomic, strong) NSDateFormatter *formatter;
 
-@property (nonatomic, strong) NSDate *firstVisibleDate;
-@property (nonatomic, strong) NSDate *lastVisibleDate;
+@property (nonatomic, strong) UIView *titleView;
 
 @end
 
@@ -46,8 +44,7 @@
         _timeZone = nil;
         _date = [NSDate date];
         _displayMode = CKCakeViewModeMonth;
-        _spareCells = [NSMutableSet new];
-        _usedCells = [NSMutableSet new];
+        _cells = [NSMutableSet new];
     }
     return self;
 }
@@ -70,7 +67,7 @@
 
 -(void)removeFromSuperview
 {
-    for (CKCakeMonthCell *cell in [self usedCells]) {
+    for (CKCakeMonthCell *cell in [self cells]) {
         [cell removeFromSuperview];
     }
     
@@ -91,10 +88,24 @@
 {
     CGSize cellSize = [self cellSize];
     
+    CGRect rect = CGRectZero;
+    
+    //  Attempt to use the superview bounds as the default frame
+    if ([self superview]) {
+        rect = [[self superview] bounds];
+    }
+    
+    //  Otherwise, the default is the bounds of the key window
+    else
+    {
+        rect = [[[UIApplication sharedApplication] keyWindow] bounds];
+    }
+    
     //  Show one row of days for week mode
     if (displayMode == CKCakeViewModeWeek) {
         NSUInteger daysPerWeek = [[self calendar] daysPerWeekUsingReferenceDate:[self date]];
-        return CGRectMake(0, 0, (CGFloat)daysPerWeek*cellSize.width, cellSize.height);
+        rect = CGRectMake(0, 0, (CGFloat)daysPerWeek*cellSize.width, cellSize.height);
+        rect.size.height += [[self titleView] frame].size.height;
     }
     
     //  Show enough for all the visible weeks
@@ -102,19 +113,12 @@
     {        
         CGFloat width = (CGFloat)[self _columnCountForDisplayMode:CKCakeViewModeMonth] * cellSize.width;
         CGFloat height = (CGFloat)[self _rowCountForDisplayMode:CKCakeViewModeMonth] * cellSize.height;
+        height += [[self titleView] frame].size.height;
         
-        CGRect rect = CGRectMake(0, 0, width, height);
-        
-        return rect;
+        rect = CGRectMake(0, 0, width, height);
     }
-    
-    //  Attempt to use the superview size
-    if ([self superview]) {
-        return [[self superview] bounds];
-    }
-    
-    //  Otherwise, use the size of the key window
-    return [[[UIApplication sharedApplication] keyWindow] bounds];
+
+    return rect;
 }
 
 - (void)layoutCellsAnimated:(BOOL)animated
@@ -133,21 +137,14 @@
 - (void)layoutCells
 {
     
-    //  Move used cells to the spare set
-    for (CKCakeMonthCell *cell in [self usedCells]) {
-        [[self spareCells] addObject:cell];
+    for (CKCakeMonthCell *cell in [self cells]) {
         [cell removeFromSuperview];
     }
     
-    //  Now remove the spare cells from the used set
-    for (CKCakeMonthCell *cell in [self spareCells]) {
-        [[self usedCells] removeObject:cell];
-    }
-
     //  Count the rows and columns that we'll need
     NSUInteger rowCount = [self _rowCountForDisplayMode:[self displayMode]];
     NSUInteger columnCount = [self _columnCountForDisplayMode:[self displayMode]];
-
+    
     //  Cache the cell values for easier readability below
     CGFloat width = [self cellSize].width;
     CGFloat height = [self cellSize].height;
@@ -158,15 +155,24 @@
     for (NSUInteger row = 0; row < rowCount; row++) {
         for (NSUInteger column = 0; column < columnCount; column++) {
 
+            NSUInteger day = [[self calendar] daysInDate:workingDate];
+            
+            BOOL cellRepresentsToday = [[self calendar] date:workingDate isSameDayAs:[NSDate date]];
+            BOOL isThisMonth = [[self calendar] date:workingDate isSameMonthAs:[self date]];
+            
             CKCakeMonthCell *cell = [self dequeueCell];
             
             CGRect frame = CGRectMake(column*width, row*height, width, height);
             [cell setFrame:frame];
             
-            //  Count from the start date
-            NSUInteger day = [[self calendar] daysInDate:workingDate];
-            
             [cell setNumber:@(day)];
+            
+            if (cellRepresentsToday) {
+                [cell setState:CKCakeMonthCellStateTodaySelected];
+            }
+            if (!isThisMonth) {
+                [cell setState:CKCakeMonthCellStateInactive];
+            }
             
             [self addSubview:cell];
             
@@ -179,15 +185,10 @@
 
 - (CKCakeMonthCell *)dequeueCell
 {
-    CKCakeMonthCell *cell = [[self spareCells] anyObject];
-    
-    if (!cell) {
-        cell = [[CKCakeMonthCell alloc] initWithSize:[self cellSize]];
-    }
+    CKCakeMonthCell *cell = [[CKCakeMonthCell alloc] initWithSize:[self cellSize]];
     
     //  Move the used cells to the appropriate set
-    [[self usedCells] addObject:cell];
-    [[self spareCells] removeObject:cell];
+    [[self cells] addObject:cell];
     
     [cell prepareForReuse];
     
@@ -204,6 +205,8 @@
     
     _calendar = calendar;
     [_calendar setLocale:_locale];
+
+    [self layoutSubviews];
 }
 
 - (void)setLocale:(NSLocale *)locale
@@ -213,7 +216,20 @@
     }
     
     _locale = locale;
-    [_calendar setLocale:locale];
+    [[self calendar] setLocale:locale];
+    
+    [self layoutSubviews];
+}
+
+- (void)setTimeZone:(NSTimeZone *)timeZone
+{
+    if (!timeZone) {
+        timeZone = [NSTimeZone localTimeZone];
+    }
+    
+    [[self calendar] setTimeZone:timeZone];
+    
+    [self layoutSubviews];    
 }
 
 - (void)setDisplayMode:(CKCakeDisplayMode)displayMode
@@ -224,6 +240,24 @@
 - (void)setDisplayMode:(CKCakeDisplayMode)displayMode animated:(BOOL)animated
 {
     _displayMode = displayMode;
+    
+    [self layoutCellsAnimated:animated];
+}
+
+- (void)setDate:(NSDate *)date
+{
+    [self setDate:date animated:NO];
+}
+
+- (void)setDate:(NSDate *)date animated:(BOOL)animated
+{
+    
+    date = [NSDate date];
+    
+    _date = date;
+    
+    [self layoutCellsAnimated:animated];
+    
 }
 
 #pragma mark - Rows and Columns
