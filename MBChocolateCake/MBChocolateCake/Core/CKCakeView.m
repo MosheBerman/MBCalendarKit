@@ -355,4 +355,36 @@
     return CGSizeMake(46, 44);
 }
 
+#pragma mark - Touch Handling
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *t = [touches anyObject];
+    
+    CGPoint p = [t locationInView:self];
+    
+    [self pointInside:p withEvent:event];
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    
+    if (!CGRectContainsPoint([self bounds], point)) {
+        return NO;
+    }
+    
+    for (CKCakeMonthCell *cell in [self cells]) {
+        CGRect rect = [cell frame];
+        if (CGRectContainsPoint(rect, point)) {
+            [cell setSelected];
+        }
+        else
+        {
+            [cell setDeselected];
+        }
+    }
+    return [super pointInside:point withEvent:event];
+}
+
+
 @end
