@@ -74,11 +74,23 @@
     [super removeFromSuperview];
 }
 
-#pragma mark - Size and Layout
+#pragma mark - Size
+
+//  Ensure that the calendar always has the correct size.
+- (void)setFrame:(CGRect)frame
+{
+    frame.size = [self rectForDisplayMode:[self displayMode]].size;
+    
+    [super setFrame:frame];
+}
+
+#pragma mark - Layout
 
 - (void)layoutSubviews
 {
     CGRect frame = [self rectForDisplayMode:[self displayMode]];
+    CGPoint origin = [self frame].origin;
+    frame.origin = origin;
     [self setFrame:frame];
     
     [self layoutCellsAnimated:NO];
@@ -223,13 +235,18 @@
 
 - (void)setTimeZone:(NSTimeZone *)timeZone
 {
+    [self setTimeZone:timeZone animated:NO];
+}
+
+- (void)setTimeZone:(NSTimeZone *)timeZone animated:(BOOL)animated
+{
     if (!timeZone) {
         timeZone = [NSTimeZone localTimeZone];
     }
     
     [[self calendar] setTimeZone:timeZone];
     
-    [self layoutSubviews];    
+    [self layoutCellsAnimated:animated];
 }
 
 - (void)setDisplayMode:(CKCakeDisplayMode)displayMode
