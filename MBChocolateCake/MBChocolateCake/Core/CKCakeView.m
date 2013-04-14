@@ -31,8 +31,9 @@
 
 @implementation CKCakeView
 
-#pragma mark - Initializer
+#pragma mark - Initializers
 
+// Designated Initializer
 - (id)init
 {
     self = [super init];
@@ -59,6 +60,14 @@
         _displayMode = cakeDisplayMode;
     }
     return self;
+}
+
+#pragma mark - Reload
+
+- (void)reloadAnimated:(BOOL)animated
+{
+    [self _layoutCellsAnimated:animated];
+    [[self headerView] reload];
 }
 
 #pragma mark - View Hierarchy
@@ -156,7 +165,7 @@
     [self addSubview:[self headerView]];
     
     //  Show the cells
-    [self _layoutCellsAnimated:NO];
+    [self reloadAnimated:NO];
 }
 
 - (void)_layoutCellsAnimated:(BOOL)animated
@@ -292,7 +301,7 @@
     _calendar = calendar;
     [_calendar setLocale:_locale];
 
-    [self layoutSubviews];
+    [self reloadAnimated:NO];
 }
 
 - (void)setLocale:(NSLocale *)locale
@@ -304,7 +313,7 @@
     _locale = locale;
     [[self calendar] setLocale:locale];
     
-    [self layoutSubviews];
+    [self reloadAnimated:NO];
 }
 
 - (void)setTimeZone:(NSTimeZone *)timeZone
@@ -320,7 +329,7 @@
     
     [[self calendar] setTimeZone:timeZone];
     
-    [self _layoutCellsAnimated:animated];
+    [self reloadAnimated:animated];
 }
 
 - (void)setDisplayMode:(CKCakeDisplayMode)displayMode
@@ -332,7 +341,7 @@
 {
     _displayMode = displayMode;
     
-    [self _layoutCellsAnimated:animated];
+    [self reloadAnimated:animated];
 }
 
 - (void)setDate:(NSDate *)date
@@ -354,11 +363,8 @@
     NSUInteger index = [[self calendar] daysFromDate:newFirstVisible toDate:date];
     [self setSelectedIndex:index];
     
-    //  Layout
-    [self _layoutCellsAnimated:animated];
+    [self reloadAnimated:animated];
     
-    
-    [[self headerView] reload];
     //  TODO: Call delegate "didSelectDate:"
 }
 
@@ -569,7 +575,7 @@
     }
     
     /* Highlight and select the appropriate cell */
-    
+     
     NSUInteger index = [self selectedIndex];
     
     for (CKCakeCell *cell in [self usedCells]) {
