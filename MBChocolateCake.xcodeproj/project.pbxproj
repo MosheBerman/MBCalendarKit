@@ -67,7 +67,7 @@
 /* Begin PBXFileReference section */
 		4645540C1718C87600074C6F /* NSCalendar+Components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Components.h"; sourceTree = "<group>"; };
 		4645540D1718C87600074C6F /* NSCalendar+Components.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Components.m"; sourceTree = "<group>"; };
-		46631FB5171A9F9600DA27CC /* CKCakeHeaderColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeHeaderColors.h; sourceTree = "<group>"; };
+		46631FB6171AA09800DA27CC /* CKCakeHeaderColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeHeaderColors.h; sourceTree = "<group>"; };
 		46A60E75171646F4002F150B /* NSCalendar+Juncture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Juncture.h"; sourceTree = "<group>"; };
 		46A60E76171646F4002F150B /* NSCalendar+Juncture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Juncture.m"; sourceTree = "<group>"; };
 		46A60E791716639B002F150B /* NSCalendar+DateManipulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+DateManipulation.h"; sourceTree = "<group>"; };
@@ -316,7 +316,7 @@
 		46BFBD1B171603BB00D4733E /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				46631FB5171A9F9600DA27CC /* CKCakeHeaderColors.h */,
+				46631FB6171AA09800DA27CC /* CKCakeHeaderColors.h */,
 				46BFBD1C171603BB00D4733E /* CKCakeCellColors.h */,
 				46BFBD1D171603BB00D4733E /* CKCakeMonthCellStates.h */,
 				46BFBD1E171603BB00D4733E /* CKCakeViewModes.h */,
