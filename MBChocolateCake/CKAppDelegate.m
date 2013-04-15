@@ -10,6 +10,12 @@
 
 #import "CKViewController.h"
 
+@interface CKAppDelegate ()
+
+@property (nonatomic, strong) UINavigationController *navigationController;
+
+@end
+
 @implementation CKAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -17,7 +23,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.viewController = [[CKViewController alloc] initWithNibName:@"CKViewController" bundle:nil];
-    self.window.rootViewController = self.viewController;
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+    
+    self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     return YES;
 }
