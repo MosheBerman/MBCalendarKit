@@ -15,7 +15,7 @@
 - (NSString *)titleForHeader:(CKCakeHeaderView *)header;
 
 - (NSUInteger)numberOfColumnsForHeader:(CKCakeHeaderView *)header;
-- (NSString *)titleForColumnAtIndex:(NSUInteger)index inHeader:(CKCakeHeaderView *)header;
+- (NSString *)header:(CKCakeHeaderView *)header titleForColumnAtIndex:(NSInteger)index;
 
 @end
 
@@ -31,6 +31,5 @@
 @property (nonatomic, assign) id<CKCakeHeaderViewDataSource> dataSource;
 @property (nonatomic, assign) id<CKCakeHeaderViewDelegate> delegate;
 
-- (void)reload;
 
 @end
