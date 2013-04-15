@@ -35,6 +35,10 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
+@property (nonatomic, strong) UIView *cellWrapper;
+@property (nonatomic, strong) UIView *cellPanel1;
+@property (nonatomic, strong) UIView *cellPanel2;
+
 @end
 
 @implementation CKCakeView
@@ -69,6 +73,10 @@
         //  Event date
         _events = [NSMutableArray new];
         
+        //  Cell animation panels
+        _cellWrapper = [UIView new];
+        _cellPanel1 = [UIView new];
+        _cellPanel2 = [UIView new];
     }
     return self;
 }
@@ -150,22 +158,41 @@
     
     //  Show one row of days for week mode
     if (displayMode == CKCakeViewModeWeek) {
-        NSUInteger daysPerWeek = [[self calendar] daysPerWeekUsingReferenceDate:[self date]];
-        rect = CGRectMake(0, 0, (CGFloat)daysPerWeek*cellSize.width, cellSize.height);
+        rect = [self _rectForCellsForDisplayMode:displayMode];
         rect.size.height += [[self headerView] frame].size.height;
+        rect.origin.y -= [[self headerView] frame].size.height;
     }
     
     //  Show enough for all the visible weeks
     else if(displayMode == CKCakeViewModeMonth)
     {
-        CGFloat width = (CGFloat)[self _columnCountForDisplayMode:CKCakeViewModeMonth] * cellSize.width;
-        CGFloat height = (CGFloat)[self _rowCountForDisplayMode:CKCakeViewModeMonth] * cellSize.height;
-        height += [[self headerView] frame].size.height;
-        
-        rect = CGRectMake(0, 0, width, height);
+        rect = [self _rectForCellsForDisplayMode:displayMode];
+        rect.size.height += [[self headerView] frame].size.height;
+        rect.origin.y -= [[self headerView] frame].size.height;
     }
     
     return rect;
+}
+
+- (CGRect)_rectForCellsForDisplayMode:(CKCakeDisplayMode)displayMode
+{
+    CGSize cellSize = [self _cellSize];
+    
+    if (displayMode == CKCakeViewModeDay) {
+        return CGRectZero;
+    }
+    else if(displayMode == CKCakeViewModeWeek)
+    {
+        NSUInteger daysPerWeek = [[self calendar] daysPerWeekUsingReferenceDate:[self date]];
+        return CGRectMake(0, cellSize.height, (CGFloat)daysPerWeek*cellSize.width, cellSize.height);
+    }
+    else if(displayMode == CKCakeViewModeMonth)
+    {
+        CGFloat width = (CGFloat)[self _columnCountForDisplayMode:CKCakeViewModeMonth] * cellSize.width;
+        CGFloat height = (CGFloat)[self _rowCountForDisplayMode:CKCakeViewModeMonth] * cellSize.height;
+        return CGRectMake(0, cellSize.height, width, height);
+    }
+    return CGRectZero;
 }
 
 - (CGSize)_cellSize
@@ -790,25 +817,26 @@
     bounds.origin.y += [self headerView].frame.size.height;
     bounds.size.height -= [self headerView].frame.size.height;
     
-    
-    /* Highlight and select the appropriate cell */
-    
-    NSUInteger index = [self selectedIndex];
-    
-    for (CKCakeCell *cell in [self usedCells]) {
-        CGRect rect = [cell frame];
-        if (CGRectContainsPoint(rect, point)) {
-            [cell setSelected];
-            index = [cell index];
+    if(CGRectContainsPoint([self _rectForCellsForDisplayMode:_displayMode], point)){
+        /* Highlight and select the appropriate cell */
+        
+        NSUInteger index = [self selectedIndex];
+        
+        for (CKCakeCell *cell in [self usedCells]) {
+            CGRect rect = [cell frame];
+            if (CGRectContainsPoint(rect, point)) {
+                [cell setSelected];
+                index = [cell index];
+            }
+            else
+            {
+                [cell setDeselected];
+            }
         }
-        else
-        {
-            [cell setDeselected];
-        }
+        
+        
+        [self setSelectedIndex:index];
     }
-    
-    [self setSelectedIndex:index];
-    
     return [super pointInside:point withEvent:event];
 }
 
