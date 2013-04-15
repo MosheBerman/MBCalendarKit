@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) UILabel *label;
 
+@property (nonatomic, strong) UIView *dot;
+
 @end
 
 @implementation CKCakeCell
@@ -53,6 +55,11 @@
         
         // Label
         _label = [UILabel new];
+        
+        //  Dot
+        _dot = [UIView new];
+        [_dot setHidden:YES];
+        _showDot = NO;
     }
     return self;
 }
@@ -81,7 +88,10 @@
 - (void)layoutSubviews
 {
     [self configureLabel];
+    [self configureDot];
+    
     [self addSubview:[self label]];
+    [self addSubview:[self dot]];
 }
 
 #pragma mark - Setters
@@ -106,6 +116,12 @@
     [[self label] setText:stringVal];
 }
 
+- (void)setShowDot:(BOOL)showDot
+{
+    _showDot = showDot;
+    [[self dot] setHidden:!showDot];
+}
+
 #pragma mark - Recycling Behavior
 
 -(void)prepareForReuse
@@ -124,6 +140,23 @@
     
     [label setBackgroundColor:[UIColor clearColor]];
     [label setFrame:CGRectMake(0, 0, [self frame].size.width, [self frame].size.height)];
+}
+
+#pragma mark - Dot
+
+- (void)configureDot
+{
+    UIView *dot = [self dot];
+    
+    CGFloat dotRadius = 3;
+    CGFloat selfHeight = [self frame].size.height;
+    CGFloat selfWidth = [self frame].size.width;
+    
+    [[dot layer] setCornerRadius:dotRadius/2];
+    
+    CGRect dotFrame = CGRectMake(selfWidth/2 - dotRadius/2, (selfHeight - (selfHeight/5)) - dotRadius/2, dotRadius, dotRadius);
+    [[self dot] setFrame:dotFrame];
+    
 }
 
 #pragma mark - UI Coloring
@@ -188,6 +221,10 @@
         [[self label] setShadowOffset:CGSizeZero];
         [self setBackgroundColor:[self inactiveSelectedBackgroundColor]];
     }
+    
+    //  Make the dot follow the label's style
+    [[self dot] setBackgroundColor:[[self label] textColor]];
+    [[self dot] setAlpha:[[self label] alpha]];
 }
 
 #pragma mark - Selection State

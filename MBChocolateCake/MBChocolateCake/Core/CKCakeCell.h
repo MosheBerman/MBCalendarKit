@@ -14,6 +14,7 @@
 
 @property (nonatomic, assign) CKCakeMonthCellState state;
 @property (nonatomic, strong) NSNumber *number;
+@property (nonatomic, assign) BOOL showDot;
 
 @property (nonatomic, assign) NSUInteger index;
 
