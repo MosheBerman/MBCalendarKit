@@ -448,25 +448,15 @@
         
         NSMutableString *result = [NSMutableString new];
         
-        //  If the dates are the same years, show MMM DD - DD YYYY
-        if ([[self calendar] date:firstVisibleDay isSameYearAs:lastVisibleDay]) {
             [result appendString:[firstVisibleDay monthAndYearOnCalendar:[self calendar]]];
             
             //  Show the day and year
             if (![[self calendar] date:firstVisibleDay isSameMonthAs:lastVisibleDay]) {
-                result = [[firstVisibleDay monthAndYearOnCalendar:[self calendar]] mutableCopy];
+                result = [[firstVisibleDay monthAbbreviationAndYearOnCalendar:[self calendar]] mutableCopy];
                 [result appendString:@" - "];
-                [result appendString:[lastVisibleDay monthAndYearOnCalendar:[self calendar]]];
+                [result appendString:[lastVisibleDay monthAbbreviationAndYearOnCalendar:[self calendar]]];
             }
-        }
-        
-        //  Otherwise, show MMM DD YYYY - MMM DD YYYY
-        else
-        {
-            [result appendString:[firstVisibleDay monthAndDayAndYearOnCalendar:[self calendar]]];
-            [result appendString:@" - "];
-            [result appendString:[lastVisibleDay monthAndDayAndYearOnCalendar:[self calendar]]];
-        }
+
         
         return result;
     }
