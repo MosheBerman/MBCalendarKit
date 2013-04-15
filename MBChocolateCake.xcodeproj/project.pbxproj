@@ -9,10 +9,14 @@
 /* Begin PBXBuildFile section */
 		4645540E1718C87600074C6F /* NSCalendar+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = 4645540D1718C87600074C6F /* NSCalendar+Components.m */; };
 		4645540F1718C87600074C6F /* NSCalendar+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = 4645540D1718C87600074C6F /* NSCalendar+Components.m */; };
+		46631FB8171B01F400DA27CC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46631FB7171B01F400DA27CC /* QuartzCore.framework */; };
+		46631FB9171B025600DA27CC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46631FB7171B01F400DA27CC /* QuartzCore.framework */; };
 		46A60E77171646F4002F150B /* NSCalendar+Juncture.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A60E76171646F4002F150B /* NSCalendar+Juncture.m */; };
 		46A60E78171646F4002F150B /* NSCalendar+Juncture.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A60E76171646F4002F150B /* NSCalendar+Juncture.m */; };
 		46A60E7B1716639B002F150B /* NSCalendar+DateManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A60E7A1716639B002F150B /* NSCalendar+DateManipulation.m */; };
 		46A60E7C1716639B002F150B /* NSCalendar+DateManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A60E7A1716639B002F150B /* NSCalendar+DateManipulation.m */; };
+		46B1F448171B82B9003314A3 /* CKCakeEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B1F447171B82B9003314A3 /* CKCakeEvent.m */; };
+		46B1F449171B82B9003314A3 /* CKCakeEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B1F447171B82B9003314A3 /* CKCakeEvent.m */; };
 		46B3678A171A3C1F000F1B25 /* NSCalendar+DateComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B36789171A3C1F000F1B25 /* NSCalendar+DateComparison.m */; };
 		46B3678B171A3C1F000F1B25 /* NSCalendar+DateComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B36789171A3C1F000F1B25 /* NSCalendar+DateComparison.m */; };
 		46B36792171A7E0C000F1B25 /* NSDate+Description.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B36791171A7E0C000F1B25 /* NSDate+Description.m */; };
@@ -68,10 +72,13 @@
 		4645540C1718C87600074C6F /* NSCalendar+Components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Components.h"; sourceTree = "<group>"; };
 		4645540D1718C87600074C6F /* NSCalendar+Components.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Components.m"; sourceTree = "<group>"; };
 		46631FB6171AA09800DA27CC /* CKCakeHeaderColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeHeaderColors.h; sourceTree = "<group>"; };
+		46631FB7171B01F400DA27CC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46A60E75171646F4002F150B /* NSCalendar+Juncture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Juncture.h"; sourceTree = "<group>"; };
 		46A60E76171646F4002F150B /* NSCalendar+Juncture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Juncture.m"; sourceTree = "<group>"; };
 		46A60E791716639B002F150B /* NSCalendar+DateManipulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+DateManipulation.h"; sourceTree = "<group>"; };
 		46A60E7A1716639B002F150B /* NSCalendar+DateManipulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+DateManipulation.m"; sourceTree = "<group>"; };
+		46B1F446171B82B9003314A3 /* CKCakeEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeEvent.h; sourceTree = "<group>"; };
+		46B1F447171B82B9003314A3 /* CKCakeEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCakeEvent.m; sourceTree = "<group>"; };
 		46B36788171A3C1F000F1B25 /* NSCalendar+DateComparison.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+DateComparison.h"; sourceTree = "<group>"; };
 		46B36789171A3C1F000F1B25 /* NSCalendar+DateComparison.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+DateComparison.m"; sourceTree = "<group>"; };
 		46B36790171A7E0C000F1B25 /* NSDate+Description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Description.h"; sourceTree = "<group>"; };
@@ -127,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46631FB9171B025600DA27CC /* QuartzCore.framework in Frameworks */,
 				46BFBCC31715FB3F00D4733E /* UIKit.framework in Frameworks */,
 				46BFBCC51715FB3F00D4733E /* Foundation.framework in Frameworks */,
 				46BFBCC71715FB3F00D4733E /* CoreGraphics.framework in Frameworks */,
@@ -137,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46631FB8171B01F400DA27CC /* QuartzCore.framework in Frameworks */,
 				46F1BC7317188D7200F8356F /* CoreGraphics.framework in Frameworks */,
 				46BFBCE71715FB3F00D4733E /* SenTestingKit.framework in Frameworks */,
 				46BFBCE81715FB3F00D4733E /* UIKit.framework in Frameworks */,
@@ -234,10 +243,11 @@
 		46BFBCC11715FB3F00D4733E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				46BFBCC21715FB3F00D4733E /* UIKit.framework */,
-				46BFBCC41715FB3F00D4733E /* Foundation.framework */,
 				46BFBCC61715FB3F00D4733E /* CoreGraphics.framework */,
+				46BFBCC41715FB3F00D4733E /* Foundation.framework */,
+				46631FB7171B01F400DA27CC /* QuartzCore.framework */,
 				46BFBCE61715FB3F00D4733E /* SenTestingKit.framework */,
+				46BFBCC21715FB3F00D4733E /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -333,6 +343,8 @@
 				46B36795171A8A34000F1B25 /* CKCakeHeaderView.m */,
 				46BFBD2C171605C500D4733E /* CKCakeView.h */,
 				46BFBD2D171605C500D4733E /* CKCakeView.m */,
+				46B1F446171B82B9003314A3 /* CKCakeEvent.h */,
+				46B1F447171B82B9003314A3 /* CKCakeEvent.m */,
 			);
 			name = CoreUI;
 			path = Core;
@@ -466,6 +478,7 @@
 				46B3678A171A3C1F000F1B25 /* NSCalendar+DateComparison.m in Sources */,
 				46B36792171A7E0C000F1B25 /* NSDate+Description.m in Sources */,
 				46B36796171A8A34000F1B25 /* CKCakeHeaderView.m in Sources */,
+				46B1F448171B82B9003314A3 /* CKCakeEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,6 +501,7 @@
 				46B3678B171A3C1F000F1B25 /* NSCalendar+DateComparison.m in Sources */,
 				46B36793171A7E0C000F1B25 /* NSDate+Description.m in Sources */,
 				46B36797171A8A34000F1B25 /* CKCakeHeaderView.m in Sources */,
+				46B1F449171B82B9003314A3 /* CKCakeEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
