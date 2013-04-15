@@ -37,6 +37,7 @@
 
 @property (nonatomic, strong) UIView *wrapper;
 @property (nonatomic, strong) NSDate *previousDate;
+@property (nonatomic, assign) BOOL isAnimating;
 
 @end
 
@@ -75,6 +76,7 @@
         //  Used for animation
         _previousDate = [NSDate date];
         _wrapper = [UIView new];
+        _isAnimating = NO;
         
     }
     return self;
@@ -118,7 +120,7 @@
     [[self layer] setShadowOpacity:0.5];
     
     [self reload];
-     
+    
     [super willMoveToSuperview:newSuperview];
 }
 
@@ -210,7 +212,7 @@
     CGPoint origin = [self frame].origin;
     frame.origin = origin;
     [self setFrame:frame];
-
+    
     
     CGFloat width = [self _cellSize].width * (CGFloat)[[self calendar] daysPerWeekUsingReferenceDate:[self date]];
     
@@ -250,6 +252,12 @@
 
 - (void)_layoutCells
 {
+    [self _layoutCellsAnimated:YES];
+}
+
+- (void)_layoutCellsAnimated:(BOOL)animated
+{
+    [self setIsAnimating:YES];
     
     NSMutableSet *cellsToRemoveAfterAnimation = [NSMutableSet setWithSet:[self usedCells]];
     NSMutableSet *cellsBeingAnimatedIntoView = [NSMutableSet new];
@@ -365,36 +373,58 @@
     
     /* Perform the animation */
     
-    [UIView
-     animateWithDuration:0.4
-     animations:^{
-     
-         for (CKCakeCell *cell in cellsBeingAnimatedIntoView) {
-             CGRect frame = [cell frame];
-             frame.origin.y -= yOffset;
-             [cell setFrame:frame];
-         }
-         for (CKCakeCell *cell in cellsToRemoveAfterAnimation) {
-             CGRect frame = [cell frame];
-             frame.origin.y -= yOffset;
-             [cell setFrame:frame];
-         }
-         
-     }
-     completion:^(BOOL finished) {
-         for (CKCakeCell *cell in cellsToRemoveAfterAnimation) {
-             if ([[self usedCells] containsObject:cell]) {
-                 [[self usedCells] removeObject:cell];
-             }
+    if (animated) {
+        [UIView
+         animateWithDuration:0.4
+         animations:^{
              
-             [cell removeFromSuperview];
+             [self _moveCellsIntoView:cellsBeingAnimatedIntoView andCellsOutOfView:cellsToRemoveAfterAnimation usingOffset:yOffset];
+             
          }
-         [cellsToRemoveAfterAnimation removeAllObjects];
-         [cellsBeingAnimatedIntoView removeAllObjects];
-     }];
+         completion:^(BOOL finished) {
+             
+             [self _cleanupCells:cellsToRemoveAfterAnimation];
+             [cellsBeingAnimatedIntoView removeAllObjects];
+             [self setIsAnimating:NO];
+         }];
+    }
+    else{
+        [self _moveCellsIntoView:cellsBeingAnimatedIntoView andCellsOutOfView:cellsToRemoveAfterAnimation usingOffset:yOffset];
+        [self _cleanupCells:cellsToRemoveAfterAnimation];
+        [cellsBeingAnimatedIntoView removeAllObjects];
+             [self setIsAnimating:NO];        
+    }
     
     
 }
+
+#pragma mark - Cell Animation
+
+- (void)_moveCellsIntoView:(NSMutableSet *)cellsBeingAnimatedIntoView andCellsOutOfView:(NSMutableSet *)cellsToRemoveAfterAnimation usingOffset:(CGFloat)yOffset
+{
+    for (CKCakeCell *cell in cellsBeingAnimatedIntoView) {
+        CGRect frame = [cell frame];
+        frame.origin.y -= yOffset;
+        [cell setFrame:frame];
+    }
+    for (CKCakeCell *cell in cellsToRemoveAfterAnimation) {
+        CGRect frame = [cell frame];
+        frame.origin.y -= yOffset;
+        [cell setFrame:frame];
+    }
+}
+
+- (void)_cleanupCells:(NSMutableSet *)cellsToCleanup
+{
+    for (CKCakeCell *cell in cellsToCleanup) {
+        [self moveCellFromUsedToSpare:cell];
+        [cell removeFromSuperview];
+    }
+    
+    [cellsToCleanup removeAllObjects];
+}
+
+#pragma mark - Cell Recycling
 
 - (CKCakeCell *)_dequeueCell
 {
@@ -522,9 +552,9 @@
     NSDate *newFirstVisible = [self _firstVisibleDateForDisplayMode:[self displayMode]];
     NSUInteger index = [[self calendar] daysFromDate:newFirstVisible toDate:date];
     [self setSelectedIndex:index];
-
+    
     [self layoutSubviews];
-
+    
 }
 
 #pragma mark - CKCakeHeaderViewDataSource
@@ -545,15 +575,15 @@
         
         NSMutableString *result = [NSMutableString new];
         
-            [result appendString:[firstVisibleDay monthAndYearOnCalendar:[self calendar]]];
-            
-            //  Show the day and year
-            if (![[self calendar] date:firstVisibleDay isSameMonthAs:lastVisibleDay]) {
-                result = [[firstVisibleDay monthAbbreviationAndYearOnCalendar:[self calendar]] mutableCopy];
-                [result appendString:@" - "];
-                [result appendString:[lastVisibleDay monthAbbreviationAndYearOnCalendar:[self calendar]]];
-            }
-
+        [result appendString:[firstVisibleDay monthAndYearOnCalendar:[self calendar]]];
+        
+        //  Show the day and year
+        if (![[self calendar] date:firstVisibleDay isSameMonthAs:lastVisibleDay]) {
+            result = [[firstVisibleDay monthAbbreviationAndYearOnCalendar:[self calendar]] mutableCopy];
+            [result appendString:@" - "];
+            [result appendString:[lastVisibleDay monthAbbreviationAndYearOnCalendar:[self calendar]]];
+        }
+        
         
         return result;
     }
@@ -581,6 +611,12 @@
 {
     NSDate *date = [self date];
     NSDate *today = [NSDate date];
+
+    /* If the cells are animating, don't do anything or we'll break the view */
+    
+    if ([self isAnimating]) {
+        return;
+    }
     
     /*
      
@@ -650,6 +686,13 @@
     
     NSDate *date = [self date];
     NSDate *today = [NSDate date];
+    
+    /* If the cells are animating, don't do anything or we'll break the view */
+    
+    if ([self isAnimating]) {
+        return;
+    }
+    
     
     /*
      
@@ -911,7 +954,7 @@
     NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
     NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
     
-    BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
+    BOOL animated = [[self calendar] date:[self date] isSameMonthAs:dateToSelect];
     
     [self setDate:dateToSelect animated:animated];
 }
