@@ -15,6 +15,8 @@
 		46A60E78171646F4002F150B /* NSCalendar+Juncture.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A60E76171646F4002F150B /* NSCalendar+Juncture.m */; };
 		46A60E7B1716639B002F150B /* NSCalendar+DateManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A60E7A1716639B002F150B /* NSCalendar+DateManipulation.m */; };
 		46A60E7C1716639B002F150B /* NSCalendar+DateManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A60E7A1716639B002F150B /* NSCalendar+DateManipulation.m */; };
+		46AB9427171CC7150082492E /* UIView+AnimatedFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AB9426171CC7150082492E /* UIView+AnimatedFrame.m */; };
+		46AB9428171CC7150082492E /* UIView+AnimatedFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AB9426171CC7150082492E /* UIView+AnimatedFrame.m */; };
 		46B1F448171B82B9003314A3 /* CKCakeEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B1F447171B82B9003314A3 /* CKCakeEvent.m */; };
 		46B1F449171B82B9003314A3 /* CKCakeEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B1F447171B82B9003314A3 /* CKCakeEvent.m */; };
 		46B1F450171BAD0D003314A3 /* MBPolygonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B1F44F171BAD0D003314A3 /* MBPolygonView.m */; };
@@ -79,6 +81,8 @@
 		46A60E76171646F4002F150B /* NSCalendar+Juncture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Juncture.m"; sourceTree = "<group>"; };
 		46A60E791716639B002F150B /* NSCalendar+DateManipulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+DateManipulation.h"; sourceTree = "<group>"; };
 		46A60E7A1716639B002F150B /* NSCalendar+DateManipulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+DateManipulation.m"; sourceTree = "<group>"; };
+		46AB9425171CC7150082492E /* UIView+AnimatedFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AnimatedFrame.h"; sourceTree = "<group>"; };
+		46AB9426171CC7150082492E /* UIView+AnimatedFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AnimatedFrame.m"; sourceTree = "<group>"; };
 		46B1F446171B82B9003314A3 /* CKCakeEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeEvent.h; sourceTree = "<group>"; };
 		46B1F447171B82B9003314A3 /* CKCakeEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCakeEvent.m; sourceTree = "<group>"; };
 		46B1F44E171BAD0D003314A3 /* MBPolygonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPolygonView.h; sourceTree = "<group>"; };
@@ -220,6 +224,8 @@
 			children = (
 				46F1BC6F1718853100F8356F /* UIView+Border.h */,
 				46F1BC701718853100F8356F /* UIView+Border.m */,
+				46AB9425171CC7150082492E /* UIView+AnimatedFrame.h */,
+				46AB9426171CC7150082492E /* UIView+AnimatedFrame.m */,
 			);
 			name = UIView;
 			sourceTree = "<group>";
@@ -493,6 +499,7 @@
 				46B1F448171B82B9003314A3 /* CKCakeEvent.m in Sources */,
 				46B1F456171BC71F003314A3 /* CKCakeViewController.m in Sources */,
 				46B1F451171BADA7003314A3 /* MBPolygonView.m in Sources */,
+				46AB9427171CC7150082492E /* UIView+AnimatedFrame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,6 +525,7 @@
 				46B1F449171B82B9003314A3 /* CKCakeEvent.m in Sources */,
 				46B1F450171BAD0D003314A3 /* MBPolygonView.m in Sources */,
 				46B1F455171BC710003314A3 /* CKCakeViewController.m in Sources */,
+				46AB9428171CC7150082492E /* UIView+AnimatedFrame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
