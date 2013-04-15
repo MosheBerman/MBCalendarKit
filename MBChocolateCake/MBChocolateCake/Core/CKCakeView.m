@@ -8,7 +8,7 @@
 
 #import "CKCakeView.h"
 
-//  Cells
+//  Auxiliary Views
 #import "CKCakeHeaderView.h"
 #import "CKCakeCell.h"
 
@@ -35,9 +35,8 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
-@property (nonatomic, strong) UIView *cellWrapper;
-@property (nonatomic, strong) UIView *cellPanel1;
-@property (nonatomic, strong) UIView *cellPanel2;
+@property (nonatomic, strong) UIView *wrapper;
+@property (nonatomic, strong) NSDate *previousDate;
 
 @end
 
@@ -70,13 +69,13 @@
         [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
         [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"noDataCell"];
         
-        //  Event date
+        //  Events for selected date
         _events = [NSMutableArray new];
         
-        //  Cell animation panels
-        _cellWrapper = [UIView new];
-        _cellPanel1 = [UIView new];
-        _cellPanel2 = [UIView new];
+        //  Used for animation
+        _previousDate = [NSDate date];
+        _wrapper = [UIView new];
+        
     }
     return self;
 }
@@ -217,6 +216,12 @@
     
     CGRect headerFrame = CGRectMake(0, 0, width, 44);
     
+    /* Install a wrapper */
+    
+    [self addSubview:[self wrapper]];
+    [[self wrapper] setFrame:[self bounds]];
+    [[self wrapper] setClipsToBounds:YES];
+    
     /* Install the header */
     
     CKCakeHeaderView *header = [self headerView];
@@ -224,7 +229,7 @@
     [header setDelegate:self];
     [header setDataSource:self];
     [header layoutSubviews];
-    [self addSubview:[self headerView]];
+    [[self wrapper] addSubview:[self headerView]];
     
     /* Show the cells */
     
@@ -246,13 +251,26 @@
 - (void)_layoutCells
 {
     
-    for (CKCakeCell *cell in [self usedCells]) {
-        [[self spareCells] addObject:cell];
-        [cell removeFromSuperview];
+    NSMutableSet *cellsToRemoveAfterAnimation = [NSMutableSet setWithSet:[self usedCells]];
+    NSMutableSet *cellsBeingAnimatedIntoView = [NSMutableSet new];
+    
+    /* Calculate the pre-animation offset */
+    
+    CGFloat yOffset = 0;
+    
+    BOOL isDifferentMonth = ![[self calendar] date:[self date] isSameMonthAs:[self previousDate]];
+    BOOL isNextMonth = isDifferentMonth && ([[self date] timeIntervalSinceDate:[self previousDate]] > 0);
+    BOOL isPreviousMonth = isDifferentMonth && (!isNextMonth);
+    
+    // If the next month is about to be shown, we want to add the new cells at the bottom of the calendar
+    if (isNextMonth) {
+        yOffset = [self _rectForCellsForDisplayMode:[self displayMode]].size.height - [self _cellSize].height;
     }
     
-    for (CKCakeCell *cell in [self spareCells]) {
-        [[self usedCells] removeObject:cell];
+    //  If we're showing the previous month, add the cells at the top
+    else if(isPreviousMonth)
+    {
+        yOffset = -([self _rectForCellsForDisplayMode:[self displayMode]].size.height) + [self _cellSize].height;
     }
     
     //  Count the rows and columns that we'll need
@@ -278,7 +296,7 @@
             
             CKCakeCell *cell = [self _dequeueCell];
             
-            CGRect frame = CGRectMake(column*width, headerOffset + (row*height), width, height);
+            CGRect frame = CGRectMake(column*width, yOffset + headerOffset + (row*height), width, height);
             [cell setFrame:frame];
             
             /* STEP 2:  We need to know some information about the cells - namely, if they're in
@@ -332,15 +350,49 @@
                 [cell setSelected];
             }
             
-            /* STEP 7: Install the cell in the view hierarchy. */
-            [self addSubview:cell];
+            /* Step 7: Prepare the cell for animation */
+            [cellsBeingAnimatedIntoView addObject:cell];
             
-            /* STEP 8: Move to the next date before we continue iterating. */
+            /* STEP 8: Install the cell in the view hierarchy. */
+            [[self wrapper] insertSubview:cell belowSubview:[self headerView]];
+            
+            /* STEP 9: Move to the next date before we continue iterating. */
             
             workingDate = [[self calendar] dateByAddingDays:1 toDate:workingDate];
             cellIndex++;
         }
     }
+    
+    /* Perform the animation */
+    
+    [UIView
+     animateWithDuration:0.4
+     animations:^{
+     
+         for (CKCakeCell *cell in cellsBeingAnimatedIntoView) {
+             CGRect frame = [cell frame];
+             frame.origin.y -= yOffset;
+             [cell setFrame:frame];
+         }
+         for (CKCakeCell *cell in cellsToRemoveAfterAnimation) {
+             CGRect frame = [cell frame];
+             frame.origin.y -= yOffset;
+             [cell setFrame:frame];
+         }
+         
+     }
+     completion:^(BOOL finished) {
+         for (CKCakeCell *cell in cellsToRemoveAfterAnimation) {
+             if ([[self usedCells] containsObject:cell]) {
+                 [[self usedCells] removeObject:cell];
+             }
+             
+             [cell removeFromSuperview];
+         }
+         [cellsToRemoveAfterAnimation removeAllObjects];
+         [cellsBeingAnimatedIntoView removeAllObjects];
+     }];
+    
     
 }
 
@@ -352,16 +404,31 @@
         cell = [[CKCakeCell alloc] initWithSize:[self _cellSize]];
     }
     
+    [self moveCellFromSpareToUsed:cell];
+    
+    [cell prepareForReuse];
+    
+    return cell;
+}
+
+- (void)moveCellFromSpareToUsed:(CKCakeCell *)cell
+{
     //  Move the used cells to the appropriate set
     [[self usedCells] addObject:cell];
     
     if ([[self spareCells] containsObject:cell]) {
         [[self spareCells] removeObject:cell];
     }
+}
+
+- (void)moveCellFromUsedToSpare:(CKCakeCell *)cell
+{
+    //  Move the used cells to the appropriate set
+    [[self spareCells] addObject:cell];
     
-    [cell prepareForReuse];
-    
-    return cell;
+    if ([[self usedCells] containsObject:cell]) {
+        [[self usedCells] removeObject:cell];
+    }
 }
 
 
@@ -439,6 +506,7 @@
         [[self delegate] cakeView:self willSelectDate:date];
     }
     
+    _previousDate = _date;
     _date = date;
     
     if ([[self delegate] respondsToSelector:@selector(cakeView:didSelectDate:)]) {
@@ -537,9 +605,6 @@
             NSUInteger distance = [[self calendar] daysFromDate:date toDate:today];
             date = [[self calendar] dateByAddingDays:distance toDate:date];
         }
-        
-        //apply the new date
-        [self setDate:date animated:YES];
     }
     
     /*
