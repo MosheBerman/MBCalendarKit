@@ -51,6 +51,9 @@
         _columnLabels = [NSMutableArray new];
         
         _columnTitleHeight = 10;
+        
+        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
+        [self addGestureRecognizer:_tapGesture];
     }
     return self;
 }
@@ -173,14 +176,21 @@
 
 #pragma mark - Touch Handling
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)tapHandler:(UITapGestureRecognizer *)gesture
 {
-    UITouch *t = [touches anyObject];
     
-    if (CGRectContainsPoint([[self forwardButton] frame], [t locationInView:self])) {
+    CGPoint location = [gesture locationInView:self];
+    
+    if ([gesture state] != UIGestureRecognizerStateEnded) {
+        return;
+    }
+    
+    if (CGRectContainsPoint([[self forwardButton] frame], location))\
+    {
         [self forwardButtonTapped];
     }
-    else if(CGRectContainsPoint([[self backwardButton] frame], [t locationInView:self]))
+    
+    else if(CGRectContainsPoint([[self backwardButton] frame],location))
     {
         [self backwardButtonTapped];
     }

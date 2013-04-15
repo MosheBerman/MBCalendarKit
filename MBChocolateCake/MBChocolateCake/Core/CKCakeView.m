@@ -32,6 +32,9 @@
 //  The index of the highlighted cell
 @property (nonatomic, assign) NSUInteger selectedIndex;
 
+@property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
+@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
+
 @end
 
 @implementation CKCakeView
@@ -65,6 +68,12 @@
         
         //  Event date
         _events = [NSMutableArray new];
+        
+        _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panHandler:)];
+        [self addGestureRecognizer:_panGesture];
+        
+        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
+        [self addGestureRecognizer:_tapGesture];
     }
     return self;
 }
@@ -181,7 +190,7 @@
     [self setFrame:frame];
     
     CGFloat width = [self _cellSize].width * (CGFloat)[[self calendar] daysPerWeekUsingReferenceDate:[self date]];
-        
+    
     CGRect headerFrame = CGRectMake(0, 0, width, 44);
     
     /* Install the header */
@@ -196,7 +205,7 @@
     /* Show the cells */
     
     [self _layoutCellsAnimated:NO];
-
+    
     /* Set up the table */
     
     CGRect tableFrame = [[self superview] frame];
@@ -250,8 +259,8 @@
     
     for (NSUInteger row = 0; row < rowCount; row++) {
         for (NSUInteger column = 0; column < columnCount; column++) {
-
-
+            
+            
             /* STEP 1: create and position the cell */
             
             CKCakeCell *cell = [self _dequeueCell];
@@ -260,8 +269,8 @@
             [cell setFrame:frame];
             
             /* STEP 2:  We need to know some information about the cells - namely, if they're in
-                        the same month as the selected date and if any of them represent the system's
-                        value representing "today".
+             the same month as the selected date and if any of them represent the system's
+             value representing "today".
              */
             
             BOOL cellRepresentsToday = [[self calendar] date:workingDate isSameDayAs:[NSDate date]];
@@ -269,10 +278,10 @@
             
             /* STEP 3:  Here we style the cells accordingly.
              
-                        If the cell represents "today" then select it, and set
-                        the selectedIndex.
+             If the cell represents "today" then select it, and set
+             the selectedIndex.
              
-                        If the cell is part of another month, gray it out.
+             If the cell is part of another month, gray it out.
              */
             
             if (cellRepresentsToday) {
@@ -290,7 +299,7 @@
             NSUInteger day = [[self calendar] daysInDate:workingDate];
             [cell setNumber:@(day)];
             
-        
+            
             /* STEP 5: Show event dots */
             
             if([[self dataSource] respondsToSelector:@selector(cakeView:eventsForDate:)])
@@ -353,7 +362,7 @@
     
     _calendar = calendar;
     [_calendar setLocale:_locale];
-
+    
     [self layoutSubviews];
 }
 
@@ -408,7 +417,7 @@
 
 - (void)setDate:(NSDate *)date animated:(BOOL)animated
 {
-
+    
     if (!date) {
         date = [NSDate date];
     }
@@ -485,7 +494,7 @@
         else
         {
             [result appendString:[firstVisibleDay monthAndDayAndYearOnCalendar:[self calendar]]];
-            [result appendString:@" - "];            
+            [result appendString:@" - "];
             [result appendString:[lastVisibleDay monthAndDayAndYearOnCalendar:[self calendar]]];
         }
         
@@ -515,7 +524,7 @@
 {
     NSDate *date = [self date];
     NSDate *today = [NSDate date];
-   
+    
     /*
      
      Moving forward or backwards for month mode
@@ -525,12 +534,12 @@
      highlight that day instead.
      
      */
-
+    
     
     if ([self displayMode] == CKCakeViewModeMonth) {
         
         NSUInteger day = [[self calendar] daysInDate:date];
-
+        
         date = [[self calendar] dateByAddingMonths:1 toDate:date];              //  Add a month
         date = [[self calendar] dateBySubtractingDays:day-1 fromDate:date];     //  Go to the first of the month
         
@@ -544,10 +553,10 @@
         [self setDate:date animated:YES];
     }
     
-    /* 
+    /*
      
-     For week mode, we move ahead by a week, then jump to 
-     the first day of the week. If the newly visible week 
+     For week mode, we move ahead by a week, then jump to
+     the first day of the week. If the newly visible week
      contains today, we set today as the active date.
      
      */
@@ -556,7 +565,7 @@
     {
         
         date = [[self calendar] dateByAddingWeeks:1 toDate:date];               //  Add a week
-
+        
         NSUInteger dayOfWeek = [[self calendar] weekdayInDate:date];
         date = [[self calendar] dateBySubtractingDays:dayOfWeek-1 fromDate:date];   //  Jump to sunday
         
@@ -565,11 +574,11 @@
             NSUInteger distance = [[self calendar] daysFromDate:date toDate:today];
             date = [[self calendar] dateByAddingDays:distance toDate:date];
         }
-
+        
     }
     
     /*
-    
+     
      In day mode, simply move ahead by one day.
      
      */
@@ -584,7 +593,7 @@
 
 - (void)backwardTapped
 {
-
+    
     NSDate *date = [self date];
     NSDate *today = [NSDate date];
     
@@ -599,7 +608,7 @@
      */
     
     if ([self displayMode] == CKCakeViewModeMonth) {
-
+        
         NSUInteger day = [[self calendar] daysInDate:date];
         
         date = [[self calendar] dateBySubtractingMonths:1 fromDate:date];       //  Subtract a month
@@ -614,8 +623,8 @@
     
     /*
      
-     For week mode, we move backward by a week, then jump 
-     to the first day of the week. If the newly visible 
+     For week mode, we move backward by a week, then jump
+     to the first day of the week. If the newly visible
      week contains today, we set today as the active date.
      
      */
@@ -689,12 +698,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger count = [[self events] count];
-
+    
     if (count == 0) {
         UITableViewCell *cell = [[self table] dequeueReusableCellWithIdentifier:@"noDataCell"];
         [[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
         [[cell textLabel] setTextColor:[UIColor colorWithWhite:0.2 alpha:0.8]];
-
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
         if ([indexPath row] == 1) {
             [[cell textLabel] setText:NSLocalizedString(@"No Events", @"A label for a table with no events.")];
         }
@@ -718,6 +728,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if ([[self events] count] == 0) {
+        return;
+    }
+    
     if ([[self delegate] respondsToSelector:@selector(cakeView:didSelectEvent:)]) {
         [[self delegate] cakeView:self didSelectEvent:[self events][[indexPath row]]];
     }
@@ -797,25 +812,30 @@
 
 #pragma mark - Touch Handling
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)panHandler:(UIPanGestureRecognizer *)gesture
 {
-    UITouch *t = [touches anyObject];
+    CGPoint point = [gesture locationInView:self];
     
-    CGPoint p = [t locationInView:self];
+    UIGestureRecognizerState state = [gesture state];
     
-    [self pointInside:p withEvent:event];
-}
-
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
-{
+    if (state == UIGestureRecognizerStateCancelled)
+    {
+        return;
+    }
+    if (state == UIGestureRecognizerStateEnded)
+    {
+        
+        NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
+        NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
+        
+        BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
+        
+        [self setDate:dateToSelect animated:animated];
+        return;
+    }
     
-    CGRect bounds = [self bounds];
-    bounds.origin.y += [self headerView].frame.size.height;
-    bounds.size.height -= [self headerView].frame.size.height;
+    // Highlight and select the appropriate cell
     
-    
-    /* Highlight and select the appropriate cell */
-     
     NSUInteger index = [self selectedIndex];
     
     for (CKCakeCell *cell in [self usedCells]) {
@@ -832,28 +852,45 @@
     
     [self setSelectedIndex:index];
     
-    return [super pointInside:point withEvent:event];
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)tapHandler:(UITapGestureRecognizer *)gesture
 {
+    CGPoint point = [gesture locationInView:self];
     
-    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
-    NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
+    if (CGRectContainsPoint([[self headerView] frame], point)) {
+        [[self headerView] pointInside:point withEvent:nil];
+        return;
+    }
     
-    BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
+    UIGestureRecognizerState state = [gesture state];
     
-    [self setDate:dateToSelect animated:animated];
-}
-
-// If a touch was cancelled, reset the index
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
-    
-    NSUInteger index = [[self calendar] daysFromDate:firstDate toDate:[self date]];
-    
-    [self setSelectedIndex:index];
+    if (state == UIGestureRecognizerStateEnded)
+    {
+        
+        // Highlight and select the appropriate cell
+        
+        NSUInteger index = [self selectedIndex];
+        
+        for (CKCakeCell *cell in [self usedCells]) {
+            CGRect rect = [cell frame];
+            if (CGRectContainsPoint(rect, point)) {
+                [cell setSelected];
+                index = [cell index];
+                break;
+            }
+        }
+        
+        [self setSelectedIndex:index];
+        
+        NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
+        NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
+        
+        BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
+        
+        [self setDate:dateToSelect animated:animated];
+        
+    }
 }
 
 @end

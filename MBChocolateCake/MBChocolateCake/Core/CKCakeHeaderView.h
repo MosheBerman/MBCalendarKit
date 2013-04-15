@@ -31,5 +31,7 @@
 @property (nonatomic, assign) id<CKCakeHeaderViewDataSource> dataSource;
 @property (nonatomic, assign) id<CKCakeHeaderViewDelegate> delegate;
 
+@property (nonatomic, strong, readonly) UIGestureRecognizer *tapGesture;
+
 
 @end
