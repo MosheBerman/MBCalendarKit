@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CKViewController : UIViewController
+@interface CKCakeViewController : UIViewController
 
 @end

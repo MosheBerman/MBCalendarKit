@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
-#import "CKViewController.h"
+#import "CKCakeViewController.h"
 
 #import "CKCakeView.h"
 
@@ -14,7 +14,7 @@
 
 #import "NSCalendarCategories.h"
 
-@interface CKViewController () <CKCakeViewDataSource, CKCakeViewDelegate>
+@interface CKCakeViewController () <CKCakeViewDataSource, CKCakeViewDelegate>
 
 @property (nonatomic, strong) CKCakeView *calendarView;
 @property (nonatomic, strong) UISegmentedControl *modePicker;
@@ -23,19 +23,28 @@
 
 @end
 
-@implementation CKViewController 
+@implementation CKCakeViewController 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    /* Orange bg for sanity */
+    [self setTitle:NSLocalizedString(@"Calendar", @"A title for the calendar view.")];
     
-    [[self view] setBackgroundColor:[UIColor orangeColor]];
+    /* Prepare the events array */
+    
+    [self setEvents:[NSMutableArray new]];
+    
+    /* Make a dummy event */
+    
+    NSDate *date = [NSDate date];
+    CKCakeEvent *event = [[CKCakeEvent alloc] init];
+    [event setTitle:@"First event"];
+    [event setDate:date];
+    [[self events] addObject:event];
     
     /* Calendar View */
-    
 
     [self setCalendarView:[CKCakeView new]];
     [[self calendarView] setDataSource:self];
@@ -68,18 +77,7 @@
     [self setToolbarItems:@[
      todayButton, space, item, space, space] animated:NO];
     [[self navigationController] setToolbarHidden:NO animated:NO];
-    
-    /* Prepare the events array */
-    
-    [self setEvents:[NSMutableArray new]];
-    
-    /* Make a dummy event */
-    
-    NSDate *date = [NSDate date];
-    CKCakeEvent *event = [[CKCakeEvent alloc] init];
-    [event setTitle:@"First event"];
-    [event setDate:date];
-    [[self events] addObject:event];
+
 }
 
 - (void)didReceiveMemoryWarning
