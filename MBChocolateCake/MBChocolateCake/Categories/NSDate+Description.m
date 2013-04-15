@@ -42,6 +42,15 @@
     return [f stringFromDate:self];
 }
 
+- (NSString *)monthAbbreviationAndYearOnCalendar:(NSCalendar *)calendar
+{
+    NSDateFormatter *f = [NSDateFormatter new];
+    [f setCalendar:calendar];
+    [f setDateFormat:@"MMM yyyy"];
+    return [f stringFromDate:self];
+}
+
+
 - (NSString *)monthAbbreviationOnCalendar:(NSCalendar *)calendar
 {
     NSDateFormatter *f = [NSDateFormatter new];

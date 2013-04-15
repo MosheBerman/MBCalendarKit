@@ -21,6 +21,9 @@
 //  Prints out "January 2012", "February 2012", etc for Gregorian dates.
 - (NSString *)monthAndYearOnCalendar:(NSCalendar *)calendar;
 
+//  Prints out "Jan 2012", "Feb 2012", etc for Gregorian dates.
+- (NSString *)monthAbbreviationAndYearOnCalendar:(NSCalendar *)calendar;
+
 //  Prints out "January 3", "February 28", etc for Gregorian dates.
 - (NSString *)monthAndDayOnCalendar:(NSCalendar *)calendar;
 
