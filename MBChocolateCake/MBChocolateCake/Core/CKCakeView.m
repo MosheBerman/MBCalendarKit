@@ -83,8 +83,17 @@
 - (void)reload
 {
     if ([[self dataSource] respondsToSelector:@selector(cakeView:eventsForDate:)]) {
-        [self setEvents:[[self dataSource] cakeView:self eventsForDate:[self date]]];
+        NSArray *sortedArray = [[[self dataSource] cakeView:self eventsForDate:[self date]] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            NSDate *d1 = [obj1 date];
+            NSDate *d2 = [obj2 date];
+            
+            return [d1 compare:d2];
+        }];
+        
+        [self setEvents:sortedArray];
     }
+    
+    [[self table] reloadData];
     
     [self layoutSubviews];
 }
@@ -97,7 +106,6 @@
     [[self layer] setShadowOffset:CGSizeMake(0, 3)];
     [[self layer] setShadowOpacity:0.5];
     
-    [self layoutSubviews];
     [super willMoveToSuperview:newSuperview];
 }
 
@@ -152,7 +160,6 @@
         rect = CGRectMake(0, 0, width, height);
     }
     
-
     return rect;
 }
 
@@ -417,7 +424,8 @@
     }
     
     if ([[self dataSource] respondsToSelector:@selector(cakeView:eventsForDate:)]) {
-        [self setEvents:[[self dataSource] cakeView:self eventsForDate:[self date]]];
+        [self setEvents:[[self dataSource] cakeView:self eventsForDate:date]];
+        [[self table] reloadData];
     }
     
     //  Update the index
@@ -614,8 +622,6 @@
     
     else if([self displayMode] == CKCakeViewModeWeek)
     {
-        
-        
         date = [[self calendar] dateBySubtractingWeeks:1 fromDate:date];               //  Add a week
         
         NSUInteger dayOfWeek = [[self calendar] weekdayInDate:date];
@@ -655,8 +661,7 @@
         return [[self calendar] weeksPerMonthUsingReferenceDate:[self date]];
     }
     
-    return 0
-;
+    return 0;
 }
 
 - (NSUInteger)_columnCountForDisplayMode:(NSUInteger)displayMode
@@ -672,32 +677,39 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([[self dataSource] respondsToSelector:@selector(cakeView:eventsForDate:)]) {
-        return [[[self dataSource] cakeView:self eventsForDate:[self date]] count];
+    NSInteger count = [[self events] count];
+    
+    if (count == 0) {
+        count = 2;
     }
     
-    return 2;
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUInteger count = 0;
-    
-    if ([[self dataSource] respondsToSelector:@selector(cakeView:eventsForDate:)]) {
-         count = [[[self dataSource] cakeView:self eventsForDate:[self date]] count];
-    }
+    NSUInteger count = [[self events] count];
 
     if (count == 0) {
         UITableViewCell *cell = [[self table] dequeueReusableCellWithIdentifier:@"noDataCell"];
         [[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
-        [[cell textLabel] setTextColor:[UIColor colorWithWhite:0.8 alpha:0.2]];
-        [[cell textLabel] setText:NSLocalizedString(@"No Events", @"A label for a table with no events.")];
+        [[cell textLabel] setTextColor:[UIColor colorWithWhite:0.2 alpha:0.8]];
+
+        if ([indexPath row] == 1) {
+            [[cell textLabel] setText:NSLocalizedString(@"No Events", @"A label for a table with no events.")];
+        }
+        else
+        {
+            [[cell textLabel] setText:@""];
+        }
         return cell;
     }
     
     UITableViewCell *cell = [[self table] dequeueReusableCellWithIdentifier:@"cell"];
     
     CKCakeEvent *event = [[self events] objectAtIndex:[indexPath row]];
+    
+    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     
     [[cell textLabel] setText:[event title]];
     
@@ -707,7 +719,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[self delegate] respondsToSelector:@selector(cakeView:didSelectEvent:)]) {
-        [self delegate] cakeView:self didSelectEvent:[self events][[indexPath row]];
+        [[self delegate] cakeView:self didSelectEvent:[self events][[indexPath row]]];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -801,9 +813,6 @@
     bounds.origin.y += [self headerView].frame.size.height;
     bounds.size.height -= [self headerView].frame.size.height;
     
-    if (!CGRectContainsPoint(bounds, point)) {
-        return YES;
-    }
     
     /* Highlight and select the appropriate cell */
      
