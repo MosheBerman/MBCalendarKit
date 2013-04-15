@@ -21,13 +21,11 @@
 
 @protocol CKCakeViewDelegate <NSObject>
 
-// 
+// Called before/after the selected date changes
 - (void)cakeView:(CKCakeView *)cakeView willSelectDate:(NSDate *)date;
-
-//  When the date changes
 - (void)cakeView:(CKCakeView *)cakeView didSelectDate:(NSDate *)date;
 
-//  A row is selected in the events table.
+//  A row is selected in the events table. (Use to push a detail view or whatever.)
 - (void)cakeView:(CKCakeView *)cakeView didSelectEvent:(CKCakeEvent *)event;
 
 @end
@@ -42,8 +40,10 @@
 
 @property (nonatomic, strong) NSDate *date;
 
-- (id)initWithMode:(CKCakeDisplayMode)cakeDisplayMode;
+@property (nonatomic, assign) id<CKCakeViewDataSource> dataSource;
+@property (nonatomic, assign) id<CKCakeViewDelegate> delegate;
 
+- (id)initWithMode:(CKCakeDisplayMode)cakeDisplayMode;
 - (void)setDisplayMode:(CKCakeDisplayMode)displayMode animated:(BOOL)animated;
 
 @end
