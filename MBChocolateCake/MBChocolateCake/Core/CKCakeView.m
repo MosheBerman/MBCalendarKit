@@ -187,6 +187,7 @@
     CGPoint origin = [self frame].origin;
     frame.origin = origin;
     [self setFrame:frame];
+
     
     CGFloat width = [self _cellSize].width * (CGFloat)[[self calendar] daysPerWeekUsingReferenceDate:[self date]];
     
@@ -203,7 +204,7 @@
     
     /* Show the cells */
     
-    [self _layoutCellsAnimated:NO];
+    [self _layoutCells];
     
     /* Set up the table */
     
@@ -216,18 +217,7 @@
     [[self superview] insertSubview:[self table]  belowSubview:self];
 }
 
-- (void)_layoutCellsAnimated:(BOOL)animated
-{
-    if (animated) {
-        [UIView animateWithDuration:0.4 animations:^{
-            [self _layoutCells];
-        }];
-    }
-    else
-    {
-        [self _layoutCells];
-    }
-}
+
 
 - (void)_layoutCells
 {
