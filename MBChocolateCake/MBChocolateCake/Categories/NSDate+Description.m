@@ -54,7 +54,7 @@
 {
     NSDateFormatter *f = [NSDateFormatter new];
     [f setCalendar:calendar];
-    [f setDateFormat:@"MMM dd"];
+    [f setDateFormat:@"MMM d"];
     return [f stringFromDate:self];
 }
 
@@ -62,7 +62,7 @@
 {
     NSDateFormatter *f = [NSDateFormatter new];
     [f setCalendar:calendar];
-    [f setDateFormat:@"dd"];
+    [f setDateFormat:@"d"];
     return [f stringFromDate:self];
 }
 
@@ -70,7 +70,7 @@
 {
     NSDateFormatter *f = [NSDateFormatter new];
     [f setCalendar:calendar];
-    [f setDateFormat:@"MMM dd, yyyy"];
+    [f setDateFormat:@"MMM d, yyyy"];
     return [f stringFromDate:self];
 }
 
@@ -79,7 +79,7 @@
 {
     NSDateFormatter *f = [NSDateFormatter new];
     [f setCalendar:calendar];
-    [f setDateFormat:@"dd, yyyy"];
+    [f setDateFormat:@"d, yyyy"];
     return [f stringFromDate:self];
 }
 
