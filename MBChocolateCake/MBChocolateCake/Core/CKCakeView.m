@@ -704,6 +704,15 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([[self delegate] respondsToSelector:@selector(cakeView:didSelectEvent:)]) {
+        [self delegate] cakeView:self didSelectEvent:[self events][[indexPath row]];
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 #pragma mark - Date Calculations
 
 - (NSDate *)_firstVisibleDateForDisplayMode:(CKCakeDisplayMode)displayMode
