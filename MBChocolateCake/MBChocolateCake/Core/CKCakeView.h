@@ -10,8 +10,10 @@
 
 #import "CKCakeViewModes.h"
 
+#import "CKCakeEvent.h"
+
 @class CKCakeView;
-@class CKCakeEvent;
+
 
 @protocol CKCakeViewDataSource <NSObject>
 
@@ -20,6 +22,8 @@
 @end
 
 @protocol CKCakeViewDelegate <NSObject>
+
+@optional
 
 // Called before/after the selected date changes
 - (void)cakeView:(CKCakeView *)cakeView willSelectDate:(NSDate *)date;

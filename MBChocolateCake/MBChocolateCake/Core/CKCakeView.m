@@ -27,6 +27,7 @@
 @property (nonatomic, strong) CKCakeHeaderView *headerView;
 
 @property (nonatomic, strong) UITableView *table;
+@property (nonatomic, strong) NSArray *events;
 
 //  The index of the highlighted cell
 @property (nonatomic, assign) NSUInteger selectedIndex;
@@ -53,9 +54,17 @@
         _usedCells = [NSMutableSet new];
         _selectedIndex = [_calendar daysFromDate:[self _firstVisibleDateForDisplayMode:_displayMode] toDate:_date];
         _headerView = [CKCakeHeaderView new];
+        
+        //  Accessory Table
         _table = [UITableView new];
         [_table setDelegate:self];
         [_table setDataSource:self];
+        
+        [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+        [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"noDataCell"];
+        
+        //  Event date
+        _events = [NSMutableArray new];
     }
     return self;
 }
@@ -67,6 +76,17 @@
         _displayMode = cakeDisplayMode;
     }
     return self;
+}
+
+#pragma mark - Reload
+
+- (void)reload
+{
+    if ([[self dataSource] respondsToSelector:@selector(cakeView:eventsForDate:)]) {
+        [self setEvents:[[self dataSource] cakeView:self eventsForDate:[self date]]];
+    }
+    
+    [self layoutSubviews];
 }
 
 #pragma mark - View Hierarchy
@@ -263,17 +283,30 @@
             NSUInteger day = [[self calendar] daysInDate:workingDate];
             [cell setNumber:@(day)];
             
-            /* STEP 5: Set the index */
+        
+            /* STEP 5: Show event dots */
+            
+            if([[self dataSource] respondsToSelector:@selector(cakeView:eventsForDate:)])
+            {
+                BOOL showDot = ([[[self dataSource] cakeView:self eventsForDate:workingDate] count] > 0);
+                [cell setShowDot:showDot];
+            }
+            else
+            {
+                [cell setShowDot:NO];
+            }
+            
+            /* STEP 6: Set the index */
             [cell setIndex:cellIndex];
             
             if (cellIndex == [self selectedIndex]) {
                 [cell setSelected];
             }
             
-            /* STEP 6: Install the cell in the view hierarchy. */
+            /* STEP 7: Install the cell in the view hierarchy. */
             [self addSubview:cell];
             
-            /* STEP 7: Move to the next date before we continue iterating. */
+            /* STEP 8: Move to the next date before we continue iterating. */
             
             workingDate = [[self calendar] dateByAddingDays:1 toDate:workingDate];
             cellIndex++;
@@ -373,7 +406,19 @@
         date = [NSDate date];
     }
     
+    if ([[self delegate] respondsToSelector:@selector(cakeView:willSelectDate:)]) {
+        [[self delegate] cakeView:self willSelectDate:date];
+    }
+    
     _date = date;
+    
+    if ([[self delegate] respondsToSelector:@selector(cakeView:didSelectDate:)]) {
+        [[self delegate] cakeView:self didSelectDate:date];
+    }
+    
+    if ([[self dataSource] respondsToSelector:@selector(cakeView:eventsForDate:)]) {
+        [self setEvents:[[self dataSource] cakeView:self eventsForDate:[self date]]];
+    }
     
     //  Update the index
     NSDate *newFirstVisible = [self _firstVisibleDateForDisplayMode:[self displayMode]];
@@ -391,8 +436,6 @@
     {
         [self layoutSubviews];
     }
-    
-    //  TODO: Call delegate "didSelectDate:"
 }
 
 #pragma mark - CKCakeHeaderViewDataSource
@@ -459,7 +502,6 @@
 }
 
 #pragma mark - CKCakeHeaderViewDelegate
-
 
 - (void)forwardTapped
 {
@@ -630,12 +672,36 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    if ([[self dataSource] respondsToSelector:@selector(cakeView:eventsForDate:)]) {
+        return [[[self dataSource] cakeView:self eventsForDate:[self date]] count];
+    }
+    
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [UITableViewCell new];
+    NSUInteger count = 0;
+    
+    if ([[self dataSource] respondsToSelector:@selector(cakeView:eventsForDate:)]) {
+         count = [[[self dataSource] cakeView:self eventsForDate:[self date]] count];
+    }
+
+    if (count == 0) {
+        UITableViewCell *cell = [[self table] dequeueReusableCellWithIdentifier:@"noDataCell"];
+        [[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
+        [[cell textLabel] setTextColor:[UIColor colorWithWhite:0.8 alpha:0.2]];
+        [[cell textLabel] setText:NSLocalizedString(@"No Events", @"A label for a table with no events.")];
+        return cell;
+    }
+    
+    UITableViewCell *cell = [[self table] dequeueReusableCellWithIdentifier:@"cell"];
+    
+    CKCakeEvent *event = [[self events] objectAtIndex:[indexPath row]];
+    
+    [[cell textLabel] setText:[event title]];
+    
+    return cell;
 }
 
 #pragma mark - Date Calculations
