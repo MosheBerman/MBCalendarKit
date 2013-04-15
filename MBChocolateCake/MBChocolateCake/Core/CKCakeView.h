@@ -10,6 +10,28 @@
 
 #import "CKCakeViewModes.h"
 
+@class CKCakeView;
+@class CKCakeEvent;
+
+@protocol CKCakeViewDataSource <NSObject>
+
+- (NSArray *)cakeView:(CKCakeView *)cakeView eventsForDate:(NSDate *)date;
+
+@end
+
+@protocol CKCakeViewDelegate <NSObject>
+
+// 
+- (void)cakeView:(CKCakeView *)cakeView willSelectDate:(NSDate *)date;
+
+//  When the date changes
+- (void)cakeView:(CKCakeView *)cakeView didSelectDate:(NSDate *)date;
+
+//  A row is selected in the events table.
+- (void)cakeView:(CKCakeView *)cakeView didSelectEvent:(CKCakeEvent *)event;
+
+@end
+
 @interface CKCakeView : UIView
 
 @property (nonatomic, assign) CKCakeDisplayMode displayMode;

@@ -15,7 +15,9 @@
 #import "NSCalendarCategories.h"
 #import "NSDate+Description.h"
 
-@interface CKCakeView () <CKCakeHeaderViewDataSource, CKCakeHeaderViewDelegate>
+#import <QuartzCore/QuartzCore.h>
+
+@interface CKCakeView () <CKCakeHeaderViewDataSource, CKCakeHeaderViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableSet* spareCells;
 @property (nonatomic, strong) NSMutableSet* usedCells;
@@ -23,6 +25,8 @@
 @property (nonatomic, strong) NSDateFormatter *formatter;
 
 @property (nonatomic, strong) CKCakeHeaderView *headerView;
+
+@property (nonatomic, strong) UITableView *table;
 
 //  The index of the highlighted cell
 @property (nonatomic, assign) NSUInteger selectedIndex;
@@ -49,6 +53,9 @@
         _usedCells = [NSMutableSet new];
         _selectedIndex = [_calendar daysFromDate:[self _firstVisibleDateForDisplayMode:_displayMode] toDate:_date];
         _headerView = [CKCakeHeaderView new];
+        _table = [UITableView new];
+        [_table setDelegate:self];
+        [_table setDataSource:self];
     }
     return self;
 }
@@ -62,18 +69,14 @@
     return self;
 }
 
-#pragma mark - Reload
-
-- (void)reloadAnimated:(BOOL)animated
-{
-    [self _layoutCellsAnimated:animated];
-    [[self headerView] reload];
-}
-
 #pragma mark - View Hierarchy
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
+    [[self layer] setShadowColor:[[UIColor blackColor] CGColor]];
+    [[self layer] setShadowOffset:CGSizeMake(0, 3)];
+    [[self layer] setShadowOpacity:0.5];
+    
     [self layoutSubviews];
     [super willMoveToSuperview:newSuperview];
 }
@@ -143,7 +146,8 @@
 
 - (void)layoutSubviews
 {
-    //  Enforce view dimensions appropriate for given mode
+    /*  Enforce view dimensions appropriate for given mode */
+    
     CGRect frame = [self _rectForDisplayMode:[self displayMode]];
     CGPoint origin = [self frame].origin;
     frame.origin = origin;
@@ -152,17 +156,29 @@
     CGFloat width = [self _cellSize].width * (CGFloat)[[self calendar] daysPerWeekUsingReferenceDate:[self date]];
         
     CGRect headerFrame = CGRectMake(0, 0, width, 44);
-        
+    
+    /* Install the header */
+    
     CKCakeHeaderView *header = [self headerView];
     [header setFrame:headerFrame];
     [header setDelegate:self];
     [header setDataSource:self];
-    
-    //  Show the header
+    [header layoutSubviews];
     [self addSubview:[self headerView]];
     
-    //  Show the cells
-    [self reloadAnimated:NO];
+    /* Show the cells */
+    
+    [self _layoutCellsAnimated:NO];
+
+    /* Set up the table */
+    
+    CGRect tableFrame = [[self superview] frame];
+    tableFrame.size.height -= [self frame].size.height;
+    tableFrame.origin.y += [self frame].size.height;
+    
+    [[self table] setFrame:tableFrame];
+    
+    [[self superview] insertSubview:[self table]  belowSubview:self];
 }
 
 - (void)_layoutCellsAnimated:(BOOL)animated
@@ -298,7 +314,7 @@
     _calendar = calendar;
     [_calendar setLocale:_locale];
 
-    [self reloadAnimated:NO];
+    [self layoutSubviews];
 }
 
 - (void)setLocale:(NSLocale *)locale
@@ -310,7 +326,7 @@
     _locale = locale;
     [[self calendar] setLocale:locale];
     
-    [self reloadAnimated:NO];
+    [self layoutSubviews];
 }
 
 - (void)setTimeZone:(NSTimeZone *)timeZone
@@ -326,7 +342,7 @@
     
     [[self calendar] setTimeZone:timeZone];
     
-    [self reloadAnimated:animated];
+    [self layoutSubviews];
 }
 
 - (void)setDisplayMode:(CKCakeDisplayMode)displayMode
@@ -338,7 +354,9 @@
 {
     _displayMode = displayMode;
     
-    [self reloadAnimated:animated];
+    //  TODO: Handle selection here.
+    
+    [self layoutSubviews];
 }
 
 - (void)setDate:(NSDate *)date
@@ -360,7 +378,17 @@
     NSUInteger index = [[self calendar] daysFromDate:newFirstVisible toDate:date];
     [self setSelectedIndex:index];
     
-    [self reloadAnimated:animated];
+    if (animated) {
+        [UIView
+         animateWithDuration:0.4
+         animations:^{
+             [self layoutSubviews];
+         }];
+    }
+    else
+    {
+        [self layoutSubviews];
+    }
     
     //  TODO: Call delegate "didSelectDate:"
 }
@@ -420,7 +448,7 @@
     return [self _columnCountForDisplayMode:[self displayMode]];
 }
 
-- (NSString *)titleForColumnAtIndex:(NSUInteger)index inHeader:(CKCakeHeaderView *)header
+- (NSString *)header:(CKCakeHeaderView *)header titleForColumnAtIndex:(NSInteger)index
 {
     NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
     NSDate *columnToShow = [[self calendar] dateByAddingDays:index toDate:firstDate];
@@ -589,7 +617,23 @@
 
 - (NSUInteger)_columnCountForDisplayMode:(NSUInteger)displayMode
 {
+    if (displayMode == CKCakeViewModeDay) {
+        return 0;
+    }
+    
     return [[self calendar] daysPerWeekUsingReferenceDate:[self date]];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [UITableViewCell new];
 }
 
 #pragma mark - Date Calculations
