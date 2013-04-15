@@ -110,7 +110,7 @@
     [[self layer] setShadowOffset:CGSizeMake(0, 3)];
     [[self layer] setShadowOpacity:0.5];
     
-    [[self reload];
+    [self reload];
      
     [super willMoveToSuperview:newSuperview];
 }
