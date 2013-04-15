@@ -56,6 +56,8 @@
     //  Register for segment selection events
     [[self modePicker] addTarget:self action:@selector(modeChangedUsingControl:) forControlEvents:UIControlEventValueChanged];
     
+    [[self modePicker] setSelectedSegmentIndex:0];
+    
     /* Toolbar setup */
     
     NSString *todayTitle = NSLocalizedString(@"Today", @"A button which sets the calendar to today.");
