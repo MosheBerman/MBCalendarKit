@@ -85,6 +85,7 @@
 		46B1F44F171BAD0D003314A3 /* MBPolygonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPolygonView.m; sourceTree = "<group>"; };
 		46B1F453171BC710003314A3 /* CKCakeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeViewController.h; sourceTree = "<group>"; };
 		46B1F454171BC710003314A3 /* CKCakeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCakeViewController.m; sourceTree = "<group>"; };
+		46B1F457171BC7B3003314A3 /* ChocolateCake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChocolateCake.h; sourceTree = "<group>"; };
 		46B36788171A3C1F000F1B25 /* NSCalendar+DateComparison.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+DateComparison.h"; sourceTree = "<group>"; };
 		46B36789171A3C1F000F1B25 /* NSCalendar+DateComparison.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+DateComparison.m"; sourceTree = "<group>"; };
 		46B36790171A7E0C000F1B25 /* NSDate+Description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Description.h"; sourceTree = "<group>"; };
@@ -310,6 +311,7 @@
 		46BFBD13171603BB00D4733E /* CKCakeView */ = {
 			isa = PBXGroup;
 			children = (
+				46B1F457171BC7B3003314A3 /* ChocolateCake.h */,
 				46B1F452171BC710003314A3 /* View Controllers */,
 				46BFBD29171605C500D4733E /* CoreUI */,
 				46BFBD1B171603BB00D4733E /* Headers */,
