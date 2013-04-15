@@ -143,17 +143,16 @@
 {
     CGSize cellSize = [self _cellSize];
     
-    CGRect rect = CGRectZero;
+    CGRect rect = [[[UIApplication sharedApplication] keyWindow] bounds];
     
     if(displayMode == CKCakeViewModeDay)
     {
         //  Hide the cells entirely and only show the events table
-        rect = CGRectMake(0, 0, rect.size.width, 0);
-        rect.size.height += [[self headerView] frame].size.height;
+        rect = CGRectMake(0, 0, rect.size.width, cellSize.height);
     }
     
     //  Show one row of days for week mode
-    else if (displayMode == CKCakeViewModeWeek) {
+    if (displayMode == CKCakeViewModeWeek) {
         NSUInteger daysPerWeek = [[self calendar] daysPerWeekUsingReferenceDate:[self date]];
         rect = CGRectMake(0, 0, (CGFloat)daysPerWeek*cellSize.width, cellSize.height);
         rect.size.height += [[self headerView] frame].size.height;
