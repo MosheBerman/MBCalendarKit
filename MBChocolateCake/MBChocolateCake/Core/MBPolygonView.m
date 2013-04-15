@@ -8,6 +8,7 @@
 
 #import "MBPolygonView.h"
 #import "Math.h"
+#import "CKCakeHeaderColors.h"
 
 @interface MBPolygonView ()
     @property NSInteger numberOfSides;
@@ -81,7 +82,7 @@ float degToRad(float deg){
     // Drawing code
     
     //Create an image context
-    UIGraphicsBeginImageContext(self.frame.size);
+    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, [[UIScreen mainScreen] scale]);
     
     //Get a context
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -93,7 +94,7 @@ float degToRad(float deg){
     CGContextSaveGState(context);
     
     //Set the stroke to white
-    [[UIColor whiteColor] set];
+    [kCakeColorHeaderMonth set];
     
     //Define the number of degrees in a polygon
     const CGFloat kDegreesInPoly = 360;
@@ -136,7 +137,8 @@ float degToRad(float deg){
     }
     
     //  Render it all out
-    CGContextStrokePath(context);
+
+    CGContextFillPath(context);
     
     //Grab an image from the context
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();

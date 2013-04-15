@@ -14,6 +14,8 @@
 
 #import "CKCakeViewModes.h"
 
+#import "MBPolygonView.h"
+
 @interface CKCakeHeaderView ()
 {
     NSUInteger _columnCount;
@@ -25,8 +27,8 @@
 @property (nonatomic, strong) NSMutableArray *columnTitles;
 @property (nonatomic, strong) NSMutableArray *columnLabels;
 
-@property (nonatomic, strong) UIView *forwardButton;
-@property (nonatomic, strong) UIView *backwardButton;
+@property (nonatomic, strong) MBPolygonView *forwardButton;
+@property (nonatomic, strong) MBPolygonView *backwardButton;
 
 @end
 
@@ -47,9 +49,6 @@
         
         _columnTitles = [NSMutableArray new];
         _columnLabels = [NSMutableArray new];
-        
-        _forwardButton = [UIView new];
-        _backwardButton = [UIView new];
         
         _columnTitleHeight = 10;
     }
@@ -77,7 +76,9 @@
         upperRegionHeight = titleLabelHeight;
     }
     
-    CGRect frame = CGRectMake(0, upperRegionHeight/2 - titleLabelHeight/2, [self frame].size.width, titleLabelHeight);
+    CGFloat yOffset = upperRegionHeight/2 - titleLabelHeight/2;
+    
+    CGRect frame = CGRectMake(0, yOffset, [self frame].size.width, titleLabelHeight);
     [[self monthTitle] setFrame:frame];
     [self addSubview:[self monthTitle]];
     
@@ -87,13 +88,24 @@
     [[self monthTitle] setText:title];
     
     /* Show the forward and back buttons */
+
+        CGRect backFrame = CGRectMake(yOffset, yOffset, titleLabelHeight, titleLabelHeight);
+        CGRect forwardFrame = CGRectMake([self frame].size.width-titleLabelHeight-yOffset, yOffset, titleLabelHeight, titleLabelHeight);
     
-    CGRect backFrame = CGRectMake(0, 0, 44, 44);
-    [[self backwardButton] setFrame:backFrame];
+    if ([self forwardButton]) {
+        [[self forwardButton] removeFromSuperview];
+        [self setForwardButton:nil];
+    }
+    
+    if ([self backwardButton]) {
+        [[self backwardButton] removeFromSuperview];
+        [self setBackwardButton:nil];
+    }
+    
+    _forwardButton = [[MBPolygonView alloc] initWithFrame:forwardFrame numberOfSides:3 andRotation:90.0 andScale:10.0];
+    _backwardButton = [[MBPolygonView alloc] initWithFrame:backFrame numberOfSides:3 andRotation:30.0 andScale:10.0];
+    
     [self addSubview:[self backwardButton]];
-    
-    CGRect forwardFrame = CGRectMake([self frame].size.width-44, 0, 44, 44);
-    [[self forwardButton] setFrame:forwardFrame];
     [self addSubview:[self forwardButton]];
     
     /*  Check for a data source for the header to be installed */
