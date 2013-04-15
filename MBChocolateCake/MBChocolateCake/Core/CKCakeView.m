@@ -14,6 +14,7 @@
 
 #import "NSCalendarCategories.h"
 #import "NSDate+Description.h"
+#import "UIView+AnimatedFrame.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -206,27 +207,30 @@
 
 - (void)layoutSubviews
 {
+    [self layoutSubviewsAnimated:YES];
+}
+
+- (void)layoutSubviewsAnimated:(BOOL)animated
+{
     /*  Enforce view dimensions appropriate for given mode */
     
     CGRect frame = [self _rectForDisplayMode:[self displayMode]];
     CGPoint origin = [self frame].origin;
     frame.origin = origin;
-    [self setFrame:frame];
-    
-    
-    CGFloat width = [self _cellSize].width * (CGFloat)[[self calendar] daysPerWeekUsingReferenceDate:[self date]];
-    
-    CGRect headerFrame = CGRectMake(0, 0, width, 44);
+    [self setFrame:frame animated:animated];
     
     /* Install a wrapper */
     
     [self addSubview:[self wrapper]];
-    [[self wrapper] setFrame:[self bounds]];
+    [[self wrapper] setFrame:[self bounds] animated:animated];
     [[self wrapper] setClipsToBounds:YES];
     
     /* Install the header */
     
     CKCakeHeaderView *header = [self headerView];
+    
+    CGFloat width = [self _cellSize].width * (CGFloat)[[self calendar] daysPerWeekUsingReferenceDate:[self date]];
+    CGRect headerFrame = CGRectMake(0, 0, width, 44);
     [header setFrame:headerFrame];
     [header setDelegate:self];
     [header setDataSource:self];
@@ -243,7 +247,7 @@
     tableFrame.size.height -= [self frame].size.height;
     tableFrame.origin.y += [self frame].size.height;
     
-    [[self table] setFrame:tableFrame];
+    [[self table] setFrame:tableFrame animated:animated];
     
     [[self superview] insertSubview:[self table]  belowSubview:self];
 }
@@ -257,6 +261,11 @@
 
 - (void)_layoutCellsAnimated:(BOOL)animated
 {
+    
+    if ([self isAnimating]) {
+        return;
+    }
+    
     [self setIsAnimating:YES];
     
     NSMutableSet *cellsToRemoveAfterAnimation = [NSMutableSet setWithSet:[self usedCells]];
@@ -279,6 +288,11 @@
     else if(isPreviousMonth)
     {
         yOffset = -([self _rectForCellsForDisplayMode:[self displayMode]].size.height) + [self _cellSize].height;
+    }
+    
+    else if ([[self calendar] date:[self previousDate] isSameDayAs:[self date]])
+    {
+        yOffset = 0;
     }
     
     //  Count the rows and columns that we'll need
@@ -512,12 +526,13 @@
 - (void)setDisplayMode:(CKCakeDisplayMode)displayMode animated:(BOOL)animated
 {
     _displayMode = displayMode;
+    _previousDate = _date;
     
     //  Update the index, so that we don't lose selection between mode changes
     NSInteger newIndex = [[self calendar] daysFromDate:[self _firstVisibleDateForDisplayMode:displayMode] toDate:[self date]];
     [self setSelectedIndex:newIndex];
     
-    [self layoutSubviews];
+    [self layoutSubviewsAnimated:YES];
 }
 
 - (void)setDate:(NSDate *)date
@@ -553,7 +568,7 @@
     NSUInteger index = [[self calendar] daysFromDate:newFirstVisible toDate:date];
     [self setSelectedIndex:index];
     
-    [self layoutSubviews];
+    [self layoutSubviewsAnimated:animated];
     
 }
 
