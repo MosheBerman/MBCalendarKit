@@ -354,7 +354,9 @@
 {
     _displayMode = displayMode;
     
-    //  TODO: Handle selection here.
+    //  Update the index, so that we don't lose selection between mode changes
+    NSInteger newIndex = [[self calendar] daysFromDate:[self _firstVisibleDateForDisplayMode:displayMode] toDate:[self date]];
+    [self setSelectedIndex:newIndex];
     
     [self layoutSubviews];
 }
