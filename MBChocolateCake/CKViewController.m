@@ -82,11 +82,6 @@
     [[self events] addObject:event];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
