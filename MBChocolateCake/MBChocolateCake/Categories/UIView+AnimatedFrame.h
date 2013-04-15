@@ -10,4 +10,6 @@
 
 @interface UIView (AnimatedFrame)
 
+- (void)setFrame:(CGRect)frame animated:(BOOL)animated;
+
 @end
