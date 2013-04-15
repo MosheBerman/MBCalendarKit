@@ -19,6 +19,8 @@
 		46B1F449171B82B9003314A3 /* CKCakeEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B1F447171B82B9003314A3 /* CKCakeEvent.m */; };
 		46B1F450171BAD0D003314A3 /* MBPolygonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B1F44F171BAD0D003314A3 /* MBPolygonView.m */; };
 		46B1F451171BADA7003314A3 /* MBPolygonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B1F44F171BAD0D003314A3 /* MBPolygonView.m */; };
+		46B1F455171BC710003314A3 /* CKCakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B1F454171BC710003314A3 /* CKCakeViewController.m */; };
+		46B1F456171BC71F003314A3 /* CKCakeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B1F454171BC710003314A3 /* CKCakeViewController.m */; };
 		46B3678A171A3C1F000F1B25 /* NSCalendar+DateComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B36789171A3C1F000F1B25 /* NSCalendar+DateComparison.m */; };
 		46B3678B171A3C1F000F1B25 /* NSCalendar+DateComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B36789171A3C1F000F1B25 /* NSCalendar+DateComparison.m */; };
 		46B36792171A7E0C000F1B25 /* NSDate+Description.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B36791171A7E0C000F1B25 /* NSDate+Description.m */; };
@@ -34,8 +36,6 @@
 		46BFBCD51715FB3F00D4733E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BFBCD41715FB3F00D4733E /* Default.png */; };
 		46BFBCD71715FB3F00D4733E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BFBCD61715FB3F00D4733E /* Default@2x.png */; };
 		46BFBCD91715FB3F00D4733E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BFBCD81715FB3F00D4733E /* Default-568h@2x.png */; };
-		46BFBCDC1715FB3F00D4733E /* CKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BFBCDB1715FB3F00D4733E /* CKViewController.m */; };
-		46BFBCDF1715FB3F00D4733E /* CKViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46BFBCDD1715FB3F00D4733E /* CKViewController.xib */; };
 		46BFBCE71715FB3F00D4733E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCE61715FB3F00D4733E /* SenTestingKit.framework */; };
 		46BFBCE81715FB3F00D4733E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC21715FB3F00D4733E /* UIKit.framework */; };
 		46BFBCE91715FB3F00D4733E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC41715FB3F00D4733E /* Foundation.framework */; };
@@ -83,6 +83,8 @@
 		46B1F447171B82B9003314A3 /* CKCakeEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCakeEvent.m; sourceTree = "<group>"; };
 		46B1F44E171BAD0D003314A3 /* MBPolygonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPolygonView.h; sourceTree = "<group>"; };
 		46B1F44F171BAD0D003314A3 /* MBPolygonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPolygonView.m; sourceTree = "<group>"; };
+		46B1F453171BC710003314A3 /* CKCakeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCakeViewController.h; sourceTree = "<group>"; };
+		46B1F454171BC710003314A3 /* CKCakeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCakeViewController.m; sourceTree = "<group>"; };
 		46B36788171A3C1F000F1B25 /* NSCalendar+DateComparison.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+DateComparison.h"; sourceTree = "<group>"; };
 		46B36789171A3C1F000F1B25 /* NSCalendar+DateComparison.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+DateComparison.m"; sourceTree = "<group>"; };
 		46B36790171A7E0C000F1B25 /* NSDate+Description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Description.h"; sourceTree = "<group>"; };
@@ -103,9 +105,6 @@
 		46BFBCD41715FB3F00D4733E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		46BFBCD61715FB3F00D4733E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		46BFBCD81715FB3F00D4733E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		46BFBCDA1715FB3F00D4733E /* CKViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKViewController.h; sourceTree = "<group>"; };
-		46BFBCDB1715FB3F00D4733E /* CKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CKViewController.m; sourceTree = "<group>"; };
-		46BFBCDE1715FB3F00D4733E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CKViewController.xib; sourceTree = "<group>"; };
 		46BFBCE51715FB3F00D4733E /* MBChocolateCakeTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MBChocolateCakeTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		46BFBCE61715FB3F00D4733E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		46BFBCEE1715FB3F00D4733E /* MBChocolateCakeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MBChocolateCakeTests-Info.plist"; sourceTree = "<group>"; };
@@ -160,6 +159,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		46B1F452171BC710003314A3 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				46B1F453171BC710003314A3 /* CKCakeViewController.h */,
+				46B1F454171BC710003314A3 /* CKCakeViewController.m */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
 		46B36799171A8B62000F1B25 /* NSCalendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,9 +269,6 @@
 			children = (
 				46BFBCD11715FB3F00D4733E /* CKAppDelegate.h */,
 				46BFBCD21715FB3F00D4733E /* CKAppDelegate.m */,
-				46BFBCDA1715FB3F00D4733E /* CKViewController.h */,
-				46BFBCDB1715FB3F00D4733E /* CKViewController.m */,
-				46BFBCDD1715FB3F00D4733E /* CKViewController.xib */,
 				46BFBCC91715FB3F00D4733E /* Supporting Files */,
 			);
 			path = MBChocolateCake;
@@ -305,6 +310,7 @@
 		46BFBD13171603BB00D4733E /* CKCakeView */ = {
 			isa = PBXGroup;
 			children = (
+				46B1F452171BC710003314A3 /* View Controllers */,
 				46BFBD29171605C500D4733E /* CoreUI */,
 				46BFBD1B171603BB00D4733E /* Headers */,
 				46BFBD14171603BB00D4733E /* Categories */,
@@ -432,7 +438,6 @@
 				46BFBCD51715FB3F00D4733E /* Default.png in Resources */,
 				46BFBCD71715FB3F00D4733E /* Default@2x.png in Resources */,
 				46BFBCD91715FB3F00D4733E /* Default-568h@2x.png in Resources */,
-				46BFBCDF1715FB3F00D4733E /* CKViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,7 +474,6 @@
 			files = (
 				46BFBCCF1715FB3F00D4733E /* main.m in Sources */,
 				46BFBCD31715FB3F00D4733E /* CKAppDelegate.m in Sources */,
-				46BFBCDC1715FB3F00D4733E /* CKViewController.m in Sources */,
 				46BFBD1F171603BB00D4733E /* UIColor+HexString.m in Sources */,
 				46BFBD271716046E00D4733E /* NSString+Color.m in Sources */,
 				46BFBD2E171605C500D4733E /* CKCakeCell.m in Sources */,
@@ -485,6 +489,7 @@
 				46B36792171A7E0C000F1B25 /* NSDate+Description.m in Sources */,
 				46B36796171A8A34000F1B25 /* CKCakeHeaderView.m in Sources */,
 				46B1F448171B82B9003314A3 /* CKCakeEvent.m in Sources */,
+				46B1F456171BC71F003314A3 /* CKCakeViewController.m in Sources */,
 				46B1F451171BADA7003314A3 /* MBPolygonView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -510,6 +515,7 @@
 				46B36797171A8A34000F1B25 /* CKCakeHeaderView.m in Sources */,
 				46B1F449171B82B9003314A3 /* CKCakeEvent.m in Sources */,
 				46B1F450171BAD0D003314A3 /* MBPolygonView.m in Sources */,
+				46B1F455171BC710003314A3 /* CKCakeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,14 +536,6 @@
 				46BFBCCC1715FB3F00D4733E /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		46BFBCDD1715FB3F00D4733E /* CKViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				46BFBCDE1715FB3F00D4733E /* en */,
-			);
-			name = CKViewController.xib;
 			sourceTree = "<group>";
 		};
 		46BFBCEF1715FB3F00D4733E /* InfoPlist.strings */ = {

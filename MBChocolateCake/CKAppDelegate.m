@@ -8,7 +8,7 @@
 
 #import "CKAppDelegate.h"
 
-#import "CKViewController.h"
+#import "CKCakeViewController.h"
 
 @interface CKAppDelegate ()
 
@@ -22,7 +22,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [[CKViewController alloc] initWithNibName:@"CKViewController" bundle:nil];
+    self.viewController = [CKCakeViewController new];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
     
     self.window.rootViewController = self.navigationController;

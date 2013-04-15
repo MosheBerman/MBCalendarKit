@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class CKViewController;
+@class CKCakeViewController;
 
 @interface CKAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) CKViewController *viewController;
+@property (strong, nonatomic) CKCakeViewController *viewController;
 
 @end
