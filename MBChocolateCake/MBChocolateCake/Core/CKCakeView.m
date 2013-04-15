@@ -450,18 +450,13 @@
         
         //  If the dates are the same years, show MMM DD - DD YYYY
         if ([[self calendar] date:firstVisibleDay isSameYearAs:lastVisibleDay]) {
-            [result appendString:[firstVisibleDay monthAndDayOnCalendar:[self calendar]]];
-            [result appendString:@" - "];
+            [result appendString:[firstVisibleDay monthAndYearOnCalendar:[self calendar]]];
             
             //  Show the day and year
-            if ([[self calendar] date:firstVisibleDay isSameMonthAs:lastVisibleDay]) {
-                [result appendString:[lastVisibleDay dayOfMonthAndYearOnCalendar:[self calendar]]];
-            }
-            
-            //  Show the different month, date, and year
-            else
-            {
-                [result appendString:[lastVisibleDay monthAndDayAndYearOnCalendar:[self calendar]]];
+            if (![[self calendar] date:firstVisibleDay isSameMonthAs:lastVisibleDay]) {
+                result = [[firstVisibleDay monthAndYearOnCalendar:[self calendar]] mutableCopy];
+                [result appendString:@" - "];
+                [result appendString:[lastVisibleDay monthAndYearOnCalendar:[self calendar]]];
             }
         }
         
