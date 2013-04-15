@@ -69,11 +69,6 @@
         //  Event date
         _events = [NSMutableArray new];
         
-        _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panHandler:)];
-        [self addGestureRecognizer:_panGesture];
-        
-        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
-        [self addGestureRecognizer:_tapGesture];
     }
     return self;
 }
@@ -792,29 +787,24 @@
 
 #pragma mark - Touch Handling
 
-- (void)panHandler:(UIPanGestureRecognizer *)gesture
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    CGPoint point = [gesture locationInView:self];
+    UITouch *t = [touches anyObject];
     
-    UIGestureRecognizerState state = [gesture state];
+    CGPoint p = [t locationInView:self];
     
-    if (state == UIGestureRecognizerStateCancelled)
-    {
-        return;
-    }
-    if (state == UIGestureRecognizerStateEnded)
-    {
-        
-        NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
-        NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
-        
-        BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
-        
-        [self setDate:dateToSelect animated:animated];
-        return;
-    }
+    [self pointInside:p withEvent:event];
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
     
-    // Highlight and select the appropriate cell
+    CGRect bounds = [self bounds];
+    bounds.origin.y += [self headerView].frame.size.height;
+    bounds.size.height -= [self headerView].frame.size.height;
+    
+    
+    /* Highlight and select the appropriate cell */
     
     NSUInteger index = [self selectedIndex];
     
@@ -832,45 +822,27 @@
     
     [self setSelectedIndex:index];
     
+    return [super pointInside:point withEvent:event];
 }
 
-- (void)tapHandler:(UITapGestureRecognizer *)gesture
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    CGPoint point = [gesture locationInView:self];
     
-    if (CGRectContainsPoint([[self headerView] frame], point)) {
-        [[self headerView] pointInside:point withEvent:nil];
-        return;
-    }
+    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
+    NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
     
-    UIGestureRecognizerState state = [gesture state];
+    BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
     
-    if (state == UIGestureRecognizerStateEnded)
-    {
-        
-        // Highlight and select the appropriate cell
-        
-        NSUInteger index = [self selectedIndex];
-        
-        for (CKCakeCell *cell in [self usedCells]) {
-            CGRect rect = [cell frame];
-            if (CGRectContainsPoint(rect, point)) {
-                [cell setSelected];
-                index = [cell index];
-                break;
-            }
-        }
-        
-        [self setSelectedIndex:index];
-        
-        NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
-        NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
-        
-        BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
-        
-        [self setDate:dateToSelect animated:animated];
-        
-    }
+    [self setDate:dateToSelect animated:animated];
 }
 
+// If a touch was cancelled, reset the index
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
+    
+    NSUInteger index = [[self calendar] daysFromDate:firstDate toDate:[self date]];
+    
+    [self setSelectedIndex:index];
+}
 @end
