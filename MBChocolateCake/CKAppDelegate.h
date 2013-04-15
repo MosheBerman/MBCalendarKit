@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class CKCakeViewController;
+#import "ChocolateCake.h"
 
 @interface CKAppDelegate : UIResponder <UIApplicationDelegate>
 
