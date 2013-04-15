@@ -430,18 +430,9 @@
     NSDate *newFirstVisible = [self _firstVisibleDateForDisplayMode:[self displayMode]];
     NSUInteger index = [[self calendar] daysFromDate:newFirstVisible toDate:date];
     [self setSelectedIndex:index];
-    
-    if (animated) {
-        [UIView
-         animateWithDuration:0.4
-         animations:^{
-             [self layoutSubviews];
-         }];
-    }
-    else
-    {
-        [self layoutSubviews];
-    }
+
+    [self layoutSubviews];
+
 }
 
 #pragma mark - CKCakeHeaderViewDataSource
