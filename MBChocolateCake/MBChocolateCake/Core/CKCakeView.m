@@ -125,7 +125,7 @@
     [[self layer] setShadowOffset:CGSizeMake(0, 3)];
     [[self layer] setShadowOpacity:0.5];
     
-    [self reload];
+    [self reloadAnimated:NO];
     
     [super willMoveToSuperview:newSuperview];
 }
@@ -146,9 +146,22 @@
 //  Ensure that the calendar always has the correct size.
 - (void)setFrame:(CGRect)frame
 {
+    [self setFrame:frame animated:NO];
+}
+
+- (void)setFrame:(CGRect)frame animated:(BOOL)animated
+{
     frame.size = [self _rectForDisplayMode:[self displayMode]].size;
     
-    [super setFrame:frame];
+    if (animated) {
+        [UIView animateWithDuration:0.4 animations:^{
+            [super setFrame:frame];    
+        }];
+    }
+    else
+    {
+        [super setFrame:frame];
+    }
 }
 
 - (CGRect)_rectForDisplayMode:(CKCakeDisplayMode)displayMode
@@ -212,7 +225,7 @@
 
 - (void)layoutSubviews
 {
-    [self layoutSubviewsAnimated:YES];
+    [self layoutSubviewsAnimated:NO];
 }
 
 - (void)layoutSubviewsAnimated:(BOOL)animated
