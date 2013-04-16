@@ -95,7 +95,7 @@
 
 - (void)todayButtonTapped:(id)sender
 {
-    [[self calendarView] setDate:[NSDate date]];
+    [[self calendarView] setDate:[NSDate date] animated:NO];
 }
 
 
@@ -136,7 +136,7 @@
 //  A row is selected in the events table. (Use to push a detail view or whatever.)
 - (void)cakeView:(CKCakeView *)cakeView didSelectEvent:(CKCakeEvent *)event
 {
-     
+    NSLog(@"Event selected: %@", event);
 }
 
 @end
