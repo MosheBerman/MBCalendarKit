@@ -532,7 +532,7 @@
     NSInteger newIndex = [[self calendar] daysFromDate:[self _firstVisibleDateForDisplayMode:displayMode] toDate:[self date]];
     [self setSelectedIndex:newIndex];
     
-    [self layoutSubviewsAnimated:YES];
+    [self layoutSubviewsAnimated:animated];
 }
 
 - (void)setDate:(NSDate *)date
