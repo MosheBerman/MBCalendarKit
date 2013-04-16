@@ -10,6 +10,8 @@
 
 #import "ChocolateCake.h"
 
+#import "TestFlight.h"
+
 @interface CKAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
