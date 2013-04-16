@@ -480,6 +480,11 @@
 
 - (void)setCalendar:(NSCalendar *)calendar
 {
+    [self setCalendar:calendar animated:NO];
+}
+
+- (void)setCalendar:(NSCalendar *)calendar animated:(BOOL)animated
+{
     if (calendar == nil) {
         calendar = [NSCalendar currentCalendar];
     }
@@ -491,6 +496,11 @@
 }
 
 - (void)setLocale:(NSLocale *)locale
+{
+    [self setLocale:locale animated:NO];
+}
+
+- (void)setLocale:(NSLocale *)locale animated:(BOOL)animated
 {
     if (locale == nil) {
         locale = [NSLocale currentLocale];
@@ -515,7 +525,7 @@
     
     [[self calendar] setTimeZone:timeZone];
     
-    [self layoutSubviews];
+    [self layoutSubviewsAnimated:animated];
 }
 
 - (void)setDisplayMode:(CKCakeDisplayMode)displayMode
