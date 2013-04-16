@@ -656,9 +656,10 @@
     
     if ([self displayMode] == CKCakeViewModeMonth) {
         
+        date = [[self calendar] dateByAddingMonths:1 toDate:date];              //  Add a month
+        
         NSUInteger day = [[self calendar] daysInDate:date];
         
-        date = [[self calendar] dateByAddingMonths:1 toDate:date];              //  Add a month
         date = [[self calendar] dateBySubtractingDays:day-1 fromDate:date];     //  Go to the first of the month
         
         //  If today is in the visible month, jump to today
@@ -979,7 +980,7 @@
     NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
     NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
     
-    BOOL animated = [[self calendar] date:[self date] isSameMonthAs:dateToSelect];
+    BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
     
     [self setDate:dateToSelect animated:animated];
 }
