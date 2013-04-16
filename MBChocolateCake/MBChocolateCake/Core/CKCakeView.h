@@ -47,12 +47,31 @@
 @property (nonatomic, assign) id<CKCakeViewDataSource> dataSource;
 @property (nonatomic, assign) id<CKCakeViewDelegate> delegate;
 
+/* Initializer */
+
+- (id)init;
 - (id)initWithMode:(CKCakeDisplayMode)cakeDisplayMode;
 
+/* Reload calendar and events. */
+
+- (void)reload;
+- (void)reloadAnimated:(BOOL)animated;
+
+/* Setters */
+
+- (void)setCalendar:(NSCalendar *)calendar;
 - (void)setCalendar:(NSCalendar *)calendar animated:(BOOL)animated;
+
+- (void)setDate:(NSDate *)date;
 - (void)setDate:(NSDate *)date animated:(BOOL)animated;
+
+- (void)setDisplayMode:(CKCakeDisplayMode)displayMode;
 - (void)setDisplayMode:(CKCakeDisplayMode)displayMode animated:(BOOL)animated;
+
+- (void)setLocale:(NSLocale *)locale;
 - (void)setLocale:(NSLocale *)locale animated:(BOOL)animated;
+
+- (void)setTimeZone:(NSTimeZone *)timeZone;
 - (void)setTimeZone:(NSTimeZone *)timeZone animated:(BOOL)animated;
 
 

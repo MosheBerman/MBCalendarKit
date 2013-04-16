@@ -96,6 +96,11 @@
 
 - (void)reload
 {
+    [self reloadAnimated:NO];
+}
+
+- (void)reloadAnimated:(BOOL)animated
+{
     if ([[self dataSource] respondsToSelector:@selector(cakeView:eventsForDate:)]) {
         NSArray *sortedArray = [[[self dataSource] cakeView:self eventsForDate:[self date]] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             NSDate *d1 = [obj1 date];
@@ -109,7 +114,7 @@
     
     [[self table] reloadData];
     
-    [self layoutSubviews];
+    [self layoutSubviewsAnimated:NO];
 }
 
 #pragma mark - View Hierarchy
@@ -656,11 +661,20 @@
     
     if ([self displayMode] == CKCakeViewModeMonth) {
         
-        date = [[self calendar] dateByAddingMonths:1 toDate:date];              //  Add a month
+        NSUInteger maxDays = [[self calendar] daysPerMonthUsingReferenceDate:date];
+        NSUInteger todayInMonth =[[self calendar] daysInDate:date];
         
-        NSUInteger day = [[self calendar] daysInDate:date];
+        //  If we're the last day of the month, just roll over a day
+        if (maxDays == todayInMonth) {
+            date = [[self calendar] dateByAddingDays:1 toDate:date];
+        }
         
-        date = [[self calendar] dateBySubtractingDays:day-1 fromDate:date];     //  Go to the first of the month
+        //  Otherwise, add a month and then go to the first of the month
+        else{
+            NSUInteger day = [[self calendar] daysInDate:date];
+            date = [[self calendar] dateByAddingMonths:1 toDate:date];              //  Add a month
+            date = [[self calendar] dateBySubtractingDays:day-1 fromDate:date];     //  Go to the first of the month
+        }
         
         //  If today is in the visible month, jump to today
         if([[self calendar] date:date isSameMonthAs:[NSDate date]]){
