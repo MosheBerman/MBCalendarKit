@@ -51,20 +51,16 @@
     [[self calendarView] setDelegate:self];
     [[self view] addSubview:[self calendarView]];
 
-    [[self calendarView] setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]];
-    [[self calendarView] setDisplayMode:CKCakeViewModeMonth];
+    [[self calendarView] setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] animated:NO];
+    [[self calendarView] setDisplayMode:CKCakeViewModeMonth animated:NO];
     
     /* Mode Picker */
     
-    NSArray *items = @[@"Month", @"Week", @"Day"];
+    NSArray *items = @[NSLocalizedString(@"Month", @"A title for the month view button."), NSLocalizedString(@"Week",@"A title for the week view button."), NSLocalizedString(@"Day", @"A title for the day view button.")];
+    
     [self setModePicker:[[UISegmentedControl alloc] initWithItems:items]];
-    
-    //  Set the style
-    [[self modePicker] setSegmentedControlStyle:UISegmentedControlStyleBar]  ;
-    
-    //  Register for segment selection events
+    [[self modePicker] setSegmentedControlStyle:UISegmentedControlStyleBar];
     [[self modePicker] addTarget:self action:@selector(modeChangedUsingControl:) forControlEvents:UIControlEventValueChanged];
-    
     [[self modePicker] setSelectedSegmentIndex:0];
     
     /* Toolbar setup */
@@ -74,8 +70,7 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:[self modePicker]];
     UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    [self setToolbarItems:@[
-     todayButton, space, item, space, space] animated:NO];
+    [self setToolbarItems:@[todayButton, space, item, space, space] animated:NO];
     [[self navigationController] setToolbarHidden:NO animated:NO];
 
 }
