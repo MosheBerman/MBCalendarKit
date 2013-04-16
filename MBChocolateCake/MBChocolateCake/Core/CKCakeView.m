@@ -239,7 +239,7 @@
     
     /* Show the cells */
     
-    [self _layoutCells];
+    [self _layoutCellsAnimated:animated];
     
     /* Set up the table */
     
@@ -406,7 +406,7 @@
         [self _moveCellsIntoView:cellsBeingAnimatedIntoView andCellsOutOfView:cellsToRemoveAfterAnimation usingOffset:yOffset];
         [self _cleanupCells:cellsToRemoveAfterAnimation];
         [cellsBeingAnimatedIntoView removeAllObjects];
-             [self setIsAnimating:NO];        
+        [self setIsAnimating:NO];        
     }
     
     
