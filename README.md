@@ -93,7 +93,7 @@ The `CKCalendarDataSource` protocol defines the following method, which supplies
 
     - (NSArray *)calendarView:(CKCalendarView *)calendarView eventsForDate:(NSDate *)date;
     
-You can read more about calendar views below.
+You can read more about calendar events below.
 		
 		
 Handling User Interaction
