@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'CalendarKit' target in the 'CalendarKit' project
-//
-
-#ifdef __OBJC__
-    #import <Foundation/Foundation.h>
-#endif
