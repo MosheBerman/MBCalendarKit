@@ -891,6 +891,11 @@
 
 #pragma mark - Date Calculations
 
+- (NSDate *)firstVisibleDate
+{
+    return [self _firstVisibleDateForDisplayMode:[self displayMode]];
+}
+
 - (NSDate *)_firstVisibleDateForDisplayMode:(CKCalendarDisplayMode)displayMode
 {
     // for the day mode, just return today
@@ -911,6 +916,11 @@
     }
     
     return [self date];
+}
+
+- (NSDate *)lastVisibleDate
+{
+    return [self _lastVisibleDateForDisplayMode:[self displayMode]];
 }
 
 - (NSDate *)_lastVisibleDateForDisplayMode:(CKCalendarDisplayMode)displayMode

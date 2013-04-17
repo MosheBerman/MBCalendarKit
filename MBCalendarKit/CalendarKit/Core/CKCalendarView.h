@@ -55,5 +55,9 @@
 - (void)setTimeZone:(NSTimeZone *)timeZone;
 - (void)setTimeZone:(NSTimeZone *)timeZone animated:(BOOL)animated;
 
+/* Visible Dates */
+
+- (NSDate *)firstVisibleDate;
+- (NSDate *)lastVisibleDate;
 
 @end
