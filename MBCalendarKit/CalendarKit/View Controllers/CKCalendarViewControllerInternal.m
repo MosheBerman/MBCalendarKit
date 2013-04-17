@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
-#import "CKCalendarViewController.h"
+#import "CKCalendarViewControllerInternal.h"
 
 #import "CKCalendarView.h"
 
@@ -14,7 +14,7 @@
 
 #import "NSCalendarCategories.h"
 
-@interface CKCalendarViewController () <CKCalendarViewDataSource, CKCalendarViewDelegate>
+@interface CKCalendarViewControllerInternal () <CKCalendarViewDataSource, CKCalendarViewDelegate>
 
 @property (nonatomic, strong) CKCalendarView *calendarView;
 @property (nonatomic, strong) UISegmentedControl *modePicker;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation CKCalendarViewController 
+@implementation CKCalendarViewControllerInternal 
 
 - (void)viewDidLoad
 {
@@ -92,8 +92,6 @@
 {
     [[self calendarView] setDate:[NSDate date] animated:NO];
 }
-
-
 
 #pragma mark - CKCalendarViewDataSource
 

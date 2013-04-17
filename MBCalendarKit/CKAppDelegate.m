@@ -21,10 +21,9 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [CKCalendarViewController new];
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+    self.viewController = [CKCalendarViewControllerInternal new];
     
-    self.window.rootViewController = self.navigationController;
+    self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;
 }
