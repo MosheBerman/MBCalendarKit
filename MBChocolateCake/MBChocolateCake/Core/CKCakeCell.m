@@ -38,7 +38,7 @@
         //  Today Cell Colors
         _todayBackgroundColor = kCakeColorBluishGray;
         _todaySelectedBackgroundColor = kCakeColorBlue;
-        _todayShadowColor = kCakeColorTodayShadowBlue;
+        _todayTextShadowColor = kCakeColorTodayShadowBlue;
         _todayTextColor = [UIColor whiteColor];
         
         //  Text Colors
@@ -126,6 +126,11 @@
 
 -(void)prepareForReuse
 {
+    //  Alpha, by default, is 1.0
+    [[self label]setAlpha:1.0];
+    
+    [self setState:CKCakeMonthCellStateNormal];
+    
     [self applyColors];
 }
 
@@ -162,10 +167,7 @@
 #pragma mark - UI Coloring
 
 - (void)applyColors
-{
-    //  Alpha, by default, is 1.o
-    [[self label]setAlpha:1.0];
-    
+{    
     [self applyColorsForState:[self state]];
     [self showBorder];
 }
@@ -186,7 +188,7 @@
     if(state == CKCakeMonthCellStateTodaySelected)
     {
         [self setBackgroundColor:[self todaySelectedBackgroundColor]];
-        [[self label] setShadowColor:[self todayShadowColor]];
+        [[self label] setShadowColor:[self todayTextShadowColor]];
         [[self label] setTextColor:[self todayTextColor]];
         [self setBorderColor:[self backgroundColor]];
     }
@@ -195,7 +197,7 @@
     else if(state == CKCakeMonthCellStateTodayDeselected)
     {
         [self setBackgroundColor:[self todayBackgroundColor]];
-        [[self label] setShadowColor:[self todayShadowColor]];
+        [[self label] setShadowColor:[self todayTextShadowColor]];
         [[self label] setTextColor:[self todayTextColor]];
         [self setBorderColor:[self backgroundColor]];
         [self showBorder];
