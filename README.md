@@ -13,16 +13,15 @@ MBCalendarKit is a calendar control written in UIKit. I've found existing implem
 Dependencies:
 -------------
 
-You'll need the iOS 6 SDK. I haven't tested it against earlier versions of iOS. Your mileage may vary on iOS 5, and it definitely will not work on iOS 4 or earlier.
+You'll need the iOS 6 SDK. I haven't tested it against earlier versions of iOS. Your mileage may vary. (I'm pretty sure I used some NSCalendarUnit values that aren't defined before iOS 5.)
 
-MBCalendarKit requires Quartz, Core Graphics, UIKit, and Foundation. The Unit Tests build against the SenTestingKit framework. Xcode should take care of all those except `QuartzCore.framework` and `SenTestingKit.framework`. Make sure to link those two yourself.
+MBCalendarKit requires Quartz, Core Graphics, UIKit, and Foundation. The Unit Tests build against the SenTestingKit framework. Xcode should take care of all those except `QuartzCore.framework`. If you're building the tests, you may have to link to SenTestingKit yourself, as well.
 
 Relevant Files:
 ---------------
 
 Aside from the framework dependencies described above, you'll want everything in the CalendarKit folder. 
 
----
 
 Showing a Calendar
 --------------------------------------
