@@ -60,6 +60,8 @@
 		464A8744171F174D00E7AB19 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 464A870B171F174D00E7AB19 /* InfoPlist.strings */; };
 		464A8745171F174D00E7AB19 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 464A870B171F174D00E7AB19 /* InfoPlist.strings */; };
 		464A8749171F174D00E7AB19 /* MBCalendarKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A870F171F174D00E7AB19 /* MBCalendarKitTests.m */; };
+		464A8787171F3D8100E7AB19 /* CKCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A8786171F3D8100E7AB19 /* CKCalendarViewController.m */; };
+		464A8788171F3D8100E7AB19 /* CKCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A8786171F3D8100E7AB19 /* CKCalendarViewController.m */; };
 		46631FB8171B01F400DA27CC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46631FB7171B01F400DA27CC /* QuartzCore.framework */; };
 		46631FB9171B025600DA27CC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46631FB7171B01F400DA27CC /* QuartzCore.framework */; };
 		46AB9430171CE9BA0082492E /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AB942C171CE9BA0082492E /* Icon-72@2x.png */; };
@@ -150,6 +152,8 @@
 		464A870F171F174D00E7AB19 /* MBCalendarKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCalendarKitTests.m; sourceTree = "<group>"; };
 		464A877F171F2B3B00E7AB19 /* CKCalendarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarDelegate.h; sourceTree = "<group>"; };
 		464A8780171F2D7800E7AB19 /* CKCalendarDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKCalendarDataSource.h; sourceTree = "<group>"; };
+		464A8785171F3D8100E7AB19 /* CKCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarViewController.h; sourceTree = "<group>"; };
+		464A8786171F3D8100E7AB19 /* CKCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarViewController.m; sourceTree = "<group>"; };
 		46631FB7171B01F400DA27CC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46AB942C171CE9BA0082492E /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "Icons/Icon-72@2x.png"; sourceTree = "<group>"; };
 		46AB942D171CE9BA0082492E /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Icons/Icon@2x.png"; sourceTree = "<group>"; };
@@ -318,6 +322,8 @@
 		464A86FB171F174D00E7AB19 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				464A8785171F3D8100E7AB19 /* CKCalendarViewController.h */,
+				464A8786171F3D8100E7AB19 /* CKCalendarViewController.m */,
 				464A86FC171F174D00E7AB19 /* CKCalendarViewControllerInternal.h */,
 				464A86FD171F174D00E7AB19 /* CKCalendarViewControllerInternal.m */,
 			);
@@ -546,6 +552,7 @@
 				464A8732171F174D00E7AB19 /* CKCalendarViewControllerInternal.m in Sources */,
 				464A8734171F174D00E7AB19 /* CKAppDelegate.m in Sources */,
 				464A8740171F174D00E7AB19 /* main.m in Sources */,
+				464A8787171F3D8100E7AB19 /* CKCalendarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +581,7 @@
 				464A8735171F174D00E7AB19 /* CKAppDelegate.m in Sources */,
 				464A8741171F174D00E7AB19 /* main.m in Sources */,
 				464A8749171F174D00E7AB19 /* MBCalendarKitTests.m in Sources */,
+				464A8788171F3D8100E7AB19 /* CKCalendarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

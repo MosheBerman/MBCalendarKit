@@ -36,14 +36,6 @@
     
     [self setEvents:[NSMutableArray new]];
     
-    /* Make a dummy event */
-    
-    NSDate *date = [NSDate date];
-    CKCalendarEvent *event = [[CKCalendarEvent alloc] init];
-    [event setTitle:@"First event"];
-    [event setDate:date];
-    [[self events] addObject:event];
-    
     /* Calendar View */
 
     [self setCalendarView:[CKCalendarView new]];
@@ -68,9 +60,8 @@
     NSString *todayTitle = NSLocalizedString(@"Today", @"A button which sets the calendar to today.");
     UIBarButtonItem *todayButton = [[UIBarButtonItem alloc] initWithTitle:todayTitle style:UIBarButtonItemStyleBordered target:self action:@selector(todayButtonTapped:)];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:[self modePicker]];
-    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
-    [self setToolbarItems:@[todayButton, space, item, space, space] animated:NO];
+    [self setToolbarItems:@[todayButton, item] animated:NO];
     [[self navigationController] setToolbarHidden:NO animated:NO];
 
 }
@@ -139,5 +130,6 @@
         [[self delegate] calendarView:CalendarView didSelectEvent:event];
     }
 }
+
 
 @end
