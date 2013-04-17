@@ -114,7 +114,7 @@
     
     [[self table] reloadData];
     
-    [self layoutSubviewsAnimated:NO];
+    [self layoutSubviewsAnimated:animated];
 }
 
 #pragma mark - View Hierarchy
@@ -330,7 +330,6 @@
     
     for (NSUInteger row = 0; row < rowCount; row++) {
         for (NSUInteger column = 0; column < columnCount; column++) {
-            
             
             /* STEP 1: create and position the cell */
             
