@@ -18,7 +18,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+#if DEBUG
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+    NSLog(@"Setting TF UDID.");
+#endif
     [TestFlight takeOff:@"e3f6a602-8686-44d3-8343-4947e0b63723"];
+
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.

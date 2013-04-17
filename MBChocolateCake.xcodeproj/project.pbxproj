@@ -276,7 +276,6 @@
 		46BFBCB61715FB3F00D4733E = {
 			isa = PBXGroup;
 			children = (
-				46CEA896171CF61500897100 /* TestFlightSDK1-2 */,
 				46AB943D171CE9EE0082492E /* Icon.png */,
 				46AB943A171CE9EC0082492E /* Icon.png */,
 				46AB9438171CE9C90082492E /* Icon@2x.png */,
@@ -304,6 +303,7 @@
 		46BFBCC11715FB3F00D4733E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				46CEA896171CF61500897100 /* TestFlightSDK1-2 */,
 				46CEA8A1171CF66900897100 /* libz.dylib */,
 				46BFBCC61715FB3F00D4733E /* CoreGraphics.framework */,
 				46BFBCC41715FB3F00D4733E /* Foundation.framework */,

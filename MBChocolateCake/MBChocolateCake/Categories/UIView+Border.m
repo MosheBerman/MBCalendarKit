@@ -1,6 +1,6 @@
 //
 //  UIView+Border.m
-//  NachumSegalNetwork
+//  Utils
 //
 //  Created by Moshe Berman on 12/28/12.
 //  Copyright (c) 2012 Moshe Berman. All rights reserved.
