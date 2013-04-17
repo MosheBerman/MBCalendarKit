@@ -14,6 +14,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) CKCalendarViewControllerInternal *viewController;
+@property (strong, nonatomic) CKCalendarViewController *viewController;
 
 @end
