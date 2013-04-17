@@ -448,7 +448,7 @@
 - (void)_cleanupCells:(NSMutableSet *)cellsToCleanup
 {
     for (CKCakeCell *cell in cellsToCleanup) {
-        [self moveCellFromUsedToSpare:cell];
+        [self _moveCellFromUsedToSpare:cell];
         [cell removeFromSuperview];
     }
     
@@ -465,14 +465,14 @@
         cell = [[CKCakeCell alloc] initWithSize:[self _cellSize]];
     }
     
-    [self moveCellFromSpareToUsed:cell];
+    [self _moveCellFromSpareToUsed:cell];
     
     [cell prepareForReuse];
     
     return cell;
 }
 
-- (void)moveCellFromSpareToUsed:(CKCakeCell *)cell
+- (void)_moveCellFromSpareToUsed:(CKCakeCell *)cell
 {
     //  Move the used cells to the appropriate set
     [[self usedCells] addObject:cell];
@@ -482,7 +482,7 @@
     }
 }
 
-- (void)moveCellFromUsedToSpare:(CKCakeCell *)cell
+- (void)_moveCellFromUsedToSpare:(CKCakeCell *)cell
 {
     //  Move the used cells to the appropriate set
     [[self spareCells] addObject:cell];
