@@ -50,7 +50,7 @@ You have two choices for showing a calendar using MBCalendarKit.
  		[calendar setDataSource:self];
  		
 		// 3. Present the calendar 
-		[self view] addSubview:calendar];
+		[[]self view] addSubview:calendar];
 
 
 2. Your second option is to create an instance of `CKCalendarViewController`.
