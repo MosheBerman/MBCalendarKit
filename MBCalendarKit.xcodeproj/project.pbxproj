@@ -64,6 +64,7 @@
 		464A8788171F3D8100E7AB19 /* CKCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A8786171F3D8100E7AB19 /* CKCalendarViewController.m */; };
 		46631FB8171B01F400DA27CC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46631FB7171B01F400DA27CC /* QuartzCore.framework */; };
 		46631FB9171B025600DA27CC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46631FB7171B01F400DA27CC /* QuartzCore.framework */; };
+		46895C9A171F5AA60072DBCF /* CKDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46895C99171F5AA60072DBCF /* CKDemoViewController.m */; };
 		46AB9430171CE9BA0082492E /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AB942C171CE9BA0082492E /* Icon-72@2x.png */; };
 		46AB9431171CE9BA0082492E /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AB942C171CE9BA0082492E /* Icon-72@2x.png */; };
 		46AB9432171CE9BA0082492E /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46AB942D171CE9BA0082492E /* Icon@2x.png */; };
@@ -155,6 +156,8 @@
 		464A8785171F3D8100E7AB19 /* CKCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarViewController.h; sourceTree = "<group>"; };
 		464A8786171F3D8100E7AB19 /* CKCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarViewController.m; sourceTree = "<group>"; };
 		46631FB7171B01F400DA27CC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		46895C98171F5AA60072DBCF /* CKDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKDemoViewController.h; path = MBCalendarKit/CKDemoViewController.h; sourceTree = "<group>"; };
+		46895C99171F5AA60072DBCF /* CKDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKDemoViewController.m; path = MBCalendarKit/CKDemoViewController.m; sourceTree = "<group>"; };
 		46AB942C171CE9BA0082492E /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "Icons/Icon-72@2x.png"; sourceTree = "<group>"; };
 		46AB942D171CE9BA0082492E /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Icons/Icon@2x.png"; sourceTree = "<group>"; };
 		46AB942E171CE9BA0082492E /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunesArtwork.png; path = Icons/iTunesArtwork.png; sourceTree = "<group>"; };
@@ -339,6 +342,8 @@
 			children = (
 				464A86FE171F174D00E7AB19 /* CKAppDelegate.h */,
 				464A86FF171F174D00E7AB19 /* CKAppDelegate.m */,
+				46895C98171F5AA60072DBCF /* CKDemoViewController.h */,
+				46895C99171F5AA60072DBCF /* CKDemoViewController.m */,
 				464A8700171F174D00E7AB19 /* Default-568h@2x.png */,
 				464A8701171F174D00E7AB19 /* Default.png */,
 				464A8702171F174D00E7AB19 /* Default@2x.png */,
@@ -546,6 +551,7 @@
 				464A8734171F174D00E7AB19 /* CKAppDelegate.m in Sources */,
 				464A8740171F174D00E7AB19 /* main.m in Sources */,
 				464A8787171F3D8100E7AB19 /* CKCalendarViewController.m in Sources */,
+				46895C9A171F5AA60072DBCF /* CKDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
