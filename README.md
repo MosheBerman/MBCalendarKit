@@ -1,10 +1,9 @@
 MBCalendarKit
 ================
-
-Description:
-------------
-
 MBCalendarKit is a calendar control written in UIKit. I've found existing implementations to be inadequate and difficult to work with, so I rolled my own.
+
+Screenshots:
+------------
 
 ![Month](./screens/month.png "Month View")
 ![Week](./screens/week.png "Week View")
@@ -28,7 +27,7 @@ Showing a Calendar
 
 You have two choices for showing a calendar using MBCalendarKit. 
 
-1. You can show an instance of `CKCalendarView`. Use this if you want to manually manage your view hierarchy.
+1. You can show an instance of `CKCalendarView`. Use this if you want to manually manage your view hierarchy or have a finer control over your calendar view.
 
 
         /* 
@@ -52,8 +51,7 @@ You have two choices for showing a calendar using MBCalendarKit.
 		[[]self view] addSubview:calendar];
 
 
-2. Your second option is to create an instance of `CKCalendarViewController`.
-	
+2. Your second option is to create an instance of `CKCalendarViewController`. Using a CKCalendarViewController gives you the added benefit of a "today" button and a segmented control in the toolbar, which allows you to select the display mode. Note that `CKCalendarViewController` subclasses `UINavigationViewController`, so it can't be installed inside of another navigation controller. 
 	
 		/* 
 		
@@ -76,7 +74,6 @@ You have two choices for showing a calendar using MBCalendarKit.
 		[self presentViewController:calendar animated:YES completion:nil];
 		
 		
-Using a CKCalendarViewController gives you the added benefit of a "today" button and a segmented control in the toolbar, which allows you to select the display mode. Note that `CKCalendarViewController` subclasses `UINavigationViewController`, so it can't be installed inside of another navigation controller. 
 
 ---
 
