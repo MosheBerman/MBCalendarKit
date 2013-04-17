@@ -13,7 +13,7 @@
 
 @protocol CKCalendarViewDataSource <NSObject>
 
-- (NSArray *)calendarView:(CKCalendarView *)CalendarView eventsForDate:(NSDate *)date;
+- (NSArray *)calendarView:(CKCalendarView *)calendarView eventsForDate:(NSDate *)date;
 
 @end
 

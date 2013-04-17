@@ -197,14 +197,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		464A86C9171F174D00E7AB19 /* MBCalendarKit */ = {
-			isa = PBXGroup;
-			children = (
-				464A86CA171F174D00E7AB19 /* CalendarKit */,
-			);
-			path = MBCalendarKit;
-			sourceTree = "<group>";
-		};
 		464A86CA171F174D00E7AB19 /* CalendarKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,7 +206,8 @@
 				464A86F6171F174D00E7AB19 /* Headers */,
 				464A86FB171F174D00E7AB19 /* View Controllers */,
 			);
-			path = CalendarKit;
+			name = CalendarKit;
+			path = MBCalendarKit/CalendarKit;
 			sourceTree = "<group>";
 		};
 		464A86CB171F174D00E7AB19 /* Categories */ = {
@@ -361,7 +354,7 @@
 		46BFBCB61715FB3F00D4733E = {
 			isa = PBXGroup;
 			children = (
-				464A86C9171F174D00E7AB19 /* MBCalendarKit */,
+				464A86CA171F174D00E7AB19 /* CalendarKit */,
 				464A870A171F174D00E7AB19 /* MBCalendarKitTests */,
 				46E644D5171F16860095490F /* Icons */,
 				464A874A171F1AAA00E7AB19 /* Demo App */,
