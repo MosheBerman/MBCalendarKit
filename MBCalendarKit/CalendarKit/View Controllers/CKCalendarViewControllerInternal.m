@@ -98,37 +98,37 @@
 #pragma mark - CKCalendarViewDelegate
 
 // Called before/after the selected date changes
-- (void)calendarView:(CKCalendarView *)CalendarView willSelectDate:(NSDate *)date
+- (void)calendarView:(CKCalendarView *)calendarView willSelectDate:(NSDate *)date
 {
     if ([self isEqual:[self delegate]]) {
         return;
     }
     
     if ([[self delegate] respondsToSelector:@selector(calendarView:willSelectDate:)]) {
-        [[self delegate] calendarView:CalendarView willSelectDate:date];
+        [[self delegate] calendarView:calendarView willSelectDate:date];
     }
 }
 
-- (void)calendarView:(CKCalendarView *)CalendarView didSelectDate:(NSDate *)date
+- (void)calendarView:(CKCalendarView *)calendarView didSelectDate:(NSDate *)date
 {
     if ([self isEqual:[self delegate]]) {
         return;
     }
     
     if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectDate:)]) {
-        [[self delegate] calendarView:CalendarView didSelectDate:date];
+        [[self delegate] calendarView:calendarView didSelectDate:date];
     }
 }
 
 //  A row is selected in the events table. (Use to push a detail view or whatever.)
-- (void)calendarView:(CKCalendarView *)CalendarView didSelectEvent:(CKCalendarEvent *)event
+- (void)calendarView:(CKCalendarView *)calendarView didSelectEvent:(CKCalendarEvent *)event
 {
     if ([self isEqual:[self delegate]]) {
         return;
     }
     
     if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectEvent:)]) {
-        [[self delegate] calendarView:CalendarView didSelectEvent:event];
+        [[self delegate] calendarView:calendarView didSelectEvent:event];
     }
 }
 
