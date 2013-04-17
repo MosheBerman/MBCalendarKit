@@ -17,6 +17,7 @@
 @interface CKCalendarViewControllerInternal () <CKCalendarViewDataSource, CKCalendarViewDelegate>
 
 @property (nonatomic, strong) CKCalendarView *calendarView;
+
 @property (nonatomic, strong) UISegmentedControl *modePicker;
 
 @property (nonatomic, strong) NSMutableArray *events;
@@ -131,5 +132,10 @@
     }
 }
 
+#pragma mark - Calendar View
 
+- (CKCalendarView *)calendarView
+{
+    return _calendarView;
+}
 @end

@@ -89,4 +89,11 @@
     }
 }
 
+#pragma mark - Calendar View
+
+- (CKCalendarView *)calendarView
+{
+    return [[self calendarViewController] calendarView];
+}
+
 @end
