@@ -83,6 +83,21 @@
 
 #pragma mark - Number of Units Between Dates
 
+- (NSInteger)secondsFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
+{
+    return [[self components:NSSecondCalendarUnit fromDate:fromDate toDate:toDate options:0] second];
+}
+
+- (NSInteger)minutesFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
+{
+    return [[self components:NSMinuteCalendarUnit fromDate:fromDate toDate:toDate options:0] minute];
+}
+
+- (NSInteger)hoursFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
+{
+    return [[self components:NSHourCalendarUnit fromDate:fromDate toDate:toDate options:0] hour];
+}
+
 - (NSInteger)daysFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate
 {
     return [[self components:NSDayCalendarUnit fromDate:fromDate toDate:toDate options:0] day];
@@ -102,5 +117,19 @@
 {
     return [[self components:NSYearCalendarUnit fromDate:fromDate toDate:toDate options:0] year];
 }
+
+
+#pragma mark - Date Comparison
+
+- (BOOL)date:(NSDate *)firstDate isBeforeDate:(NSDate *)anotherDate
+{
+    return [self secondsFromDate:firstDate toDate:anotherDate] < 0;
+}
+
+- (BOOL)date:(NSDate *)firstDate isAfterDate:(NSDate *)anotherDate
+{
+    return [self secondsFromDate:firstDate toDate:anotherDate] > 0;
+}
+
 
 @end
