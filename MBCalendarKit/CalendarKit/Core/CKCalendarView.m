@@ -63,8 +63,6 @@
         _selectedIndex = [_calendar daysFromDate:[self _firstVisibleDateForDisplayMode:_displayMode] toDate:_date];
         _headerView = [CKCalendarHeaderView new];
         
-        _minimumDate = nil;
-        _maximumDate = nil;
         
         //  Accessory Table
         _table = [UITableView new];
@@ -348,7 +346,6 @@
             
             BOOL cellRepresentsToday = [[self calendar] date:workingDate isSameDayAs:[NSDate date]];
             BOOL isThisMonth = [[self calendar] date:workingDate isSameMonthAs:[self date]];
-            BOOL isOutOfRange = [[self calendar] date:workingDate isAfterDate:[self maximumDate]] || [[self calendar] date:workingDate isBeforeDate:[self minimumDate]];
             
             /* STEP 3:  Here we style the cells accordingly.
              
@@ -361,7 +358,7 @@
             if (cellRepresentsToday) {
                 [cell setState:CKCalendarMonthCellStateTodayDeselected];
             }
-            else if (!isThisMonth || isOutOfRange) {
+            else if (!isThisMonth) {
                 [cell setState:CKCalendarMonthCellStateInactive];
             }
             else{
@@ -575,17 +572,6 @@
 - (void)setDate:(NSDate *)date animated:(BOOL)animated
 {
     
-    //  If the dates are set and in the correct 
-    if ([[self calendar] date:_minimumDate isAfterDate:_maximumDate]) {
-        if ([[self calendar] date:_date isAfterDate:_maximumDate]) {
-            date = _maximumDate;
-        }
-        else if([[self calendar] date:_date isBeforeDate:_minimumDate])
-        {
-            date = _minimumDate;
-        }
-    }
-    
     if (!date) {
         date = [NSDate date];
     }
@@ -613,18 +599,6 @@
     
     [self layoutSubviewsAnimated:animated];
     
-}
-
-- (void)setMinimumDate:(NSDate *)minimumDate
-{
-    _minimumDate = minimumDate;
-    [self layoutSubviewsAnimated:YES];
-}
-
-- (void)setMaximumDate:(NSDate *)maximumDate
-{
-    _maximumDate = maximumDate;
-    [self layoutSubviewsAnimated:YES];
 }
 
 #pragma mark - CKCalendarHeaderViewDataSource
@@ -1031,9 +1005,10 @@
             }
         }
         
-        
+        // TODO: check bounds of selection
         [self setSelectedIndex:index];
     }
+    
     return [super pointInside:point withEvent:event];
 }
 
@@ -1056,5 +1031,8 @@
     NSUInteger index = [[self calendar] daysFromDate:firstDate toDate:[self date]];
     
     [self setSelectedIndex:index];
+    
+    NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
+    [self setDate:dateToSelect animated:NO];
 }
 @end

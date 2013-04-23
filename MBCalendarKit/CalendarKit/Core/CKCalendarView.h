@@ -25,9 +25,6 @@
 
 @property (nonatomic, strong) NSDate *date;
 
-@property (nonatomic, strong) NSDate *minimumDate;
-@property (nonatomic, strong) NSDate *maximumDate;
-
 @property (nonatomic, assign) id<CKCalendarViewDataSource> dataSource;
 @property (nonatomic, assign) id<CKCalendarViewDelegate> delegate;
 
