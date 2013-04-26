@@ -8,6 +8,8 @@
 
 #import "CKAppDelegate.h"
 
+#import "CKDemoViewController.h"
+
 @interface CKAppDelegate ()
 
 @property (nonatomic, strong) UINavigationController *navigationController;
@@ -22,7 +24,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    self.viewController = [CKCalendarViewController new];
+    self.viewController = [CKDemoViewController new];
     
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
