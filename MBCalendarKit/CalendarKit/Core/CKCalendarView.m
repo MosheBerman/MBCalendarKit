@@ -355,7 +355,7 @@
              If the cell is part of another month, gray it out.
              */
             
-            if (cellRepresentsToday) {
+            if (cellRepresentsToday && isThisMonth) {
                 [cell setState:CKCalendarMonthCellStateTodayDeselected];
             }
             else if (!isThisMonth) {
