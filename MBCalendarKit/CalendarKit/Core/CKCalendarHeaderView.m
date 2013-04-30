@@ -90,6 +90,17 @@
     NSString *title = [[self dataSource] titleForHeader:self];
     [[self monthTitle] setText:title];
     
+    /* Highlight the title color as appropriate */
+
+    if ([self shouldHighlightTitle])
+    {
+        [[self monthTitle] setTextColor:kCalendarColorHeaderTitleHighlightedBlue];
+    }
+    else
+    {
+        [[self monthTitle] setTextColor:kCalendarColorHeaderMonth];
+    }
+    
     /* Show the forward and back buttons */
 
         CGRect backFrame = CGRectMake(yOffset, yOffset, titleLabelHeight, titleLabelHeight);
@@ -107,6 +118,14 @@
     
     _forwardButton = [[MBPolygonView alloc] initWithFrame:forwardFrame numberOfSides:3 andRotation:90.0 andScale:10.0];
     _backwardButton = [[MBPolygonView alloc] initWithFrame:backFrame numberOfSides:3 andRotation:30.0 andScale:10.0];
+    
+    if ([self shouldDisableForwardButton]) {
+        [[self forwardButton] setAlpha:0.5];
+    }
+    
+    if ([self shouldDisableBackwardButton]) {
+        [[self backwardButton] setAlpha:0.5];
+    }
     
     [self addSubview:[self backwardButton]];
     [self addSubview:[self forwardButton]];
@@ -185,12 +204,12 @@
         return;
     }
     
-    if (CGRectContainsPoint([[self forwardButton] frame], location))\
+    if (CGRectContainsPoint([[self forwardButton] frame], location) && ![self shouldDisableForwardButton])
     {
         [self forwardButtonTapped];
     }
     
-    else if(CGRectContainsPoint([[self backwardButton] frame],location))
+    else if(CGRectContainsPoint([[self backwardButton] frame],location) && ![self shouldDisableBackwardButton])
     {
         [self backwardButtonTapped];
     }
@@ -210,6 +229,34 @@
     if ([[self delegate] respondsToSelector:@selector(backwardTapped)]) {
         [[self delegate] backwardTapped];
     }
+}
+
+#pragma mark - Title Highlighting
+
+- (BOOL)shouldHighlightTitle
+{
+    if ([[self delegate] respondsToSelector:@selector(headerShouldHighlightTitle:)]) {
+        return [[self dataSource] headerShouldHighlightTitle:self];
+    }
+    return NO;  //  Default is no.
+}
+
+#pragma mark - Button Disabling
+
+- (BOOL)shouldDisableForwardButton
+{
+    if ([[self dataSource] respondsToSelector:@selector(headerShouldDisableForwardButton:)]) {
+        return [[self dataSource] headerShouldDisableForwardButton:self];
+    }
+    return NO;  //  Default is no.
+}
+
+- (BOOL)shouldDisableBackwardButton
+{
+    if ([[self dataSource] respondsToSelector:@selector(headerShouldDisableBackwardButton:)]) {
+        return [[self dataSource] headerShouldDisableBackwardButton:self];
+    }
+    return NO;  //  Default is no.
 }
 
 @end

@@ -17,6 +17,10 @@
 - (NSUInteger)numberOfColumnsForHeader:(CKCalendarHeaderView *)header;
 - (NSString *)header:(CKCalendarHeaderView *)header titleForColumnAtIndex:(NSInteger)index;
 
+- (BOOL)headerShouldHighlightTitle:(CKCalendarHeaderView *)header;
+- (BOOL)headerShouldDisableForwardButton:(CKCalendarHeaderView *)header;
+- (BOOL)headerShouldDisableBackwardButton:(CKCalendarHeaderView *)header;
+
 @end
 
 @protocol CKCalendarHeaderViewDelegate <NSObject>
