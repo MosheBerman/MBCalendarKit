@@ -52,7 +52,8 @@
 
 -(void)prepareForReuse;
 
-- (void)setSelected;
-- (void)setDeselected;
+- (void)setSelected;    //  Select a given cell
+- (void)setDeselected;  //  Deselect the cell
+- (void)setOutOfRange;  //  Deselect and style to show that the cell isn't selectable
 
 @end

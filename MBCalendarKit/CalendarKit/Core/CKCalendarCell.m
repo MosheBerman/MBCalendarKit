@@ -98,7 +98,7 @@
 
 - (void)setState:(CKCalendarMonthCellState)state
 {
-    if (state > CKCalendarMonthCellStateInactiveSelected || state < CKCalendarMonthCellStateTodaySelected) {
+    if (state > CKCalendarMonthCellStateOutOfRange || state < CKCalendarMonthCellStateTodaySelected) {
         return;
     }
     
@@ -223,6 +223,11 @@
         [[self label] setShadowOffset:CGSizeZero];
         [self setBackgroundColor:[self inactiveSelectedBackgroundColor]];
     }
+    else if(state == CKCalendarMonthCellStateOutOfRange)
+    {
+        [[self label] setAlpha:0.1];    //  Label alpha needs to be lowered
+        [[self label] setShadowOffset:CGSizeZero];
+    }
     
     //  Make the dot follow the label's style
     [[self dot] setBackgroundColor:[[self label] textColor]];
@@ -264,6 +269,11 @@
     {
         [self setState:CKCalendarMonthCellStateTodayDeselected];
     }
+}
+
+- (void)setOutOfRange
+{
+    [self setState:CKCalendarMonthCellStateOutOfRange];
 }
 
 @end
