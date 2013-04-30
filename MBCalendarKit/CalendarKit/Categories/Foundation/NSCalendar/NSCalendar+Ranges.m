@@ -11,9 +11,103 @@
 
 @implementation NSCalendar (Ranges)
 
+#pragma mark - Units per Minute
+
+- (NSUInteger)secondsPerMinute
+{
+    return [self secondsPerMinuteUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)secondsPerMinuteUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSSecondCalendarUnit inUnit:NSMinuteCalendarUnit forDate:date].length;
+}
+
+#pragma mark - Units Per Hour
+
+- (NSUInteger)secondsPerHour
+{
+    return [self secondsPerHourUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)secondsPerHourUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSSecondCalendarUnit inUnit:NSHourCalendarUnit forDate:date].length;
+}
+
+- (NSUInteger)minutesPerHour
+{
+    return [self minutesPerHourUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)minutesPerHourUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSMinuteCalendarUnit inUnit:NSHourCalendarUnit forDate:date].length;
+}
+
+#pragma mark - Units per Day
+
+- (NSUInteger)secondsPerDay
+{
+    return [self secondsPerDayUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)secondsPerDayUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSSecondCalendarUnit inUnit:NSDayCalendarUnit forDate:date].length;
+}
+
+- (NSUInteger)minutesPerDay
+{
+    return [self minutesPerDayUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)minutesPerDayUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSMinuteCalendarUnit inUnit:NSDayCalendarUnit forDate:date].length;
+}
+
+- (NSUInteger)hoursPerDay
+{
+    return [self hoursPerDayUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)hoursPerDayUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSHourCalendarUnit inUnit:NSDayCalendarUnit forDate:date].length;
+}
+
 #pragma mark - Units Per Week
 
-/* days per week */
+- (NSUInteger)secondsPerWeek
+{
+    return [self secondsPerWeekUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)secondsPerWeekUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSSecondCalendarUnit inUnit:NSWeekCalendarUnit forDate:date].length;
+}
+
+- (NSUInteger)minutesPerWeek
+{
+    return [self minutesPerWeekUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)minutesPerWeekUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSMinuteCalendarUnit inUnit:NSWeekCalendarUnit forDate:date].length;
+}
+
+- (NSUInteger)hoursPerWeek
+{
+    return [self hoursPerWeekUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)hoursPerWeekUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSHourCalendarUnit inUnit:NSWeekCalendarUnit forDate:date].length;
+}
 
 - (NSUInteger)daysPerWeek
 {
@@ -27,6 +121,36 @@
 }
 
 #pragma mark - Units Per Month
+
+- (NSUInteger)secondsPerMonth
+{
+    return [self secondsPerMonthUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)secondsPerMonthUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSSecondCalendarUnit inUnit:NSMonthCalendarUnit forDate:date].length;
+}
+
+- (NSUInteger)minutesPerMonth
+{
+    return [self minutesPerMonthUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)minutesPerMonthUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSMinuteCalendarUnit inUnit:NSMonthCalendarUnit forDate:date].length;
+}
+
+- (NSUInteger)hoursPerMonth
+{
+    return [self hoursPerMonthUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)hoursPerMonthUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSHourCalendarUnit inUnit:NSMonthCalendarUnit forDate:date].length;
+}
 
 - (NSUInteger)daysPerMonth
 {
@@ -49,6 +173,36 @@
 }
 
 #pragma mark - Units Per Year
+
+- (NSUInteger)secondsPerYear
+{
+    return [self secondsPerYearUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)secondsPerYearUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSSecondCalendarUnit inUnit:NSYearCalendarUnit forDate:date].length;
+}
+
+- (NSUInteger)minutesPerYear
+{
+    return [self minutesPerYearUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)minutesPerYearUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSMinuteCalendarUnit inUnit:NSYearCalendarUnit forDate:date].length;
+}
+
+- (NSUInteger)hoursPerYear
+{
+    return [self hoursPerYearUsingReferenceDate:[NSDate date]];
+}
+
+- (NSUInteger)hoursPerYearUsingReferenceDate:(NSDate *)date
+{
+    return [self rangeOfUnit:NSHourCalendarUnit inUnit:NSYearCalendarUnit forDate:date].length;
+}
 
 - (NSUInteger)daysPerYear
 {
@@ -128,7 +282,7 @@
         return NO;
     }
     
-    return [self secondsFromDate:firstDate toDate:anotherDate] > 0;
+    return [self secondsFromDate:firstDate toDate:anotherDate] < 0;
 }
 
 - (BOOL)date:(NSDate *)firstDate isAfterDate:(NSDate *)anotherDate
@@ -138,7 +292,7 @@
         return NO;
     }
     
-    return [self secondsFromDate:firstDate toDate:anotherDate] < 0;
+    return [self secondsFromDate:firstDate toDate:anotherDate] > 0;
 }
 
 

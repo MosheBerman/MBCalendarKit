@@ -10,12 +10,54 @@
 
 @interface NSCalendar (Ranges)
 
+#pragma mark - Units Per Minute
+
+- (NSUInteger)secondsPerMinute;
+- (NSUInteger)secondsPerMinuteUsingReferenceDate:(NSDate *)date;
+
+#pragma mark - Units Per Hour
+
+- (NSUInteger)secondsPerHour;
+- (NSUInteger)secondsPerHourUsingReferenceDate:(NSDate *)date;
+
+- (NSUInteger)minutesPerHour;
+- (NSUInteger)minutesPerHourUsingReferenceDate:(NSDate *)date;
+
+#pragma mark - Units Per Day
+
+- (NSUInteger)secondsPerDay;
+- (NSUInteger)secondsPerDayUsingReferenceDate:(NSDate *)date;
+
+- (NSUInteger)minutesPerDay;
+- (NSUInteger)minutesPerDayUsingReferenceDate:(NSDate *)date;
+
+- (NSUInteger)hoursPerDay;
+- (NSUInteger)hoursPerDayUsingReferenceDate:(NSDate *)date;
+
 #pragma mark - Units Per Week
+
+- (NSUInteger)secondsPerWeek;
+- (NSUInteger)secondsPerWeekUsingReferenceDate:(NSDate *)date;
+
+- (NSUInteger)minutesPerWeek;
+- (NSUInteger)minutesPerWeekUsingReferenceDate:(NSDate *)date;
+
+- (NSUInteger)hoursPerWeek;
+- (NSUInteger)hoursPerWeekUsingReferenceDate:(NSDate *)date;
 
 - (NSUInteger)daysPerWeek;
 - (NSUInteger)daysPerWeekUsingReferenceDate:(NSDate *)date;
 
 #pragma mark - Units Per Month
+
+- (NSUInteger)secondsPerMonth;
+- (NSUInteger)secondsPerMonthUsingReferenceDate:(NSDate *)date;
+
+- (NSUInteger)minutesPerMonth;
+- (NSUInteger)minutesPerMonthUsingReferenceDate:(NSDate *)date;
+
+- (NSUInteger)hoursPerMonth;
+- (NSUInteger)hoursPerMonthUsingReferenceDate:(NSDate *)date;
 
 - (NSUInteger)daysPerMonth;
 - (NSUInteger)daysPerMonthUsingReferenceDate:(NSDate *)date;
@@ -24,6 +66,15 @@
 - (NSUInteger)weeksPerMonthUsingReferenceDate:(NSDate *)date;
 
 #pragma mark - Units Per Year
+
+- (NSUInteger)secondsPerYear;
+- (NSUInteger)secondsPerYearUsingReferenceDate:(NSDate *)date;
+
+- (NSUInteger)minutesPerYear;
+- (NSUInteger)minutesPerYearUsingReferenceDate:(NSDate *)date;
+
+- (NSUInteger)hoursPerYear;
+- (NSUInteger)hoursPerYearUsingReferenceDate:(NSDate *)date;
 
 - (NSUInteger)daysPerYear;
 - (NSUInteger)daysPerYearUsingReferenceDate:(NSDate *)date;
