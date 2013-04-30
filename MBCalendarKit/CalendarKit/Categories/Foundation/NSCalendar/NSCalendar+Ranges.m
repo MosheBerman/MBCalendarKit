@@ -128,7 +128,7 @@
         return NO;
     }
     
-    return [self secondsFromDate:firstDate toDate:anotherDate] < 0;
+    return [self secondsFromDate:firstDate toDate:anotherDate] > 0;
 }
 
 - (BOOL)date:(NSDate *)firstDate isAfterDate:(NSDate *)anotherDate
@@ -138,7 +138,7 @@
         return NO;
     }
     
-    return [self secondsFromDate:firstDate toDate:anotherDate] > 0;
+    return [self secondsFromDate:firstDate toDate:anotherDate] < 0;
 }
 
 
