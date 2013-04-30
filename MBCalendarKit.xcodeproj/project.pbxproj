@@ -203,8 +203,8 @@
 		464A86CA171F174D00E7AB19 /* CalendarKit */ = {
 			isa = PBXGroup;
 			children = (
-				464A86CB171F174D00E7AB19 /* Categories */,
 				464A86EA171F174D00E7AB19 /* CalendarKit.h */,
+				464A86CB171F174D00E7AB19 /* Categories */,
 				464A86EB171F174D00E7AB19 /* Core */,
 				464A86F6171F174D00E7AB19 /* Headers */,
 				464A86FB171F174D00E7AB19 /* View Controllers */,
