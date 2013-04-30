@@ -638,7 +638,6 @@
 {
     _minimumDate = minimumDate;
     [self setDate:[self date] animated:animated];
-    [self reload];
 }
 
 - (void)setMaximumDate:(NSDate *)maximumDate
@@ -650,7 +649,6 @@
 {
     _maximumDate = maximumDate;
     [self setDate:[self date] animated:animated];    
-    [self reload];
 }
 
 #pragma mark - CKCalendarHeaderViewDataSource
