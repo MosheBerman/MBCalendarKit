@@ -24,6 +24,9 @@
 @property(nonatomic, strong) NSTimeZone     *timeZone;          // default is nil. use current time zone or time zone from calendar
 
 @property (nonatomic, strong) NSDate *date;
+@property (nonatomic, strong) NSDate *minimumDate;
+@property (nonatomic, strong) NSDate *maximumDate;
+
 
 @property (nonatomic, assign) id<CKCalendarViewDataSource> dataSource;
 @property (nonatomic, assign) id<CKCalendarViewDelegate> delegate;
@@ -54,6 +57,12 @@
 
 - (void)setTimeZone:(NSTimeZone *)timeZone;
 - (void)setTimeZone:(NSTimeZone *)timeZone animated:(BOOL)animated;
+
+- (void)setMinimumDate:(NSDate *)minimumDate;
+- (void)setMinimumDate:(NSDate *)minimumDate animated:(BOOL)animated;
+
+- (void)setMaximumDate:(NSDate *)maximumDate;
+- (void)setMaximumDate:(NSDate *)maximumDate animated:(BOOL)animated;
 
 /* Visible Dates */
 

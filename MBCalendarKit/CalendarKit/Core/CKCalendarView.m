@@ -80,6 +80,10 @@
         _wrapper = [UIView new];
         _isAnimating = NO;
         
+        //  Date bounds
+        _minimumDate = nil;
+        _maximumDate = nil;
+        
     }
     return self;
 }
@@ -346,6 +350,9 @@
             
             BOOL cellRepresentsToday = [[self calendar] date:workingDate isSameDayAs:[NSDate date]];
             BOOL isThisMonth = [[self calendar] date:workingDate isSameMonthAs:[self date]];
+            BOOL isInRange = [self _dateIsBetweenMinimumAndMaximumDates:workingDate];
+            isInRange = isInRange || [[self calendar] date:workingDate isSameDayAs:[self minimumDate]];
+            isInRange = isInRange || [[self calendar] date:workingDate isSameDayAs:[self maximumDate]];
             
             /* STEP 3:  Here we style the cells accordingly.
              
@@ -353,15 +360,22 @@
              the selectedIndex.
              
              If the cell is part of another month, gray it out.
+             
+             If the cell can't be selected, hide the number entirely.
              */
             
-            if (cellRepresentsToday && isThisMonth) {
+            if (cellRepresentsToday && isThisMonth && isInRange) {
                 [cell setState:CKCalendarMonthCellStateTodayDeselected];
+            }
+            else if(!isInRange)
+            {
+                [cell setOutOfRange];
             }
             else if (!isThisMonth) {
                 [cell setState:CKCalendarMonthCellStateInactive];
             }
-            else{
+            else
+            {
                 [cell setState:CKCalendarMonthCellStateNormal];
             }
             
@@ -576,6 +590,19 @@
         date = [NSDate date];
     }
     
+    BOOL minimumIsBeforeMaximum = [self _minimumDateIsBeforeMaximumDate];
+    
+    if (minimumIsBeforeMaximum) {
+        
+        if ([self _dateIsBeforeMinimumDate:date]) {
+            date = [self minimumDate];
+        }
+        else if([self _dateIsAfterMaximumDate:date])
+        {
+            date = [self maximumDate];
+        }
+    }
+    
     if ([[self delegate] respondsToSelector:@selector(calendarView:willSelectDate:)]) {
         [[self delegate] calendarView:self willSelectDate:date];
     }
@@ -599,6 +626,31 @@
     
     [self layoutSubviewsAnimated:animated];
     
+}
+
+
+- (void)setMinimumDate:(NSDate *)minimumDate
+{
+    [self setMinimumDate:minimumDate animated:NO];
+}
+
+- (void)setMinimumDate:(NSDate *)minimumDate animated:(BOOL)animated
+{
+    _minimumDate = minimumDate;
+    [self setDate:[self date] animated:animated];
+    [self reload];
+}
+
+- (void)setMaximumDate:(NSDate *)maximumDate
+{
+    [self setMaximumDate:[self date]];
+}
+
+- (void)setMaximumDate:(NSDate *)maximumDate animated:(BOOL)animated
+{
+    _maximumDate = maximumDate;
+    [self setDate:[self date] animated:animated];    
+    [self reload];
 }
 
 #pragma mark - CKCalendarHeaderViewDataSource
@@ -708,7 +760,7 @@
     else if([self displayMode] == CKCalendarViewModeWeek)
     {
         
-        date = [[self calendar] dateByAddingWeeks:1 toDate:date];               //  Add a week
+        date = [[self calendar] dateByAddingWeeks:1 toDate:date];                   //  Add a week
         
         NSUInteger dayOfWeek = [[self calendar] weekdayInDate:date];
         date = [[self calendar] dateBySubtractingDays:dayOfWeek-1 fromDate:date];   //  Jump to sunday
@@ -970,6 +1022,72 @@
     return 1;
 }
 
+#pragma mark - Minimum and Maximum Dates
+
+- (BOOL)_minimumDateIsBeforeMaximumDate
+{
+    //  If either isn't set, return YES
+    if (![self _hasNonNilMinimumAndMaximumDates]) {
+        return YES;
+    }
+    
+    return [[self calendar] date:[self minimumDate] isBeforeDate:[self maximumDate]];
+}
+
+- (BOOL)_hasNonNilMinimumAndMaximumDates
+{
+    return [self minimumDate] != nil && [self maximumDate] != nil;
+}
+
+- (BOOL)_dateIsBeforeMinimumDate:(NSDate *)date
+{
+    return [[self calendar] date:date isBeforeDate:[self minimumDate]];
+}
+
+- (BOOL)_dateIsAfterMaximumDate:(NSDate *)date
+{
+    return [[self calendar] date:date isAfterDate:[self maximumDate]];
+}
+
+- (BOOL)_dateIsBetweenMinimumAndMaximumDates:(NSDate *)date
+{
+    //  If there are both the minimum and maximum dates are unset,
+    //  behave as if all dates are in range.
+    if (![self minimumDate] && ![self maximumDate]) {
+        return YES;
+    }
+    
+    //  If there's no minimum, treat all dates that are before
+    //  the maximum as valid
+    else if(![self minimumDate])
+    {
+        return [[self calendar]date:date isBeforeDate:[self maximumDate]];
+    }
+
+    //  If there's no maximum, treat all dates that are before
+    //  the minimum as valid
+    else if(![self maximumDate])
+    {
+        return [[self calendar] date:date isAfterDate:[self minimumDate]];
+    }
+    
+    return [[self calendar] date:date isAfterDate:[self minimumDate]] && [[self calendar] date:date isBeforeDate:[self maximumDate]];
+}
+
+#pragma mark - Dates & Indices
+
+- (NSInteger)_indexFromDate:(NSDate *)date
+{
+    NSDate *firstVisible = [self firstVisibleDate];
+    return [[self calendar] daysFromDate:firstVisible toDate:date];
+}
+
+- (NSDate *)_dateFromIndex:(NSInteger)index
+{
+    NSDate *firstVisible = [self firstVisibleDate];
+    return [[self calendar] dateByAddingDays:index toDate:firstVisible];
+}
+
 #pragma mark - Touch Handling
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -993,20 +1111,41 @@
         
         NSUInteger index = [self selectedIndex];
         
+        //  Get the index from the cell we're in
         for (CKCalendarCell *cell in [self usedCells]) {
             CGRect rect = [cell frame];
             if (CGRectContainsPoint(rect, point)) {
-                [cell setSelected];
                 index = [cell index];
+                break;
+            }
+
+        }
+        
+        //  Clip the index to minimum and maximum dates
+        NSDate *date = [self _dateFromIndex:index];
+        
+        if ([self _dateIsAfterMaximumDate:date]) {
+            index = [self _indexFromDate:[self maximumDate]];
+        }
+        else if([self _dateIsBeforeMinimumDate:date])
+        {
+            index = [self _indexFromDate:[self minimumDate]];
+        }
+
+        // Save the new index
+        [self setSelectedIndex:index];
+        
+        //  Update the cell highlighting
+        for (CKCalendarCell *cell in [self usedCells]) {
+            if ([cell index] == [self selectedIndex]) {
+                [cell setSelected];
             }
             else
             {
                 [cell setDeselected];
             }
+            
         }
-        
-        // TODO: check bounds of selection
-        [self setSelectedIndex:index];
     }
     
     return [super pointInside:point withEvent:event];
