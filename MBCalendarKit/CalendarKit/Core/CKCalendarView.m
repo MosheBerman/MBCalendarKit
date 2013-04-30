@@ -642,7 +642,7 @@
 
 - (void)setMaximumDate:(NSDate *)maximumDate
 {
-    [self setMaximumDate:[self date]];
+    [self setMaximumDate:[self date] animated:NO];
 }
 
 - (void)setMaximumDate:(NSDate *)maximumDate animated:(BOOL)animated
@@ -697,6 +697,62 @@
     NSDate *columnToShow = [[self calendar] dateByAddingDays:index toDate:firstDate];
     
     return [columnToShow dayNameOnCalendar:[self calendar]];
+}
+
+
+- (BOOL)headerShouldHighlightTitle:(CKCalendarHeaderView *)header
+{
+    CKCalendarDisplayMode mode = [self displayMode];
+    
+    if (mode == CKCalendarViewModeDay) {
+        return [[self calendar] date:[NSDate date] isSameDayAs:[self date]];
+    }
+    
+    return NO;
+}
+
+- (BOOL)headerShouldDisableBackwardButton:(CKCalendarHeaderView *)header
+{
+    
+    //  Never disable if there's no minimum date
+    if (![self minimumDate]) {
+        return NO;
+    }
+    
+    CKCalendarDisplayMode mode = [self displayMode];
+    
+    if (mode == CKCalendarViewModeMonth)
+    {
+        return [[self calendar] date:[self date] isSameMonthAs:[self minimumDate]];
+    }
+    else if(mode == CKCalendarViewModeWeek)
+    {
+        return [[self calendar] date:[self date] isSameWeekAs:[self minimumDate]];
+    }
+
+    return [[self calendar] date:[self date] isSameDayAs:[self minimumDate]];
+}
+
+- (BOOL)headerShouldDisableForwardButton:(CKCalendarHeaderView *)header
+{
+    
+    //  Never disable if there's no minimum date
+    if (![self maximumDate]) {
+        return NO;
+    }
+    
+    CKCalendarDisplayMode mode = [self displayMode];
+    
+    if (mode == CKCalendarViewModeMonth)
+    {
+        return [[self calendar] date:[self date] isSameMonthAs:[self maximumDate]];
+    }
+    else if(mode == CKCalendarViewModeWeek)
+    {
+        return [[self calendar] date:[self date] isSameWeekAs:[self maximumDate]];
+    }
+    
+    return [[self calendar] date:[self date] isSameDayAs:[self maximumDate]];
 }
 
 #pragma mark - CKCalendarHeaderViewDelegate
