@@ -10,19 +10,18 @@
 
 #import "NSCalendarCategories.h"
 
+#import "NSDate+Components.h"
+
 @interface CKDemoViewController () <CKCalendarViewDelegate, CKCalendarViewDataSource>
-
-@property (nonatomic, strong) NSMutableDictionary *data;
-
+    @property (nonatomic, strong) NSMutableDictionary *data;
 @end
 
 @implementation CKDemoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Custom initialization
         [self setDataSource:self];
         [self setDelegate:self];
     }
@@ -33,6 +32,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    /*
+    NSDate *min = [NSDate dateWithDay:10 month:4 year:2013];
+    NSDate *max = [NSDate dateWithDay:20 month:4 year:2013];
+    
+    [[self calendarView] setMaximumDate:max];
+    [[self calendarView] setMinimumDate:min];
+     */
 }
 
 - (void)didReceiveMemoryWarning
