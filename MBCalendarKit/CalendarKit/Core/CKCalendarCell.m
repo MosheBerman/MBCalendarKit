@@ -225,7 +225,7 @@
     }
     else if(state == CKCalendarMonthCellStateOutOfRange)
     {
-        [[self label] setAlpha:0.1];    //  Label alpha needs to be lowered
+        [[self label] setAlpha:0.01];    //  Label alpha needs to be lowered
         [[self label] setShadowOffset:CGSizeZero];
     }
     
