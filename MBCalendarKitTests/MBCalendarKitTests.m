@@ -215,6 +215,31 @@
     
 }
 
+- (void)testDaysPerGregorianYear2010
+{
+    
+    NSDate *jan12010 = [NSDate dateWithDay:1 month:1 year:2010];
+    NSDate *jan12011 = [NSDate dateWithDay:1 month:1 year:2011];
+    
+    NSUInteger assumedResult = 365;
+    NSUInteger actualResult = [[self gregorianCalendar] daysFromDate:jan12010 toDate:jan12011];
+    
+    STAssertEquals(assumedResult, actualResult, @"Assumed: %i Actual: %i", assumedResult, actualResult); 
+}
+
+
+- (void)testDaysPerGregorianYear2012
+{
+    
+    NSDate *jan12012 = [NSDate dateWithDay:1 month:1 year:2012];
+    NSDate *jan12013 = [NSDate dateWithDay:1 month:1 year:2013];
+    
+    NSUInteger assumedResult = 366;
+    NSUInteger actualResult = [[self gregorianCalendar] daysFromDate:jan12012 toDate:jan12013];
+    
+    STAssertEquals(assumedResult, actualResult, @"Assumed: %i Actual: %i", assumedResult, actualResult);
+}
+
 #pragma mark - NSCalendar+Juncture
 
 - (void)testFirstDayOfTheWeek
