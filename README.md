@@ -48,7 +48,7 @@ You have two choices for showing a calendar using MBCalendarKit.
  		[calendar setDataSource:self];
  		
 		// 3. Present the calendar 
-		[[]self view] addSubview:calendar];
+		[[self view] addSubview:calendar];
 
 
 2. Your second option is to create an instance of `CKCalendarViewController`. Using a CKCalendarViewController gives you the added benefit of a "today" button and a segmented control in the toolbar, which allows you to select the display mode. Note that `CKCalendarViewController` subclasses `UINavigationViewController`, so it can't be installed inside of another navigation controller. 
