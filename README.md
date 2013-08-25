@@ -48,7 +48,7 @@ CKCalendarView *calendar = [CKCalendarView new];
 [calendar setDataSource:self];
  		
 // 3. Present the calendar 
-self view] addSubview:calendar];
+[[self view] addSubview:calendar];
 		
 ````
 
@@ -74,7 +74,7 @@ CKCalendarViewController *calendar = [CKCalendarViewController new];
 [calendar setDataSource:self];
  		
 // 3. Present the calendar 
-self presentViewController:calendar animated:YES completion:nil];
+[[self presentViewController:calendar animated:YES completion:nil];
 		
 ````
 
