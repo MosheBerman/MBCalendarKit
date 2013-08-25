@@ -12,7 +12,7 @@ Screenshots:
 Dependencies:
 -------------
 
-You'll need the iOS 6 SDK. I haven't tested it against earlier versions of iOS. Your mileage may vary. (I'm pretty sure I used some NSCalendarUnit values that aren't defined before iOS 5.)
+You'll need the iOS 6 SDK. I haven't tested it against earlier versions of iOS. Your mileage may vary. (I'm pretty sure I used some NSCalendarUnit values that aren't defined before iOS 5. You'll also have to look at the table view cell implementation in `CKCalendarView.m`.) 
 
 MBCalendarKit requires Quartz, Core Graphics, UIKit, and Foundation. The Unit Tests build against the SenTestingKit framework. Xcode should take care of all those except `QuartzCore.framework`. If you're building the tests, you may have to link to SenTestingKit yourself, as well.
 
