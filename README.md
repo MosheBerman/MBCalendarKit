@@ -9,6 +9,12 @@ Screenshots:
 ![Week](./screens/week.png "Week View")
 ![Delegate](./screens/day.png "Day View")
 
+Getting Started:
+---------------
+
+You'll need to set up the dependencies, described below. Alternatively, MBCalendarKit is now a registered CocoaPod. I don't use CocoaPods, but the process of listing it was simple enough, and it includes a check to ensure I did it correctly, so adding MBCalendarKit to your project as a pod is expected to work.
+
+
 Dependencies:
 -------------
 
@@ -20,7 +26,6 @@ Relevant Files:
 ---------------
 
 Aside from the framework dependencies described above, you'll want everything in the CalendarKit folder. 
-
 
 Showing a Calendar
 --------------------------------------
