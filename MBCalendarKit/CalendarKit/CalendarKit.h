@@ -9,8 +9,12 @@
 #ifndef MBCalendarKit_CalendarKit_h
 #define MBCalendarKit_CalendarKit_h
 
+//  Core library
 #import "CKCalendarEvent.h"
 #import "CKCalendarViewController.h"
 #import "CKCalendarView.h"
+
+//  May be helpful for implementing the CKCalendarViewDataSource
+#import "NSCalendar+DateComparison.h"
 
 #endif
