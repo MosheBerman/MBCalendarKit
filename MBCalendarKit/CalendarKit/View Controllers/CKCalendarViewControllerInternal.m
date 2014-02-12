@@ -31,9 +31,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    /* */
+    /* iOS 7 hack*/
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-        [self performSelector:NSSelectorFromString(@"setEdgesForExtendedLayout:") withObject:0];
+        [self setEdgesForExtendedLayout:UIRectEdgeNone];
     }
     
     [self setTitle:NSLocalizedString(@"Calendar", @"A title for the calendar view.")];
