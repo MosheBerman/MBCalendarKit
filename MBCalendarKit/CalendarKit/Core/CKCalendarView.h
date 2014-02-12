@@ -28,8 +28,8 @@
 @property (nonatomic, strong) NSDate *maximumDate;
 
 
-@property (nonatomic, assign) id<CKCalendarViewDataSource> dataSource;
-@property (nonatomic, assign) id<CKCalendarViewDelegate> delegate;
+@property (nonatomic, weak) id<CKCalendarViewDataSource> dataSource;
+@property (nonatomic, weak) id<CKCalendarViewDelegate> delegate;
 
 /* Initializer */
 
