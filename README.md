@@ -91,7 +91,7 @@ CKCalendarViewController *calendar = [CKCalendarViewController new];
 
 
 
-Supplying Data
+Showing Events
 -------------------------
 
 The `CKCalendarDataSource` protocol defines the following method, which supplies an array of `CKCalendarEvent` objects. The calendar view automatically shows an indicator in cells that represent dates that have events. 
@@ -99,9 +99,9 @@ The `CKCalendarDataSource` protocol defines the following method, which supplies
 ```` objective-c
 - (NSArray *)calendarView:(CKCalendarView *)calendarView eventsForDate:(NSDate *)date;
 ````
+In your data source, implement this method and return the events matching the date being passed in. You may find some of the `NSCalendar+DateComparison` categories to be helpful here.
 
-You can read more about calendar events below.
-		
+You can read more about the `CKCalendarEvent` clas below.
 		
 Handling User Interaction
 -------------------------
@@ -121,7 +121,7 @@ This method is called on the delegate when a row is selected in the events table
     
 Calendar Events
 ----------------
-`CKCalendarEvent` is a simple data structure class which holds a title, a date, and an info dictionary. The calendar view will display automatically display `CKCalendarEvent` objects as passed to it by its delegate. If you have custom information that you want to show in a detail view, you can attach it to the event's `info` property.	
+`CKCalendarEvent` is a simple data structure class which holds a title, a date, and an info dictionary. The calendar view will display automatically display `CKCalendarEvent` objects as passed to it by its data sourcee. If you have custom information that you want to show in a detail view, you can attach it to the event's `info` property.	
 
 
 License:
