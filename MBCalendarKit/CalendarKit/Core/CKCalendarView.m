@@ -215,7 +215,7 @@
     {
         CGFloat width = (CGFloat)[self _columnCountForDisplayMode:CKCalendarViewModeMonth] * cellSize.width;
         CGFloat height = (CGFloat)[self _rowCountForDisplayMode:CKCalendarViewModeMonth] * cellSize.height;
-        return CGRectMake(0, cellSize.height, width, height);
+        return CGRectMake(0, [[self headerView]height], width, height);
     }
     return CGRectZero;
 }
