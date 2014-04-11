@@ -11,7 +11,7 @@
 @interface NSDate (Components)
 
 #pragma mark Convenenience Intializers
-
+-(NSArray*)dateComponentsFromDate:(NSDate*)date;
 + (NSDate *)dateWithDay:(NSUInteger)day month:(NSUInteger)month year:(NSUInteger)year;
 + (NSDate *)dateWithDay:(NSUInteger)day Month:(NSUInteger)month Year:(NSUInteger)year andCalendar:(NSCalendar *)calendar;
 

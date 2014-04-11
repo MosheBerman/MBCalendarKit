@@ -14,7 +14,16 @@
 
 #pragma mark - Convenience Intializers
 
-
+-(NSArray*)dateComponentsFromDate:(NSDate*)date
+{
+    NSUInteger componentFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:componentFlags fromDate:date];
+    NSNumber *year = [NSNumber numberWithInteger:[components year]];
+    NSNumber *month = [NSNumber numberWithInteger:[components month]];
+    NSNumber *day = [NSNumber numberWithInteger:[components day]];
+    NSArray *array = [[NSArray alloc] initWithObjects:day,month,year, nil];
+    return array;
+}
 + (NSDate *)dateWithDay:(NSUInteger)day month:(NSUInteger)month year:(NSUInteger)year
 {
     return [NSDate dateWithDay:day Month:month Year:year andCalendar:[NSDate defaultCalendar]];
