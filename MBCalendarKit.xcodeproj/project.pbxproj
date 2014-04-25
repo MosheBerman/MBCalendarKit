@@ -71,15 +71,7 @@
 		464A8749171F174D00E7AB19 /* MBCalendarKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A870F171F174D00E7AB19 /* MBCalendarKitTests.m */; };
 		464A8787171F3D8100E7AB19 /* CKCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A8786171F3D8100E7AB19 /* CKCalendarViewController.m */; };
 		464A8788171F3D8100E7AB19 /* CKCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A8786171F3D8100E7AB19 /* CKCalendarViewController.m */; };
-		46631FB8171B01F400DA27CC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46631FB7171B01F400DA27CC /* QuartzCore.framework */; };
-		46631FB9171B025600DA27CC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46631FB7171B01F400DA27CC /* QuartzCore.framework */; };
 		46895C9A171F5AA60072DBCF /* CKDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46895C99171F5AA60072DBCF /* CKDemoViewController.m */; };
-		46BFBCC31715FB3F00D4733E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC21715FB3F00D4733E /* UIKit.framework */; };
-		46BFBCC51715FB3F00D4733E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC41715FB3F00D4733E /* Foundation.framework */; };
-		46BFBCC71715FB3F00D4733E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC61715FB3F00D4733E /* CoreGraphics.framework */; };
-		46BFBCE81715FB3F00D4733E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC21715FB3F00D4733E /* UIKit.framework */; };
-		46BFBCE91715FB3F00D4733E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC41715FB3F00D4733E /* Foundation.framework */; };
-		46F1BC7317188D7200F8356F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC61715FB3F00D4733E /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,13 +154,9 @@
 		464A8780171F2D7800E7AB19 /* CKCalendarDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKCalendarDataSource.h; sourceTree = "<group>"; };
 		464A8785171F3D8100E7AB19 /* CKCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarViewController.h; sourceTree = "<group>"; };
 		464A8786171F3D8100E7AB19 /* CKCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarViewController.m; sourceTree = "<group>"; };
-		46631FB7171B01F400DA27CC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46895C98171F5AA60072DBCF /* CKDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKDemoViewController.h; path = MBCalendarKit/CKDemoViewController.h; sourceTree = "<group>"; };
 		46895C99171F5AA60072DBCF /* CKDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKDemoViewController.m; path = MBCalendarKit/CKDemoViewController.m; sourceTree = "<group>"; };
 		46BFBCBF1715FB3F00D4733E /* MBCalendarKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MBCalendarKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		46BFBCC21715FB3F00D4733E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		46BFBCC41715FB3F00D4733E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		46BFBCC61715FB3F00D4733E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		46BFBCE51715FB3F00D4733E /* MBCalendarKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MBCalendarKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -177,10 +165,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46631FB9171B025600DA27CC /* QuartzCore.framework in Frameworks */,
-				46BFBCC31715FB3F00D4733E /* UIKit.framework in Frameworks */,
-				46BFBCC51715FB3F00D4733E /* Foundation.framework in Frameworks */,
-				46BFBCC71715FB3F00D4733E /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,10 +172,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46631FB8171B01F400DA27CC /* QuartzCore.framework in Frameworks */,
-				46F1BC7317188D7200F8356F /* CoreGraphics.framework in Frameworks */,
-				46BFBCE81715FB3F00D4733E /* UIKit.framework in Frameworks */,
-				46BFBCE91715FB3F00D4733E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +341,6 @@
 				464A870A171F174D00E7AB19 /* MBCalendarKitTests */,
 				46E644D5171F16860095490F /* Icons */,
 				464A874A171F1AAA00E7AB19 /* Demo App */,
-				46BFBCC11715FB3F00D4733E /* Frameworks */,
 				46BFBCC01715FB3F00D4733E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -373,17 +352,6 @@
 				46BFBCE51715FB3F00D4733E /* MBCalendarKitTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		46BFBCC11715FB3F00D4733E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				46631FB7171B01F400DA27CC /* QuartzCore.framework */,
-				46BFBCC61715FB3F00D4733E /* CoreGraphics.framework */,
-				46BFBCC41715FB3F00D4733E /* Foundation.framework */,
-				46BFBCC21715FB3F00D4733E /* UIKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		46E644D5171F16860095490F /* Icons */ = {
@@ -656,6 +624,7 @@
 		46AB942A171CE6590082492E /* Ad Hoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Moshe Berman (JFYZ2Q7278)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MBCalendarKit/MBCalendarKit-Prefix.pch";
@@ -743,6 +712,7 @@
 		46BFBCF81715FB3F00D4733E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MBCalendarKit/MBCalendarKit-Prefix.pch";
@@ -757,6 +727,7 @@
 		46BFBCF91715FB3F00D4733E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MBCalendarKit/MBCalendarKit-Prefix.pch";
