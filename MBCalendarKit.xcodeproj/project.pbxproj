@@ -77,7 +77,6 @@
 		46BFBCC31715FB3F00D4733E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC21715FB3F00D4733E /* UIKit.framework */; };
 		46BFBCC51715FB3F00D4733E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC41715FB3F00D4733E /* Foundation.framework */; };
 		46BFBCC71715FB3F00D4733E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC61715FB3F00D4733E /* CoreGraphics.framework */; };
-		46BFBCE71715FB3F00D4733E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCE61715FB3F00D4733E /* SenTestingKit.framework */; };
 		46BFBCE81715FB3F00D4733E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC21715FB3F00D4733E /* UIKit.framework */; };
 		46BFBCE91715FB3F00D4733E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC41715FB3F00D4733E /* Foundation.framework */; };
 		46F1BC7317188D7200F8356F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BFBCC61715FB3F00D4733E /* CoreGraphics.framework */; };
@@ -170,8 +169,7 @@
 		46BFBCC21715FB3F00D4733E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		46BFBCC41715FB3F00D4733E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		46BFBCC61715FB3F00D4733E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		46BFBCE51715FB3F00D4733E /* MBCalendarKitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MBCalendarKitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		46BFBCE61715FB3F00D4733E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		46BFBCE51715FB3F00D4733E /* MBCalendarKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MBCalendarKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,7 +190,6 @@
 			files = (
 				46631FB8171B01F400DA27CC /* QuartzCore.framework in Frameworks */,
 				46F1BC7317188D7200F8356F /* CoreGraphics.framework in Frameworks */,
-				46BFBCE71715FB3F00D4733E /* SenTestingKit.framework in Frameworks */,
 				46BFBCE81715FB3F00D4733E /* UIKit.framework in Frameworks */,
 				46BFBCE91715FB3F00D4733E /* Foundation.framework in Frameworks */,
 			);
@@ -373,7 +370,7 @@
 			isa = PBXGroup;
 			children = (
 				46BFBCBF1715FB3F00D4733E /* MBCalendarKit.app */,
-				46BFBCE51715FB3F00D4733E /* MBCalendarKitTests.octest */,
+				46BFBCE51715FB3F00D4733E /* MBCalendarKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -384,7 +381,6 @@
 				46631FB7171B01F400DA27CC /* QuartzCore.framework */,
 				46BFBCC61715FB3F00D4733E /* CoreGraphics.framework */,
 				46BFBCC41715FB3F00D4733E /* Foundation.framework */,
-				46BFBCE61715FB3F00D4733E /* SenTestingKit.framework */,
 				46BFBCC21715FB3F00D4733E /* UIKit.framework */,
 			);
 			name = Frameworks;
@@ -442,8 +438,8 @@
 			);
 			name = MBCalendarKitTests;
 			productName = MBChocolateCakeTests;
-			productReference = 46BFBCE51715FB3F00D4733E /* MBCalendarKitTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 46BFBCE51715FB3F00D4733E /* MBCalendarKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -678,13 +674,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MBCalendarKit/MBCalendarKit-Prefix.pch";
 				INFOPLIST_FILE = "MBCalendarKitTests/MBCalendarKitTests-Info.plist";
 				PRODUCT_NAME = MBCalendarKitTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = "Ad Hoc";
 		};
@@ -779,13 +775,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MBCalendarKit/MBCalendarKit-Prefix.pch";
 				INFOPLIST_FILE = "MBCalendarKitTests/MBCalendarKitTests-Info.plist";
 				PRODUCT_NAME = MBCalendarKitTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -796,13 +792,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MBCalendarKit/MBCalendarKit-Prefix.pch";
 				INFOPLIST_FILE = "MBCalendarKitTests/MBCalendarKitTests-Info.plist";
 				PRODUCT_NAME = MBCalendarKitTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

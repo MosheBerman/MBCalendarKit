@@ -70,7 +70,7 @@
     NSDate *dateFromComponents = [[self gregorianCalendar] dateFromComponents:comps];
     NSDate *dateFromConvenienceMethod = [NSDate dateWithDay:3 Month:2 Year:2013 andCalendar:[self gregorianCalendar]];
     
-    STAssertEqualObjects(dateFromComponents, dateFromConvenienceMethod, @"The date objects are not supposed to be different.");
+    XCTAssertEqualObjects(dateFromComponents, dateFromConvenienceMethod, @"The date objects are not supposed to be different.");
 }
 
 - (void)testDayMonthYearDateConvenienceInitializerWithHebrewCalendar
@@ -83,7 +83,7 @@
     NSDate *dateFromComponents = [[self hebrewCalendar] dateFromComponents:comps];
     NSDate *dateFromConvenienceMethod = [NSDate dateWithDay:1 Month:1 Year:5773 andCalendar:[self hebrewCalendar]];
     
-    STAssertEqualObjects(dateFromComponents, dateFromConvenienceMethod, @"The date objects are not supposed to be different.");
+    XCTAssertEqualObjects(dateFromComponents, dateFromConvenienceMethod, @"The date objects are not supposed to be different.");
 }
 
 #pragma mark - NSCalendar+Components
@@ -106,9 +106,9 @@
     NSInteger month = [[self gregorianCalendar] monthsInDate:workingDate];
     NSInteger year = [[self gregorianCalendar] yearsInDate:workingDate];
     
-    STAssertEquals(day, 23, @"Day: %i", day);
-    STAssertEquals(month, 10, @"Month: %i", month);
-    STAssertEquals(year, 1991, @"Year:%i", year);
+    XCTAssertEqual(day, 23, @"Day: %i", day);
+    XCTAssertEqual(month, 10, @"Month: %i", month);
+    XCTAssertEqual(year, 1991, @"Year:%i", year);
 }
 
 - (void)testDayMonthYearCalendarComponentsWithHebrewCalendar
@@ -119,9 +119,9 @@
     NSInteger month = [[self gregorianCalendar] monthsInDate:workingDate];
     NSInteger year = [[self gregorianCalendar] yearsInDate:workingDate];
     
-    STAssertEquals(day, 1, @"Day: %i", day);
-    STAssertEquals(month, 1, @"Month: %i", month);
-    STAssertEquals(year, 5773, @"Year:%i", year);
+    XCTAssertEqual(day, 1, @"Day: %i", day);
+    XCTAssertEqual(month, 1, @"Month: %i", month);
+    XCTAssertEqual(year, 5773, @"Year:%i", year);
 }
 
 
@@ -130,7 +130,7 @@
 - (void)testDaysPerWeekForGregorianCalendar
 {
     NSInteger daysPerWeek = [[self gregorianCalendar] daysPerWeek];
-    STAssertEquals(@(daysPerWeek), @(7), @"Since when are there not 7 days in a Gregorian week?");
+    XCTAssertEqual(@(daysPerWeek), @(7), @"Since when are there not 7 days in a Gregorian week?");
 }
 
 /* Test February during a standard year - 28 days */
@@ -149,7 +149,7 @@
         NSUInteger assumedResult = daysPerMonth[month];
         NSUInteger daysPerMonth = [[self gregorianCalendar] daysPerMonthUsingReferenceDate:referenceDate];
     
-        STAssertEquals(assumedResult, daysPerMonth, @"Month: %i", month+1);
+        XCTAssertEqual(assumedResult, daysPerMonth, @"Month: %i", month+1);
     }
 }
 
@@ -169,7 +169,7 @@
         NSUInteger assumedResult = daysPerMonth[month];
         NSUInteger daysPerMonth = [[self gregorianCalendar] daysPerMonthUsingReferenceDate:referenceDate];
         
-        STAssertEquals(assumedResult, daysPerMonth, @"Assumed and actual month lengths aren't equal.");
+        XCTAssertEqual(assumedResult, daysPerMonth, @"Assumed and actual month lengths aren't equal.");
     }
 }
 
@@ -189,7 +189,7 @@
         NSUInteger assumedResult = weeksPerMonth[month];
         NSUInteger daysPerMonth = [[self gregorianCalendar] weeksPerMonthUsingReferenceDate:referenceDate];
         
-        STAssertEquals(assumedResult, daysPerMonth, @"Month: %i, Assumed: %i Actual: %i", month, assumedResult, daysPerMonth);
+        XCTAssertEqual(assumedResult, daysPerMonth, @"Month: %i, Assumed: %i Actual: %i", month, assumedResult, daysPerMonth);
     }
     
 }
@@ -210,7 +210,7 @@
         NSUInteger assumedResult = weeksPerMonth[month];
         NSUInteger daysPerMonth = [[self gregorianCalendar] weeksPerMonthUsingReferenceDate:referenceDate];
         
-        STAssertEquals(assumedResult, daysPerMonth, @"Month: %i, Assumed: %i Actual: %i", month, assumedResult, daysPerMonth);
+        XCTAssertEqual(assumedResult, daysPerMonth, @"Month: %i, Assumed: %i Actual: %i", month, assumedResult, daysPerMonth);
     }
     
 }
@@ -224,7 +224,7 @@
     NSUInteger assumedResult = 365;
     NSUInteger actualResult = [[self gregorianCalendar] daysFromDate:jan12010 toDate:jan12011];
     
-    STAssertEquals(assumedResult, actualResult, @"Assumed: %i Actual: %i", assumedResult, actualResult); 
+    XCTAssertEqual(assumedResult, actualResult, @"Assumed: %i Actual: %i", assumedResult, actualResult); 
 }
 
 
@@ -237,7 +237,7 @@
     NSUInteger assumedResult = 366;
     NSUInteger actualResult = [[self gregorianCalendar] daysFromDate:jan12012 toDate:jan12013];
     
-    STAssertEquals(assumedResult, actualResult, @"Assumed: %i Actual: %i", assumedResult, actualResult);
+    XCTAssertEqual(assumedResult, actualResult, @"Assumed: %i Actual: %i", assumedResult, actualResult);
 }
 
 #pragma mark - NSCalendar+Juncture
@@ -250,7 +250,7 @@
     
     NSDate *result = [[self gregorianCalendar] firstDayOfTheWeekUsingReferenceDate:april12];
     
-    STAssertEqualObjects(result, april7, @"Result :%@", result);
+    XCTAssertEqualObjects(result, april7, @"Result :%@", result);
 }
 
 - (void)testLastDayOfTheWeek
@@ -262,7 +262,7 @@
     NSDate *result = [[self gregorianCalendar] lastDayOfTheWeekUsingReferenceDate:april15];
                       
     
-    STAssertEqualObjects(result, april20, @"Result :%@", result);
+    XCTAssertEqualObjects(result, april20, @"Result :%@", result);
 }
 
 #pragma mark - NSCalendar+Comparison

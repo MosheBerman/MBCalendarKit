@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface MBCalendarKitTests : SenTestCase
+@interface MBCalendarKitTests : XCTestCase
 
 @end
