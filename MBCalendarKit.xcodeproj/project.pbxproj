@@ -72,6 +72,7 @@
 		464A8787171F3D8100E7AB19 /* CKCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A8786171F3D8100E7AB19 /* CKCalendarViewController.m */; };
 		464A8788171F3D8100E7AB19 /* CKCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A8786171F3D8100E7AB19 /* CKCalendarViewController.m */; };
 		46895C9A171F5AA60072DBCF /* CKDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46895C99171F5AA60072DBCF /* CKDemoViewController.m */; };
+		CCDF9505193CF941002266D5 /* CKTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CCDF9504193CF941002266D5 /* CKTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +159,8 @@
 		46895C99171F5AA60072DBCF /* CKDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKDemoViewController.m; path = MBCalendarKit/CKDemoViewController.m; sourceTree = "<group>"; };
 		46BFBCBF1715FB3F00D4733E /* MBCalendarKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MBCalendarKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46BFBCE51715FB3F00D4733E /* MBCalendarKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MBCalendarKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCDF9503193CF941002266D5 /* CKTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTableViewCell.h; sourceTree = "<group>"; };
+		CCDF9504193CF941002266D5 /* CKTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +277,8 @@
 				464A86F1171F174D00E7AB19 /* CKCalendarHeaderView.m */,
 				464A86F2171F174D00E7AB19 /* CKCalendarView.h */,
 				464A86F3171F174D00E7AB19 /* CKCalendarView.m */,
+				CCDF9503193CF941002266D5 /* CKTableViewCell.h */,
+				CCDF9504193CF941002266D5 /* CKTableViewCell.m */,
 				464A86F4171F174D00E7AB19 /* MBPolygonView.h */,
 				464A86F5171F174D00E7AB19 /* MBPolygonView.m */,
 			);
@@ -509,6 +514,7 @@
 				464A8724171F174D00E7AB19 /* UIView+AnimatedFrame.m in Sources */,
 				464A8726171F174D00E7AB19 /* UIView+Border.m in Sources */,
 				464A8728171F174D00E7AB19 /* CKCalendarCell.m in Sources */,
+				CCDF9505193CF941002266D5 /* CKTableViewCell.m in Sources */,
 				464A872A171F174D00E7AB19 /* CKCalendarEvent.m in Sources */,
 				464A872C171F174D00E7AB19 /* CKCalendarHeaderView.m in Sources */,
 				464A872E171F174D00E7AB19 /* CKCalendarView.m in Sources */,
