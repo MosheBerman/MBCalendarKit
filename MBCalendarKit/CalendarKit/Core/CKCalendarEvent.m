@@ -10,6 +10,16 @@
 
 @implementation CKCalendarEvent
 
++(CKCalendarEvent *)eventWithTitle:(NSString *)title andDate:(NSDate *)date andInfo:(NSDictionary *)info
+{
+    CKCalendarEvent *e = [CKCalendarEvent new];
+    [e setTitle:title];
+    [e setDate:date];
+    [e setInfo:info];
+    
+    return e;
+}
+
 +(CKCalendarEvent *)eventWithTitle:(NSString *)title andDate:(NSDate *)date andInfo:(NSDictionary *)info andColor:(UIColor *)color
 {
     CKCalendarEvent *e = [CKCalendarEvent new];
