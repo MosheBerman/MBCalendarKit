@@ -11,6 +11,7 @@
 //  Auxiliary Views
 #import "CKCalendarHeaderView.h"
 #import "CKCalendarCell.h"
+#import "CKTableViewCell.h"
 
 #import "NSCalendarCategories.h"
 #import "NSDate+Description.h"
@@ -69,7 +70,7 @@
         [_table setDelegate:self];
         [_table setDataSource:self];
         
-        [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+        [_table registerClass:[CKTableViewCell class] forCellReuseIdentifier:@"cell"];
         [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"noDataCell"];
         
         //  Events for selected date
@@ -970,14 +971,22 @@
         }
         return cell;
     }
-    
-    UITableViewCell *cell = [[self table] dequeueReusableCellWithIdentifier:@"cell"];
+
+    CKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
     CKCalendarEvent *event = [[self events] objectAtIndex:[indexPath row]];
     
     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     
     [[cell textLabel] setText:[event title]];
+    
+    UIView *colorView = [[UIView alloc] initWithFrame:CGRectMake(3, 6, 20, 20)];
+    CALayer *layer = [CALayer layer];
+    layer.backgroundColor = [[event color] CGColor];
+    layer.frame = colorView.frame;
+    [colorView.layer insertSublayer:layer atIndex:0];
+    
+    [cell addSubview:colorView];
     
     return cell;
 }

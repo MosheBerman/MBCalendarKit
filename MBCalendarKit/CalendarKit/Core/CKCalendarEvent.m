@@ -20,4 +20,15 @@
     return e;
 }
 
++(CKCalendarEvent *)eventWithTitle:(NSString *)title andDate:(NSDate *)date andInfo:(NSDictionary *)info andColor:(UIColor *)color
+{
+    CKCalendarEvent *e = [CKCalendarEvent new];
+    [e setTitle:title];
+    [e setDate:date];
+    [e setInfo:info];
+    [e setColor:color];
+    
+    return e;
+}
+
 @end
