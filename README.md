@@ -125,8 +125,9 @@ This method is called on the delegate when a row is selected in the events table
     
 Calendar Events
 ----------------
-`CKCalendarEvent` is a simple data structure class which holds a title, a date, and an info dictionary. The calendar view will display automatically display `CKCalendarEvent` objects as passed to it by its data sourcee. If you have custom information that you want to show in a detail view, you can attach it to the event's `info` property.	
+`CKCalendarEvent` is a simple data structure class which holds a title, a date, and an info dictionary. The calendar view will display automatically display `CKCalendarEvent` objects as passed to it by its data sourcee. If you have custom information that you want to show in a detail view, you can attach it to the event's `info` property. 
 
+As of MBCalendarKit 2.1.0, there's a `color` property as well. Setting it will cause the cell to display a colored "tag" in the cell. This feature should be considered experimental for now.
 
 License:
 ========
