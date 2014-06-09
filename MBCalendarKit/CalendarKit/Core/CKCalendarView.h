@@ -33,8 +33,8 @@
 
 /* Initializer */
 
-- (id)init;
-- (id)initWithMode:(CKCalendarDisplayMode)CalendarDisplayMode;
+- (instancetype)init;
+- (instancetype)initWithMode:(CKCalendarDisplayMode)CalendarDisplayMode;
 
 /* Reload calendar and events. */
 

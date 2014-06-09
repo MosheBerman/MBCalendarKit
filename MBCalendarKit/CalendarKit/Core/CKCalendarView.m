@@ -48,48 +48,52 @@
 #pragma mark - Initializers
 
 // Designated Initializer
-- (id)init
+
+-(void) commonInitializer {
+    _locale = [NSLocale currentLocale];
+    _calendar = [NSCalendar currentCalendar];
+    [_calendar setLocale:_locale];
+    _timeZone = nil;
+    _date = [NSDate date];
+    _displayMode = CKCalendarViewModeMonth;
+    _spareCells = [NSMutableSet new];
+    _usedCells = [NSMutableSet new];
+    _selectedIndex = [_calendar daysFromDate:[self _firstVisibleDateForDisplayMode:_displayMode] toDate:_date];
+    _headerView = [CKCalendarHeaderView new];
+    
+    
+    //  Accessory Table
+    _table = [UITableView new];
+    [_table setDelegate:self];
+    [_table setDataSource:self];
+    
+    [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"noDataCell"];
+    
+    //  Events for selected date
+    _events = [NSMutableArray new];
+    
+    //  Used for animation
+    _previousDate = [NSDate date];
+    _wrapper = [UIView new];
+    _isAnimating = NO;
+    
+    //  Date bounds
+    _minimumDate = nil;
+    _maximumDate = nil;
+
+}
+- (instancetype)init
 {
     self = [super init];
     
     if (self) {
-        _locale = [NSLocale currentLocale];
-        _calendar = [NSCalendar currentCalendar];
-        [_calendar setLocale:_locale];
-        _timeZone = nil;
-        _date = [NSDate date];
-        _displayMode = CKCalendarViewModeMonth;
-        _spareCells = [NSMutableSet new];
-        _usedCells = [NSMutableSet new];
-        _selectedIndex = [_calendar daysFromDate:[self _firstVisibleDateForDisplayMode:_displayMode] toDate:_date];
-        _headerView = [CKCalendarHeaderView new];
-        
-        
-        //  Accessory Table
-        _table = [UITableView new];
-        [_table setDelegate:self];
-        [_table setDataSource:self];
-        
-        [_table registerClass:[CKTableViewCell class] forCellReuseIdentifier:@"cell"];
-        [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"noDataCell"];
-        
-        //  Events for selected date
-        _events = [NSMutableArray new];
-        
-        //  Used for animation
-        _previousDate = [NSDate date];
-        _wrapper = [UIView new];
-        _isAnimating = NO;
-        
-        //  Date bounds
-        _minimumDate = nil;
-        _maximumDate = nil;
-        
+        [self commonInitializer];
     }
     return self;
 }
 
-- (id)initWithMode:(CKCalendarDisplayMode)CalendarDisplayMode
+- (instancetype)initWithMode:(CKCalendarDisplayMode)CalendarDisplayMode
 {
     self = [self init];
     if (self) {
@@ -97,7 +101,23 @@
     }
     return self;
 }
+- (instancetype) initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        [self commonInitializer];
+    }
+    return self;
+}
 
+- (instancetype) initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self commonInitializer];
+    }
+    return self;
+    
+}
 #pragma mark - Reload
 
 - (void)reload
