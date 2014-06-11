@@ -37,5 +37,17 @@
 
 @property (nonatomic, strong, readonly) UIGestureRecognizer *tapGesture;
 
+@property (nonatomic, strong) UIColor *monthTitleTextColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *monthTitleTextHighlightedColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *monthTitleShadowColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) CGSize monthTitleShadowOffset UI_APPEARANCE_SELECTOR;
+
+@property (nonatomic, strong) UIColor *weekDayTitleTextColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *weekDayTitleShadowColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) CGSize weekDayTitleShadowOffset UI_APPEARANCE_SELECTOR;
+
+@property (nonatomic, strong) UIColor *headerBackgroundColor UI_APPEARANCE_SELECTOR;
+
+
 
 @end

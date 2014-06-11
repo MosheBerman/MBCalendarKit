@@ -14,6 +14,7 @@
     @property NSInteger numberOfSides;
     @property CGFloat scalingFactor;
     @property CGFloat rotation;
+    @property UIColor *color;
 @end
 
 @implementation MBPolygonView
@@ -30,13 +31,14 @@ float degToRad(float deg){
 //  Designated initializer
 //
 
-- (id)initWithFrame:(CGRect)frame numberOfSides:(NSInteger)numberOfSides andRotation:(CGFloat)rotation andScale:(CGFloat) scale{
+- (id)initWithFrame:(CGRect)frame numberOfSides:(NSInteger)numberOfSides andRotation:(CGFloat)rotation andScale:(CGFloat)scale andColor:(UIColor *)color{
     self = [super initWithFrame:frame];
     
     if (self) {
         _numberOfSides = numberOfSides;
         _scalingFactor = scale;
         _rotation = rotation;
+        _color = color;
         _isDeleted = NO;
         [self setOpaque:NO];
     }
@@ -94,7 +96,7 @@ float degToRad(float deg){
     CGContextSaveGState(context);
     
     //Set the stroke to white
-    [kCalendarColorHeaderMonth set];
+    [self.color set];
     
     //Define the number of degrees in a polygon
     const CGFloat kDegreesInPoly = 360;
