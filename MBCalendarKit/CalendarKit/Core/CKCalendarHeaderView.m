@@ -39,10 +39,16 @@
     self = [super initWithFrame:frame];
     if (self) {
         
+        _monthTitleTextColor = kCalendarColorHeaderMonth;
+        _monthTitleTextHighlightedColor = kCalendarColorHeaderTitleHighlightedBlue;
+        _monthTitleShadowColor = kCalendarColorHeaderMonthShadow;
+        _monthTitleShadowOffset = CGSizeMake(0, 1);
+        _weekDayTitleTextColor = kCalendarColorHeaderWeekdayTitle;
+        _weekDayTitleShadowColor = kCalendarColorHeaderWeekdayShadow;
+        _weekDayTitleShadowOffset = CGSizeMake(0, 1);
+        _headerBackgroundColor = kCalendarColorHeaderGradientDark;
+        
         _monthTitle = [UILabel new];
-        [_monthTitle setTextColor:kCalendarColorHeaderMonth];
-        [_monthTitle setShadowColor:kCalendarColorHeaderMonthShadow];
-        [_monthTitle setShadowOffset:CGSizeMake(0, 1)];
         [_monthTitle setBackgroundColor:[UIColor clearColor]];
         [_monthTitle setTextAlignment:NSTextAlignmentCenter];
         [_monthTitle setFont:[UIFont boldSystemFontOfSize:22]];
@@ -63,11 +69,14 @@
 {
     [self layoutSubviews];
     [super willMoveToSuperview:newSuperview];
-    [self setBackgroundColor:kCalendarColorHeaderGradientDark];
+    [self setBackgroundColor:_headerBackgroundColor];
 }
 
 - (void)layoutSubviews
 {
+    
+    /* Adjust the background color */
+    [self setBackgroundColor:_headerBackgroundColor];
     
     /* Show & position the title Label */
     
@@ -89,16 +98,18 @@
     
     NSString *title = [[self dataSource] titleForHeader:self];
     [[self monthTitle] setText:title];
+    [[self monthTitle] setShadowColor:_monthTitleShadowColor];
+    [[self monthTitle] setShadowOffset:_monthTitleShadowOffset];
     
     /* Highlight the title color as appropriate */
 
     if ([self shouldHighlightTitle])
     {
-        [[self monthTitle] setTextColor:kCalendarColorHeaderTitleHighlightedBlue];
+        [[self monthTitle] setTextColor:_monthTitleTextHighlightedColor];
     }
     else
     {
-        [[self monthTitle] setTextColor:kCalendarColorHeaderMonth];
+        [[self monthTitle] setTextColor:_monthTitleTextColor];
     }
     
     /* Show the forward and back buttons */
@@ -183,11 +194,11 @@
 {
     UILabel *l = [UILabel new];
     [l setBackgroundColor:[UIColor clearColor]];
-    [l setTextColor:kCalendarColorHeaderWeekdayTitle];
-    [l setShadowColor:kCalendarColorHeaderWeekdayShadow];
+    [l setTextColor:_weekDayTitleTextColor];
+    [l setShadowColor:_weekDayTitleShadowColor];
     [l setTextAlignment:NSTextAlignmentCenter];
     [l setFont:[UIFont boldSystemFontOfSize:10]];
-    [l setShadowOffset:CGSizeMake(0, 1)];
+    [l setShadowOffset:_weekDayTitleShadowOffset];
     [l setText:title];
     
     return l;
