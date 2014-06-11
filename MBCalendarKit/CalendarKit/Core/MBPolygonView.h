@@ -20,7 +20,7 @@
 //  Designated Initializer
 //
 
-- (id)initWithFrame:(CGRect)frame numberOfSides:(NSInteger)numberOfSides andRotation:(CGFloat)rotation andScale:(CGFloat) scale;
+- (id)initWithFrame:(CGRect)frame numberOfSides:(NSInteger)numberOfSides andRotation:(CGFloat)rotation andScale:(CGFloat)scale andColor:(UIColor *)color;
 
 //
 //  Draw a a polygon into a UIImage and returns the image

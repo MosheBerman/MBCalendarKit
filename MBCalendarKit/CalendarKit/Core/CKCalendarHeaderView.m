@@ -127,8 +127,8 @@
         [self setBackwardButton:nil];
     }
     
-    _forwardButton = [[MBPolygonView alloc] initWithFrame:forwardFrame numberOfSides:3 andRotation:90.0 andScale:10.0];
-    _backwardButton = [[MBPolygonView alloc] initWithFrame:backFrame numberOfSides:3 andRotation:30.0 andScale:10.0];
+    _forwardButton = [[MBPolygonView alloc] initWithFrame:forwardFrame numberOfSides:3 andRotation:90.0 andScale:10.0 andColor:_monthTitleTextColor];
+    _backwardButton = [[MBPolygonView alloc] initWithFrame:backFrame numberOfSides:3 andRotation:30.0 andScale:10.0 andColor:_monthTitleTextColor];
     
     if ([self shouldDisableForwardButton]) {
         [[self forwardButton] setAlpha:0.5];
