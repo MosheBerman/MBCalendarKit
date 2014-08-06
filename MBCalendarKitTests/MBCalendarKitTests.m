@@ -270,6 +270,23 @@
 - (void)testCompareDates
 {
     //  TODO: Test comparisons
+    
+    NSDate *january2014 = [NSDate dateWithDay:1 Month:1 Year:2014 andCalendar:self.gregorianCalendar];
+    NSDate *february2014 = [NSDate dateWithDay:1 Month:2 Year:2014 andCalendar:self.gregorianCalendar];
+    
+    BOOL februaryIsAfterJanuary = [self.gregorianCalendar date:february2014 isAfterDate:january2014];
+    BOOL februaryIsBeforeJanuary = [self.gregorianCalendar date:february2014 isBeforeDate:january2014];
+    
+    BOOL januaryIsBeforeFebruary = [self.gregorianCalendar date:january2014 isBeforeDate:february2014];
+    BOOL januaryIsAfterFebruary = [self.gregorianCalendar date:january2014 isAfterDate:february2014];
+    
+    
+    
+    XCTAssertFalse(januaryIsAfterFebruary, @"Result: %d", januaryIsAfterFebruary);
+    XCTAssertFalse(februaryIsBeforeJanuary, @"Result: %d", februaryIsBeforeJanuary);
+    
+    XCTAssertTrue(februaryIsAfterJanuary,  @"Result: %d", februaryIsAfterJanuary);
+    XCTAssertTrue(januaryIsBeforeFebruary,  @"Result: %d", januaryIsBeforeFebruary);
 }
 
 @end
