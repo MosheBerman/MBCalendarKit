@@ -12,7 +12,11 @@ Screenshots:
 Getting Started:
 ---------------
 
-You'll need to set up the dependencies, described below. Alternatively, MBCalendarKit is now a registered CocoaPod. I don't use CocoaPods, but the process of listing it was simple enough, and it includes a check to ensure I did it correctly, so adding MBCalendarKit to your project as a pod is expected to work.
+You'll need to set up the dependencies, described below. Alternatively, MBCalendarKit is now a registered CocoaPod. I don't use CocoaPods, but I did run a quick test on using the following line in my Podfile:
+
+`pod 'MBCalendarKit', '~>2.2.0'`
+
+If there are any problems, please head over to issue #48 and leave a comment.
 
 
 Dependencies:
