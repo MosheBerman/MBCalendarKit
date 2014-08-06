@@ -127,6 +127,10 @@
 
 - (void)reloadAnimated:(BOOL)animated
 {
+    /**
+     *  Sort the events.
+     */
+    
     if ([[self dataSource] respondsToSelector:@selector(calendarView:eventsForDate:)]) {
         NSArray *sortedArray = [[[self dataSource] calendarView:self eventsForDate:[self date]] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             NSDate *d1 = [obj1 date];
@@ -138,7 +142,19 @@
         [self setEvents:sortedArray];
     }
     
+    /**
+     *  Call reloadData on the table.
+     */
+    
     [[self table] reloadData];
+    
+    /**
+     *  TODO: Possibly add a delegate method here, per issue #20.
+     */
+    
+    /**
+     *  Reload the calendar view.
+     */
     
     [self layoutSubviewsAnimated:animated];
 }
