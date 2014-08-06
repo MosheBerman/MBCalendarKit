@@ -29,7 +29,7 @@ MBCalendarKit requires Quartz, Core Graphics, UIKit, and Foundation. The Unit Te
 Relevant Files:
 ---------------
 
-Aside from the framework dependencies described above, you'll want everything in the CalendarKit folder. ****
+Aside from the framework dependencies described above, you'll want everything in the CalendarKit folder.
 
 Showing a Calendar
 --------------------------------------
@@ -128,6 +128,10 @@ Calendar Events
 `CKCalendarEvent` is a simple data structure class which holds a title, a date, and an info dictionary. The calendar view will display automatically display `CKCalendarEvent` objects as passed to it by its data sourcee. If you have custom information that you want to show in a detail view, you can attach it to the event's `info` property. 
 
 As of MBCalendarKit 2.1.0, there's a `color` property as well. Setting it will cause the cell to display a colored "tag" in the cell. This feature should be considered experimental for now.
+
+Day of the Week:
+---
+Version 2.2.0 adds support for the `firstWeekday` property of NSCalendar. If the `currentCalendar` (or whichever you set) has some day other than Sunday set as the first day of the week, the calendar view will respect that.
 
 License:
 ========
