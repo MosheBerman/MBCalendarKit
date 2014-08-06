@@ -10,7 +10,7 @@
 
 @interface NSCalendar (Juncture)
 
-#pragma mark - First/Last of Week
+#pragma mark - First of Week
 
 - (NSDate *)firstDayOfTheWeek;
 - (NSDate *)firstDayOfTheWeekUsingReferenceDate:(NSDate *)date;
@@ -26,9 +26,8 @@
 
 - (NSDate *)firstDayOfTheWeekUsingReferenceDate:(NSDate *)date andStartDay:(NSInteger)day;
 
-/**
- *
- */
+#pragma mark - Last of Week
+
 - (NSDate *)lastDayOfTheWeek;
 - (NSDate *)lastDayOfTheWeekUsingReferenceDate:(NSDate *)date;
 
