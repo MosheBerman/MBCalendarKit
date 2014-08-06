@@ -278,7 +278,7 @@
     [header setFrame:headerFrame];
     [header setDelegate:self];
     [header setDataSource:self];
-    [header layoutSubviews];
+    [header setNeedsLayout];
     [[self wrapper] addSubview:[self headerView]];
     
     /* Show the cells */
