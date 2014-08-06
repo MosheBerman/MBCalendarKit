@@ -61,13 +61,14 @@
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
-    [self layoutSubviews];
     [super willMoveToSuperview:newSuperview];
+    [self setNeedsLayout];
     [self setBackgroundColor:kCalendarColorHeaderGradientDark];
 }
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
     
     /* Show & position the title Label */
     
