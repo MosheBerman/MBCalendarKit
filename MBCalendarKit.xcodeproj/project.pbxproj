@@ -76,6 +76,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4642BD671992D239004750CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46BFBCB71715FB3F00D4733E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 46BFBCBE1715FB3F00D4733E;
+			remoteInfo = MBCalendarKit;
+		};
 		46BFBCEA1715FB3F00D4733E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 46BFBCB71715FB3F00D4733E /* Project object */;
@@ -408,6 +415,7 @@
 			);
 			dependencies = (
 				46BFBCEB1715FB3F00D4733E /* PBXTargetDependency */,
+				4642BD681992D239004750CE /* PBXTargetDependency */,
 			);
 			name = MBCalendarKitTests;
 			productName = MBChocolateCakeTests;
@@ -423,6 +431,11 @@
 				CLASSPREFIX = CK;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Moshe Berman";
+				TargetAttributes = {
+					46BFBCE41715FB3F00D4733E = {
+						TestTargetID = 46BFBCBE1715FB3F00D4733E;
+					};
+				};
 			};
 			buildConfigurationList = 46BFBCBA1715FB3F00D4733E /* Build configuration list for PBXProject "MBCalendarKit" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -559,6 +572,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4642BD681992D239004750CE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 46BFBCBE1715FB3F00D4733E /* MBCalendarKit */;
+			targetProxy = 4642BD671992D239004750CE /* PBXContainerItemProxy */;
+		};
 		46BFBCEB1715FB3F00D4733E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 46BFBCBE1715FB3F00D4733E /* MBCalendarKit */;
