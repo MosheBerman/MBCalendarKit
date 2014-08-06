@@ -1056,13 +1056,13 @@
     }
     else if(displayMode == CKCalendarViewModeWeek)
     {
-        return [[self calendar] firstDayOfTheWeekUsingReferenceDate:[self date]];
+        return [[self calendar] firstDayOfTheWeekUsingReferenceDate:[self date] andStartDay:self.calendar.firstWeekday];
     }
     else if(displayMode == CKCalendarViewModeMonth)
     {
         NSDate *firstOfTheMonth = [[self calendar] firstDayOfTheMonthUsingReferenceDate:[self date]];
         
-        NSDate *firstVisible = [[self calendar] firstDayOfTheWeekUsingReferenceDate:firstOfTheMonth];
+        NSDate *firstVisible = [[self calendar] firstDayOfTheWeekUsingReferenceDate:firstOfTheMonth andStartDay:self.calendar.firstWeekday];
         
         return firstVisible;
     }
