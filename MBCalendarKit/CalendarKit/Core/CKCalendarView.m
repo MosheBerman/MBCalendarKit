@@ -828,9 +828,9 @@
         
         //  Otherwise, add a month and then go to the first of the month
         else{
-            NSUInteger day = [[self calendar] daysInDate:date];
             date = [[self calendar] dateByAddingMonths:1 toDate:date];              //  Add a month
-            date = [[self calendar] dateBySubtractingDays:day-1 fromDate:date];     //  Go to the first of the month
+            NSUInteger day = [[self calendar] daysInDate:date];                     //  Only then go to the first of the next month.
+            date = [[self calendar] dateBySubtractingDays:day-1 fromDate:date];
         }
         
         //  If today is in the visible month, jump to today
@@ -902,9 +902,8 @@
     
     if ([self displayMode] == CKCalendarViewModeMonth) {
         
-        NSUInteger day = [[self calendar] daysInDate:date];
-        
         date = [[self calendar] dateBySubtractingMonths:1 fromDate:date];       //  Subtract a month
+        NSUInteger day = [[self calendar] daysInDate:date];
         date = [[self calendar] dateBySubtractingDays:day-1 fromDate:date];     //  Go to the first of the month
         
         //  If today is in the visible month, jump to today
