@@ -51,7 +51,7 @@
 
 -(void) commonInitializer {
     _locale = [NSLocale currentLocale];
-    _calendar = [NSCalendar currentCalendar];
+    _calendar = [NSCalendar autoupdatingCurrentCalendar];
     [_calendar setLocale:_locale];
     _timeZone = nil;
     _date = [NSDate date];
