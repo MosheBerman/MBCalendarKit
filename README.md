@@ -140,15 +140,7 @@ Version 2.2.0 adds support for the `firstWeekday` property of NSCalendar. If the
 License:
 ========
 
-MBCalendarKit is hereby released under the MIT License. 
-
-Copyright (c) 2013 Moshe Berman
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+MBCalendarKit is hereby released under the MIT License. See [LICENSE](/LICENSE) for details.
 
 
 Thanks:
@@ -156,3 +148,12 @@ Thanks:
 Dave DeLong, for being an invaluable reference.
 
 Various contributors for patches and reporting issues.
+
+If you like this...
+---
+If you like MBCalendarKit, check out some of my other projects:
+
+- [MBPlacePickerController](https://github.com/MosheBerman/MBPlacePickerController), a one stop shop for all of your CoreLocation needs, including a fallback UI for offline location setup.
+- [MBTileParser](https://github.com/MosheBerman/MBTileParser), a cocos-2d compatible game engine written in UIKit.
+- [MBTimelineViewController](https://github.com/MosheBerman/MBTimelineViewController), a scrolling timeline based on UICollectionView.
+- [MBMenuController](https://github.com/MosheBerman/MBMenuController), a UIActionSheet clone with some nice effects.
