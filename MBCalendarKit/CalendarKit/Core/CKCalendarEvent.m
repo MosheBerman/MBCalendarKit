@@ -31,4 +31,15 @@
     return e;
 }
 
++(CKCalendarEvent *)eventWithTitle:(NSString *)title andDate:(NSDate *)date andInfo:(NSDictionary *)info andImage:(NSData *)image
+{
+    CKCalendarEvent *e = [CKCalendarEvent new];
+    [e setTitle:title];
+    [e setDate:date];
+    [e setInfo:info];
+    [e setImage:image];
+    
+    return e;
+}
+
 @end
