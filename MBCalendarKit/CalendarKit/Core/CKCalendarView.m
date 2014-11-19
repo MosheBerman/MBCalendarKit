@@ -1021,6 +1021,11 @@
     layer.frame = colorView.frame;
     [colorView.layer insertSublayer:layer atIndex:0];
     
+    if(nil != event.image)
+    {
+        cell.imageView.image = [UIImage imageWithData:event.image];
+    }
+    
     [cell addSubview:colorView];
     
     return cell;

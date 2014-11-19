@@ -12,23 +12,34 @@
 
 +(CKCalendarEvent *)eventWithTitle:(NSString *)title andDate:(NSDate *)date andInfo:(NSDictionary *)info
 {
-    CKCalendarEvent *e = [CKCalendarEvent new];
-    [e setTitle:title];
-    [e setDate:date];
-    [e setInfo:info];
+    CKCalendarEvent *event = [CKCalendarEvent new];
+    [event setTitle:title];
+    [event setDate:date];
+    [event setInfo:info];
     
-    return e;
+    return event;
 }
 
 +(CKCalendarEvent *)eventWithTitle:(NSString *)title andDate:(NSDate *)date andInfo:(NSDictionary *)info andColor:(UIColor *)color
 {
-    CKCalendarEvent *e = [CKCalendarEvent new];
-    [e setTitle:title];
-    [e setDate:date];
-    [e setInfo:info];
-    [e setColor:color];
+    CKCalendarEvent *event = [CKCalendarEvent new];
+    [event setTitle:title];
+    [event setDate:date];
+    [event setInfo:info];
+    [event setColor:color];
     
-    return e;
+    return event;
+}
+
++(CKCalendarEvent *)eventWithTitle:(NSString *)title andDate:(NSDate *)date andInfo:(NSDictionary *)info andImage:(NSData *)image
+{
+    CKCalendarEvent *event = [CKCalendarEvent new];
+    [event setTitle:title];
+    [event setDate:date];
+    [event setInfo:info];
+    [event setImage:image];
+    
+    return event;
 }
 
 @end
