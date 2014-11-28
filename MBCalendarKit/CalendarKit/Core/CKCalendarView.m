@@ -19,7 +19,9 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface CKCalendarView () <CKCalendarHeaderViewDataSource, CKCalendarHeaderViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface CKCalendarView () <CKCalendarHeaderViewDataSource, CKCalendarHeaderViewDelegate, UITableViewDataSource, UITableViewDelegate> {
+    NSUInteger _firstWeekDay;
+}
 
 @property (nonatomic, strong) NSMutableSet* spareCells;
 @property (nonatomic, strong) NSMutableSet* usedCells;
@@ -81,6 +83,9 @@
     //  Date bounds
     _minimumDate = nil;
     _maximumDate = nil;
+    
+    //  First Weekday
+    _firstWeekDay = [_calendar firstWeekday];
 
 }
 - (instancetype)init
@@ -561,6 +566,7 @@
     
     _calendar = calendar;
     [_calendar setLocale:_locale];
+    [_calendar setFirstWeekday:_firstWeekDay];
     
     [self layoutSubviews];
 }
@@ -1043,6 +1049,22 @@
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - First Weekday
+
+- (void)setFirstWeekDay:(NSUInteger)firstWeekDay
+{
+
+    _firstWeekDay = firstWeekDay;
+    self.calendar.firstWeekday = firstWeekDay;
+    
+    [self reload];
+}
+
+- (NSUInteger)firstWeekDay
+{
+    return _firstWeekDay;
 }
 
 #pragma mark - Date Calculations

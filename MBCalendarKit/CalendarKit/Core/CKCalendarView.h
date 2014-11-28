@@ -27,6 +27,7 @@
 @property (nonatomic, strong) NSDate *minimumDate;
 @property (nonatomic, strong) NSDate *maximumDate;
 
+@property (nonatomic, assign) NSUInteger firstWeekDay;  //  Proxies to the calendar's firstWeekDay so we can update the UI immediately.
 
 @property (nonatomic, weak) id<CKCalendarViewDataSource> dataSource;
 @property (nonatomic, weak) id<CKCalendarViewDelegate> delegate;
