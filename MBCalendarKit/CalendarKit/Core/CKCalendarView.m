@@ -51,7 +51,7 @@
 
 // Designated Initializer
 
--(void) commonInitializer {
+-(void)commonInitializer {
     _locale = [NSLocale currentLocale];
     _calendar = [NSCalendar autoupdatingCurrentCalendar];
     [_calendar setLocale:_locale];
