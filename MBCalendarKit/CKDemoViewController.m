@@ -40,24 +40,19 @@
      */
     
     //  An event for the new MBCalendarKit release.
-    NSString *title = NSLocalizedString(@"Release MBCalendarKit 2.2.4", @"A localized string describing the release date.");
+    NSString *title = NSLocalizedString(@"Release MBCalendarKit 2.2.4", @"");
     NSDate *date = [NSDate dateWithDay:28 month:11 year:2014];
     CKCalendarEvent *releaseUpdatedCalendarKit = [CKCalendarEvent eventWithTitle:title andDate:date andInfo:nil];
     
-    //  An event for when I want to order a new iPhone.
-    NSString *title2 = NSLocalizedString(@"The Hunger Games: Mockingjay, Part 1", @"A localized string describing when the new Hunger Games comes out.");
+    //  An event for the new Hunger Games movie.
+    NSString *title2 = NSLocalizedString(@"The Hunger Games: Mockingjay, Part 1", @"");
     NSDate *date2 = [NSDate dateWithDay:21 month:11 year:2014];
     CKCalendarEvent *mockingJay = [CKCalendarEvent eventWithTitle:title2 andDate:date2 andInfo:nil];
-    
-    //  An event for the 100 year anniversary of the British capture Basra
-    NSString *title3 = NSLocalizedString(@"The British Capture Basra (100 year anniversary)", @"A localized string describing the event title.");
-    CKCalendarEvent *britishBasra = [CKCalendarEvent eventWithTitle:title3 andDate:date2 andInfo:nil];
-    
-    
-    //  An event for when I want to order a new iPhone.
-    NSString *title4 = NSLocalizedString(@"Order iPhone 6 Plus", @"A localized string describing when I order a new iPhone.");
-    NSDate *date4 = [NSDate dateWithDay:28 month:2 year:2015];
-    CKCalendarEvent *orderNewPhone = [CKCalendarEvent eventWithTitle:title4 andDate:date4 andInfo:nil];
+
+    //  Integrate MBCalendarKit
+    NSString *integrationTitle = NSLocalizedString(@"Integrate MBCalendarKit", @"");
+    NSDate *integrationDate = date2;
+    CKCalendarEvent *integrationEvent = [CKCalendarEvent eventWithTitle:integrationTitle andDate:integrationDate andInfo:nil];
     
     /**
      *  Add the events to the data source.
@@ -66,8 +61,7 @@
      */
     
     self.data[date] = @[releaseUpdatedCalendarKit];
-    self.data[date2] = @[britishBasra, mockingJay];
-    self.data[date4] = @[orderNewPhone];
+    self.data[date2] = @[mockingJay, integrationEvent];
 }
 
 - (void)viewDidAppear:(BOOL)animated
