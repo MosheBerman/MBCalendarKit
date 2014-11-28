@@ -109,7 +109,51 @@ The `CKCalendarDataSource` protocol defines the following method, which supplies
 ````
 In your data source, implement this method and return the events matching the date being passed in. You may find some of the `NSCalendar+DateComparison` categories to be helpful here.
 
-You can read more about the `CKCalendarEvent` clas below.
+You can read more about the `CKCalendarEvent` class below.
+
+Here's an example of adding a few events to the calendar, inside of `viewDidLoad`:
+
+    // 0. Create a dictionary for the data source
+    self.data = [[NSMutableDictionary alloc] init];
+    
+    // 1. Wire up the data source and delegate.
+    [self setDataSource:self];
+    [self setDelegate:self];
+    
+    // 2. Create some events.
+    
+    NSString *title = NSLocalizedString(@"Release MBCalendarKit 2.2.4", @"");
+    NSDate *date = [NSDate dateWithDay:28 month:11 year:2014];
+    CKCalendarEvent *releaseUpdatedCalendarKit = [CKCalendarEvent eventWithTitle:title andDate:date andInfo:nil];
+    
+    NSString *title2 = NSLocalizedString(@"The Hunger Games: Mockingjay, Part 1", @"");
+    NSDate *date2 = [NSDate dateWithDay:21 month:11 year:2014];
+    CKCalendarEvent *mockingJay = [CKCalendarEvent eventWithTitle:title2 andDate:date2 andInfo:nil];
+
+    NSString *title3 = NSLocalizedString(@"Integrate MBCalendarKit", @"");
+    NSDate *date3 = date2;
+    CKCalendarEvent *integrationEvent = [CKCalendarEvent eventWithTitle:title3 andDate:date3 andInfo:nil];
+    
+    //	4. 	Add the events to the backing dictionary.
+    //		The keys are NSDate objects that must
+    //		match the ones passed data source method.
+    self.data[date] = @[releaseUpdatedCalendarKit];
+    self.data[date2] = @[mockingJay, integrationEvent];	// multiple events on one date.
+    
+    
+Now, implement the data source:
+    
+    #pragma mark - CKCalendarViewDataSource
+
+    - (NSArray *)calendarView:(CKCalendarView *)calendarView eventsForDate:(NSDate *)date
+    {
+        return [self data][date];
+    }
+
+**Note:** The dates used as keys must match the dates passed into the data source method exactly. One way to ensure this is to use the `dateWithDay:month:year` method defined in the `NSDate+Components.m` category.
+
+You can see this code in `CKDemoViewController.m` in the demo app.
+
 		
 Handling User Interaction
 -------------------------
@@ -137,11 +181,18 @@ Day of the Week:
 ---
 Version 2.2.0 adds support for the `firstWeekday` property of NSCalendar. If the `currentCalendar` (or whichever you set) has some day other than Sunday set as the first day of the week, the calendar view will respect that.
 
+	//	0. Instantiate a calendarViewController. (You can use a calendarView directly.)
+    CKCalendarViewController *calendarViewController = [CKCalendarViewController new];
+
+	//	1. Set the first day of the week to Monday.
+    calendarViewController.calendarView.firstWeekDay = 2;
+    
+**About the firstWeekDay property:** Use integers 1-7 to set a weekday from Sunday through Saturday. Using other numbers is not documented in the `NSCalendar` documentation.
+
 License:
 ========
 
 MBCalendarKit is hereby released under the MIT License. See [LICENSE](/LICENSE) for details.
-
 
 Thanks:
 -------
