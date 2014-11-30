@@ -54,6 +54,12 @@
     NSDate *integrationDate = date2;
     CKCalendarEvent *integrationEvent = [CKCalendarEvent eventWithTitle:integrationTitle andDate:integrationDate andInfo:nil];
     
+    //  An event for the new MBCalendarKit release.
+    NSString *title3 = NSLocalizedString(@"Fix bug where events don't show up immediately.", @"");
+    NSDate *date3 = [NSDate dateWithDay:29 month:11 year:2014];
+    CKCalendarEvent *fixBug = [CKCalendarEvent eventWithTitle:title3 andDate:date3 andInfo:nil];
+    
+    
     /**
      *  Add the events to the data source.
      *
@@ -62,6 +68,7 @@
     
     self.data[date] = @[releaseUpdatedCalendarKit];
     self.data[date2] = @[mockingJay, integrationEvent];
+    self.data[date3] = @[fixBug];
 }
 
 - (void)viewDidAppear:(BOOL)animated
