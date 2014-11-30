@@ -57,6 +57,10 @@
     [_calendar setLocale:_locale];
     _timeZone = nil;
     _date = [NSDate date];
+    
+    NSDateComponents *components = [_calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:_date];
+    _date = [_calendar dateFromComponents:components];
+    
     _displayMode = CKCalendarViewModeMonth;
     _spareCells = [NSMutableSet new];
     _usedCells = [NSMutableSet new];
@@ -123,6 +127,7 @@
     return self;
     
 }
+
 #pragma mark - Reload
 
 - (void)reload
@@ -633,6 +638,9 @@
         date = [NSDate date];
     }
     
+    NSDateComponents *components = [self.calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:date];
+    date = [self.calendar dateFromComponents:components];
+
     BOOL minimumIsBeforeMaximum = [self _minimumDateIsBeforeMaximumDate];
     
     if (minimumIsBeforeMaximum) {
@@ -692,6 +700,12 @@
 {
     _maximumDate = maximumDate;
     [self setDate:[self date] animated:animated];    
+}
+
+- (void)setDataSource:(id<CKCalendarViewDataSource>)dataSource
+{
+    _dataSource = dataSource;
+    [self reloadAnimated:NO];
 }
 
 #pragma mark - CKCalendarHeaderViewDataSource
