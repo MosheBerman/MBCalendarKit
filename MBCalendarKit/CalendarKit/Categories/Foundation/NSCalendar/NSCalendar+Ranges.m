@@ -279,7 +279,7 @@
 {
     if (!firstDate || !anotherDate)
     {
-        NSLog(@"One of the dates are missing, can't compare.");
+//        NSLog(@"(MBCalendarKit | NSCalendar + Ranges) : One of the dates are missing, can't compare.");
         return NO;
     }
     
@@ -290,7 +290,7 @@
 {
     if (!firstDate || !anotherDate)
     {
-        NSLog(@"One of the dates are missing, can't compare.");
+//        NSLog(@"(MBCalendarKit | NSCalendar + Ranges) : One of the dates are missing, can't compare.");
         return NO;
     }
     
