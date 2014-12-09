@@ -96,6 +96,14 @@
 
 #pragma mark - Setters
 
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    
+    self.label.frame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
+}
+
+
 - (void)setState:(CKCalendarMonthCellState)state
 {
     if (state > CKCalendarMonthCellStateOutOfRange || state < CKCalendarMonthCellStateTodaySelected) {
