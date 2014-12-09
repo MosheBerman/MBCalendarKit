@@ -269,8 +269,22 @@
 
 - (CGSize)_cellSize
 {
-    // These values must be hard coded in order for rectForDisplayMode: to work correctly
-    return CGSizeMake(46, 44);
+    CGSize windowSize = [UIApplication sharedApplication].keyWindow.bounds.size;
+    
+    NSCalendar *calendar = self.calendar;
+    
+    if (calendar == nil) {
+        calendar = [NSCalendar currentCalendar];
+    }
+    
+    CGFloat numberOfDaysPerWeek = [calendar daysPerWeek];
+    
+    CGFloat sizeToFitTo = MIN(windowSize.width, windowSize.height);
+    
+    CGFloat width = windowSize.width/numberOfDaysPerWeek;
+    CGFloat height = sizeToFitTo/numberOfDaysPerWeek;
+    
+    return CGSizeMake(width, height);
 }
 
 #pragma mark - Layout
@@ -1313,4 +1327,5 @@
     NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
     [self setDate:dateToSelect animated:NO];
 }
+
 @end
