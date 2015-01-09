@@ -10,11 +10,6 @@ import UIKit
 
 class SwiftDemoViewController: CKDemoViewController{
     
-    required init(coder: NSCoder) {
-        self.data = NSMutableDictionary()
-        super.init(coder:coder)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
