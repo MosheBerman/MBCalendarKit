@@ -22,8 +22,7 @@ If there are any problems, please head over to issue #48 and leave a comment.
 Dependencies:
 -------------
 
-You'll need the iOS 7 SDK. I haven't tested it against versions of iOS prior to 6.0. Your mileage may vary. (I'm pretty sure I used some NSCalendarUnit values that aren't defined before iOS 5. You'll also have to look at the table view cell implementation in `CKCalendarView.m`.) 
-
+You'll need the iOS 7 SDK or newer. With the addition of the Swift demo in 3.0.0, MBCalendarKit will no longer deploy to iOS 6. ` 
 
 As of MBCalendarKit 2.0.0, the project uses the LLVM compiler's modules feature. 
 
