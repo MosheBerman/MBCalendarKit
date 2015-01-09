@@ -9,6 +9,7 @@
 #import "CKAppDelegate.h"
 
 #import "CKDemoViewController.h"
+#import "MBCalendarKit-Swift.h"
 
 @interface CKAppDelegate ()
 
@@ -24,7 +25,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    self.viewController = [CKDemoViewController new];
+    self.viewController = [SwiftDemoViewController new];
     
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
