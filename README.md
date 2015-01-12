@@ -5,7 +5,7 @@ MBCalendarKit is a calendar control written in UIKit. I've found existing implem
 Screenshots:
 ------------
 
-![Promo](./Promo.png","Promo")
+![Promo](./Promo.png")
 
 Getting Started:
 ---------------
