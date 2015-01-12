@@ -5,16 +5,14 @@ MBCalendarKit is a calendar control written in UIKit. I've found existing implem
 Screenshots:
 ------------
 
-![Month](./screens/month.png "Month View")
-![Week](./screens/week.png "Week View")
-![Delegate](./screens/day.png "Day View")
+![Promo](./promo.png","Promo")
 
 Getting Started:
 ---------------
 
 You'll need to set up the dependencies, described below. Alternatively, MBCalendarKit is now a registered CocoaPod. I don't use CocoaPods, but I did run a quick test on using the following line in my Podfile:
 
-`pod 'MBCalendarKit', '~>2.2.7'`
+`pod 'MBCalendarKit', '~>3.0.2'`
 
 If there are any problems, please head over to issue #48 and leave a comment.
 
@@ -22,7 +20,7 @@ If there are any problems, please head over to issue #48 and leave a comment.
 Dependencies:
 -------------
 
-You'll need the iOS 7 SDK or newer. With the addition of the Swift demo in 3.0.0, MBCalendarKit will no longer deploy to iOS 6. ` 
+You'll need the iOS 7 SDK or newer. With the addition of the Swift demo in 3.0.0, MBCalendarKit will no longer deploy to iOS 6.'` 
 
 As of MBCalendarKit 2.0.0, the project uses the LLVM compiler's modules feature. 
 
