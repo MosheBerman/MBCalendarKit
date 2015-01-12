@@ -328,8 +328,18 @@
     /* Set up the table */
     
     CGRect tableFrame = [[self superview] bounds];
-    tableFrame.size.height -= [self frame].size.height;
-    tableFrame.origin.y += [self frame].size.height;
+    tableFrame.origin.y = CGRectGetMaxY(self.frame);
+    
+    /**
+     *  Correct for iPhone 6 and iPhone 6 Plus shadow bug.
+     */
+    
+    if (self.displayMode == CKCalendarViewModeDay)
+    {
+        tableFrame.origin.y = CGRectGetMaxY(self.headerView.frame);
+    }
+    
+    tableFrame.size.height = CGRectGetHeight(self.superview.frame) - tableFrame.origin.y;
     
     [[self table] setFrame:tableFrame animated:animated];
     
