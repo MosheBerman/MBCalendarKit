@@ -1,8 +1,8 @@
-MBCalendarKit
-================
-MBCalendarKit is a calendar control written in UIKit. I've found existing implementations to be inadequate and difficult to work with, so I rolled my own.
-
 ![Promo](https://github.com/MosheBerman/MBCalendarKit/raw/master/Promo.png)
+
+About: 
+---
+MBCalendarKit is a calendar control written in UIKit. I've found existing implementations to be inadequate and difficult to work with, so I rolled my own.
 
 Getting Started:
 ---------------
