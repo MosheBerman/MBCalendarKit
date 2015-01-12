@@ -57,7 +57,6 @@
     NSArray *items = @[NSLocalizedString(@"Month", @"A title for the month view button."), NSLocalizedString(@"Week",@"A title for the week view button."), NSLocalizedString(@"Day", @"A title for the day view button.")];
     
     [self setModePicker:[[UISegmentedControl alloc] initWithItems:items]];
-    [[self modePicker] setSegmentedControlStyle:UISegmentedControlStyleBar];
     [[self modePicker] addTarget:self action:@selector(modeChangedUsingControl:) forControlEvents:UIControlEventValueChanged];
     [[self modePicker] setSelectedSegmentIndex:0];
     
