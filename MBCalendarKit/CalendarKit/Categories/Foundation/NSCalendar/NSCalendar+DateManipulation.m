@@ -43,7 +43,7 @@
 - (NSDate *)dateByAddingWeeks:(NSUInteger)weeks toDate:(NSDate *)date
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setWeek:weeks];
+    [c setWeekOfYear:weeks];
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 
@@ -94,7 +94,7 @@
 - (NSDate *)dateBySubtractingWeeks:(NSUInteger)weeks fromDate:(NSDate *)date
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setWeek:-weeks];
+    [c setWeekOfYear:-weeks];
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 

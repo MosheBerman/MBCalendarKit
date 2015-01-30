@@ -44,7 +44,7 @@
     [components setHour:hour];
     [components setMinute:minute];
     [components setSecond:second];
-    [components setWeek:week];
+    [components setWeekOfYear:week];
     [components setWeekday:weekday];
     [components setWeekdayOrdinal:weekdayOrdinal];
     
@@ -91,7 +91,7 @@
 
 + (NSInteger)defaultWeekForCalendar:(NSCalendar *)calendar
 {
-    return [[NSDate defaultComponentsForCalendar:calendar] week];
+    return [[NSDate defaultComponentsForCalendar:calendar] weekOfYear];
 }
 
 + (NSInteger)defaultWeekdayForCalendar:(NSCalendar *)calendar
@@ -142,7 +142,7 @@
 
 + (NSInteger)defaultWeek
 {
-    return [[NSDate defaultComponents] week];
+    return [[NSDate defaultComponents] weekOfYear];
 }
 
 + (NSInteger)defaultWeekday

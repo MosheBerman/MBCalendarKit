@@ -259,7 +259,7 @@
 
 - (NSInteger)weeksFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate
 {
-    return [[self components:NSWeekCalendarUnit fromDate:fromDate toDate:toDate options:0] week];
+    return [[self components:NSCalendarUnitWeekOfYear fromDate:fromDate toDate:toDate options:0] weekOfYear];
 }
 
 - (NSInteger)monthsFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate
