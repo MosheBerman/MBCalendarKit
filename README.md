@@ -9,7 +9,7 @@ Getting Started:
 
 You'll need to set up the dependencies, described below. Alternatively, MBCalendarKit is now a registered CocoaPod. I don't use CocoaPods, but I did run a quick test on using the following line in my Podfile:
 
-`pod 'MBCalendarKit', '~>3.0.2'`
+`pod 'MBCalendarKit', '~>3.0.4'`
 
 If there are any problems, please head over to issue #48 and leave a comment.
 
@@ -17,17 +17,32 @@ If there are any problems, please head over to issue #48 and leave a comment.
 Dependencies:
 -------------
 
-You'll need the iOS 7 SDK or newer. With the addition of the Swift demo in 3.0.0, MBCalendarKit will no longer deploy to iOS 6.'` 
+You'll need the iOS 7 SDK or newer. With the addition of the Swift demo in 3.0.0, MBCalendarKit will no longer deploy to iOS 6.'
 
 As of MBCalendarKit 2.0.0, the project uses the LLVM compiler's modules feature. 
 
 MBCalendarKit requires Quartz, Core Graphics, UIKit, and Foundation. The Unit Tests build against the XCTest framework. Xcode should take care of all those except `QuartzCore.framework`. If you're building the tests, you may have to link to XCTest yourself, as well.
 
-
 Relevant Files:
 ---------------
 
 Aside from the framework dependencies described above, you'll want everything in the CalendarKit folder.
+
+A Note On Swift Support:
+------------------------
+
+Swift supports Objective-C code interoperability with what Apple is calling "Mix and Match."
+
+Add the following files to your `*ProjectName*-Bridging-Header.h`:
+
+`````objective-c
+#import "CalendarKit.h"
+#import "CKDemoViewController.h"
+#import "NSCalendarCategories.h"
+#import "NSDate+Components.h"
+`````
+
+You should be able to use MBCalendarKit in your Swift classes. There's an example in the demo app. Look at CKAppDelegate.
 
 Showing a Calendar
 --------------------------------------
