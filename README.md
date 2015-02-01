@@ -28,19 +28,19 @@ Relevant Files:
 
 Aside from the framework dependencies described above, you'll want everything in the CalendarKit folder.
 
-A Note On Swift Support:
+Working With Swift:
 ------------------------
 
-Swift supports Objective-C code interoperability with what Apple is calling "Mix and Match."
+Swift supports Objective-C code interoperability with what Apple is calling "[Mix and Match](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html)."
 
 Add the following files to your `*ProjectName*-Bridging-Header.h`:
 
-`````objective-c
+```` objective-c
 #import "CalendarKit.h"
 #import "CKDemoViewController.h"
 #import "NSCalendarCategories.h"
 #import "NSDate+Components.h"
-`````
+````
 
 You should be able to use MBCalendarKit in your Swift classes. There's an example in the demo app. Look at CKAppDelegate.
 
