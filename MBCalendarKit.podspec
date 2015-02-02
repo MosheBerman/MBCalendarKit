@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.author       = { "Moshe Berman" => "moshberm@gmail.com" }
   s.license 	 = 'MIT'
   s.platform     = :ios, '7.0'
-  s.source       = { :git => "https://github.com/MosheBerman/MBCalendarKit.git", :tag => "3.0.3"} 
+  s.source       = { :git => "https://github.com/MosheBerman/MBCalendarKit.git", :tag => s.version.to_s} 
   s.source_files  = 'Classes', 'MBCalendarKit/CalendarKit/**/*.{h,m}'
   s.frameworks = 'QuartzCore'
   s.requires_arc = true
