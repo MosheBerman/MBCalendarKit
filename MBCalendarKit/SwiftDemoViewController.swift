@@ -12,10 +12,9 @@ class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource{
     
     var data : NSMutableDictionary
     
-    override init() {
-        
+   init() {
         self.data = NSMutableDictionary()
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -49,7 +48,7 @@ class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource{
         
         let title : NSString = NSLocalizedString("Add Swift Demo", comment: "")
         let date : NSDate = NSDate(day: 9, month: 1, year: 2015)
-        let event : CKCalendarEvent = CKCalendarEvent(title: title, andDate: date, andInfo: nil)
+        let event : CKCalendarEvent = CKCalendarEvent(title: String(title), andDate: date, andInfo: nil)
         
         
         //
@@ -72,7 +71,7 @@ class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource{
     
     func calendarView(calendarView: CKCalendarView!, eventsForDate date: NSDate!) -> [AnyObject]! {
         
-        return self.data.objectForKey(date) as [AnyObject]!
+        return self.data.objectForKey(date) as! [AnyObject]
     }
     
     /*
