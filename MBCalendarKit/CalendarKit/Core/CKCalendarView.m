@@ -71,6 +71,9 @@
     
     //  Accessory Table
     _table = [UITableView new];
+    if (!kCalendarRowSeparatorEnabled) {
+        _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
     [_table setDelegate:self];
     [_table setDataSource:self];
     
