@@ -47,7 +47,7 @@
         [_monthTitle setShadowOffset:CGSizeMake(0, 1)];
         [_monthTitle setBackgroundColor:[UIColor clearColor]];
         [_monthTitle setTextAlignment:NSTextAlignmentCenter];
-        [_monthTitle setFont:[UIFont boldSystemFontOfSize:22]];
+        [_monthTitle setFont:kCalendarFontHeader];
         
         _columnTitles = [NSMutableArray new];
         _columnLabels = [NSMutableArray new];
@@ -105,9 +105,9 @@
     }
     
     /* Show the forward and back buttons */
-
-        CGRect backFrame = CGRectMake(yOffset, yOffset, titleLabelHeight, titleLabelHeight);
-        CGRect forwardFrame = CGRectMake([self frame].size.width-titleLabelHeight-yOffset, yOffset, titleLabelHeight, titleLabelHeight);
+    float lrPad = kCalendarArrowPad;
+    CGRect backFrame = CGRectMake(yOffset + lrPad, yOffset, titleLabelHeight, titleLabelHeight);
+    CGRect forwardFrame = CGRectMake([self frame].size.width-titleLabelHeight-yOffset-lrPad, yOffset, titleLabelHeight, titleLabelHeight);
     
     if ([self forwardButton]) {
         [[self forwardButton] removeFromSuperview];
@@ -119,8 +119,8 @@
         [self setBackwardButton:nil];
     }
     
-    _forwardButton = [[MBPolygonView alloc] initWithFrame:forwardFrame numberOfSides:3 andRotation:90.0 andScale:10.0];
-    _backwardButton = [[MBPolygonView alloc] initWithFrame:backFrame numberOfSides:3 andRotation:30.0 andScale:10.0];
+    _forwardButton = [[MBPolygonView alloc] initWithFrame:forwardFrame numberOfSides:3 andRotation:90.0 andScale:kCalendarArrowScale];
+    _backwardButton = [[MBPolygonView alloc] initWithFrame:backFrame numberOfSides:3 andRotation:30.0 andScale:kCalendarArrowScale];
     
     if ([self shouldDisableForwardButton]) {
         [[self forwardButton] setAlpha:0.5];

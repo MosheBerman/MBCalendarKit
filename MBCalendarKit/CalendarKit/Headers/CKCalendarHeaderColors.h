@@ -12,12 +12,16 @@
 
 #import "NSString+Color.h"
 
+#define kCalendarFontHeader [UIFont boldSystemFontOfSize:22]
+#define kCalendarArrowScale 10.0
+#define kCalendarArrowPad 0
+
 #define kCalendarColorHeaderWeekdayTitle    [@"#545454" toColor]
 #define kCalendarColorHeaderWeekdayShadow   [@"#f3f3f4" toColor]
 
 #define kCalendarColorHeaderMonth           [@"#545454" toColor]
 #define kCalendarColorHeaderMonthShadow     [@"#f6f6f7" toColor]
-
+#define kCalendarColorHeaderArrow           [@"#545454" toColor]
 #define kCalendarColorHeaderBackground      [@"#ccccd1" toColor]
 
 #define kCalendarColorHeaderTitleHighlighted  [@"#1980e5" toColor]
