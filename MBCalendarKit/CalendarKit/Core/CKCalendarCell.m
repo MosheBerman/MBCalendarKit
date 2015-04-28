@@ -53,7 +53,7 @@
             _textSelectedShadowColor = kCalendarColorTextSelectedShadow;
         }
         
-        _dotColor = kCalendarColorCellTextColor;
+        _dotColor = kCalendarColorCellDotColor;
         _selectedDotColor = [UIColor whiteColor];
         
         _cellBorderColor = kCalendarColorCellBorder;

@@ -38,6 +38,7 @@
 #define kCalendarColorCellTextColor [@"#2b3540" toColor]
 #define kCalendarColorCellTextShadow [@"#ffffff" toColor]
 #define kCalendarColorCellTextSelected [@"#ffffff" toColor]
+#define kCalendarColorCellDotColor [@"#ff0000" toColor]
 
 #define kCalendarColorCellBorder [@"#9da0a9" toColor]
 #define kCalendarColorSelectedCellBorder [@"#293649" toColor]
