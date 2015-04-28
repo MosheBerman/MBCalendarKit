@@ -168,7 +168,7 @@
     UIView *dot = [self dot];
     dot.backgroundColor = _dotColor;
     
-    CGFloat dotRadius = 8;
+    CGFloat dotRadius = kCalendarCellDotRadius;
     CGFloat selfHeight = [self frame].size.height;
     CGFloat selfWidth = [self frame].size.width;
     

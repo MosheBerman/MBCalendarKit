@@ -29,6 +29,11 @@
 
 // TODO move to separate header file
 #define kCalendarShadowEnabled NO
+#define kCalendarColorCellSelectedEventTextColor [UIColor colorWithWhite:0.2 alpha:0.8]
+#define kCalendarColorCellSelectedEventFont [UIFont [UIFont systemFontOfSize:18]
+#define kCalendarColorCellSelectedEventShowsDisclosureIndicator YES
+#define kCalendarColorCellSelectedEventWidth 8
+#define kCalendarCellDotRadius 8
 
 #define kCalendarColorCellBackground [@"#e2e2e4" toColor]
 #define kCalendarColorCellBackgroundSelected [@"#cccbd0" toColor]
@@ -46,6 +51,7 @@
 
 #define kCalendarColorCellBorder [@"#9da0a9" toColor]
 #define kCalendarColorSelectedCellBorder [@"#293649" toColor]
+
 
 
 #endif
