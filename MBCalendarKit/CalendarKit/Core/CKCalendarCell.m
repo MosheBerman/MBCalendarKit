@@ -36,12 +36,12 @@
         _inactiveSelectedBackgroundColor = kCalendarColorCellBackgroundInactive;
         
         //  Today Cell Colors
-        _todayBackgroundColor = kCalendarColorCellToday;
+        _todayBackgroundColor = kCalendarColorCellTodayBackground;
         _todaySelectedBackgroundColor = kCalendarColorCellBackgroundSelected;
         if (kCalendarColorTodayShadow) {
             _todayTextShadowColor = kCalendarColorTodayShadow;
         }
-        _todayTextColor = [UIColor whiteColor];
+        _todayTextColor = kCalendarColorCellTodayTextColor;
         
         //  Text Colors
         _textColor = kCalendarColorCellTextColor;
@@ -214,7 +214,7 @@
         [self setBackgroundColor:[self todayBackgroundColor]];
         [[self label] setShadowColor:[self todayTextShadowColor]];
         [[self label] setTextColor:[self todayTextColor]];
-        [self setBorderColor:[self backgroundColor]];
+        [self setBorderColor:[self cellBorderColor]];
         [self showBorder];
     }
     

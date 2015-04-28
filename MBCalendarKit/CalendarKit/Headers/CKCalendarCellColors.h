@@ -31,7 +31,8 @@
 #define kCalendarColorCellBackgroundSelected [@"#cccbd0" toColor]
 #define kCalendarColorCellBackgroundInactive [@"#cccbd0" toColor]
 
-#define kCalendarColorCellToday [@"#7389a5" toColor]
+#define kCalendarColorCellTodayBackground [@"#7389a5" toColor]
+#define kCalendarColorCellTodayTextColor [@"#ffffff" toColor]
 #define kCalendarColorTodayShadow [@"#394452" toColor]
 #define kCalendarColorTextSelectedShadow [@"#294f75" toColor]
 
