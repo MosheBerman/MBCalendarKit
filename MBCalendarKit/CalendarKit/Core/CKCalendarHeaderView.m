@@ -41,7 +41,9 @@
         
         _monthTitle = [UILabel new];
         [_monthTitle setTextColor:kCalendarColorHeaderMonth];
-        [_monthTitle setShadowColor:kCalendarColorHeaderMonthShadow];
+        if (kCalendarColorHeaderMonthShadow) {
+            [_monthTitle setShadowColor:kCalendarColorHeaderMonthShadow];
+        }
         [_monthTitle setShadowOffset:CGSizeMake(0, 1)];
         [_monthTitle setBackgroundColor:[UIColor clearColor]];
         [_monthTitle setTextAlignment:NSTextAlignmentCenter];
@@ -63,7 +65,7 @@
 {
     [super willMoveToSuperview:newSuperview];
     [self setNeedsLayout];
-    [self setBackgroundColor:kCalendarColorHeaderGradientDark];
+    [self setBackgroundColor:kCalendarColorHeaderBackground];
 }
 
 - (void)layoutSubviews
@@ -95,7 +97,7 @@
 
     if ([self shouldHighlightTitle])
     {
-        [[self monthTitle] setTextColor:kCalendarColorHeaderTitleHighlightedBlue];
+        [[self monthTitle] setTextColor:kCalendarColorHeaderTitleHighlighted];
     }
     else
     {
@@ -185,7 +187,9 @@
     UILabel *l = [UILabel new];
     [l setBackgroundColor:[UIColor clearColor]];
     [l setTextColor:kCalendarColorHeaderWeekdayTitle];
-    [l setShadowColor:kCalendarColorHeaderWeekdayShadow];
+    if (kCalendarColorHeaderWeekdayShadow) {
+        [l setShadowColor:kCalendarColorHeaderWeekdayShadow];
+    }
     [l setTextAlignment:NSTextAlignmentCenter];
     [l setFont:[UIFont boldSystemFontOfSize:10]];
     [l setShadowOffset:CGSizeMake(0, 1)];

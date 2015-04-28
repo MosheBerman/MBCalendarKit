@@ -31,23 +31,29 @@
         _state = CKCalendarMonthCellStateNormal;
         
         //  Normal Cell Colors
-        _normalBackgroundColor = kCalendarColorLightGray;
-        _selectedBackgroundColor = kCalendarColorBlue;
-        _inactiveSelectedBackgroundColor = kCalendarColorDarkGray;
+        _normalBackgroundColor = kCalendarColorCellBackground;
+        _selectedBackgroundColor = kCalendarColorCellBackgroundSelected;
+        _inactiveSelectedBackgroundColor = kCalendarColorCellBackgroundInteractive;
         
         //  Today Cell Colors
-        _todayBackgroundColor = kCalendarColorBluishGray;
-        _todaySelectedBackgroundColor = kCalendarColorBlue;
-        _todayTextShadowColor = kCalendarColorTodayShadowBlue;
+        _todayBackgroundColor = kCalendarColorCellToday;
+        _todaySelectedBackgroundColor = kCalendarColorCellBackgroundSelected;
+        if (kCalendarColorTodayShadow) {
+            _todayTextShadowColor = kCalendarColorTodayShadow;
+        }
         _todayTextColor = [UIColor whiteColor];
         
         //  Text Colors
-        _textColor = kCalendarColorDarkTextGradient;
-        _textShadowColor = [UIColor whiteColor];
-        _textSelectedColor = [UIColor whiteColor];
-        _textSelectedShadowColor = kCalendarColorSelectedShadowBlue;
+        _textColor = kCalendarColorCellTextColor;
+        if (kCalendarColorCellTextShadow) {
+            _textShadowColor = kCalendarColorCellTextShadow;
+        }
+        _textSelectedColor = kCalendarColorCellTextSelected;
+        if (kCalendarColorTextSelectedShadow) {
+            _textSelectedShadowColor = kCalendarColorTextSelectedShadow;
+        }
         
-        _dotColor = kCalendarColorDarkTextGradient;
+        _dotColor = kCalendarColorCellTextColor;
         _selectedDotColor = [UIColor whiteColor];
         
         _cellBorderColor = kCalendarColorCellBorder;
