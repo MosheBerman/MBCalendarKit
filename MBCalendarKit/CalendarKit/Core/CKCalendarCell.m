@@ -204,7 +204,7 @@
     {
         [self setBackgroundColor:[self todaySelectedBackgroundColor]];
         [[self label] setShadowColor:[self todayTextShadowColor]];
-        [[self label] setTextColor:[self todayTextColor]];
+        [[self label] setTextColor:[self textSelectedColor]];
         [self setBorderColor:[self backgroundColor]];
     }
     
