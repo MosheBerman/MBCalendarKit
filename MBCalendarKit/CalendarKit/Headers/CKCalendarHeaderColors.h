@@ -12,6 +12,7 @@
 
 #import "NSString+Color.h"
 
+// TODO move this section to separate header file
 #define kCalendarFontHeader [UIFont boldSystemFontOfSize:22]
 #define kCalendarArrowScale 10.0
 #define kCalendarArrowPad 0

@@ -7,6 +7,7 @@
 //
 
 #import "CKCalendarView.h"
+#import "CKCalendarCellColors.h"
 
 //  Auxiliary Views
 #import "CKCalendarHeaderView.h"
@@ -173,9 +174,11 @@
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
-    [[self layer] setShadowColor:[[UIColor darkGrayColor] CGColor]];
-    [[self layer] setShadowOffset:CGSizeMake(0, 3)];
-    [[self layer] setShadowOpacity:1.0];
+    if (kCalendarShadowEnabled) {
+        [[self layer] setShadowColor:[[UIColor darkGrayColor] CGColor]];
+        [[self layer] setShadowOffset:CGSizeMake(0, 3)];
+        [[self layer] setShadowOpacity:1.0];
+    }
     
     [self reloadAnimated:NO];
     

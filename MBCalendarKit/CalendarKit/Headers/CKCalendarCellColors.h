@@ -27,6 +27,9 @@
 
 #import "NSString+Color.h"
 
+// TODO move to separate header file
+#define kCalendarShadowEnabled NO
+
 #define kCalendarColorCellBackground [@"#e2e2e4" toColor]
 #define kCalendarColorCellBackgroundSelected [@"#cccbd0" toColor]
 #define kCalendarColorCellBackgroundInactive [@"#cccbd0" toColor]
@@ -43,5 +46,6 @@
 
 #define kCalendarColorCellBorder [@"#9da0a9" toColor]
 #define kCalendarColorSelectedCellBorder [@"#293649" toColor]
+
 
 #endif
