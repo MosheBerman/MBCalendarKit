@@ -166,6 +166,7 @@
 - (void)configureDot
 {
     UIView *dot = [self dot];
+    dot.backgroundColor = _dotColor;
     
     CGFloat dotRadius = 8;
     CGFloat selfHeight = [self frame].size.height;
