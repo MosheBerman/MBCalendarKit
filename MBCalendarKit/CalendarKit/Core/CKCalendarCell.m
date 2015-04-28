@@ -33,7 +33,7 @@
         //  Normal Cell Colors
         _normalBackgroundColor = kCalendarColorCellBackground;
         _selectedBackgroundColor = kCalendarColorCellBackgroundSelected;
-        _inactiveSelectedBackgroundColor = kCalendarColorCellBackgroundInteractive;
+        _inactiveSelectedBackgroundColor = kCalendarColorCellBackgroundInactive;
         
         //  Today Cell Colors
         _todayBackgroundColor = kCalendarColorCellToday;
