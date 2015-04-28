@@ -31,7 +31,7 @@
 #define kCalendarShadowEnabled NO
 #define kCalendarRowSeparatorEnabled YES
 #define kCalendarColorCellSelectedEventTextColor [UIColor colorWithWhite:0.2 alpha:0.8]
-#define kCalendarColorCellSelectedEventFont [UIFont [UIFont systemFontOfSize:18]
+#define kCalendarColorCellSelectedEventFont [UIFont systemFontOfSize:18]
 #define kCalendarColorCellSelectedEventShowsDisclosureIndicator YES
 #define kCalendarColorCellSelectedEventWidth 8
 #define kCalendarCellDotRadius 8

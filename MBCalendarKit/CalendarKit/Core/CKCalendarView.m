@@ -1066,7 +1066,7 @@
     
     [[cell textLabel] setText:[event title]];
     [[cell textLabel] setTextColor:kCalendarColorCellSelectedEventTextColor];
-    [[cell textLabel] setFont:[UIFont systemFontOfSize:18]];
+    [[cell textLabel] setFont:kCalendarColorCellSelectedEventFont];
     
     float width = kCalendarColorCellSelectedEventWidth;
     UIView *colorView = [[UIView alloc] initWithFrame:CGRectMake(12, 0, width, cell.frame.size.height)];
