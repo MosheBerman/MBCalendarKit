@@ -18,6 +18,8 @@
 
 @implementation CKCalendarViewController
 
+@dynamic delegate;
+
 - (id)init
 {
     CKCalendarViewControllerInternal *calendarViewController = [CKCalendarViewControllerInternal new];
