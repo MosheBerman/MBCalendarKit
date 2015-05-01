@@ -898,7 +898,7 @@
         date = [[self calendar] dateByAddingWeeks:1 toDate:date];                   //  Add a week
         
         NSUInteger dayOfWeek = [[self calendar] weekdayInDate:date];
-        date = [[self calendar] dateBySubtractingDays:dayOfWeek-1 fromDate:date];   //  Jump to sunday
+        date = [[self calendar] dateBySubtractingDays:dayOfWeek-self.calendar.firstWeekday fromDate:date];   //  Jump to sunday
         
         //  If today is in the visible week, jump to today
         if ([[self calendar] date:date isSameWeekAs:today]) {
