@@ -32,6 +32,19 @@
 
 @interface CKCalendarHeaderView : UIView
 
+// Appearance
+@property (nonatomic, strong) UIFont *headerWeekdayTitleFont UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *headerWeekdayTitleColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *headerWeekdayShadowColor UI_APPEARANCE_SELECTOR;
+
+@property (nonatomic, strong) UIFont *headerMonthTextFont UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *headerMonthTextColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *headerMonthTextShadow UI_APPEARANCE_SELECTOR;
+
+@property (nonatomic, strong) UIColor *headerGradient UI_APPEARANCE_SELECTOR;
+
+@property (nonatomic, strong) UIColor *headerTitleHighlightedTextColor UI_APPEARANCE_SELECTOR;
+
 @property (nonatomic, assign) id<CKCalendarHeaderViewDataSource> dataSource;
 @property (nonatomic, assign) id<CKCalendarHeaderViewDelegate> delegate;
 

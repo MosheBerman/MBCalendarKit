@@ -39,13 +39,22 @@
     self = [super initWithFrame:frame];
     if (self) {
         
+        _headerMonthTextFont = [UIFont boldSystemFontOfSize:22];
+        _headerMonthTextColor = kCalendarColorHeaderMonth;
+        _headerMonthTextShadow = kCalendarColorHeaderMonthShadow;
+        _headerWeekdayTitleFont = [UIFont boldSystemFontOfSize:10];
+        _headerWeekdayTitleColor = kCalendarColorHeaderWeekdayTitle;
+        _headerWeekdayShadowColor = kCalendarColorHeaderWeekdayShadow;
+        _headerGradient = kCalendarColorHeaderGradientDark;
+        _headerTitleHighlightedTextColor = kCalendarColorHeaderTitleHighlightedBlue;
+        
         _monthTitle = [UILabel new];
-        [_monthTitle setTextColor:kCalendarColorHeaderMonth];
-        [_monthTitle setShadowColor:kCalendarColorHeaderMonthShadow];
+        [_monthTitle setTextColor:_headerMonthTextColor];
+        [_monthTitle setShadowColor:_headerMonthTextShadow];
         [_monthTitle setShadowOffset:CGSizeMake(0, 1)];
         [_monthTitle setBackgroundColor:[UIColor clearColor]];
         [_monthTitle setTextAlignment:NSTextAlignmentCenter];
-        [_monthTitle setFont:[UIFont boldSystemFontOfSize:22]];
+        [_monthTitle setFont:_headerMonthTextFont];
         
         _columnTitles = [NSMutableArray new];
         _columnLabels = [NSMutableArray new];
@@ -63,7 +72,7 @@
 {
     [super willMoveToSuperview:newSuperview];
     [self setNeedsLayout];
-    [self setBackgroundColor:kCalendarColorHeaderGradientDark];
+    [self setBackgroundColor:self.headerGradient];
 }
 
 - (void)layoutSubviews
@@ -95,11 +104,11 @@
 
     if ([self shouldHighlightTitle])
     {
-        [[self monthTitle] setTextColor:kCalendarColorHeaderTitleHighlightedBlue];
+        [[self monthTitle] setTextColor:self.headerTitleHighlightedTextColor];
     }
     else
     {
-        [[self monthTitle] setTextColor:kCalendarColorHeaderMonth];
+        [[self monthTitle] setTextColor:self.headerMonthTextColor];
     }
     
     /* Show the forward and back buttons */
@@ -178,27 +187,36 @@
 
 #pragma mark - Convenience Methods
 
+- (void)configureLabel:(UILabel *)label {
+    [label setBackgroundColor:[UIColor clearColor]];
+    [label setTextColor:self.headerWeekdayTitleColor];
+    [label setShadowColor:self.headerWeekdayShadowColor];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setFont:self.headerWeekdayTitleFont];
+    [label setShadowOffset:CGSizeMake(0, 1)];
+}
+
 /* Creates and configures a label for a column title */
 
 - (UILabel *)_columnLabelWithTitle:(NSString *)title
 {
     UILabel *l = [UILabel new];
-    [l setBackgroundColor:[UIColor clearColor]];
-    [l setTextColor:kCalendarColorHeaderWeekdayTitle];
-    [l setShadowColor:kCalendarColorHeaderWeekdayShadow];
-    [l setTextAlignment:NSTextAlignmentCenter];
-    [l setFont:[UIFont boldSystemFontOfSize:10]];
-    [l setShadowOffset:CGSizeMake(0, 1)];
+    [self configureLabel:l];
     [l setText:title];
     
     return l;
+}
+
+- (void) updateLabelsAppearance {
+    for (UILabel *label in self.columnLabels) {
+        [self configureLabel:label];
+    }
 }
 
 #pragma mark - Touch Handling
 
 - (void)tapHandler:(UITapGestureRecognizer *)gesture
 {
-    
     CGPoint location = [gesture locationInView:self];
     
     if ([gesture state] != UIGestureRecognizerStateEnded) {
@@ -214,6 +232,51 @@
     {
         [self backwardButtonTapped];
     }
+}
+
+#pragma mark - Appearance Handling
+
+- (void)setHeaderMonthTextFont:(UIFont *)headerMonthTextFont {
+    _headerMonthTextFont = headerMonthTextFont;
+    
+    [self.monthTitle setFont:_headerMonthTextFont];
+}
+
+- (void)setHeaderMonthTextColor:(UIColor *)headerMonthTextColor {
+    _headerMonthTextColor = headerMonthTextColor;
+    
+    [self.monthTitle setTextColor:headerMonthTextColor];
+}
+
+- (void)setHeaderMonthTextShadow:(UIColor *)headerMonthTextShadow {
+    _headerMonthTextShadow = headerMonthTextShadow;
+    
+    [self.monthTitle setShadowColor:headerMonthTextShadow];
+}
+
+
+- (void)setHeaderWeekdayTitleFont:(UIFont *)headerWeekdayTitleFont {
+    _headerWeekdayTitleFont = headerWeekdayTitleFont;
+    
+    [self updateLabelsAppearance];
+}
+
+- (void)setHeaderWeekdayTitleColor:(UIColor *)headerWeekdayTitle {
+    _headerWeekdayTitleColor = headerWeekdayTitle;
+    
+    [self updateLabelsAppearance];
+}
+
+- (void)setHeaderWeekdayShadowColor:(UIColor *)headerWeekdayShadow {
+    _headerWeekdayShadowColor = headerWeekdayShadow;
+    
+    [self updateLabelsAppearance];
+}
+
+- (void)setHeaderGradient:(UIColor *)headerGradient {
+    _headerGradient = headerGradient;
+    
+    [self setBackgroundColor:headerGradient];
 }
 
 #pragma mark - Button Handling
