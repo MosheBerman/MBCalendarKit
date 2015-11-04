@@ -1069,6 +1069,9 @@
     {
         cell.imageView.image = [UIImage imageWithData:event.image];
     }
+    else {
+        cell.imageView.image = nil;
+    }
     
     [cell addSubview:colorView];
     
