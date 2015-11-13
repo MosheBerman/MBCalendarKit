@@ -27,18 +27,32 @@
 
 #import "NSString+Color.h"
 
-#define kCalendarColorBlue [@"#1980e5" toColor]
-#define kCalendarColorLightGray [@"#e2e2e4" toColor]
-#define kCalendarColorDarkGray [@"#cccbd0" toColor]
+// TODO move to separate header file
+#define kCalendarShadowEnabled NO
+#define kCalendarRowSeparatorEnabled YES
+#define kCalendarColorCellSelectedEventTextColor [UIColor colorWithWhite:0.2 alpha:0.8]
+#define kCalendarColorCellSelectedEventFont [UIFont systemFontOfSize:18]
+#define kCalendarColorCellSelectedEventShowsDisclosureIndicator YES
+#define kCalendarColorCellSelectedEventWidth 8
+#define kCalendarCellDotRadius 8
 
-#define kCalendarColorBluishGray [@"#7389a5" toColor]
-#define kCalendarColorTodayShadowBlue [@"#394452" toColor]
-#define kCalendarColorSelectedShadowBlue [@"#294f75" toColor]
+#define kCalendarColorCellBackground [@"#e2e2e4" toColor]
+#define kCalendarColorCellBackgroundSelected [@"#cccbd0" toColor]
+#define kCalendarColorCellBackgroundInactive [@"#cccbd0" toColor]
 
-#define kCalendarColorDarkTextGradient [@"#2b3540" toColor]
-#define kCalendarColorLightTextGradient [@"#495a6d" toColor]
+#define kCalendarColorCellTodayBackground [@"#7389a5" toColor]
+#define kCalendarColorCellTodayTextColor [@"#ffffff" toColor]
+#define kCalendarColorTodayShadow [@"#394452" toColor]
+#define kCalendarColorTextSelectedShadow [@"#294f75" toColor]
+
+#define kCalendarColorCellTextColor [@"#2b3540" toColor]
+#define kCalendarColorCellTextShadow [@"#ffffff" toColor]
+#define kCalendarColorCellTextSelected [@"#ffffff" toColor]
+#define kCalendarColorCellDotColor [@"#ff0000" toColor]
 
 #define kCalendarColorCellBorder [@"#9da0a9" toColor]
 #define kCalendarColorSelectedCellBorder [@"#293649" toColor]
+
+
 
 #endif

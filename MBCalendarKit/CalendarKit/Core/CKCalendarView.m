@@ -7,6 +7,7 @@
 //
 
 #import "CKCalendarView.h"
+#import "CKCalendarCellColors.h"
 
 //  Auxiliary Views
 #import "CKCalendarHeaderView.h"
@@ -70,6 +71,9 @@
     
     //  Accessory Table
     _table = [UITableView new];
+    if (!kCalendarRowSeparatorEnabled) {
+        _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
     [_table setDelegate:self];
     [_table setDataSource:self];
     
@@ -173,9 +177,11 @@
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
-    [[self layer] setShadowColor:[[UIColor darkGrayColor] CGColor]];
-    [[self layer] setShadowOffset:CGSizeMake(0, 3)];
-    [[self layer] setShadowOpacity:1.0];
+    if (kCalendarShadowEnabled) {
+        [[self layer] setShadowColor:[[UIColor darkGrayColor] CGColor]];
+        [[self layer] setShadowOffset:CGSizeMake(0, 3)];
+        [[self layer] setShadowOpacity:1.0];
+    }
     
     [self reloadAnimated:NO];
     
@@ -1038,7 +1044,6 @@
     if (count == 0) {
         UITableViewCell *cell = [[self table] dequeueReusableCellWithIdentifier:@"noDataCell"];
         [[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
-        [[cell textLabel] setTextColor:[UIColor colorWithWhite:0.2 alpha:0.8]];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         if ([indexPath row] == 1) {
@@ -1055,14 +1060,21 @@
     
     CKCalendarEvent *event = [[self events] objectAtIndex:[indexPath row]];
     
-    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    if (kCalendarColorCellSelectedEventShowsDisclosureIndicator) {
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    }
     
     [[cell textLabel] setText:[event title]];
+    [[cell textLabel] setTextColor:kCalendarColorCellSelectedEventTextColor];
+    [[cell textLabel] setFont:kCalendarColorCellSelectedEventFont];
     
-    UIView *colorView = [[UIView alloc] initWithFrame:CGRectMake(3, 6, 20, 20)];
+    float width = kCalendarColorCellSelectedEventWidth;
+    UIView *colorView = [[UIView alloc] initWithFrame:CGRectMake(12, 0, width, cell.frame.size.height)];
+    
     CALayer *layer = [CALayer layer];
     layer.backgroundColor = [[event color] CGColor];
-    layer.frame = colorView.frame;
+    layer.frame = CGRectMake(0, (colorView.frame.size.height / 2) - (width/2), width, width);
+    layer.cornerRadius = width / 2;
     [colorView.layer insertSublayer:layer atIndex:0];
     
     if(nil != event.image)

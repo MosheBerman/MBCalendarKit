@@ -94,7 +94,7 @@ float degToRad(float deg){
     CGContextSaveGState(context);
     
     //Set the stroke to white
-    [kCalendarColorHeaderMonth set];
+    [kCalendarColorHeaderArrow set];
     
     //Define the number of degrees in a polygon
     const CGFloat kDegreesInPoly = 360;

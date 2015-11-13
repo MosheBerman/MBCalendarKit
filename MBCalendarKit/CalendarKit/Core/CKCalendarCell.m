@@ -31,23 +31,29 @@
         _state = CKCalendarMonthCellStateNormal;
         
         //  Normal Cell Colors
-        _normalBackgroundColor = kCalendarColorLightGray;
-        _selectedBackgroundColor = kCalendarColorBlue;
-        _inactiveSelectedBackgroundColor = kCalendarColorDarkGray;
+        _normalBackgroundColor = kCalendarColorCellBackground;
+        _selectedBackgroundColor = kCalendarColorCellBackgroundSelected;
+        _inactiveSelectedBackgroundColor = kCalendarColorCellBackgroundInactive;
         
         //  Today Cell Colors
-        _todayBackgroundColor = kCalendarColorBluishGray;
-        _todaySelectedBackgroundColor = kCalendarColorBlue;
-        _todayTextShadowColor = kCalendarColorTodayShadowBlue;
-        _todayTextColor = [UIColor whiteColor];
+        _todayBackgroundColor = kCalendarColorCellTodayBackground;
+        _todaySelectedBackgroundColor = kCalendarColorCellBackgroundSelected;
+        if (kCalendarColorTodayShadow) {
+            _todayTextShadowColor = kCalendarColorTodayShadow;
+        }
+        _todayTextColor = kCalendarColorCellTodayTextColor;
         
         //  Text Colors
-        _textColor = kCalendarColorDarkTextGradient;
-        _textShadowColor = [UIColor whiteColor];
-        _textSelectedColor = [UIColor whiteColor];
-        _textSelectedShadowColor = kCalendarColorSelectedShadowBlue;
+        _textColor = kCalendarColorCellTextColor;
+        if (kCalendarColorCellTextShadow) {
+            _textShadowColor = kCalendarColorCellTextShadow;
+        }
+        _textSelectedColor = kCalendarColorCellTextSelected;
+        if (kCalendarColorTextSelectedShadow) {
+            _textSelectedShadowColor = kCalendarColorTextSelectedShadow;
+        }
         
-        _dotColor = kCalendarColorDarkTextGradient;
+        _dotColor = kCalendarColorCellDotColor;
         _selectedDotColor = [UIColor whiteColor];
         
         _cellBorderColor = kCalendarColorCellBorder;
@@ -160,8 +166,9 @@
 - (void)configureDot
 {
     UIView *dot = [self dot];
+    dot.backgroundColor = _dotColor;
     
-    CGFloat dotRadius = 3;
+    CGFloat dotRadius = kCalendarCellDotRadius;
     CGFloat selfHeight = [self frame].size.height;
     CGFloat selfWidth = [self frame].size.width;
     
@@ -197,8 +204,8 @@
     {
         [self setBackgroundColor:[self todaySelectedBackgroundColor]];
         [[self label] setShadowColor:[self todayTextShadowColor]];
-        [[self label] setTextColor:[self todayTextColor]];
-        [self setBorderColor:[self backgroundColor]];
+        [[self label] setTextColor:[self textSelectedColor]];
+        [self setBorderColor:[self cellBorderColor]];
     }
     
     //  Today cell, selected
@@ -207,7 +214,7 @@
         [self setBackgroundColor:[self todayBackgroundColor]];
         [[self label] setShadowColor:[self todayTextShadowColor]];
         [[self label] setTextColor:[self todayTextColor]];
-        [self setBorderColor:[self backgroundColor]];
+        [self setBorderColor:[self cellBorderColor]];
         [self showBorder];
     }
     
