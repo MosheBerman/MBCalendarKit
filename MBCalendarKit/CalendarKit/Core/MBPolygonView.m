@@ -38,6 +38,7 @@ float degToRad(float deg){
         _scalingFactor = scale;
         _rotation = rotation;
         _isDeleted = NO;
+        _fillColor = kCalendarColorHeaderMonth;
         [self setOpaque:NO];
     }
     
@@ -94,7 +95,7 @@ float degToRad(float deg){
     CGContextSaveGState(context);
     
     //Set the stroke to white
-    [kCalendarColorHeaderMonth set];
+    [self.fillColor set];
     
     //Define the number of degrees in a polygon
     const CGFloat kDegreesInPoly = 360;
