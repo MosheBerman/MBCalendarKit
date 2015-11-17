@@ -437,7 +437,9 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = CK;
-				LastUpgradeCheck = 0460;
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Moshe Berman";
 				TargetAttributes = {
 					46BFBCE41715FB3F00D4733E = {
@@ -665,9 +667,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MBCalendarKit/MBCalendarKit-Prefix.pch";
 				INFOPLIST_FILE = "MBCalendarKit/MBCalendarKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mosheberman.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MBCalendarKit;
 				PROVISIONING_PROFILE = "3A635F71-F96D-4EAF-AAB6-258F2623E55C";
 				SWIFT_OBJC_BRIDGING_HEADER = "MBCalendarKit-Bridging-Header.h";
@@ -689,6 +692,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MBCalendarKit/MBCalendarKit-Prefix.pch";
 				INFOPLIST_FILE = "MBCalendarKitTests/MBCalendarKitTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mosheberman.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MBCalendarKitTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
@@ -708,6 +712,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -760,9 +765,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MBCalendarKit/MBCalendarKit-Prefix.pch";
 				INFOPLIST_FILE = "MBCalendarKit/MBCalendarKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mosheberman.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MBCalendarKit;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MBCalendarKit-Bridging-Header.h";
@@ -782,9 +788,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MBCalendarKit/MBCalendarKit-Prefix.pch";
 				INFOPLIST_FILE = "MBCalendarKit/MBCalendarKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mosheberman.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MBCalendarKit;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MBCalendarKit-Bridging-Header.h";
@@ -805,6 +812,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MBCalendarKit/MBCalendarKit-Prefix.pch";
 				INFOPLIST_FILE = "MBCalendarKitTests/MBCalendarKitTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mosheberman.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MBCalendarKitTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
@@ -822,6 +830,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MBCalendarKit/MBCalendarKit-Prefix.pch";
 				INFOPLIST_FILE = "MBCalendarKitTests/MBCalendarKitTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mosheberman.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MBCalendarKitTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};

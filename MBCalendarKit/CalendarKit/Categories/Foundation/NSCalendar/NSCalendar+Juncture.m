@@ -63,7 +63,7 @@
 
 - (NSDate *)firstDayOfTheMonthUsingReferenceDate:(NSDate *)date
 {
-    NSDateComponents *c = [self components:NSMonthCalendarUnit | NSYearCalendarUnit fromDate:date];
+    NSDateComponents *c = [self components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
     
     [c setDay:1];
     
@@ -78,7 +78,7 @@
 - (NSDate *)lastDayOfTheMonthUsingReferenceDate:(NSDate *)date
 {
     
-    NSDateComponents *c = [self components:NSYearCalendarUnit | NSMonthCalendarUnit fromDate:date];
+    NSDateComponents *c = [self components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:date];
     
     [c setDay:[self daysPerMonthUsingReferenceDate:date]];
     

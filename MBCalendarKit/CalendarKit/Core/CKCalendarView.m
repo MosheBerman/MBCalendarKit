@@ -58,7 +58,7 @@
     _timeZone = nil;
     _date = [NSDate date];
     
-    NSDateComponents *components = [_calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:_date];
+    NSDateComponents *components = [_calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:_date];
     _date = [_calendar dateFromComponents:components];
     
     _displayMode = CKCalendarViewModeMonth;
@@ -662,7 +662,7 @@
         date = [NSDate date];
     }
     
-    NSDateComponents *components = [self.calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:date];
+    NSDateComponents *components = [self.calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
     date = [self.calendar dateFromComponents:components];
 
     BOOL minimumIsBeforeMaximum = [self _minimumDateIsBeforeMaximumDate];
