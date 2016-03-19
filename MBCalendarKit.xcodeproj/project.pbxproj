@@ -74,6 +74,9 @@
 		46895C9A171F5AA60072DBCF /* CKDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46895C99171F5AA60072DBCF /* CKDemoViewController.m */; };
 		469D857E1A3766A100E2B305 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 469D857D1A3766A100E2B305 /* Images.xcassets */; };
 		46A789E91A606CF00096E2BB /* SwiftDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A789E81A606CF00096E2BB /* SwiftDemoViewController.swift */; };
+		BA0CB9341AF1D6260027CF88 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA0CB9331AF1D6260027CF88 /* CoreGraphics.framework */; };
+		BA0CB9361AF1D6440027CF88 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA0CB9351AF1D6440027CF88 /* UIKit.framework */; };
+		BA0CB9381AF1D6600027CF88 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA0CB9371AF1D6600027CF88 /* QuartzCore.framework */; };
 		CCDF9505193CF941002266D5 /* CKTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CCDF9504193CF941002266D5 /* CKTableViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -171,6 +174,9 @@
 		46A789E81A606CF00096E2BB /* SwiftDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftDemoViewController.swift; path = MBCalendarKit/SwiftDemoViewController.swift; sourceTree = "<group>"; };
 		46BFBCBF1715FB3F00D4733E /* MBCalendarKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MBCalendarKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46BFBCE51715FB3F00D4733E /* MBCalendarKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MBCalendarKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA0CB9331AF1D6260027CF88 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		BA0CB9351AF1D6440027CF88 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		BA0CB9371AF1D6600027CF88 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CCDF9503193CF941002266D5 /* CKTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTableViewCell.h; sourceTree = "<group>"; };
 		CCDF9504193CF941002266D5 /* CKTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -187,6 +193,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA0CB9381AF1D6600027CF88 /* QuartzCore.framework in Frameworks */,
+				BA0CB9361AF1D6440027CF88 /* UIKit.framework in Frameworks */,
+				BA0CB9341AF1D6260027CF88 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +365,9 @@
 		46BFBCB61715FB3F00D4733E = {
 			isa = PBXGroup;
 			children = (
+				BA0CB9371AF1D6600027CF88 /* QuartzCore.framework */,
+				BA0CB9351AF1D6440027CF88 /* UIKit.framework */,
+				BA0CB9331AF1D6260027CF88 /* CoreGraphics.framework */,
 				469D857D1A3766A100E2B305 /* Images.xcassets */,
 				464A86CA171F174D00E7AB19 /* CalendarKit */,
 				464A870A171F174D00E7AB19 /* MBCalendarKitTests */,

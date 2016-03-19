@@ -19,5 +19,7 @@
 
 - (CKCalendarView *)calendarView;
 
+- (id)init;
+
 @end
 
