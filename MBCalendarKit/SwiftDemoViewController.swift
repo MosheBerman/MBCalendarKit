@@ -9,7 +9,8 @@
 import UIKit
 import MBCalendarKit
 
-class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource{
+class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource, CKCalendarViewDelegate
+{
 
     
     var data : NSMutableDictionary
@@ -36,7 +37,7 @@ class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource{
         //  Step 0 : Wire up the data source and delegate
         //
         
-        self.calendarDelegate = self
+        self.delegate = self
         self.dataSource = self
         
         //

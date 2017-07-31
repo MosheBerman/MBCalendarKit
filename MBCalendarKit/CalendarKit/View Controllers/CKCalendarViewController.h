@@ -1,23 +1,21 @@
 //
-//  CKCalendarViewController.h
-//  MBCalendarKit
+//  CKViewController.h
+//   MBCalendarKit
 //
-//  Created by Moshe Berman on 4/17/13.
+//  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
-#import "CKCalendarDataSource.h"
 #import "CKCalendarDelegate.h"
-#import "CKCalendarEvent.h"
+#import "CKCalendarDataSource.h"
 
-@interface CKCalendarViewController : UINavigationController <CKCalendarViewDelegate, UINavigationControllerDelegate>
+@interface CKCalendarViewController : UIViewController
 
 @property (nonatomic, assign) id<CKCalendarViewDataSource> dataSource;
-@property (nonatomic, assign) id<CKCalendarViewDelegate, UINavigationControllerDelegate> calendarDelegate;
+@property (nonatomic, assign) id<CKCalendarViewDelegate> delegate;
 
 - (CKCalendarView *)calendarView;
 
 @end
-

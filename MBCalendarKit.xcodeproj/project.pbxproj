@@ -70,10 +70,8 @@
 		467B12DC1F2F547500CABA27 /* CKCalendarViewModes.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86FA171F174D00E7AB19 /* CKCalendarViewModes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		467B12DD1F2F547500CABA27 /* CKCalendarDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A877F171F2B3B00E7AB19 /* CKCalendarDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		467B12DE1F2F547500CABA27 /* CKCalendarDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A8780171F2D7800E7AB19 /* CKCalendarDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		467B12DF1F2F547500CABA27 /* CKCalendarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A8785171F3D8100E7AB19 /* CKCalendarViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		467B12E01F2F547500CABA27 /* CKCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A8786171F3D8100E7AB19 /* CKCalendarViewController.m */; };
-		467B12E11F2F547500CABA27 /* CKCalendarViewControllerInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86FC171F174D00E7AB19 /* CKCalendarViewControllerInternal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		467B12E21F2F547500CABA27 /* CKCalendarViewControllerInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A86FD171F174D00E7AB19 /* CKCalendarViewControllerInternal.m */; };
+		467B12E11F2F547500CABA27 /* CKCalendarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86FC171F174D00E7AB19 /* CKCalendarViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		467B12E21F2F547500CABA27 /* CKCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A86FD171F174D00E7AB19 /* CKCalendarViewController.m */; };
 		467B12FA1F2F5B8A00CABA27 /* MBCalendarKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B12F91F2F5B8A00CABA27 /* MBCalendarKitTests.m */; };
 		467B12FC1F2F5B8A00CABA27 /* MBCalendarKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */; };
 		46895C9A171F5AA60072DBCF /* CKDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46895C99171F5AA60072DBCF /* CKDemoViewController.m */; };
@@ -161,8 +159,8 @@
 		464A86F8171F174D00E7AB19 /* CKCalendarHeaderColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarHeaderColors.h; sourceTree = "<group>"; };
 		464A86F9171F174D00E7AB19 /* CKCalendarMonthCellStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarMonthCellStates.h; sourceTree = "<group>"; };
 		464A86FA171F174D00E7AB19 /* CKCalendarViewModes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarViewModes.h; sourceTree = "<group>"; };
-		464A86FC171F174D00E7AB19 /* CKCalendarViewControllerInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarViewControllerInternal.h; sourceTree = "<group>"; };
-		464A86FD171F174D00E7AB19 /* CKCalendarViewControllerInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarViewControllerInternal.m; sourceTree = "<group>"; };
+		464A86FC171F174D00E7AB19 /* CKCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarViewController.h; sourceTree = "<group>"; };
+		464A86FD171F174D00E7AB19 /* CKCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarViewController.m; sourceTree = "<group>"; };
 		464A86FE171F174D00E7AB19 /* CKAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKAppDelegate.h; path = MBCalendarKit/CKAppDelegate.h; sourceTree = "<group>"; };
 		464A86FF171F174D00E7AB19 /* CKAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKAppDelegate.m; path = MBCalendarKit/CKAppDelegate.m; sourceTree = "<group>"; };
 		464A8700171F174D00E7AB19 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "MBCalendarKit/Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -179,8 +177,6 @@
 		464A870F171F174D00E7AB19 /* MBCalendarKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCalendarKitTests.m; sourceTree = "<group>"; };
 		464A877F171F2B3B00E7AB19 /* CKCalendarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarDelegate.h; sourceTree = "<group>"; };
 		464A8780171F2D7800E7AB19 /* CKCalendarDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarDataSource.h; sourceTree = "<group>"; };
-		464A8785171F3D8100E7AB19 /* CKCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarViewController.h; sourceTree = "<group>"; };
-		464A8786171F3D8100E7AB19 /* CKCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarViewController.m; sourceTree = "<group>"; };
 		467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MBCalendarKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		467B12A71F2F544F00CABA27 /* MBCalendarKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MBCalendarKit.h; path = ../MBCalendarKit.h; sourceTree = "<group>"; };
 		467B12A81F2F544F00CABA27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -346,10 +342,8 @@
 		464A86FB171F174D00E7AB19 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				464A8785171F3D8100E7AB19 /* CKCalendarViewController.h */,
-				464A8786171F3D8100E7AB19 /* CKCalendarViewController.m */,
-				464A86FC171F174D00E7AB19 /* CKCalendarViewControllerInternal.h */,
-				464A86FD171F174D00E7AB19 /* CKCalendarViewControllerInternal.m */,
+				464A86FC171F174D00E7AB19 /* CKCalendarViewController.h */,
+				464A86FD171F174D00E7AB19 /* CKCalendarViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -460,8 +454,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				467B12DF1F2F547500CABA27 /* CKCalendarViewController.h in Headers */,
-				467B12E11F2F547500CABA27 /* CKCalendarViewControllerInternal.h in Headers */,
+				467B12E11F2F547500CABA27 /* CKCalendarViewController.h in Headers */,
 				467B12A91F2F544F00CABA27 /* MBCalendarKit.h in Headers */,
 				467B12B41F2F547500CABA27 /* NSCalendar+Components.h in Headers */,
 				467B12B61F2F547500CABA27 /* NSCalendar+DateComparison.h in Headers */,
@@ -660,8 +653,7 @@
 				467B12D41F2F547500CABA27 /* CKCalendarView.m in Sources */,
 				467B12D61F2F547500CABA27 /* CKTableViewCell.m in Sources */,
 				467B12D81F2F547500CABA27 /* MBPolygonView.m in Sources */,
-				467B12E01F2F547500CABA27 /* CKCalendarViewController.m in Sources */,
-				467B12E21F2F547500CABA27 /* CKCalendarViewControllerInternal.m in Sources */,
+				467B12E21F2F547500CABA27 /* CKCalendarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
