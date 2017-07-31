@@ -9,6 +9,7 @@
 import UIKit
 
 class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource{
+
     
     var data : NSMutableDictionary
     
@@ -19,7 +20,7 @@ class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource{
         super.init(coder: aDecoder)
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         
         self.data = NSMutableDictionary()
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -41,8 +42,8 @@ class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource{
         //  Step 1 : Define some events
         //
         
-        let title : NSString = NSLocalizedString("Add Swift Demo", comment: "")
-        let date : NSDate = NSDate(day: 9, month: 1, year: 2015)
+        let title : NSString = NSLocalizedString("Add Swift Demo", comment: "") as NSString
+        let date : Date = NSDate(day: 9, month: 1, year: 2015) as Date
         let event : CKCalendarEvent = CKCalendarEvent(title: title as String, andDate: date, andInfo: nil)
         
         
@@ -64,9 +65,9 @@ class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource{
     //  MARK: - CKCalendarDataSource
     //
     
-    func calendarView(calendarView: CKCalendarView!, eventsForDate date: NSDate!) -> [AnyObject]! {
+    func calendarView(_ calendarView: CKCalendarView!, eventsFor date: Date!) -> [Any]! {
         
-        return self.data.objectForKey(date) as! [AnyObject]!
+        return self.data.object(forKey: date) as! [AnyObject]!
     }
     
     /*

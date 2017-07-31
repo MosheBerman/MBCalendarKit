@@ -442,6 +442,9 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Moshe Berman";
 				TargetAttributes = {
+					46BFBCBE1715FB3F00D4733E = {
+						LastSwiftMigration = 0830;
+					};
 					46BFBCE41715FB3F00D4733E = {
 						TestTargetID = 46BFBCBE1715FB3F00D4733E;
 					};
@@ -675,6 +678,7 @@
 				PROVISIONING_PROFILE = "3A635F71-F96D-4EAF-AAB6-258F2623E55C";
 				SWIFT_OBJC_BRIDGING_HEADER = "MBCalendarKit-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -773,6 +777,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MBCalendarKit-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -795,6 +800,7 @@
 				PRODUCT_NAME = MBCalendarKit;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MBCalendarKit-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
