@@ -26,7 +26,7 @@
 
 @implementation CKCalendarViewControllerInternal
 
-@dynamic delegate;
+@synthesize delegate;
 
 - (void)viewDidLoad
 {
