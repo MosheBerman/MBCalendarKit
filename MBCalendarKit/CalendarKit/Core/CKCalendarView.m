@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
+@import QuartzCore;
+
 #import "CKCalendarView.h"
 
 //  Auxiliary Views
@@ -17,8 +19,6 @@
 #import "NSCalendarCategories.h"
 #import "NSDate+Description.h"
 #import "UIView+AnimatedFrame.h"
-
-#import <QuartzCore/QuartzCore.h>
 
 @interface CKCalendarView () <CKCalendarHeaderViewDataSource, CKCalendarHeaderViewDelegate, UITableViewDataSource, UITableViewDelegate> {
     NSUInteger _firstWeekDay;
