@@ -12,6 +12,7 @@
 #import "CKCalendarHeaderView.h"
 #import "CKCalendarCell.h"
 #import "CKTableViewCell.h"
+#import "CKCalendarAnimationWrapperView.h"
 
 #import "NSCalendarCategories.h"
 #import "NSDate+Description.h"
@@ -39,7 +40,7 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
-@property (nonatomic, strong) UIView *wrapper;
+@property (nonatomic, strong) CKCalendarAnimationWrapperView *wrapper;
 @property (nonatomic, strong) NSDate *previousDate;
 @property (nonatomic, assign) BOOL isAnimating;
 
@@ -81,7 +82,7 @@
     
     //  Used for animation
     _previousDate = [NSDate date];
-    _wrapper = [UIView new];
+    _wrapper = [CKCalendarAnimationWrapperView new];
     _isAnimating = NO;
     
     //  Date bounds
