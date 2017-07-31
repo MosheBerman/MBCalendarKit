@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import UIKit;
 
 @interface NSString (Color)
 
