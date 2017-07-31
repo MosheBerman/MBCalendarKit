@@ -11,7 +11,6 @@ import MBCalendarKit
 
 class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource, CKCalendarViewDelegate
 {
-
     
     var data : NSMutableDictionary
     
@@ -67,9 +66,16 @@ class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource, C
     //  MARK: - CKCalendarDataSource
     //
     
-    func calendarView(_ calendarView: CKCalendarView!, eventsFor date: Date!) -> [Any]! {
+    /**
+     Allows the data source to supply events to display on the calendar.
+     
+     @param calendarView The calendar view instance that will display the data.
+     @param date The date for which the calendar view wants events.
+     @return An array of events objects.
+     */
+    func calendarView(_ calendarView: CKCalendarView!, eventsFor date: Date!) -> [CKCalendarEvent]! {
         
-        return self.data.object(forKey: date) as! [AnyObject]!
+        return self.data.object(forKey: date) as! [CKCalendarEvent]!
     }
     
     /*
