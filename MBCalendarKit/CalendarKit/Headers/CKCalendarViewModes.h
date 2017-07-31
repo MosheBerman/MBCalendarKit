@@ -9,10 +9,10 @@
 #ifndef MBCalendarKit_CKCalendarViewModes_h
 #define MBCalendarKit_CKCalendarViewModes_h
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, CKCalendarDisplayMode) {
     CKCalendarViewModeMonth = 0,
     CKCalendarViewModeWeek = 1,
     CKCalendarViewModeDay = 2
-    } CKCalendarDisplayMode;
+};
 
 #endif

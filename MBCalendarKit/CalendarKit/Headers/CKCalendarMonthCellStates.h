@@ -9,7 +9,7 @@
 #ifndef MBCalendarKit_CKCalendarMonthCellStates_h
 #define MBCalendarKit_CKCalendarMonthCellStates_h
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, CKCalendarMonthCellState) {
     CKCalendarMonthCellStateTodaySelected = 0,      //  Today's cell, selected
     CKCalendarMonthCellStateTodayDeselected = 1,    //  Today's cell, unselected
     CKCalendarMonthCellStateNormal,                 //  Cells that are part of this month, unselected
@@ -17,7 +17,6 @@ typedef enum {
     CKCalendarMonthCellStateInactive,               //  Cells that are not part of this month
     CKCalendarMonthCellStateInactiveSelected,       //  Transient state for out of month cells
     CKCalendarMonthCellStateOutOfRange              //  A state for cells that are bounded my min/max constraints on the calendar picker 
-    
-} CKCalendarMonthCellState;
+};
 
 #endif
