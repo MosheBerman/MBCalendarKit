@@ -18,7 +18,7 @@
 @interface CKAppDelegate ()
 
 @property (nonatomic, strong) UINavigationController *navigationController;
-@property (strong, nonatomic) CKCalendarViewController *viewController;
+@property (strong, nonatomic) UIViewController *viewController;
 
 @end
 
@@ -26,15 +26,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     
-    //  For Objective-C, uncomment the following line:
-    //self.viewController = [CKDemoViewController new];
+    UIViewController *rootViewController = [CKDemoViewController new];
     
     //  Uncomment the following line for the Swift version:
-    self.viewController = [SwiftDemoViewController new];
+    rootViewController = [SwiftDemoViewController new];
+    
+    self.viewController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
     
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
