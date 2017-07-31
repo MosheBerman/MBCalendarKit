@@ -59,6 +59,10 @@
     NSDate *date3 = [NSDate dateWithDay:29 month:11 year:2014];
     CKCalendarEvent *fixBug = [CKCalendarEvent eventWithTitle:title3 andDate:date3 andInfo:nil];
     
+    // An event for testing MBCalendarKit
+    NSString *title4 = NSLocalizedString(@"Try MBCalendarKit", @"");
+    NSDate *today = [NSDate dateWithDay:31 month:7 year:2017];
+    CKCalendarEvent *tryCalendarKit = [CKCalendarEvent eventWithTitle:title4 andDate:today andInfo:nil];
     
     /**
      *  Add the events to the data source.
@@ -69,6 +73,7 @@
     self.data[date] = @[releaseUpdatedCalendarKit];
     self.data[date2] = @[mockingJay, integrationEvent];
     self.data[date3] = @[fixBug];
+    self.data[today] = @[tryCalendarKit];
 }
 
 - (void)viewDidAppear:(BOOL)animated
