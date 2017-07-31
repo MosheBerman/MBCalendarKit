@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Moshe Berman. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface MBPolygonView : UIView
 
