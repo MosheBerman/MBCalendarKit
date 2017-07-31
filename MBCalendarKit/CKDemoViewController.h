@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
-#import "CalendarKit.h"
+@import MBCalendarKit;
 #import "CKCalendarViewController.h"
 
 @interface CKDemoViewController : CKCalendarViewController

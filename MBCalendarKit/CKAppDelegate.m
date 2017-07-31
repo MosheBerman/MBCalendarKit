@@ -6,9 +6,11 @@
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
-#import "CKAppDelegate.h"
+@import MBCalendarKit;
 
+#import "CKAppDelegate.h"
 #import "CKDemoViewController.h"
+#import "MBCalendarKit_Demo-Swift.h"
 
 //  Uncomment the following line for the Swift version.
 //  #import "MBCalendarKit-Swift.h"
@@ -16,6 +18,7 @@
 @interface CKAppDelegate ()
 
 @property (nonatomic, strong) UINavigationController *navigationController;
+@property (strong, nonatomic) CKCalendarViewController *viewController;
 
 @end
 
@@ -28,10 +31,10 @@
     // Override point for customization after application launch.
     
     //  For Objective-C, uncomment the following line:
-    self.viewController = [CKDemoViewController new];
+    //self.viewController = [CKDemoViewController new];
     
     //  Uncomment the following line for the Swift version:
-    //    self.viewController = [SwiftDemoViewController new];
+    self.viewController = [SwiftDemoViewController new];
     
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];

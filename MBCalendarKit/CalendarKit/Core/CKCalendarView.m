@@ -220,7 +220,7 @@
 {
     CGSize cellSize = [self _cellSize];
     
-    CGRect rect = [[[UIApplication sharedApplication] keyWindow] bounds];
+    CGRect rect = [[UIScreen mainScreen] bounds];
     
     if(displayMode == CKCalendarViewModeDay)
     {
@@ -269,7 +269,7 @@
 
 - (CGSize)_cellSize
 {
-    CGSize windowSize = [UIApplication sharedApplication].keyWindow.bounds.size;
+    CGSize windowSize = UIScreen.mainScreen.bounds.size;
     
     NSCalendar *calendar = self.calendar;
     

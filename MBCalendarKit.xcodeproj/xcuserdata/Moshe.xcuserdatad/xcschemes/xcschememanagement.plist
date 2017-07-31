@@ -4,10 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>MBCalendarKit Demo.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>MBCalendarKit.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>8</integer>
 		</dict>
 		<key>MBChocolateCake.xcscheme</key>
 		<dict>
@@ -17,6 +22,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>467B12A41F2F544F00CABA27</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>46BFBCBE1715FB3F00D4733E</key>
 		<dict>
 			<key>primary</key>

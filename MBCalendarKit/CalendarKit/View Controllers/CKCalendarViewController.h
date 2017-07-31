@@ -15,7 +15,7 @@
 @interface CKCalendarViewController : UINavigationController <CKCalendarViewDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, assign) id<CKCalendarViewDataSource> dataSource;
-@property (nonatomic, assign) id<CKCalendarViewDelegate, UINavigationControllerDelegate> delegate;
+@property (nonatomic, assign) id<CKCalendarViewDelegate, UINavigationControllerDelegate> calendarDelegate;
 
 - (CKCalendarView *)calendarView;
 

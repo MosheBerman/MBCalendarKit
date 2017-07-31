@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBCalendarKit
 
 class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource{
 
@@ -35,7 +36,7 @@ class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource{
         //  Step 0 : Wire up the data source and delegate
         //
         
-        self.delegate = self
+        self.calendarDelegate = self
         self.dataSource = self
         
         //

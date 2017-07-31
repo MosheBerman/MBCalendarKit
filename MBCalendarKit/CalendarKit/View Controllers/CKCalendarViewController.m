@@ -61,8 +61,8 @@
         return;
     }
     
-    if ([[self delegate] respondsToSelector:@selector(calendarView:willSelectDate:)]) {
-        [[self delegate] calendarView:calendarView willSelectDate:date];
+    if ([[self calendarDelegate] respondsToSelector:@selector(calendarView:willSelectDate:)]) {
+        [[self calendarDelegate] calendarView:calendarView willSelectDate:date];
     }
 }
 
@@ -72,8 +72,8 @@
         return;
     }
     
-    if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectDate:)]) {
-        [[self delegate] calendarView:calendarView didSelectDate:date];
+    if ([[self calendarDelegate] respondsToSelector:@selector(calendarView:didSelectDate:)]) {
+        [[self calendarDelegate] calendarView:calendarView didSelectDate:date];
     }
 }
 
@@ -84,8 +84,8 @@
         return;
     }
     
-    if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectEvent:)]) {
-        [[self delegate] calendarView:calendarView didSelectEvent:event];
+    if ([[self calendarDelegate] respondsToSelector:@selector(calendarView:didSelectEvent:)]) {
+        [[self calendarDelegate] calendarView:calendarView didSelectEvent:event];
     }
 }
 
