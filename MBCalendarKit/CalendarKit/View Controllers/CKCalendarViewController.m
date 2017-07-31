@@ -76,15 +76,10 @@
 
 - (void)_configureCalendarView
 {
-    /* Calendar View */
-    
-    [self setCalendarView:[CKCalendarView new]];
+    self.calendarView = [[CKCalendarView alloc] init];
     self.calendarView.dataSource = self;
     self.calendarView.delegate = self;
-    [[self view] addSubview:[self calendarView]];
-    
-    [[self calendarView] setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian] animated:NO];
-    [[self calendarView] setDisplayMode:CKCalendarViewModeMonth animated:NO];
+    [self.view addSubview:self.calendarView];
 }
 
 #pragma mark - Toolbar Items
