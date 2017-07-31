@@ -14,7 +14,8 @@ FOUNDATION_EXPORT double MBCalendarKitVersionNumber;
 //! Project version string for MBCalendarKit.
 FOUNDATION_EXPORT const unsigned char MBCalendarKitVersionString[];
 
-//  Core library
+// MARK: - Core Library
+
 #import <MBCalendarKit/CKCalendarViewController.h>
 #import <MBCalendarKit/CKCalendarView.h>
 #import <MBCalendarKit/CKCalendarCell.h>
@@ -22,5 +23,11 @@ FOUNDATION_EXPORT const unsigned char MBCalendarKitVersionString[];
 #import <MBCalendarKit/CKCalendarDataSource.h>
 #import <MBCalendarKit/CKCalendarDelegate.h>
 
+// MARK: - Date Headers
+
 //  May be helpful for implementing the CKCalendarViewDataSource
 #import <MBCalendarKit/NSCalendar+DateComparison.h>
+#import <MBCalendarKit/NSDate+Components.h>
+#import <MBCalendarKit/NSCalendar+Components.h>
+#import <MBCalendarKit/NSCalendar+Juncture.h>
+#import <MBCalendarKit/NSCalendar+Ranges.h>

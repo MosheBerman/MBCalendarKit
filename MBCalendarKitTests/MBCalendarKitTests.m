@@ -100,9 +100,9 @@
     NSInteger month = [[self gregorianCalendar] monthsInDate:workingDate];
     NSInteger year = [[self gregorianCalendar] yearsInDate:workingDate];
     
-    XCTAssertEqual(day, 23, @"Day: %i", day);
-    XCTAssertEqual(month, 10, @"Month: %i", month);
-    XCTAssertEqual(year, 1991, @"Year:%i", year);
+    XCTAssertEqual(day, 23, @"Day: %li", day);
+    XCTAssertEqual(month, 10, @"Month: %li", month);
+    XCTAssertEqual(year, 1991, @"Year:%li", year);
 }
 
 - (void)testDayMonthYearCalendarComponentsWithHebrewCalendar
@@ -113,9 +113,9 @@
     NSInteger month = [[self gregorianCalendar] monthsInDate:workingDate];
     NSInteger year = [[self gregorianCalendar] yearsInDate:workingDate];
     
-    XCTAssertEqual(day, 1, @"Day: %i", day);
-    XCTAssertEqual(month, 1, @"Month: %i", month);
-    XCTAssertEqual(year, 5773, @"Year:%i", year);
+    XCTAssertEqual(day, 1, @"Day: %li", day);
+    XCTAssertEqual(month, 1, @"Month: %li", month);
+    XCTAssertEqual(year, 5773, @"Year:%li", year);
 }
 
 
@@ -124,7 +124,7 @@
 - (void)testDaysPerWeekForGregorianCalendar
 {
     NSInteger daysPerWeek = [[self gregorianCalendar] daysPerWeek];
-    XCTAssertEqual(@(daysPerWeek), @(7), @"Since when are there not 7 days in a Gregorian week?");
+    XCTAssertEqual(daysPerWeek, 7, @"Since when are there not 7 days in a Gregorian week?");
 }
 
 /* Test February during a standard year - 28 days */
@@ -143,7 +143,7 @@
         NSUInteger assumedResult = daysPerMonth[month];
         NSUInteger daysPerMonth = [[self gregorianCalendar] daysPerMonthUsingReferenceDate:referenceDate];
         
-        XCTAssertEqual(assumedResult, daysPerMonth, @"Month: %i", month+1);
+        XCTAssertEqual(assumedResult, daysPerMonth, @"Month: %li", month+1);
     }
 }
 
@@ -183,7 +183,7 @@
         NSUInteger assumedResult = weeksPerMonth[month];
         NSUInteger daysPerMonth = [[self gregorianCalendar] weeksPerMonthUsingReferenceDate:referenceDate];
         
-        XCTAssertEqual(assumedResult, daysPerMonth, @"Month: %i, Assumed: %i Actual: %i", month, assumedResult, daysPerMonth);
+        XCTAssertEqual(assumedResult, daysPerMonth, @"Month: %li, Assumed: %li Actual: %li", month, assumedResult, daysPerMonth);
     }
     
 }
@@ -204,7 +204,7 @@
         NSUInteger assumedResult = weeksPerMonth[month];
         NSUInteger daysPerMonth = [[self gregorianCalendar] weeksPerMonthUsingReferenceDate:referenceDate];
         
-        XCTAssertEqual(assumedResult, daysPerMonth, @"Month: %i, Assumed: %i Actual: %i", month, assumedResult, daysPerMonth);
+        XCTAssertEqual(assumedResult, daysPerMonth, @"Month: %li, Assumed: %li Actual: %li", month, assumedResult, daysPerMonth);
     }
     
 }
@@ -218,7 +218,7 @@
     NSUInteger assumedResult = 365;
     NSUInteger actualResult = [[self gregorianCalendar] daysFromDate:jan12010 toDate:jan12011];
     
-    XCTAssertEqual(assumedResult, actualResult, @"Assumed: %i Actual: %i", assumedResult, actualResult);
+    XCTAssertEqual(assumedResult, actualResult, @"Assumed: %li Actual: %li", assumedResult, actualResult);
 }
 
 
@@ -231,7 +231,7 @@
     NSUInteger assumedResult = 366;
     NSUInteger actualResult = [[self gregorianCalendar] daysFromDate:jan12012 toDate:jan12013];
     
-    XCTAssertEqual(assumedResult, actualResult, @"Assumed: %i Actual: %i", assumedResult, actualResult);
+    XCTAssertEqual(assumedResult, actualResult, @"Assumed: %li Actual: %li", assumedResult, actualResult);
 }
 
 #pragma mark - NSCalendar+Juncture
@@ -282,7 +282,5 @@
     XCTAssertTrue(februaryIsAfterJanuary,  @"Result: %d", februaryIsAfterJanuary);
     XCTAssertTrue(januaryIsBeforeFebruary,  @"Result: %d", januaryIsBeforeFebruary);
 }
-
-@end
 
 @end

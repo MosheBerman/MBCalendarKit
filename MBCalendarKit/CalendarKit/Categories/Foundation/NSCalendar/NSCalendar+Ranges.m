@@ -116,8 +116,7 @@
 
 - (NSUInteger)daysPerWeekUsingReferenceDate:(NSDate *)date
 {
-    NSDate *weekLater = [self dateByAddingWeeks:1 toDate:date];
-    return [[self components:NSCalendarUnitDay fromDate:date toDate:weekLater options:0] day];
+    return [self rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:date].length;
 }
 
 #pragma mark - Units Per Month
