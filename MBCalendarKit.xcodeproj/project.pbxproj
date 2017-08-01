@@ -20,7 +20,6 @@
 		464A8736171F174D00E7AB19 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 464A8700171F174D00E7AB19 /* Default-568h@2x.png */; };
 		464A8738171F174D00E7AB19 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 464A8701171F174D00E7AB19 /* Default.png */; };
 		464A873A171F174D00E7AB19 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 464A8702171F174D00E7AB19 /* Default@2x.png */; };
-		464A873C171F174D00E7AB19 /* CKCakeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 464A8703171F174D00E7AB19 /* CKCakeViewController.xib */; };
 		464A873E171F174D00E7AB19 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 464A8705171F174D00E7AB19 /* InfoPlist.strings */; };
 		464A8740171F174D00E7AB19 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A8707171F174D00E7AB19 /* main.m */; };
 		464A8744171F174D00E7AB19 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 464A870B171F174D00E7AB19 /* InfoPlist.strings */; };
@@ -167,7 +166,6 @@
 		464A8700171F174D00E7AB19 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "MBCalendarKit/Default-568h@2x.png"; sourceTree = "<group>"; };
 		464A8701171F174D00E7AB19 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = MBCalendarKit/Default.png; sourceTree = "<group>"; };
 		464A8702171F174D00E7AB19 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "MBCalendarKit/Default@2x.png"; sourceTree = "<group>"; };
-		464A8704171F174D00E7AB19 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CKCakeViewController.xib; sourceTree = "<group>"; };
 		464A8706171F174D00E7AB19 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		464A8707171F174D00E7AB19 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MBCalendarKit/main.m; sourceTree = "<group>"; };
 		464A8708171F174D00E7AB19 /* MBCalendarKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "MBCalendarKit-Info.plist"; path = "MBCalendarKit/MBCalendarKit-Info.plist"; sourceTree = "<group>"; };
@@ -375,7 +373,6 @@
 				464A8700171F174D00E7AB19 /* Default-568h@2x.png */,
 				464A8701171F174D00E7AB19 /* Default.png */,
 				464A8702171F174D00E7AB19 /* Default@2x.png */,
-				464A8703171F174D00E7AB19 /* CKCakeViewController.xib */,
 				464A8705171F174D00E7AB19 /* InfoPlist.strings */,
 				464A8707171F174D00E7AB19 /* main.m */,
 				464A8708171F174D00E7AB19 /* MBCalendarKit-Info.plist */,
@@ -618,7 +615,6 @@
 				469D857E1A3766A100E2B305 /* Images.xcassets in Resources */,
 				464A8738171F174D00E7AB19 /* Default.png in Resources */,
 				464A873A171F174D00E7AB19 /* Default@2x.png in Resources */,
-				464A873C171F174D00E7AB19 /* CKCakeViewController.xib in Resources */,
 				464A873E171F174D00E7AB19 /* InfoPlist.strings in Resources */,
 				464A8744171F174D00E7AB19 /* InfoPlist.strings in Resources */,
 				4643199817E343BE0001B5CB /* Icon-72.png in Resources */,
@@ -698,15 +694,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		464A8703171F174D00E7AB19 /* CKCakeViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				464A8704171F174D00E7AB19 /* en */,
-			);
-			name = CKCakeViewController.xib;
-			path = MBCalendarKit;
-			sourceTree = "<group>";
-		};
 		464A8705171F174D00E7AB19 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
