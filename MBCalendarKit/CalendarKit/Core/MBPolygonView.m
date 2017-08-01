@@ -22,7 +22,8 @@
 //  Convenience method to convert between Degrees and Radians
 //
 
-float degToRad(float deg){
+float degToRad(float deg)
+{
     return deg*(M_PI/180);
 }
 
@@ -30,7 +31,8 @@ float degToRad(float deg){
 //  Designated initializer
 //
 
-- (id)initWithFrame:(CGRect)frame numberOfSides:(NSInteger)numberOfSides andRotation:(CGFloat)rotation andScale:(CGFloat) scale{
+- (id)initWithFrame:(CGRect)frame numberOfSides:(NSInteger)numberOfSides andRotation:(CGFloat)rotation andScale:(CGFloat) scale
+{
     self = [super initWithFrame:frame];
     
     if (self) {
@@ -83,7 +85,7 @@ float degToRad(float deg){
     // Drawing code
     
     //Create an image context
-    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, [[UIScreen mainScreen] scale]);
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [[UIScreen mainScreen] scale]);
     
     //Get a context
     CGContextRef context = UIGraphicsGetCurrentContext();
