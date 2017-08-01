@@ -80,6 +80,47 @@
     self.calendarView.dataSource = self;
     self.calendarView.delegate = self;
     [self.view addSubview:self.calendarView];
+    [self enableAutolayoutOnCalendar];
+}
+
+
+/**
+ This method sets up constraints on the calendar view.
+
+ NOTE: CalendarKit does not yet play nicely with autolayout,
+ because there's a bug causing a layout loop.
+ 
+ Don't call this yet.
+ */
+
+- (void)enableAutolayoutOnCalendar
+{
+    self.calendarView.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.calendarView
+                                                           attribute:NSLayoutAttributeTop
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:self.topLayoutGuide
+                                                           attribute:NSLayoutAttributeBottom
+                                                          multiplier:1.0
+                                                            constant:0.0];
+    
+    NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.calendarView
+                                                               attribute:NSLayoutAttributeCenterX
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.view
+                                                               attribute:NSLayoutAttributeCenterX
+                                                              multiplier:1.0
+                                                                constant:0.0];
+    
+    NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.calendarView
+                                                             attribute:NSLayoutAttributeWidth
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.view
+                                                             attribute:NSLayoutAttributeWidth
+                                                            multiplier:1.0
+                                                              constant:0.0];
+    
+    [self.view addConstraints:@[top, centerX, width]];
 }
 
 #pragma mark - Toolbar Items
