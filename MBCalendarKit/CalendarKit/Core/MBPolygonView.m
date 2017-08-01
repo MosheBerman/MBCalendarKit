@@ -14,6 +14,7 @@
     @property NSInteger numberOfSides;
     @property CGFloat scalingFactor;
     @property CGFloat rotation;
+    @property (strong) UIImageView *imageView;
 @end
 
 @implementation MBPolygonView
@@ -42,6 +43,7 @@ float degToRad(float deg)
         _isDeleted = NO;
         _fillColor = kCalendarColorHeaderMonth;
         [self setOpaque:NO];
+        _imageView = [[UIImageView alloc] init];
     }
     
     return self;
@@ -58,22 +60,39 @@ float degToRad(float deg)
     
     UIImage *i = [self polyImage];
     
-    UIImageView *polygonView = [[UIImageView alloc] initWithImage:i];
+    self.imageView.image = i;
+    [self.imageView sizeToFit];
     
-    //
-    //  Display it
-    //
-    
-    
-    [self addSubview:polygonView];
-    
-    //
-    //  Set up a long press to remove the poly from the screen
-    //
-    
-    UILongPressGestureRecognizer *removeGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cleanUp)];
-    removeGesture.minimumPressDuration = 1.0;
-    [self addGestureRecognizer:removeGesture];
+    if (![self.subviews containsObject:self.imageView])
+    {
+        [self addSubview:self.imageView];
+        
+        NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.imageView
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.imageView
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        [self addConstraints:@[centerX, centerY]];
+        
+        //
+        //  Set up a long press to remove the poly from the screen
+        //
+        
+        UILongPressGestureRecognizer *removeGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cleanUp)];
+        removeGesture.minimumPressDuration = 1.0;
+        [self addGestureRecognizer:removeGesture];
+    }
 }
 
 //
