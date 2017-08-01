@@ -44,6 +44,8 @@
 @property (nonatomic, strong) NSDate *previousDate;
 @property (nonatomic, assign) BOOL isAnimating;
 
+@property (nonatomic, strong) NSLayoutConstraint *heightConstraint;
+
 @end
 
 @implementation CKCalendarView
@@ -82,7 +84,7 @@
     
     //  Used for animation
     _previousDate = [NSDate date];
-    _wrapper = [CKCalendarAnimationWrapperView new];
+    _wrapper = nil;
     _isAnimating = NO;
     
     //  Date bounds
@@ -127,6 +129,13 @@
     }
     return self;
     
+}
+
+#pragma mark -
+
+- (BOOL)translatesAutoresizingMaskIntoConstraints
+{
+    return NO;
 }
 
 #pragma mark - Reload
@@ -196,12 +205,6 @@
 
 #pragma mark - Size
 
-//  Ensure that the calendar always has the correct size.
-- (void)setFrame:(CGRect)frame
-{
-    [self setFrame:frame animated:NO];
-}
-
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated
 {
     frame.size = [self _rectForDisplayMode:[self displayMode]].size;
@@ -218,15 +221,13 @@
 }
 
 - (CGRect)_rectForDisplayMode:(CKCalendarDisplayMode)displayMode
-{
-    CGSize cellSize = [self _cellSize];
-    
+{    
     CGRect rect = [[UIScreen mainScreen] bounds];
     
     if(displayMode == CKCalendarViewModeDay)
     {
         //  Hide the cells entirely and only show the events table
-        rect = CGRectMake(0, 0, rect.size.width, cellSize.height);
+        rect = CGRectMake(0, 0, rect.size.width, self.headerView.bounds.size.height);
     }
     
     //  Show one row of days for week mode
@@ -297,57 +298,191 @@
 
 - (void)layoutSubviewsAnimated:(BOOL)animated
 {
-    /*  Enforce view dimensions appropriate for given mode */
     
-    CGRect frame = [self _rectForDisplayMode:[self displayMode]];
-    CGPoint origin = [self frame].origin;
-    frame.origin = origin;
-    [self setFrame:frame animated:animated];
-    
-    /* Install a wrapper */
-    
-    [self addSubview:[self wrapper]];
-    [[self wrapper] setFrame:[self bounds] animated:animated];
-    [[self wrapper] setClipsToBounds:YES];
-    
-    /* Install the header */
-    
-    CKCalendarHeaderView *header = [self headerView];
-    
-    CGFloat width = [self _cellSize].width * (CGFloat)[[self calendar] daysPerWeekUsingReferenceDate:[self date]];
-    CGRect headerFrame = CGRectMake(0, 0, width, 44);
-    [header setFrame:headerFrame];
-    [header setDelegate:self];
-    [header setDataSource:self];
-    [header setNeedsLayout];
-    [[self wrapper] addSubview:[self headerView]];
+    [self _updateDimensionsForModeAnimated:animated];
+    [self _installWrapper];
+    [self _installHeader];
     
     /* Show the cells */
     
     [self _layoutCellsAnimated:animated];
+    [self _installTable];
+}
+
+#pragma mark - Updating the Calendar's Height
+
+- (void)_updateDimensionsForModeAnimated:(BOOL)animated
+{
+    /*  Enforce view dimensions appropriate for given mode */
     
-    /* Set up the table */
-    
-    CGRect tableFrame = [[self superview] bounds];
-    tableFrame.origin.y = CGRectGetMaxY(self.frame);
-    
-    /**
-     *  Correct for iPhone 6 and iPhone 6 Plus shadow bug.
-     */
-    
-    if (self.displayMode == CKCalendarViewModeDay)
+    if(!self.heightConstraint)
     {
-        tableFrame.origin.y = CGRectGetMaxY(self.headerView.frame);
+        self.heightConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                             attribute:NSLayoutAttributeHeight
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:nil
+                                                             attribute:NSLayoutAttributeNotAnAttribute
+                                                            multiplier:1.0
+                                                              constant:0.0];
     }
     
-    tableFrame.size.height = CGRectGetHeight(self.superview.frame) - tableFrame.origin.y;
+    if (![self.constraints containsObject:self.heightConstraint])
+    {
+        [self addConstraint:self.heightConstraint];
+    }
     
-    [[self table] setFrame:tableFrame animated:animated];
+    NSTimeInterval duration = animated ? 0.3 : 0.0;
     
-    [[self superview] insertSubview:[self table] belowSubview:self];
+    [UIView animateWithDuration:duration
+                     animations:^{
+                         self.heightConstraint.constant = [self _rectForDisplayMode:self.displayMode].size.height;
+                     }];
+    
 }
 
 
+#pragma mark -
+
+- (void)_installTable
+{
+    if (!self.superview)
+    {
+        return;
+    }
+    
+    /* Set up the table */
+    [self.superview addSubview:self.table];
+    [self.superview bringSubviewToFront:self];
+    
+    self.table.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.table
+                                                               attribute:NSLayoutAttributeLeading
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.superview
+                                                               attribute:NSLayoutAttributeLeading
+                                                              multiplier:1.0
+                                                                constant:0.0];
+    
+    NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.table
+                                                                attribute:NSLayoutAttributeTrailing
+                                                                relatedBy:NSLayoutRelationEqual
+                                                                   toItem:self.superview
+                                                                attribute:NSLayoutAttributeTrailing
+                                                               multiplier:1.0
+                                                                 constant:0.0];
+    
+    NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.table
+                                                           attribute:NSLayoutAttributeTop
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:self
+                                                           attribute:NSLayoutAttributeBottom
+                                                          multiplier:1.0
+                                                            constant:0.0];
+    
+    NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.table
+                                                              attribute:NSLayoutAttributeBottom
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.superview
+                                                              attribute:NSLayoutAttributeBottom
+                                                             multiplier:1.0
+                                                               constant:0.0];
+    
+    [self.superview addConstraints:@[leading, trailing, top, bottom]];
+
+}
+
+#pragma mark -
+
+- (void)_installWrapper
+{
+    if(!self.wrapper)
+    {
+        self.wrapper = [CKCalendarAnimationWrapperView new];
+        self.wrapper.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.wrapper
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.wrapper
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self.wrapper
+                                                                   attribute:NSLayoutAttributeHeight
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self
+                                                                   attribute:NSLayoutAttributeHeight
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.wrapper
+                                                                  attribute:NSLayoutAttributeWidth
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self
+                                                                  attribute:NSLayoutAttributeWidth
+                                                                 multiplier:1.0
+                                                                   constant:0.0];
+        
+        [self addSubview:self.wrapper];
+        [self addConstraints:@[centerX, centerY, height, width]];
+        
+        [self.wrapper setClipsToBounds:YES];
+    }
+}
+
+- (void)_installHeader
+{
+    /* Install the header */
+    
+    CKCalendarHeaderView *header = [self headerView];
+    header.translatesAutoresizingMaskIntoConstraints = NO;
+    [header setDelegate:self];
+    [header setDataSource:self];
+    [header setNeedsLayout];
+    
+    if (![self.subviews containsObject:self.headerView])
+    {
+        [self.wrapper addSubview:self.headerView];
+        
+        NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.headerView
+                                                               attribute:NSLayoutAttributeTop
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.wrapper
+                                                               attribute:NSLayoutAttributeTop
+                                                              multiplier:1.0
+                                                                constant:0.0];
+
+        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.headerView
+                                                               attribute:NSLayoutAttributeLeading
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.wrapper
+                                                               attribute:NSLayoutAttributeLeading
+                                                              multiplier:1.0
+                                                                constant:0.0];
+        
+        NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.headerView
+                                                                   attribute:NSLayoutAttributeTrailing
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.wrapper
+                                                                   attribute:NSLayoutAttributeTrailing
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+
+        [self.wrapper addConstraints:@[top, leading, trailing]];
+    }
+}
+
+#pragma mark - Lay Out Cells
 
 - (void)_layoutCells
 {
@@ -394,13 +529,8 @@
     NSUInteger rowCount = [self _rowCountForDisplayMode:[self displayMode]];
     NSUInteger columnCount = [self _columnCountForDisplayMode:[self displayMode]];
     
-    //  Cache the cell values for easier readability below
-    CGFloat width = [self _cellSize].width;
-    CGFloat height = [self _cellSize].height;
-    
     //  Cache the start date & header offset
     NSDate *workingDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
-    CGFloat headerOffset = [[self headerView] frame].size.height;
     
     //  A working index...
     NSUInteger cellIndex = 0;
@@ -408,12 +538,9 @@
     for (NSUInteger row = 0; row < rowCount; row++) {
         for (NSUInteger column = 0; column < columnCount; column++) {
             
-            /* STEP 1: create and position the cell */
+            /* STEP 1: create the cell */
             
             CKCalendarCell *cell = [self _dequeueCell];
-            
-            CGRect frame = CGRectMake(column*width, yOffset + headerOffset + (row*height), width, height);
-            [cell setFrame:frame];
             
             /* STEP 2:  We need to know some information about the cells - namely, if they're in
              the same month as the selected date and if any of them represent the system's
@@ -480,14 +607,54 @@
             [cellsBeingAnimatedIntoView addObject:cell];
             
             /* STEP 8: Install the cell in the view hierarchy. */
-            [[self wrapper] insertSubview:cell belowSubview:[self headerView]];
+            [self.wrapper addSubview:cell];
+            
+            /* STEP 9: Position the cell. */
+            
+            if(!cell.topConstraint)
+            {
+                cell.topConstraint = [NSLayoutConstraint constraintWithItem:cell
+                                                                  attribute:NSLayoutAttributeTop
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.headerView
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                 multiplier:1.0
+                                                                   constant:0.0];
+            }
+            
+            if (!cell.leadingConstraint)
+            {
+                cell.leadingConstraint = [NSLayoutConstraint constraintWithItem:cell
+                                                                  attribute:NSLayoutAttributeLeading
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.wrapper
+                                                                  attribute:NSLayoutAttributeLeading
+                                                                 multiplier:1.0
+                                                                       constant:0.0];
+            }
+            
+            
+            NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:cell
+                                                                     attribute:NSLayoutAttributeWidth
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self.wrapper
+                                                                     attribute:NSLayoutAttributeWidth
+                                                                    multiplier:1.0/columnCount
+                                                                      constant:0.0];
+            
+            
+            cell.topConstraint.constant = yOffset + (row * self._cellSize.height);
+            cell.leadingConstraint.constant = column * self._cellSize.width;
+            
+            [self.wrapper addConstraints:@[cell.topConstraint, cell.leadingConstraint, width]];
             
             /* STEP 9: Move to the next date before we continue iterating. */
-            
             workingDate = [[self calendar] dateByAddingDays:1 toDate:workingDate];
             cellIndex++;
         }
     }
+    
+    [self.wrapper bringSubviewToFront:self.headerView];
     
     /* Perform the animation */
     
@@ -522,14 +689,11 @@
 - (void)_moveCellsIntoView:(NSMutableSet *)cellsBeingAnimatedIntoView andCellsOutOfView:(NSMutableSet *)cellsToRemoveAfterAnimation usingOffset:(CGFloat)yOffset
 {
     for (CKCalendarCell *cell in cellsBeingAnimatedIntoView) {
-        CGRect frame = [cell frame];
-        frame.origin.y -= yOffset;
-        [cell setFrame:frame];
+        cell.topConstraint.constant = cell.topConstraint.constant - yOffset;
     }
+    
     for (CKCalendarCell *cell in cellsToRemoveAfterAnimation) {
-        CGRect frame = [cell frame];
-        frame.origin.y -= yOffset;
-        [cell setFrame:frame];
+        cell.topConstraint.constant = cell.topConstraint.constant - yOffset;
     }
 }
 
@@ -537,6 +701,9 @@
 {
     for (CKCalendarCell *cell in cellsToCleanup) {
         [self _moveCellFromUsedToSpare:cell];
+        
+        [self.wrapper removeConstraints:cell.constraints];
+        
         [cell removeFromSuperview];
     }
     
@@ -551,6 +718,15 @@
     
     if (!cell) {
         cell = [[CKCalendarCell alloc] initWithSize:[self _cellSize]];
+        cell.translatesAutoresizingMaskIntoConstraints = NO;
+        NSLayoutConstraint *ratio = [NSLayoutConstraint constraintWithItem:cell
+                                                                 attribute:NSLayoutAttributeHeight
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:cell
+                                                                 attribute:NSLayoutAttributeWidth
+                                                                multiplier:1.0
+                                                                  constant:0.0];
+        [cell addConstraint:ratio];
     }
     
     [self _moveCellFromSpareToUsed:cell];
@@ -730,6 +906,7 @@
 - (void)setDataSource:(id<CKCalendarViewDataSource>)dataSource
 {
     _dataSource = dataSource;
+
     [self reloadAnimated:NO];
 }
 
