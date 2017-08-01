@@ -224,6 +224,11 @@
 {
     CGRect rect = [[UIScreen mainScreen] bounds];
     
+    if(self.superview)
+    {
+        rect = self.superview.bounds;
+    }
+    
     if(displayMode == CKCalendarViewModeDay)
     {
         //  Hide the cells entirely and only show the events table
