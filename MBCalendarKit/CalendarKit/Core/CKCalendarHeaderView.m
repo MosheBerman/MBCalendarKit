@@ -82,22 +82,26 @@
 #pragma mark - Layout
 
 
-- (void)layoutSubviews {
-    
-    [super layoutSubviews];
-    
-    [self _installMonthLabel];
-    [self _updateMonthLabelDisplay];
-    [self _adjustMonthLabelForColumnTitles];
-    [self _installBackwardAndForwardButtons];
-    [self _installColumnTitleLabels];
+- (void)updateConstraints {
     
     /*  Check for a data source for the header to be installed. */
     if (![self dataSource]) {
         @throw [NSException exceptionWithName:@"CKCalendarViewHeaderException" reason:@"Header can't be installed without a data source" userInfo:@{@"Header": self}];
     }
     
+    [self _installMonthLabel];
+    [self _adjustMonthLabelForColumnTitles];
+    [self _installBackwardAndForwardButtons];
+    [self _installColumnTitleLabels];
     
+    [super updateConstraints];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    [self _updateMonthLabelDisplay];
 }
 
 - (CGSize)intrinsicContentSize

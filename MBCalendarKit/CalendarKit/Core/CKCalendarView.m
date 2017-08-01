@@ -176,7 +176,7 @@
      *  Reload the calendar view.
      */
     
-    [self layoutSubviewsAnimated:animated];
+    [self updateConstraintsAnimated:animated];
 }
 
 #pragma mark - View Hierarchy
@@ -300,14 +300,13 @@
     return CGSizeMake(width, height);
 }
 
-#pragma mark - Layout
-
-- (void)layoutSubviews
+- (void)updateConstraints
 {
-    [self layoutSubviewsAnimated:NO];
+    [self updateConstraintsAnimated:NO];
+    [super updateConstraints];
 }
 
-- (void)layoutSubviewsAnimated:(BOOL)animated
+- (void)updateConstraintsAnimated:(BOOL)animated
 {
     [self _updateDimensionsForModeAnimated:animated];
     [self _installWrapper];
@@ -822,7 +821,7 @@
     
     [[self calendar] setTimeZone:timeZone];
     
-    [self layoutSubviewsAnimated:animated];
+    [self updateConstraintsAnimated:animated];
 }
 
 - (void)setDisplayMode:(CKCalendarDisplayMode)displayMode
@@ -839,7 +838,7 @@
     NSInteger newIndex = [[self calendar] daysFromDate:[self _firstVisibleDateForDisplayMode:displayMode] toDate:[self date]];
     [self setSelectedIndex:newIndex];
     
-    [self layoutSubviewsAnimated:animated];
+    [self updateConstraintsAnimated:animated];
 }
 
 - (void)setDate:(NSDate *)date
@@ -891,7 +890,7 @@
     NSUInteger index = [[self calendar] daysFromDate:newFirstVisible toDate:date];
     [self setSelectedIndex:index];
     
-    [self layoutSubviewsAnimated:animated];
+    [self updateConstraintsAnimated:animated];
     
 }
 

@@ -84,12 +84,12 @@
 
 #pragma mark - Layout
 
-- (void)layoutSubviews
+- (void)updateConstraints
 {
-    [super layoutSubviews];
-    
     [self _installLabel];
     [self _installDot];
+    
+    [super updateConstraints];
 }
 
 - (void)_installLabel
