@@ -205,19 +205,25 @@
 
 #pragma mark - Size
 
-- (void)setFrame:(CGRect)frame animated:(BOOL)animated
+- (CGFloat)_heightForDisplayMode:(CKCalendarDisplayMode)displayMode
 {
-    frame.size = [self _rectForDisplayMode:[self displayMode]].size;
+    CGFloat height = CGRectGetHeight(self.headerView.bounds); /* CKCalendarViewModeDay */
     
-    if (animated) {
-        [UIView animateWithDuration:0.4 animations:^{
-            [super setFrame:frame];
-        }];
-    }
-    else
+    if (displayMode == CKCalendarViewModeWeek)
     {
-        [super setFrame:frame];
+
+        CGFloat daysPerWeek = [self.calendar daysPerWeek];
+        if(daysPerWeek > 0)
+        {
+            height = CGRectGetHeight(self.headerView.bounds) + CGRectGetWidth(self.superview.bounds)/daysPerWeek;
+        }
     }
+    else if (displayMode == CKCalendarViewModeMonth)
+    {
+        height = CGRectGetHeight(self.headerView.bounds) + CGRectGetWidth(self.superview.bounds);
+    }
+    
+    return height;
 }
 
 - (CGRect)_rectForDisplayMode:(CKCalendarDisplayMode)displayMode
