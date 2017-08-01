@@ -24,8 +24,8 @@
     NSUInteger _firstWeekDay;
 }
 
-@property (nonatomic, strong) NSMutableSet* spareCells;
-@property (nonatomic, strong) NSMutableSet* usedCells;
+@property (nonatomic, strong) NSMutableArray <CKCalendarCell *> * spareCells;
+@property (nonatomic, strong) NSMutableArray <CKCalendarCell *> * usedCells;
 
 @property (nonatomic, strong) NSDateFormatter *formatter;
 
@@ -65,8 +65,8 @@
     _date = [_calendar dateFromComponents:components];
     
     _displayMode = CKCalendarViewModeMonth;
-    _spareCells = [NSMutableSet new];
-    _usedCells = [NSMutableSet new];
+    _spareCells = [NSMutableArray new];
+    _usedCells = [NSMutableArray new];
     _selectedIndex = [_calendar daysFromDate:[self _firstVisibleDateForDisplayMode:_displayMode] toDate:_date];
     _headerView = [CKCalendarHeaderView new];
     
@@ -93,7 +93,7 @@
     
     //  First Weekday
     _firstWeekDay = [_calendar firstWeekday];
-
+    
 }
 - (instancetype)init
 {
@@ -211,7 +211,7 @@
     
     if (animated) {
         [UIView animateWithDuration:0.4 animations:^{
-            [super setFrame:frame];    
+            [super setFrame:frame];
         }];
     }
     else
@@ -221,7 +221,7 @@
 }
 
 - (CGRect)_rectForDisplayMode:(CKCalendarDisplayMode)displayMode
-{    
+{
     CGRect rect = [[UIScreen mainScreen] bounds];
     
     if(displayMode == CKCalendarViewModeDay)
@@ -298,13 +298,9 @@
 
 - (void)layoutSubviewsAnimated:(BOOL)animated
 {
-    
     [self _updateDimensionsForModeAnimated:animated];
     [self _installWrapper];
     [self _installHeader];
-    
-    /* Show the cells */
-    
     [self _layoutCellsAnimated:animated];
     [self _installTable];
 }
@@ -331,15 +327,19 @@
         [self addConstraint:self.heightConstraint];
     }
     
-    NSTimeInterval duration = animated ? 0.3 : 0.0;
+    NSTimeInterval duration = 0.3;
+    
+    if (!animated)
+    {
+        duration = 0.0;
+    }
     
     [UIView animateWithDuration:duration
                      animations:^{
                          self.heightConstraint.constant = [self _rectForDisplayMode:self.displayMode].size.height;
+                         [self.superview layoutIfNeeded];
                      }];
-    
 }
-
 
 #pragma mark -
 
@@ -389,7 +389,7 @@
                                                                constant:0.0];
     
     [self.superview addConstraints:@[leading, trailing, top, bottom]];
-
+    
 }
 
 #pragma mark -
@@ -418,20 +418,20 @@
                                                                     constant:0.0];
         
         NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self.wrapper
-                                                                   attribute:NSLayoutAttributeHeight
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:self
-                                                                   attribute:NSLayoutAttributeHeight
-                                                                  multiplier:1.0
-                                                                    constant:0.0];
-        
-        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.wrapper
-                                                                  attribute:NSLayoutAttributeWidth
+                                                                  attribute:NSLayoutAttributeHeight
                                                                   relatedBy:NSLayoutRelationEqual
                                                                      toItem:self
-                                                                  attribute:NSLayoutAttributeWidth
+                                                                  attribute:NSLayoutAttributeHeight
                                                                  multiplier:1.0
                                                                    constant:0.0];
+        
+        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.wrapper
+                                                                 attribute:NSLayoutAttributeWidth
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self
+                                                                 attribute:NSLayoutAttributeWidth
+                                                                multiplier:1.0
+                                                                  constant:0.0];
         
         [self addSubview:self.wrapper];
         [self addConstraints:@[centerX, centerY, height, width]];
@@ -461,23 +461,23 @@
                                                                attribute:NSLayoutAttributeTop
                                                               multiplier:1.0
                                                                 constant:0.0];
-
-        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.headerView
-                                                               attribute:NSLayoutAttributeLeading
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.wrapper
-                                                               attribute:NSLayoutAttributeLeading
-                                                              multiplier:1.0
-                                                                constant:0.0];
         
-        NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.headerView
-                                                                   attribute:NSLayoutAttributeTrailing
+        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.headerView
+                                                                   attribute:NSLayoutAttributeLeading
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:self.wrapper
-                                                                   attribute:NSLayoutAttributeTrailing
+                                                                   attribute:NSLayoutAttributeLeading
                                                                   multiplier:1.0
                                                                     constant:0.0];
-
+        
+        NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.headerView
+                                                                    attribute:NSLayoutAttributeTrailing
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:self.wrapper
+                                                                    attribute:NSLayoutAttributeTrailing
+                                                                   multiplier:1.0
+                                                                     constant:0.0];
+        
         [self.wrapper addConstraints:@[top, leading, trailing]];
     }
 }
@@ -498,8 +498,8 @@
     
     [self setIsAnimating:YES];
     
-    NSMutableSet *cellsToRemoveAfterAnimation = [NSMutableSet setWithSet:[self usedCells]];
-    NSMutableSet *cellsBeingAnimatedIntoView = [NSMutableSet new];
+    NSMutableArray <CKCalendarCell *> *cellsToRemoveAfterAnimation = [[self usedCells] mutableCopy];
+    NSMutableArray <CKCalendarCell *> *cellsBeingAnimatedIntoView = [NSMutableArray new];
     
     /* Calculate the pre-animation offset */
     
@@ -625,11 +625,11 @@
             if (!cell.leadingConstraint)
             {
                 cell.leadingConstraint = [NSLayoutConstraint constraintWithItem:cell
-                                                                  attribute:NSLayoutAttributeLeading
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:self.wrapper
-                                                                  attribute:NSLayoutAttributeLeading
-                                                                 multiplier:1.0
+                                                                      attribute:NSLayoutAttributeLeading
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self.wrapper
+                                                                      attribute:NSLayoutAttributeLeading
+                                                                     multiplier:1.0
                                                                        constant:0.0];
             }
             
@@ -647,6 +647,8 @@
             cell.leadingConstraint.constant = column * self._cellSize.width;
             
             [self.wrapper addConstraints:@[cell.topConstraint, cell.leadingConstraint, width]];
+            
+            [self layoutIfNeeded];
             
             /* STEP 9: Move to the next date before we continue iterating. */
             workingDate = [[self calendar] dateByAddingDays:1 toDate:workingDate];
@@ -678,7 +680,7 @@
         [self _moveCellsIntoView:cellsBeingAnimatedIntoView andCellsOutOfView:cellsToRemoveAfterAnimation usingOffset:yOffset];
         [self _cleanupCells:cellsToRemoveAfterAnimation];
         [cellsBeingAnimatedIntoView removeAllObjects];
-        [self setIsAnimating:NO];        
+        [self setIsAnimating:NO];
     }
     
     
@@ -686,7 +688,7 @@
 
 #pragma mark - Cell Animation
 
-- (void)_moveCellsIntoView:(NSMutableSet *)cellsBeingAnimatedIntoView andCellsOutOfView:(NSMutableSet *)cellsToRemoveAfterAnimation usingOffset:(CGFloat)yOffset
+- (void)_moveCellsIntoView:(NSMutableArray <CKCalendarCell *> *)cellsBeingAnimatedIntoView andCellsOutOfView:(NSMutableArray <CKCalendarCell *> *)cellsToRemoveAfterAnimation usingOffset:(CGFloat)yOffset
 {
     for (CKCalendarCell *cell in cellsBeingAnimatedIntoView) {
         cell.topConstraint.constant = cell.topConstraint.constant - yOffset;
@@ -695,9 +697,11 @@
     for (CKCalendarCell *cell in cellsToRemoveAfterAnimation) {
         cell.topConstraint.constant = cell.topConstraint.constant - yOffset;
     }
+    
+    [self layoutIfNeeded];
 }
 
-- (void)_cleanupCells:(NSMutableSet *)cellsToCleanup
+- (void)_cleanupCells:(NSMutableArray <CKCalendarCell *> *)cellsToCleanup
 {
     for (CKCalendarCell *cell in cellsToCleanup) {
         [self _moveCellFromUsedToSpare:cell];
@@ -714,7 +718,7 @@
 
 - (CKCalendarCell *)_dequeueCell
 {
-    CKCalendarCell *cell = [[self spareCells] anyObject];
+    CKCalendarCell *cell = [[self spareCells] firstObject];
     
     if (!cell) {
         cell = [[CKCalendarCell alloc] initWithSize:[self _cellSize]];
@@ -841,7 +845,7 @@
     
     NSDateComponents *components = [self.calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
     date = [self.calendar dateFromComponents:components];
-
+    
     BOOL minimumIsBeforeMaximum = [self _minimumDateIsBeforeMaximumDate];
     
     if (minimumIsBeforeMaximum) {
@@ -900,13 +904,13 @@
 - (void)setMaximumDate:(NSDate *)maximumDate animated:(BOOL)animated
 {
     _maximumDate = maximumDate;
-    [self setDate:[self date] animated:animated];    
+    [self setDate:[self date] animated:animated];
 }
 
 - (void)setDataSource:(id<CKCalendarViewDataSource>)dataSource
 {
     _dataSource = dataSource;
-
+    
     [self reloadAnimated:NO];
 }
 
@@ -988,7 +992,7 @@
     {
         return [[self calendar] date:[self date] isSameWeekAs:[self minimumDate]];
     }
-
+    
     return [[self calendar] date:[self date] isSameDayAs:[self minimumDate]];
 }
 
@@ -1020,7 +1024,7 @@
 {
     NSDate *date = [self date];
     NSDate *today = [NSDate date];
-
+    
     /* If the cells are animating, don't do anything or we'll break the view */
     
     if ([self isAnimating]) {
@@ -1228,7 +1232,7 @@
         }
         return cell;
     }
-
+    
     CKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
     CKCalendarEvent *event = [[self events] objectAtIndex:[indexPath row]];
@@ -1274,7 +1278,7 @@
 
 - (void)setFirstWeekDay:(NSUInteger)firstWeekDay
 {
-
+    
     _firstWeekDay = firstWeekDay;
     self.calendar.firstWeekday = firstWeekDay;
     
@@ -1407,7 +1411,7 @@
     {
         return [[self calendar]date:date isBeforeDate:[self maximumDate]];
     }
-
+    
     //  If there's no maximum, treat all dates that are before
     //  the minimum as valid
     else if(![self maximumDate])
@@ -1462,7 +1466,7 @@
                 index = [cell index];
                 break;
             }
-
+            
         }
         
         //  Clip the index to minimum and maximum dates
@@ -1475,7 +1479,7 @@
         {
             index = [self _indexFromDate:[self minimumDate]];
         }
-
+        
         // Save the new index
         [self setSelectedIndex:index];
         
