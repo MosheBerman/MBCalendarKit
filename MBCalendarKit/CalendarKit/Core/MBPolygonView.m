@@ -66,7 +66,7 @@ float degToRad(float deg)
     if (![self.subviews containsObject:self.imageView])
     {
         [self addSubview:self.imageView];
-        
+        self.imageView.translatesAutoresizingMaskIntoConstraints = NO;
         NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.imageView
                                                                    attribute:NSLayoutAttributeCenterX
                                                                    relatedBy:NSLayoutRelationEqual
