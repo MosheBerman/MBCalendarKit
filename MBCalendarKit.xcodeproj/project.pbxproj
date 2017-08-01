@@ -74,6 +74,7 @@
 		467B12FA1F2F5B8A00CABA27 /* MBCalendarKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B12F91F2F5B8A00CABA27 /* MBCalendarKitTests.m */; };
 		467B12FC1F2F5B8A00CABA27 /* MBCalendarKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */; };
 		467B130A1F2FB26B00CABA27 /* CKCalendarAnimationWrapperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B13081F2FB12900CABA27 /* CKCalendarAnimationWrapperView.m */; };
+		467B130C1F312E0600CABA27 /* DemoApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 467B130B1F312E0600CABA27 /* DemoApp.storyboard */; };
 		46895C9A171F5AA60072DBCF /* CKDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46895C99171F5AA60072DBCF /* CKDemoViewController.m */; };
 		469D857E1A3766A100E2B305 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 469D857D1A3766A100E2B305 /* Images.xcassets */; };
 		46A789E91A606CF00096E2BB /* SwiftDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A789E81A606CF00096E2BB /* SwiftDemoViewController.swift */; };
@@ -186,6 +187,7 @@
 		467B12FB1F2F5B8A00CABA27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		467B13071F2FB12900CABA27 /* CKCalendarAnimationWrapperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarAnimationWrapperView.h; sourceTree = "<group>"; };
 		467B13081F2FB12900CABA27 /* CKCalendarAnimationWrapperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarAnimationWrapperView.m; sourceTree = "<group>"; };
+		467B130B1F312E0600CABA27 /* DemoApp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DemoApp.storyboard; sourceTree = "<group>"; };
 		46895C98171F5AA60072DBCF /* CKDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKDemoViewController.h; path = MBCalendarKit/CKDemoViewController.h; sourceTree = "<group>"; };
 		46895C99171F5AA60072DBCF /* CKDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKDemoViewController.m; path = MBCalendarKit/CKDemoViewController.m; sourceTree = "<group>"; };
 		469D857D1A3766A100E2B305 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MBCalendarKit/Images.xcassets; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				464A86FE171F174D00E7AB19 /* CKAppDelegate.h */,
+				467B130B1F312E0600CABA27 /* DemoApp.storyboard */,
 				464A86FF171F174D00E7AB19 /* CKAppDelegate.m */,
 				46895C98171F5AA60072DBCF /* CKDemoViewController.h */,
 				46895C99171F5AA60072DBCF /* CKDemoViewController.m */,
@@ -626,6 +629,7 @@
 				4643199E17E343BE0001B5CB /* Icon@2x.png in Resources */,
 				4643199F17E343BE0001B5CB /* iTunesArtwork.png in Resources */,
 				464319A017E343BE0001B5CB /* iTunesArtwork@2x.png in Resources */,
+				467B130C1F312E0600CABA27 /* DemoApp.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
