@@ -77,9 +77,8 @@
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
-    CGPoint origin = [self frame].origin;
-    [self setFrame:CGRectMake(origin.x, origin.y, _size.width, _size.height)];
-    [self layoutSubviews];
+    [self configureLabel];
+    [self configureDot];
     [self applyColors];
 }
 
@@ -87,22 +86,99 @@
 
 - (void)layoutSubviews
 {
-    [self configureLabel];
-    [self configureDot];
+    [super layoutSubviews];
     
-    [self addSubview:[self label]];
-    [self addSubview:[self dot]];
+    [self _installLabel];
+    [self _installDot];
+}
+
+- (void)_installLabel
+{
+    if(![self.subviews containsObject:self.label])
+    {
+        [self addSubview:self.label];
+        self.label.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.label
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.label
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self
+                                                                   attribute:NSLayoutAttributeCenterY
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.label
+                                                                   attribute:NSLayoutAttributeTop
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self
+                                                                   attribute:NSLayoutAttributeTop
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.label
+                                                               attribute:NSLayoutAttributeLeading
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self
+                                                               attribute:NSLayoutAttributeLeading
+                                                              multiplier:1.0
+                                                                constant:0.0];
+        
+        [self addConstraints:@[centerY, centerX, top, leading]];
+    }
+}
+
+- (void)_installDot
+{
+    if(![self.subviews containsObject:self.dot])
+    {
+        [self addSubview:self.dot];
+        self.dot.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.dot
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.dot
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        NSLayoutConstraint *ratio = [NSLayoutConstraint constraintWithItem:self.label
+                                                               attribute:NSLayoutAttributeHeight
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.label
+                                                               attribute:NSLayoutAttributeWidth
+                                                              multiplier:1.0
+                                                                constant:0.0];
+        
+        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.label
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:nil
+                                                                   attribute:NSLayoutAttributeNotAnAttribute
+                                                                  multiplier:1.0
+                                                                    constant:3.0];
+        
+        [self addConstraints:@[centerX, bottom, ratio, width]];
+    }
 }
 
 #pragma mark - Setters
-
-- (void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    
-    self.label.frame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
-}
-
 
 - (void)setState:(CKCalendarMonthCellState)state
 {
@@ -146,30 +222,22 @@
 
 - (void)configureLabel
 {
-    UILabel *label = [self label];
+    UILabel *label = self.label;
     
     [label setFont:[UIFont boldSystemFontOfSize:13]];
     [label setTextAlignment:NSTextAlignmentCenter];
     
     [label setBackgroundColor:[UIColor clearColor]];
-    [label setFrame:CGRectMake(0, 0, [self frame].size.width, [self frame].size.height)];
 }
 
 #pragma mark - Dot
 
 - (void)configureDot
 {
+    CGFloat dotRadius = 3.0;
     UIView *dot = [self dot];
     
-    CGFloat dotRadius = 3;
-    CGFloat selfHeight = [self frame].size.height;
-    CGFloat selfWidth = [self frame].size.width;
-    
-    [[dot layer] setCornerRadius:dotRadius/2];
-    
-    CGRect dotFrame = CGRectMake(selfWidth/2 - dotRadius/2, (selfHeight - (selfHeight/5)) - dotRadius/2, dotRadius, dotRadius);
-    [[self dot] setFrame:dotFrame];
-    
+    [dot.layer setCornerRadius:dotRadius/2];
 }
 
 #pragma mark - UI Coloring

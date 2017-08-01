@@ -12,6 +12,10 @@
 
 @interface CKCalendarCell : UIView
 
+// Layout Constraints
+@property (nonatomic, strong) NSLayoutConstraint *topConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *leadingConstraint;
+
 @property (nonatomic, assign) CKCalendarMonthCellState state;
 @property (nonatomic, strong) NSNumber *number;
 @property (nonatomic, assign) BOOL showDot;
@@ -46,7 +50,6 @@
 // Border colors
 @property (nonatomic, strong) UIColor *cellBorderColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *selectedCellBorderColor UI_APPEARANCE_SELECTOR;
-
 
 - (id)initWithSize:(CGSize)size;
 
