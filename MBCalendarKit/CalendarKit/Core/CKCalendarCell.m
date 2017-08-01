@@ -155,18 +155,18 @@
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:self
                                                                    attribute:NSLayoutAttributeBottom
-                                                                  multiplier:1.0
+                                                                  multiplier:0.8
                                                                     constant:0.0];
         
-        NSLayoutConstraint *ratio = [NSLayoutConstraint constraintWithItem:self.label
+        NSLayoutConstraint *ratio = [NSLayoutConstraint constraintWithItem:self.dot
                                                                attribute:NSLayoutAttributeHeight
                                                                relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.label
+                                                                  toItem:self.dot
                                                                attribute:NSLayoutAttributeWidth
                                                               multiplier:1.0
                                                                 constant:0.0];
         
-        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.label
+        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.dot
                                                                    attribute:NSLayoutAttributeWidth
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:nil
