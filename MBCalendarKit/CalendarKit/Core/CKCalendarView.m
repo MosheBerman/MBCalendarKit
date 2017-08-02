@@ -207,6 +207,11 @@
     [super removeFromSuperview];
 }
 
+- (void)prepareForInterfaceBuilder
+{
+    
+}
+
 #pragma mark - Size
 
 - (CGFloat)_heightForDisplayMode:(CKCalendarDisplayMode)displayMode
@@ -366,7 +371,7 @@
                      }];
 }
 
-#pragma mark -
+# pragma mark - Installing Internal Views
 
 - (void)_installTable
 {
@@ -416,8 +421,6 @@
     [self.superview addConstraints:@[leading, trailing, top, bottom]];
     
 }
-
-#pragma mark -
 
 - (void)_installWrapper
 {

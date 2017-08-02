@@ -13,6 +13,7 @@
 #import "CKCalendarDelegate.h"
 #import "CKCalendarDataSource.h"
 
+IB_DESIGNABLE
 @interface CKCalendarView : UIView
 
 @property (nonatomic, assign) CKCalendarDisplayMode displayMode;
@@ -20,6 +21,7 @@
 @property(nonatomic, strong) NSLocale       *locale;            // default is [NSLocale currentLocale]. setting nil returns to default
 @property(nonatomic, copy)   NSCalendar     *calendar;          // default is [NSCalendar currentCalendar]. setting nil returns to default
 @property(nonatomic, strong) NSTimeZone     *timeZone;          // default is nil. use current time zone or time zone from calendar
+
 
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSDate *minimumDate;
