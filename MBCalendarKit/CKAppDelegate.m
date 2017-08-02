@@ -26,18 +26,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    UIViewController *rootViewController = [CKDemoViewController new];
-    
-    //  Uncomment the following line for the Swift version:
-    rootViewController = [SwiftDemoViewController new];
-    
-    self.viewController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
-    
-    self.window.rootViewController = self.viewController;
-    [self.window makeKeyAndVisible];
-    
     return YES;
 }
 

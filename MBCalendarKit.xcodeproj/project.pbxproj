@@ -368,7 +368,6 @@
 			isa = PBXGroup;
 			children = (
 				464A86FE171F174D00E7AB19 /* CKAppDelegate.h */,
-				467B130B1F312E0600CABA27 /* DemoApp.storyboard */,
 				464A86FF171F174D00E7AB19 /* CKAppDelegate.m */,
 				46895C98171F5AA60072DBCF /* CKDemoViewController.h */,
 				46895C99171F5AA60072DBCF /* CKDemoViewController.m */,
@@ -376,6 +375,7 @@
 				464A8700171F174D00E7AB19 /* Default-568h@2x.png */,
 				464A8701171F174D00E7AB19 /* Default.png */,
 				464A8702171F174D00E7AB19 /* Default@2x.png */,
+				467B130B1F312E0600CABA27 /* DemoApp.storyboard */,
 				464A8705171F174D00E7AB19 /* InfoPlist.strings */,
 				464A8707171F174D00E7AB19 /* main.m */,
 				464A8708171F174D00E7AB19 /* MBCalendarKit-Info.plist */,
