@@ -163,12 +163,6 @@
     }
     
     /**
-     *  Call reloadData on the table.
-     */
-    
-    [[self table] reloadData];
-    
-    /**
      *  TODO: Possibly add a delegate method here, per issue #20.
      */
     
@@ -177,6 +171,7 @@
      */
     
     [self updateConstraintsAnimated:animated];
+    [self.table reloadData];
 }
 
 #pragma mark - View Hierarchy
@@ -190,6 +185,13 @@
     [self reloadAnimated:NO];
     
     [super willMoveToSuperview:newSuperview];
+}
+
+- (void)didMoveToSuperview
+{
+    [super didMoveToSuperview];
+    [self _installTable];
+    [self.table reloadData];
 }
 
 -(void)removeFromSuperview
