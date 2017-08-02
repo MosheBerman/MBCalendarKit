@@ -97,6 +97,12 @@
     [super updateConstraints];
 }
 
++ (BOOL)requiresConstraintBasedLayout
+{
+    return YES;
+}
+
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];

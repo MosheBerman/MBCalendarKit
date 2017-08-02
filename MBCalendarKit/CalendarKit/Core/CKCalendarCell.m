@@ -84,6 +84,11 @@
 
 #pragma mark - Layout
 
++ (BOOL)requiresConstraintBasedLayout
+{
+    return YES;
+}
+
 - (void)updateConstraints
 {
     [self _installLabel];

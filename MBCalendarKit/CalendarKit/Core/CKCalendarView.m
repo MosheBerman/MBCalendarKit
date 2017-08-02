@@ -315,6 +315,17 @@
     [self _installTable];
 }
 
+- (CGSize)intrinsicContentSize
+{
+    CGFloat height = [self _heightForDisplayMode:self.displayMode];
+    return CGSizeMake(UIViewNoIntrinsicMetric, height);
+}
+
++ (BOOL)requiresConstraintBasedLayout
+{
+    return YES;
+}
+
 #pragma mark - Updating the Calendar's Height
 
 - (void)_updateDimensionsForModeAnimated:(BOOL)animated
