@@ -195,10 +195,12 @@
 -(void)removeFromSuperview
 {
     for (CKCalendarCell *cell in [self usedCells]) {
+        [self.wrapper removeConstraints:cell.constraints];
         [cell removeFromSuperview];
     }
     
-    [[self headerView] removeFromSuperview];
+    [self.headerView.superview removeConstraints:self.headerView.constraints];
+    [self.headerView removeFromSuperview];
     
     [super removeFromSuperview];
 }
