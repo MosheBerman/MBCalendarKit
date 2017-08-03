@@ -9,7 +9,7 @@ Getting Started:
 
 You'll need to set up the dependencies, described below. Alternatively, MBCalendarKit is now a registered CocoaPod. I don't use CocoaPods, but I did run a quick test on using the following line in my Podfile:
 
-`pod 'MBCalendarKit', '~>3.0.4'`
+`pod 'MBCalendarKit', '~>5.0.0'`
 
 If there are any problems, please head over to issue #48 and leave a comment.
 
@@ -17,11 +17,7 @@ If there are any problems, please head over to issue #48 and leave a comment.
 Dependencies:
 -------------
 
-You'll need the iOS 7 SDK or newer. With the addition of the Swift demo in 3.0.0, MBCalendarKit will no longer deploy to iOS 6.'
-
-As of MBCalendarKit 2.0.0, the project uses the LLVM compiler's modules feature. 
-
-MBCalendarKit requires Quartz, Core Graphics, UIKit, and Foundation. The Unit Tests build against the XCTest framework. Xcode should take care of all those except `QuartzCore.framework`. If you're building the tests, you may have to link to XCTest yourself, as well.
+You'll need the iOS 8 SDK or newer. 
 
 Relevant Files:
 ---------------
@@ -33,16 +29,13 @@ Working With Swift:
 
 Swift supports Objective-C code interoperability with what Apple is calling "[Mix and Match](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html)."
 
-Add the following files to your `*ProjectName*-Bridging-Header.h`:
+Add the following line to your `*ProjectName*-Bridging-Header.h`:
 
 ```` objective-c
-#import "CalendarKit.h"
-#import "CKDemoViewController.h"
-#import "NSCalendarCategories.h"
-#import "NSDate+Components.h"
+@import MBCalendarKit;
 ````
 
-You should be able to use MBCalendarKit in your Swift classes. There's an example in the demo app. Look at CKAppDelegate.
+You should be able to use MBCalendarKit in your Swift classes. There's an example in the demo app. Look at `CKAppDelegate`.
 
 Showing a Calendar
 --------------------------------------
@@ -60,7 +53,7 @@ It's just four easy steps.
 */
 		
 // 0. In either case, import CalendarKit:
-#import "CalendarKit/CalendarKit.h"
+@import MBCalendarKit;
     	
 // 1. Instantiate a CKCalendarView
 CKCalendarView *calendar = [CKCalendarView new];
@@ -75,7 +68,11 @@ CKCalendarView *calendar = [CKCalendarView new];
 ````
 
 
-2. Your second option is to create an instance of `CKCalendarViewController`. Using a CKCalendarViewController gives you the added benefit of a "today" button and a segmented control in the toolbar, which allows you to select the display mode. Note that `CKCalendarViewController` subclasses `UINavigationViewController`, so it can't be installed inside of another navigation controller. 
+2. Your second option is to create an instance of `CKCalendarViewController`. Using a CKCalendarViewController gives you the added benefit of a "today" button and a segmented control in the toolbar, which allows you to select the display mode. 
+
+---
+***Note:*** In lder versions of MBCalendarKit, `CKCalendarViewController` used to subclass `UINavigationViewController`, so it couldn't be installed inside of another navigation controller. In 5.0.0, this is no longer the case. You must now install your calendar ina navigation controller on your own.
+---
 
 
 ```` objective-c
@@ -86,13 +83,13 @@ within a view controller. It's just four easy steps.
 */
 		
 // 0. In either case, import CalendarKit:
-#import "CalendarKit/CalendarKit.h"
+@import MBCalendarKit;
     	
 // 1. Instantiate a CKCalendarViewController
 CKCalendarViewController *calendar = [CKCalendarViewController new];
  		
 // 2. Optionally, set up the datasource and delegates
-[calendar setDelegate:self];
+[calendar setCalendarDelegate:self];
 [calendar setDataSource:self];
  		
 // 3. Present the calendar 
@@ -105,7 +102,6 @@ CKCalendarViewController *calendar = [CKCalendarViewController new];
 **Note: From this point on, both the CKCalendarView class and the CKCalendarViewController classes are interchangeably referred to as the "calendar view", because they have common datasource and delegate APIs.** 
 
 ---
-
 
 
 Showing Events
@@ -197,6 +193,7 @@ Version 2.2.0 adds support for the `firstWeekday` property of NSCalendar. If the
     calendarViewController.calendarView.firstWeekDay = 2;
     
 **About the firstWeekDay property:** Use integers 1-7 to set a weekday from Sunday through Saturday. Using other numbers is not documented in the `NSCalendar` documentation.
+  
 
 License:
 ========
