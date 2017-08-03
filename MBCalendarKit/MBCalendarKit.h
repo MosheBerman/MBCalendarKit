@@ -19,15 +19,22 @@ FOUNDATION_EXPORT const unsigned char MBCalendarKitVersionString[];
 #import <MBCalendarKit/CKCalendarViewController.h>
 #import <MBCalendarKit/CKCalendarView.h>
 #import <MBCalendarKit/CKCalendarCell.h>
+#import <MBCalendarKit/CKCalendarCellColors.h>
 #import <MBCalendarKit/CKCalendarEvent.h>
 #import <MBCalendarKit/CKCalendarDataSource.h>
 #import <MBCalendarKit/CKCalendarDelegate.h>
+#import <MBCalendarKit/CKCalendarHeaderView.h>
+#import <MBCalendarKit/CKCalendarHeaderColors.h>
+#import <MBCalendarKit/CKTableViewCell.h>
+#import <MBCalendarKit/MBPolygonView.h> 
 
-// MARK: - Date Headers
+// MARK: - Foundation Categories
 
-//  May be helpful for implementing the CKCalendarViewDataSource
-#import <MBCalendarKit/NSCalendar+DateComparison.h>
+#import <MBCalendarKit/NSCalendarCategories.h>
 #import <MBCalendarKit/NSDate+Components.h>
-#import <MBCalendarKit/NSCalendar+Components.h>
-#import <MBCalendarKit/NSCalendar+Juncture.h>
-#import <MBCalendarKit/NSCalendar+Ranges.h>
+#import <MBCalendarKit/NSDate+Description.h>
+#import <MBCalendarKit/NSDateComponents+AllComponents.h>
+
+#import <MBCalendarKit/UIColor+HexString.h>
+#import <MBCalendarKit/UIView+AnimatedFrame.h>
+#import <MBCalendarKit/UIView+Border.h>
