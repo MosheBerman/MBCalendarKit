@@ -78,8 +78,8 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     [super willMoveToSuperview:newSuperview];
-    [self setNeedsLayout];
     [self setBackgroundColor:self.headerGradient];
+    [self reloadData];
 }
 
 // MARK: - Layout
@@ -125,11 +125,13 @@
 - (void)reloadData;
 {
     [self _updateMonthLabelDisplay];
+    [self _installColumnTitleLabels];
 }
 
 // MARK: - Layout Helpers
 
-- (void)_installColumnTitleLabels {
+- (void)_installColumnTitleLabels
+{
     /* Query the data source for the number of columns. */
     NSInteger newColumnCount = [self.dataSource numberOfColumnsForHeader:self];
     
@@ -138,31 +140,11 @@
         _columnCount = newColumnCount;
         
         [self _removeLabelsInPreparationForLayout];
-        
-        for (NSUInteger column = 0; column < _columnCount; column++) {
-            
-            NSString *title = [self.dataSource header:self titleForColumnAtIndex:column];
-            [self.columnTitles addObject:title];
-        }
-        
-        /* Create labels for each of the titles and lay them out. */
-        if(_columnCount > 0)
-        {
-            UIView *previous = self;
-            
-            for (NSUInteger i = 0; i < self.columnTitles.count; i++)
-            {
-                NSString *title = self.columnTitles[i];
-                UILabel *label = [self _columnLabelWithTitle:title];
-                
-                [self.columnLabels addObject:label];
-                
-                [self _constrainLabel:label toPrevious:previous];
-                
-                previous = label;
-            }
-        }
+        [self _reloadColumnTitlesFromDataSource];
+        [self _createAndInstallColumnLabels];
     }
+    
+    [self _populateColumnTitleLabels];
 }
 
 
@@ -184,7 +166,79 @@
 
 
 /**
- Constrains each label to a previous view, to achieve 
+ Asks the data source for the column titles and caches them internally.
+ */
+- (void)_reloadColumnTitlesFromDataSource
+{
+    for (NSUInteger column = 0; column < _columnCount; column++)
+    {
+        NSString *title = [self.dataSource header:self titleForColumnAtIndex:column];
+        [self.columnTitles addObject:title];
+    }
+}
+
+
+/**
+ Creates enough column labels for the titles, and installs them.
+ */
+- (void)_createAndInstallColumnLabels
+{
+    UIView *previous = self;
+    
+    for (NSUInteger i = 0; i < self.columnTitles.count; i++)
+    {
+        NSString *title = self.columnTitles[i];
+        UILabel *label = [self _columnLabelWithTitle:title];
+        [self.columnLabels addObject:label];
+        [self _constrainLabel:label toPrevious:previous];
+        
+        previous = label;
+    }
+}
+
+
+/**
+ Populates the column labels.
+ */
+- (void)_populateColumnTitleLabels
+{
+    for(NSInteger i = 0; i<self.columnTitles.count; i++)
+    {
+        UILabel *label = self.columnLabels[i];
+        label.text = self.columnTitles[i];
+    }
+}
+
+- (void)_configureLabel:(UILabel *)label
+{
+    [label setBackgroundColor:[UIColor clearColor]];
+    [label setTextColor:self.headerWeekdayTitleColor];
+    [label setShadowColor:self.headerWeekdayShadowColor];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setFont:self.headerWeekdayTitleFont];
+    [label setShadowOffset:CGSizeMake(0, 1)];
+}
+
+/* Creates and configures a label for a column title */
+
+- (UILabel *)_columnLabelWithTitle:(NSString *)title
+{
+    UILabel *l = [UILabel new];
+    [self _configureLabel:l];
+    [l setText:title];
+    
+    return l;
+}
+
+- (void)updateLabelsAppearance
+{
+    for (UILabel *label in self.columnLabels) {
+        [self _configureLabel:label];
+    }
+}
+
+/**
+ Constrains each label to a previous view, to achieve
  the effect of a row of equally sized labels, stretching
  across the width of the header view.
 
@@ -369,7 +423,6 @@
 
 // MARK: - Back And Forward Buttons
 
-
 /**
  Create buttons for next and previous months.
  */
@@ -444,37 +497,6 @@
     [self addConstraints:@[width, centerY, anchor, height]];
     
     return polygonView;
-}
-
-
-// MARK - Label Convenience Methods
-
-
-- (void)_configureLabel:(UILabel *)label
-{
-    [label setBackgroundColor:[UIColor clearColor]];
-    [label setTextColor:self.headerWeekdayTitleColor];
-    [label setShadowColor:self.headerWeekdayShadowColor];
-    [label setTextAlignment:NSTextAlignmentCenter];
-    [label setFont:self.headerWeekdayTitleFont];
-    [label setShadowOffset:CGSizeMake(0, 1)];
-}
-
-/* Creates and configures a label for a column title */
-
-- (UILabel *)_columnLabelWithTitle:(NSString *)title
-{
-    UILabel *l = [UILabel new];
-    [self _configureLabel:l];
-    [l setText:title];
-    
-    return l;
-}
-
-- (void)updateLabelsAppearance {
-    for (UILabel *label in self.columnLabels) {
-        [self _configureLabel:label];
-    }
 }
 
 // MARK: - Touch Handling
