@@ -94,6 +94,8 @@
     //  First Weekday
     _firstWeekDay = [_calendar firstWeekday];
     
+    [self _installWrapper];
+    [self _installHeader];
 }
 - (instancetype)init
 {
@@ -184,20 +186,23 @@
 {
     [super didMoveToSuperview];
     
-    
     [self _installTable];
     [self.table reloadData];
 }
 
 -(void)removeFromSuperview
 {
-    for (CKCalendarCell *cell in [self usedCells]) {
+    for (CKCalendarCell *cell in [self usedCells])
+    {
         [self.wrapper removeConstraints:cell.constraints];
         [cell removeFromSuperview];
     }
     
     [self.headerView.superview removeConstraints:self.headerView.constraints];
     [self.headerView removeFromSuperview];
+    
+    [self.superview removeConstraints:self.table.constraints];
+    [self.table removeFromSuperview];
     
     [super removeFromSuperview];
 }
@@ -320,11 +325,13 @@
 - (void)updateConstraintsAnimated:(BOOL)animated
 {
     [self _updateDimensionsForModeAnimated:animated];
-    [self _installWrapper];
-    [self _installHeader];
     [self _layoutCellsAnimated:animated];
-    [self _installTable];
-    [self.table reloadData];
+}
+
+- (void)setNeedsLayout
+{
+    [super setNeedsLayout];
+    [self.headerView setNeedsLayout];
 }
 
 - (CGSize)intrinsicContentSize
@@ -683,7 +690,18 @@
             cell.topConstraint.constant = yOffset + (row * self._cellSize.height);
             cell.leadingConstraint.constant = column * self._cellSize.width;
             
-            [self.wrapper addConstraints:@[cell.topConstraint, cell.leadingConstraint, width]];
+            
+            if (![self.wrapper.constraints containsObject:cell.topConstraint])
+            {
+                [self.wrapper addConstraint:cell.topConstraint];
+            }
+            
+            if(![self.wrapper.constraints containsObject:cell.leadingConstraint])
+            {
+                [self.wrapper addConstraint:cell.leadingConstraint];
+            }
+            
+            [self.wrapper addConstraints:@[width]];
             
             [self layoutIfNeeded];
             
