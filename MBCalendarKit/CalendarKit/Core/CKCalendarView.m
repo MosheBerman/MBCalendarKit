@@ -122,14 +122,7 @@
     return self;
 }
 
-- (instancetype) initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self commonInitializer];
-    }
-    return self;
-    
-}
+
 
 #pragma mark -
 
@@ -190,6 +183,8 @@
 - (void)didMoveToSuperview
 {
     [super didMoveToSuperview];
+    
+    
     [self _installTable];
     [self.table reloadData];
 }
@@ -209,6 +204,12 @@
 
 - (void)prepareForInterfaceBuilder
 {
+    [super prepareForInterfaceBuilder];
+    
+    [self setNeedsUpdateConstraints];
+    
+    [self _installTable];
+    [self.table reloadData];
     
 }
 
@@ -237,11 +238,11 @@
 
 - (CGRect)_rectForDisplayMode:(CKCalendarDisplayMode)displayMode
 {
-    CGRect rect = [[UIScreen mainScreen] bounds];
+    CGRect rect = self.superview.bounds;
     
-    if(self.superview)
+    if (!self.superview)
     {
-        rect = self.superview.bounds;
+        rect = CGRectZero;
     }
     
     if(displayMode == CKCalendarViewModeDay)
@@ -293,11 +294,12 @@
 {
     CGSize windowSize = UIScreen.mainScreen.bounds.size;
     
-    NSCalendar *calendar = self.calendar;
-    
-    if (calendar == nil) {
-        calendar = [NSCalendar currentCalendar];
+    if (self.superview)
+    {
+        windowSize = self.superview.bounds.size;
     }
+    
+    NSCalendar *calendar = self.calendar;
     
     CGFloat numberOfDaysPerWeek = [calendar daysPerWeek];
     
@@ -322,6 +324,7 @@
     [self _installHeader];
     [self _layoutCellsAnimated:animated];
     [self _installTable];
+    [self.table reloadData];
 }
 
 - (CGSize)intrinsicContentSize
@@ -366,7 +369,13 @@
     
     [UIView animateWithDuration:duration
                      animations:^{
-                         self.heightConstraint.constant = [self _rectForDisplayMode:self.displayMode].size.height;
+                         CGFloat height =  [self _rectForDisplayMode:self.displayMode].size.height;
+                         if (isnan(height))
+                         {
+                             height = 0;
+                         }
+                         
+                         self.heightConstraint.constant = height;
                          [self.superview layoutIfNeeded];
                      }];
 }
@@ -806,7 +815,7 @@
     [_calendar setLocale:_locale];
     [_calendar setFirstWeekday:_firstWeekDay];
     
-    [self layoutSubviews];
+    [self setNeedsLayout];
 }
 
 - (void)setLocale:(NSLocale *)locale
@@ -823,7 +832,7 @@
     _locale = locale;
     [[self calendar] setLocale:locale];
     
-    [self layoutSubviews];
+    [self setNeedsLayout];
 }
 
 - (void)setTimeZone:(NSTimeZone *)timeZone
