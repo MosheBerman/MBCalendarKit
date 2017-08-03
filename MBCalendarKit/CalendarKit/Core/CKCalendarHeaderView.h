@@ -51,4 +51,11 @@
 @property (nonatomic, strong, readonly) UIGestureRecognizer *tapGesture;
 
 
+/**
+ Causes the header view to ask its delegate for the 
+ name of the month, and refreshes the contents of the 
+ month label.
+ */
+- (void)updateMonthLabelDisplay;
+
 @end

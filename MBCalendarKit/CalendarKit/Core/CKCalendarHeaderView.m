@@ -276,7 +276,7 @@
     
 }
 
-- (void)_updateMonthLabelDisplay
+- (void)updateMonthLabelDisplay
 {
     NSString *title = [[self dataSource] titleForHeader:self];
     [[self monthTitle] setText:title];
