@@ -52,10 +52,10 @@
 
 
 /**
- Causes the header view to ask its delegate for the 
- name of the month, and refreshes the contents of the 
- month label.
+ Causes the header view to reload the contents 
+ of the month title label, and the days of the week.
  */
-- (void)updateMonthLabelDisplay;
+- (void)reloadData;
+
 
 @end

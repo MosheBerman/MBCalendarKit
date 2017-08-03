@@ -38,6 +38,8 @@
 
 @implementation CKCalendarHeaderView
 
+// MARK: - Initializer
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -71,6 +73,7 @@
     return self;
 }
 
+// MARK: - View Lifecycle
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
@@ -79,8 +82,7 @@
     [self setBackgroundColor:self.headerGradient];
 }
 
-#pragma mark - Layout
-
+// MARK: - Layout
 
 - (void)updateConstraints {
     
@@ -102,10 +104,9 @@
     return YES;
 }
 
-
-- (void)layoutSubviews
+- (void)drawRect:(CGRect)rect
 {
-    [super layoutSubviews];
+    [super drawRect:rect];
     
     [self _updateMonthLabelDisplay];
 }
@@ -115,7 +116,18 @@
     return CGSizeMake(UIViewNoIntrinsicMetric, 44.0);
 }
 
-#pragma mark - Layout Helpers
+// MARK: - Display
+
+/**
+ Causes the header view to reload the contents
+ of the month title label, and the days of the week.
+ */
+- (void)reloadData;
+{
+    [self _updateMonthLabelDisplay];
+}
+
+// MARK: - Layout Helpers
 
 - (void)_installColumnTitleLabels {
     /* Query the data source for the number of columns. */
@@ -125,15 +137,7 @@
     {
         _columnCount = newColumnCount;
         
-        /* Remove old labels */
-        for (UILabel *label in self.columnLabels)
-        {
-            [self removeConstraints:label.constraints];
-            [label removeFromSuperview];
-        }
-        
-        [self.columnLabels removeAllObjects];
-        [self.columnTitles removeAllObjects];
+        [self _removeLabelsInPreparationForLayout];
         
         for (NSUInteger column = 0; column < _columnCount; column++) {
             
@@ -141,7 +145,7 @@
             [self.columnTitles addObject:title];
         }
         
-        /* Convert title strings into labels and lay them out */
+        /* Create labels for each of the titles and lay them out. */
         if(_columnCount > 0)
         {
             UIView *previous = self;
@@ -159,9 +163,34 @@
             }
         }
     }
-    
 }
 
+
+/**
+ Remove the labels in self.columnLabels and their constraints from the view hierarchy.
+ */
+- (void)_removeLabelsInPreparationForLayout
+{
+    /* Remove old labels */
+    for (UILabel *label in self.columnLabels)
+    {
+        [self removeConstraints:label.constraints];
+        [label removeFromSuperview];
+    }
+    
+    [self.columnLabels removeAllObjects];
+    [self.columnTitles removeAllObjects];
+}
+
+
+/**
+ Constrains each label to a previous view, to achieve 
+ the effect of a row of equally sized labels, stretching
+ across the width of the header view.
+
+ @param label The label we're installing.
+ @param previous The view to constraint to. Either `self` (for the first label) or another label (for the remaining labels.)
+ */
 - (void)_constrainLabel:(UILabel *)label toPrevious:(UIView *)previous
 {
     BOOL first = [previous isEqual:self];
@@ -228,61 +257,80 @@
     [self addConstraints:@[leading, bottom]];
 }
 
+
+/**
+ If the month label isn't in the view hierarchy, set it up.
+ */
 - (void)_installMonthLabel
 {
-    if([self.subviews containsObject:self.monthTitle])
+    if(![self.subviews containsObject:self.monthTitle])
     {
-        return;
+        [self addSubview:self.monthTitle];
+        
+        self.monthTitle.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.monthTitle
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.monthTitle
+                                                               attribute:NSLayoutAttributeTop
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self
+                                                               attribute:NSLayoutAttributeTop
+                                                              multiplier:1.0 constant:0.0];
+        
+        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.monthTitle
+                                                                   attribute:NSLayoutAttributeLeading
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self
+                                                                   attribute:NSLayoutAttributeLeading
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.monthTitle
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                 multiplier:1.0 constant:0.0];
+        
+        bottom.identifier = @"com.mosheberman.constraint-title-bottom";
+        self.titleLabelBottomPaddingConstraint = bottom;
+        
+        [self addConstraints:@[centerX, leading, top, bottom]];
     }
-    
-    [self addSubview:self.monthTitle];
-    
-    self.monthTitle.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.monthTitle
-                                                               attribute:NSLayoutAttributeCenterX
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self
-                                                               attribute:NSLayoutAttributeCenterX
-                                                              multiplier:1.0
-                                                                constant:0.0];
-    
-    NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.monthTitle
-                                                           attribute:NSLayoutAttributeTop
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:self
-                                                           attribute:NSLayoutAttributeTop
-                                                          multiplier:1.0 constant:0.0];
-    
-    NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.monthTitle
-                                                               attribute:NSLayoutAttributeLeading
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self
-                                                               attribute:NSLayoutAttributeLeading
-                                                              multiplier:1.0
-                                                                constant:0.0];
-    
-    NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.monthTitle
-                                                              attribute:NSLayoutAttributeBottom
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:self
-                                                              attribute:NSLayoutAttributeBottom
-                                                             multiplier:1.0 constant:0.0];
-    
-    bottom.identifier = @"com.mosheberman.constraint-title-bottom";
-    self.titleLabelBottomPaddingConstraint = bottom;
-    
-    [self addConstraints:@[centerX, leading, top, bottom]];
     
 }
 
-- (void)updateMonthLabelDisplay
+/**
+ Update contents and the highlighting 
+ of the month label, as appropriate.
+ */
+- (void)_updateMonthLabelDisplay
 {
-    NSString *title = [[self dataSource] titleForHeader:self];
-    [[self monthTitle] setText:title];
-    
-    /* Highlight the title color as appropriate */
-    
+    [self _updateMonthLabelText];
+    [self _updateMonthLabelHighlighting];
+}
+
+/**
+ Update the text of the month label.
+ */
+- (void)_updateMonthLabelText
+{
+    NSString *title = [self.dataSource titleForHeader:self];
+    self.monthTitle.text = title;
+}
+
+/**
+ Update the highlighting of the month label.
+ */
+- (void)_updateMonthLabelHighlighting
+{
     if ([self shouldHighlightTitle])
     {
         [[self monthTitle] setTextColor:self.headerTitleHighlightedTextColor];
@@ -293,6 +341,15 @@
     }
 }
 
+
+/**
+ Adjusts the constant of the bottom padding constraint
+ on the title label to make space for the column titles.
+ 
+ @discussion In "day" mode, use the entire height for the month
+ label. In week and month modes, add space for the weekday 
+ titles.
+ */
 - (void)_adjustMonthLabelForColumnTitles
 {
     /* Show the forward and back buttons */
@@ -312,16 +369,20 @@
 
 // MARK: - Back And Forward Buttons
 
+
+/**
+ Create buttons for next and previous months.
+ */
 - (void)_installBackwardAndForwardButtons
 {
     if (!self.forwardButton)
     {
-        self.forwardButton = [self createButtonConstrainedTo:NSLayoutAttributeTrailing withArrowRotation:90.0];
+        self.forwardButton = [self createButtonConstrainedTo:NSLayoutAttributeTrailing];
     }
     
     if (!self.backwardButton)
     {
-        self.backwardButton = [self createButtonConstrainedTo:NSLayoutAttributeLeading withArrowRotation:30.0];
+        self.backwardButton = [self createButtonConstrainedTo:NSLayoutAttributeLeading];
     }
     
     if ([self shouldDisableForwardButton]) {
@@ -333,8 +394,17 @@
     }
 }
 
-- (MBPolygonView *)createButtonConstrainedTo:(NSLayoutAttribute)leadingOrTrailing withArrowRotation:(CGFloat)rotation
+
+/**
+ Creates a polygon view to serve as a button.
+
+ @param leadingOrTrailing A layout attribute to use to position the view. Either `NSLayoutAttributeLeading` or `NSLayoutAttributeTrailing`. Other attributes are undefined.
+ @return An instance of MBPolygonView, configured and positioned inside `self`.
+ */
+- (MBPolygonView *)createButtonConstrainedTo:(NSLayoutAttribute)leadingOrTrailing
 {
+    CGFloat rotation = leadingOrTrailing == NSLayoutAttributeTrailing ? 90.0 : 30.0;
+    
     MBPolygonView *polygonView = [[MBPolygonView alloc] initWithFrame:CGRectZero numberOfSides:3 andRotation:rotation andScale:10.0];
     
     polygonView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -377,9 +447,11 @@
 }
 
 
-#pragma mark - Convenience Methods
+// MARK - Label Convenience Methods
 
-- (void)configureLabel:(UILabel *)label {
+
+- (void)_configureLabel:(UILabel *)label
+{
     [label setBackgroundColor:[UIColor clearColor]];
     [label setTextColor:self.headerWeekdayTitleColor];
     [label setShadowColor:self.headerWeekdayShadowColor];
@@ -393,7 +465,7 @@
 - (UILabel *)_columnLabelWithTitle:(NSString *)title
 {
     UILabel *l = [UILabel new];
-    [self configureLabel:l];
+    [self _configureLabel:l];
     [l setText:title];
     
     return l;
@@ -401,11 +473,11 @@
 
 - (void)updateLabelsAppearance {
     for (UILabel *label in self.columnLabels) {
-        [self configureLabel:label];
+        [self _configureLabel:label];
     }
 }
 
-#pragma mark - Touch Handling
+// MARK: - Touch Handling
 
 - (void)tapHandler:(UITapGestureRecognizer *)gesture
 {
