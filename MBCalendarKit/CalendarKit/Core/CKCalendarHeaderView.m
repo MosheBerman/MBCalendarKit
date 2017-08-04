@@ -456,7 +456,9 @@
  */
 - (MBPolygonView *)createButtonConstrainedTo:(NSLayoutAttribute)leadingOrTrailing
 {
-    CGFloat rotation = leadingOrTrailing == NSLayoutAttributeTrailing ? 90.0 : 30.0;
+    BOOL isLeading = leadingOrTrailing == NSLayoutAttributeLeading;
+    
+    CGFloat rotation = isLeading ? 30.0 : 90.0;
     
     MBPolygonView *polygonView = [[MBPolygonView alloc] initWithFrame:CGRectZero numberOfSides:3 andRotation:rotation andScale:10.0];
     
