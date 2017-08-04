@@ -70,7 +70,6 @@
     _selectedIndex = [_calendar daysFromDate:[self _firstVisibleDateForDisplayMode:_displayMode] toDate:_date];
     _headerView = [CKCalendarHeaderView new];
     
-    
     //  Accessory Table
     _table = [UITableView new];
     [_table setDelegate:self];
@@ -116,6 +115,7 @@
     }
     return self;
 }
+
 - (instancetype) initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     
@@ -125,13 +125,20 @@
     return self;
 }
 
-
-
-// MARK: -
-
-- (BOOL)translatesAutoresizingMaskIntoConstraints
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    return NO;
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self commonInitializer];
+    }
+    return self;
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    [self reloadAnimated:YES];
 }
 
 // MARK: - Reload
@@ -179,7 +186,6 @@
     [[self layer] setShadowOffset:CGSizeMake(0, 3)];
     [[self layer] setShadowOpacity:1.0];
     
-    [self _installHeader];
     [self reloadAnimated:NO];
     
     [super willMoveToSuperview:newSuperview];
@@ -190,6 +196,11 @@
     [super didMoveToSuperview];
     
     [self _installTable];
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    [super drawRect:rect];
 }
 
 -(void)removeFromSuperview
@@ -219,7 +230,6 @@
     
     if (displayMode == CKCalendarViewModeWeek)
     {
-        
         CGFloat daysPerWeek = [self.calendar daysPerWeek];
         if(daysPerWeek > 0)
         {
@@ -228,7 +238,7 @@
     }
     else if (displayMode == CKCalendarViewModeMonth)
     {
-        height = CGRectGetHeight(self.headerView.bounds) + CGRectGetWidth(self.superview.bounds);
+        height = CGRectGetHeight(self.headerView.bounds) + self.bounds.size.width;
     }
     
     return height;
@@ -269,7 +279,7 @@
 
 - (CGRect)_rectForCellsForDisplayMode:(CKCalendarDisplayMode)displayMode
 {
-    CGSize cellSize = [self _cellSize];
+    CGFloat cellRatio = [self _cellRatio];
     
     if (displayMode == CKCalendarViewModeDay) {
         return CGRectZero;
@@ -277,36 +287,25 @@
     else if(displayMode == CKCalendarViewModeWeek)
     {
         NSUInteger daysPerWeek = [[self calendar] daysPerWeekUsingReferenceDate:[self date]];
-        return CGRectMake(0, cellSize.height, (CGFloat)daysPerWeek*cellSize.width, cellSize.height);
+        return CGRectMake(0, cellRatio, (CGFloat)daysPerWeek*cellRatio, self._cellRatio);
     }
     else if(displayMode == CKCalendarViewModeMonth)
     {
-        CGFloat width = (CGFloat)[self _columnCountForDisplayMode:CKCalendarViewModeMonth] * cellSize.width;
-        CGFloat height = (CGFloat)[self _rowCountForDisplayMode:CKCalendarViewModeMonth] * cellSize.height;
+        CGFloat width = (CGFloat)[self _columnCountForDisplayMode:CKCalendarViewModeMonth] * cellRatio;
+        CGFloat height = (CGFloat)[self _rowCountForDisplayMode:CKCalendarViewModeMonth] * cellRatio;
         return CGRectMake(0, [[self headerView] bounds].size.height, width, height);
     }
     return CGRectZero;
 }
 
-- (CGSize)_cellSize
+- (CGFloat)_cellRatio
 {
-    CGSize windowSize = UIScreen.mainScreen.bounds.size;
-    
-    if (self.superview)
-    {
-        windowSize = self.superview.bounds.size;
-    }
-    
     NSCalendar *calendar = self.calendar;
     
     CGFloat numberOfDaysPerWeek = [calendar daysPerWeek];
+    CGFloat width = CGRectGetWidth(self.bounds);
     
-    CGFloat sizeToFitTo = MIN(windowSize.width, windowSize.height);
-    
-    CGFloat width = windowSize.width/numberOfDaysPerWeek;
-    CGFloat height = sizeToFitTo/numberOfDaysPerWeek;
-    
-    return CGSizeMake(width, height);
+    return width/numberOfDaysPerWeek;
 }
 
 - (void)updateConstraints
@@ -330,6 +329,28 @@
 + (BOOL)requiresConstraintBasedLayout
 {
     return YES;
+}
+
+- (BOOL)translatesAutoresizingMaskIntoConstraints
+{
+    return NO;
+}
+
+- (UILayoutPriority)contentCompressionResistancePriorityForAxis:(UILayoutConstraintAxis)axis
+{
+    return UILayoutPriorityRequired;
+}
+
+- (UILayoutPriority)contentHuggingPriorityForAxis:(UILayoutConstraintAxis)axis
+{
+    if (axis == UILayoutConstraintAxisHorizontal)
+    {
+        return UILayoutPriorityDefaultLow;
+    }
+    else
+    {
+        return UILayoutPriorityRequired;
+    }
 }
 
 // MARK: - Updating the Calendar's Height
@@ -383,7 +404,7 @@
         return;
     }
     
-    if (![self.superview.subviews containsObject:self.table])
+    if (![self.table isDescendantOfView:self.superview])
     {
         /* Set up the table */
         [self.superview addSubview:self.table];
@@ -429,7 +450,7 @@
 
 - (void)_installWrapper
 {
-    if(![self.subviews containsObject:self.wrapper])
+    if(![self.wrapper isDescendantOfView:self])
     {
         [self addSubview:self.wrapper];
         self.wrapper.translatesAutoresizingMaskIntoConstraints = NO;
@@ -458,16 +479,16 @@
                                                                  multiplier:1.0
                                                                    constant:0.0];
         
-        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.wrapper
-                                                                 attribute:NSLayoutAttributeWidth
+        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.wrapper
+                                                                 attribute:NSLayoutAttributeLeading
                                                                  relatedBy:NSLayoutRelationEqual
                                                                     toItem:self
-                                                                 attribute:NSLayoutAttributeWidth
+                                                                 attribute:NSLayoutAttributeLeading
                                                                 multiplier:1.0
                                                                   constant:0.0];
         
         
-        [self addConstraints:@[centerX, centerY, height, width]];
+        [self addConstraints:@[centerX, centerY, height, leading]];
     }
 }
 
@@ -480,7 +501,7 @@
     [header setDelegate:self];
     [header setDataSource:self];
     
-    if (![self.wrapper.subviews containsObject:self.headerView])
+    if (![self.headerView isDescendantOfView:self.wrapper])
     {
         [self.wrapper addSubview:self.headerView];
         
@@ -514,9 +535,10 @@
 
 // MARK: - Lay Out Cells
 
+
 - (void)_layoutCells
 {
-    [self _layoutCellsAnimated:YES];
+    [self _layoutCellsAnimated:NO];
 }
 
 - (void)_layoutCellsAnimated:(BOOL)animated
@@ -533,6 +555,7 @@
     /* Calculate the pre-animation offset */
     
     CGFloat yOffset = 0;
+    CGFloat cellRatio = [self _cellRatio];
     
     BOOL isDifferentMonth = ![[self calendar] date:[self date] isSameMonthAs:[self previousDate]];
     BOOL isNextMonth = isDifferentMonth && ([[self date] timeIntervalSinceDate:[self previousDate]] > 0);
@@ -540,13 +563,13 @@
     
     // If the next month is about to be shown, we want to add the new cells at the bottom of the calendar
     if (isNextMonth) {
-        yOffset = [self _rectForCellsForDisplayMode:[self displayMode]].size.height - [self _cellSize].height;
+        yOffset = [self _rectForCellsForDisplayMode:[self displayMode]].size.height - cellRatio;
     }
     
     //  If we're showing the previous month, add the cells at the top
     else if(isPreviousMonth)
     {
-        yOffset = -([self _rectForCellsForDisplayMode:[self displayMode]].size.height) + [self _cellSize].height;
+        yOffset = -([self _rectForCellsForDisplayMode:[self displayMode]].size.height) + cellRatio;
     }
     
     else if ([[self calendar] date:[self previousDate] isSameDayAs:[self date]])
@@ -672,9 +695,8 @@
                                                                       constant:0.0];
             
             
-            cell.topConstraint.constant = yOffset + (row * self._cellSize.height);
-            cell.leadingConstraint.constant = column * self._cellSize.width;
-            
+            cell.topConstraint.constant = yOffset + (row * self._cellRatio);
+            cell.leadingConstraint.constant = (1.0/columnCount * self.bounds.size.width) * column;
             
             if (![self.wrapper.constraints containsObject:cell.topConstraint])
             {
@@ -761,7 +783,8 @@
     CKCalendarCell *cell = [[self spareCells] firstObject];
     
     if (!cell) {
-        cell = [[CKCalendarCell alloc] initWithSize:[self _cellSize]];
+        CGSize size = CGSizeMake(self._cellRatio, self._cellRatio);
+        cell = [[CKCalendarCell alloc] initWithSize:size];
         cell.translatesAutoresizingMaskIntoConstraints = NO;
         NSLayoutConstraint *ratio = [NSLayoutConstraint constraintWithItem:cell
                                                                  attribute:NSLayoutAttributeHeight
