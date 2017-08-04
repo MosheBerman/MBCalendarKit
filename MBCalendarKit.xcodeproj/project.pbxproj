@@ -16,6 +16,7 @@
 		4643199E17E343BE0001B5CB /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4643199517E343BE0001B5CB /* Icon@2x.png */; };
 		4643199F17E343BE0001B5CB /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 4643199617E343BE0001B5CB /* iTunesArtwork.png */; };
 		464319A017E343BE0001B5CB /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4643199717E343BE0001B5CB /* iTunesArtwork@2x.png */; };
+		464925371F34F0D7000F220D /* DemoApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 464925391F34F0D7000F220D /* DemoApp.storyboard */; };
 		464A8734171F174D00E7AB19 /* CKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A86FF171F174D00E7AB19 /* CKAppDelegate.m */; };
 		464A8736171F174D00E7AB19 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 464A8700171F174D00E7AB19 /* Default-568h@2x.png */; };
 		464A8738171F174D00E7AB19 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 464A8701171F174D00E7AB19 /* Default.png */; };
@@ -74,7 +75,6 @@
 		467B12FA1F2F5B8A00CABA27 /* MBCalendarKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B12F91F2F5B8A00CABA27 /* MBCalendarKitTests.m */; };
 		467B12FC1F2F5B8A00CABA27 /* MBCalendarKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */; };
 		467B130A1F2FB26B00CABA27 /* CKCalendarAnimationWrapperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B13081F2FB12900CABA27 /* CKCalendarAnimationWrapperView.m */; };
-		467B130C1F312E0600CABA27 /* DemoApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 467B130B1F312E0600CABA27 /* DemoApp.storyboard */; };
 		46895C9A171F5AA60072DBCF /* CKDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46895C99171F5AA60072DBCF /* CKDemoViewController.m */; };
 		469D857E1A3766A100E2B305 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 469D857D1A3766A100E2B305 /* Images.xcassets */; };
 		46A789E91A606CF00096E2BB /* SwiftDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A789E81A606CF00096E2BB /* SwiftDemoViewController.swift */; };
@@ -121,6 +121,11 @@
 		4643199517E343BE0001B5CB /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Icons/Icon@2x.png"; sourceTree = "<group>"; };
 		4643199617E343BE0001B5CB /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunesArtwork.png; path = Icons/iTunesArtwork.png; sourceTree = "<group>"; };
 		4643199717E343BE0001B5CB /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iTunesArtwork@2x.png"; path = "Icons/iTunesArtwork@2x.png"; sourceTree = "<group>"; };
+		4649253A1F34F174000F220D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DemoApp.storyboard; sourceTree = "<group>"; };
+		4649253C1F34F1C6000F220D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DemoApp.strings; sourceTree = "<group>"; };
+		4649253D1F34F3EE000F220D /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/DemoApp.strings; sourceTree = "<group>"; };
+		4649253E1F34F3EE000F220D /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4649253F1F34F3EE000F220D /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		464A86CE171F174D00E7AB19 /* NSCalendar+Components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Components.h"; sourceTree = "<group>"; };
 		464A86CF171F174D00E7AB19 /* NSCalendar+Components.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Components.m"; sourceTree = "<group>"; };
 		464A86D0171F174D00E7AB19 /* NSCalendar+DateComparison.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+DateComparison.h"; sourceTree = "<group>"; };
@@ -187,7 +192,6 @@
 		467B12FB1F2F5B8A00CABA27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		467B13071F2FB12900CABA27 /* CKCalendarAnimationWrapperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarAnimationWrapperView.h; sourceTree = "<group>"; };
 		467B13081F2FB12900CABA27 /* CKCalendarAnimationWrapperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarAnimationWrapperView.m; sourceTree = "<group>"; };
-		467B130B1F312E0600CABA27 /* DemoApp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DemoApp.storyboard; sourceTree = "<group>"; };
 		46895C98171F5AA60072DBCF /* CKDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKDemoViewController.h; path = MBCalendarKit/CKDemoViewController.h; sourceTree = "<group>"; };
 		46895C99171F5AA60072DBCF /* CKDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKDemoViewController.m; path = MBCalendarKit/CKDemoViewController.m; sourceTree = "<group>"; };
 		469D857D1A3766A100E2B305 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MBCalendarKit/Images.xcassets; sourceTree = "<group>"; };
@@ -375,7 +379,7 @@
 				464A8700171F174D00E7AB19 /* Default-568h@2x.png */,
 				464A8701171F174D00E7AB19 /* Default.png */,
 				464A8702171F174D00E7AB19 /* Default@2x.png */,
-				467B130B1F312E0600CABA27 /* DemoApp.storyboard */,
+				464925391F34F0D7000F220D /* DemoApp.storyboard */,
 				464A8705171F174D00E7AB19 /* InfoPlist.strings */,
 				464A8707171F174D00E7AB19 /* main.m */,
 				464A8708171F174D00E7AB19 /* MBCalendarKit-Info.plist */,
@@ -582,6 +586,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
+				he,
 			);
 			mainGroup = 46BFBCB61715FB3F00D4733E;
 			productRefGroup = 46BFBCC01715FB3F00D4733E /* Products */;
@@ -629,7 +635,7 @@
 				4643199E17E343BE0001B5CB /* Icon@2x.png in Resources */,
 				4643199F17E343BE0001B5CB /* iTunesArtwork.png in Resources */,
 				464319A017E343BE0001B5CB /* iTunesArtwork@2x.png in Resources */,
-				467B130C1F312E0600CABA27 /* DemoApp.storyboard in Resources */,
+				464925371F34F0D7000F220D /* DemoApp.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,10 +704,21 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		464925391F34F0D7000F220D /* DemoApp.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4649253A1F34F174000F220D /* Base */,
+				4649253C1F34F1C6000F220D /* en */,
+				4649253D1F34F3EE000F220D /* he */,
+			);
+			name = DemoApp.storyboard;
+			sourceTree = "<group>";
+		};
 		464A8705171F174D00E7AB19 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				464A8706171F174D00E7AB19 /* en */,
+				4649253F1F34F3EE000F220D /* he */,
 			);
 			name = InfoPlist.strings;
 			path = MBCalendarKit;
@@ -711,6 +728,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				464A870C171F174D00E7AB19 /* en */,
+				4649253E1F34F3EE000F220D /* he */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -928,6 +946,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -995,6 +1014,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1036,6 +1056,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
