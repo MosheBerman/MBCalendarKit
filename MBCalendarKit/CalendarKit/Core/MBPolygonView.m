@@ -115,6 +115,17 @@ float degToRad(float deg)
     //Save the state of the context
     CGContextSaveGState(context);
     
+    // Flip for RTL languages
+    NSLocale *locale = [NSLocale autoupdatingCurrentLocale];
+    NSString * languageCode = [locale languageCode];
+    NSLocaleLanguageDirection languageDirection = [NSLocale characterDirectionForLanguage:languageCode];
+    
+    if (languageDirection == NSLocaleLanguageDirectionRightToLeft)
+    {
+        CGContextTranslateCTM(context, self.bounds.size.width, 0.0);
+        CGContextScaleCTM(context, -1.0, 1.0);
+    }
+
     //Set the stroke to white
     [self.fillColor set];
     
@@ -159,14 +170,16 @@ float degToRad(float deg)
     }
     
     //  Render it all out
-
     CGContextFillPath(context);
+    
+    //Restore the state
+    CGContextRestoreGState(context);
+    
     
     //Grab an image from the context
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
 
-    //Restore the state
-    CGContextRestoreGState(context);
+    
     
     //clean up the context
     UIGraphicsEndImageContext();
