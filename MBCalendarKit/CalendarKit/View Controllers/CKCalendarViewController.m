@@ -112,15 +112,15 @@
                                                               multiplier:1.0
                                                                 constant:0.0];
     
-    NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.calendarView
-                                                             attribute:NSLayoutAttributeWidth
+    NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.calendarView
+                                                             attribute:NSLayoutAttributeLeading
                                                              relatedBy:NSLayoutRelationEqual
                                                                 toItem:self.view
-                                                             attribute:NSLayoutAttributeWidth
+                                                             attribute:NSLayoutAttributeLeading
                                                             multiplier:1.0
                                                               constant:0.0];
     
-    [self.view addConstraints:@[top, centerX, width]];
+    [self.view addConstraints:@[top, centerX, leading]];
 }
 
 #pragma mark - Toolbar Items
