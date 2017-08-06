@@ -782,9 +782,9 @@
 {
     CKCalendarCell *cell = [[self spareCells] firstObject];
     
-    if (!cell) {
-        CGSize size = CGSizeMake(self._cellRatio, self._cellRatio);
-        cell = [[CKCalendarCell alloc] initWithSize:size];
+    if (!cell)
+    {
+        cell = [[CKCalendarCell alloc] init];
         cell.translatesAutoresizingMaskIntoConstraints = NO;
         NSLayoutConstraint *ratio = [NSLayoutConstraint constraintWithItem:cell
                                                                  attribute:NSLayoutAttributeHeight

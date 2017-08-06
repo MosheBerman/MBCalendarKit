@@ -51,8 +51,6 @@
 @property (nonatomic, strong) UIColor *cellBorderColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *selectedCellBorderColor UI_APPEARANCE_SELECTOR;
 
-- (id)initWithSize:(CGSize)size;
-
 -(void)prepareForReuse;
 
 - (void)setSelected;    //  Select a given cell

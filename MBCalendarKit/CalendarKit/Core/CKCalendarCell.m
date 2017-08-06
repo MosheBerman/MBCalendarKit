@@ -11,9 +11,7 @@
 
 #import "UIView+Border.h"
 
-@interface CKCalendarCell (){
-    CGSize _size;
-}
+@interface CKCalendarCell ()
 
 @property (nonatomic, strong) UILabel *label;
 
@@ -60,15 +58,6 @@
         _dot = [UIView new];
         [_dot setHidden:YES];
         _showDot = NO;
-    }
-    return self;
-}
-
-- (id)initWithSize:(CGSize)size
-{
-    self = [self init];
-    if (self) {
-        _size = size;
     }
     return self;
 }
