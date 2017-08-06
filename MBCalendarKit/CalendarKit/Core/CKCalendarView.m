@@ -689,7 +689,7 @@
             
             if(row == 0)
             {
-                cell.topConstraint.constant = -yOffset;
+                cell.topConstraint.constant = yOffset;
             }
             
             cell.leadingConstraint = [NSLayoutConstraint constraintWithItem:cell
@@ -779,7 +779,7 @@
             return;
         }
         
-        disappearingCell.topConstraint.constant = yOffset;
+        disappearingCell.topConstraint.constant = -yOffset;
         numberOfAnimatedCells++;
     }
 }
