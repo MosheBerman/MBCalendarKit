@@ -304,6 +304,9 @@
     [self _layoutCellsAnimated:animated];
 }
 
+// TODO: Try basing this off of wrapper height,
+// and manipulate wrapper height instead of own
+// constraint.
 - (CGSize)intrinsicContentSize
 {
     CGFloat height = [self _heightForDisplayMode:self.displayMode];
