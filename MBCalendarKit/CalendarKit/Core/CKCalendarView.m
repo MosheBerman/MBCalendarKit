@@ -536,11 +536,6 @@
 // MARK: - Lay Out Cells
 
 
-- (void)_layoutCells
-{
-    [self _layoutCellsAnimated:NO];
-}
-
 - (void)_layoutCellsAnimated:(BOOL)animated
 {
     if ([self isAnimating]) {
@@ -549,7 +544,13 @@
     
     [self setIsAnimating:YES];
     
-    NSMutableArray <CKCalendarCell *> *cellsToRemoveAfterAnimation = [[self usedCells] mutableCopy];
+    //  Count the rows and columns that we'll need
+    NSUInteger rowCount = [self _rowCountForDisplayMode:[self displayMode]];
+    NSUInteger columnCount = [self _columnCountForDisplayMode:[self displayMode]];
+    
+    
+    /* Do some animation setup. */
+    NSMutableArray <CKCalendarCell *> *cellsToRemoveAfterAnimation = self.usedCells.mutableCopy;
     NSMutableArray <CKCalendarCell *> *cellsBeingAnimatedIntoView = [NSMutableArray new];
     
     /* Calculate the pre-animation offset */
@@ -577,21 +578,26 @@
         yOffset = 0;
     }
     
-    //  Count the rows and columns that we'll need
-    NSUInteger rowCount = [self _rowCountForDisplayMode:[self displayMode]];
-    NSUInteger columnCount = [self _columnCountForDisplayMode:[self displayMode]];
-    
     //  Cache the start date & header offset
     NSDate *workingDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
     
     //  A working index...
     NSUInteger cellIndex = 0;
     
+    // Pinning cells instead of manually positioning.
+    UIView *verticalPinningView = self.headerView;
+    UIView *horizontalPinningView = self.wrapper;
+    
+    NSLayoutAttribute horizontalPinningAttribute = NSLayoutAttributeLeading;
+    
     for (NSUInteger row = 0; row < rowCount; row++) {
+        
+        horizontalPinningAttribute = NSLayoutAttributeLeading;
+        horizontalPinningView = self.wrapper;
+        
         for (NSUInteger column = 0; column < columnCount; column++) {
             
             /* STEP 1: create the cell */
-            
             CKCalendarCell *cell = [self _dequeueCell];
             
             /* STEP 2:  We need to know some information about the cells - namely, if they're in
@@ -663,27 +669,37 @@
             
             /* STEP 9: Position the cell. */
             
-            if(!cell.topConstraint)
+            if (cell.topConstraint)
             {
-                cell.topConstraint = [NSLayoutConstraint constraintWithItem:cell
+                [cell removeConstraint:cell.topConstraint];
+            }
+            
+            if (cell.leadingConstraint)
+            {
+                [cell removeConstraint:cell.leadingConstraint];
+            }
+            
+            cell.topConstraint = [NSLayoutConstraint constraintWithItem:cell
                                                                   attribute:NSLayoutAttributeTop
                                                                   relatedBy:NSLayoutRelationEqual
-                                                                     toItem:self.headerView
+                                                                     toItem:verticalPinningView
                                                                   attribute:NSLayoutAttributeBottom
                                                                  multiplier:1.0
                                                                    constant:0.0];
+            
+            if(row == 0)
+            {
+                cell.topConstraint.constant = -yOffset;
             }
             
-            if (!cell.leadingConstraint)
-            {
-                cell.leadingConstraint = [NSLayoutConstraint constraintWithItem:cell
+            cell.leadingConstraint = [NSLayoutConstraint constraintWithItem:cell
                                                                       attribute:NSLayoutAttributeLeading
                                                                       relatedBy:NSLayoutRelationEqual
-                                                                         toItem:self.wrapper
-                                                                      attribute:NSLayoutAttributeLeading
+                                                                         toItem:horizontalPinningView
+                                                                      attribute:horizontalPinningAttribute
                                                                      multiplier:1.0
                                                                        constant:0.0];
-            }
+            
             
             
             NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:cell
@@ -694,25 +710,19 @@
                                                                     multiplier:1.0/columnCount
                                                                       constant:0.0];
             
+            [self.wrapper addConstraints:@[width, cell.leadingConstraint, cell.topConstraint]];
             
-            cell.topConstraint.constant = yOffset + (row * self._cellRatio);
-            cell.leadingConstraint.constant = (1.0/columnCount * self.bounds.size.width) * column;
+            /* STEP 10: Update our pinning views and attributes for the following cell. */
             
-            if (![self.wrapper.constraints containsObject:cell.topConstraint])
+            horizontalPinningView = cell;
+            horizontalPinningAttribute = NSLayoutAttributeTrailing;
+            
+            if (column == columnCount - 1)
             {
-                [self.wrapper addConstraint:cell.topConstraint];
+                verticalPinningView = cell;
             }
             
-            if(![self.wrapper.constraints containsObject:cell.leadingConstraint])
-            {
-                [self.wrapper addConstraint:cell.leadingConstraint];
-            }
-            
-            [self.wrapper addConstraints:@[width]];
-            
-            [self layoutIfNeeded];
-            
-            /* STEP 9: Move to the next date before we continue iterating. */
+            /* STEP 11: Move to the next date before we continue iterating. */
             workingDate = [[self calendar] dateByAddingDays:1 toDate:workingDate];
             cellIndex++;
         }
@@ -722,13 +732,14 @@
     
     /* Perform the animation */
     
-    if (animated) {
+    if (animated)
+    {
+        [self.wrapper layoutIfNeeded];
         [UIView
          animateWithDuration:0.4
          animations:^{
-             
              [self _moveCellsIntoView:cellsBeingAnimatedIntoView andCellsOutOfView:cellsToRemoveAfterAnimation usingOffset:yOffset];
-             
+             [self.wrapper layoutIfNeeded];
          }
          completion:^(BOOL finished) {
              
@@ -740,6 +751,7 @@
     else
     {
         [self _moveCellsIntoView:cellsBeingAnimatedIntoView andCellsOutOfView:cellsToRemoveAfterAnimation usingOffset:yOffset];
+        [self layoutIfNeeded];
         [self _cleanupCells:cellsToRemoveAfterAnimation];
         [cellsBeingAnimatedIntoView removeAllObjects];
         [self setIsAnimating:NO];
@@ -752,15 +764,24 @@
 
 - (void)_moveCellsIntoView:(NSMutableArray <CKCalendarCell *> *)cellsBeingAnimatedIntoView andCellsOutOfView:(NSMutableArray <CKCalendarCell *> *)cellsToRemoveAfterAnimation usingOffset:(CGFloat)yOffset
 {
-    for (CKCalendarCell *cell in cellsBeingAnimatedIntoView) {
-        cell.topConstraint.constant = cell.topConstraint.constant - yOffset;
+    for (CKCalendarCell *appearingCell in cellsBeingAnimatedIntoView)
+    {
+        appearingCell.topConstraint.constant = 0.0;
     }
     
-    for (CKCalendarCell *cell in cellsToRemoveAfterAnimation) {
-        cell.topConstraint.constant = cell.topConstraint.constant - yOffset;
-    }
+    // Only animate the top row - the rest will follow.
+    NSInteger numberOfAnimatedCells = 0;
     
-    [self layoutIfNeeded];
+    for (CKCalendarCell *disappearingCell in cellsToRemoveAfterAnimation)
+    {
+        if(numberOfAnimatedCells >= [self _columnCountForDisplayMode:self.displayMode])
+        {
+            return;
+        }
+        
+        disappearingCell.topConstraint.constant = yOffset;
+        numberOfAnimatedCells++;
+    }
 }
 
 - (void)_cleanupCells:(NSMutableArray <CKCalendarCell *> *)cellsToCleanup
