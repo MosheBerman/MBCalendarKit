@@ -211,17 +211,6 @@
     [super removeFromSuperview];
 }
 
-- (void)prepareForInterfaceBuilder
-{
-    [super prepareForInterfaceBuilder];
-    
-    [self setNeedsUpdateConstraints];
-    
-    [self _installTable];
-    [self.table reloadData];
-    
-}
-
 // MARK: - Size
 
 - (CGFloat)_heightForDisplayMode:(CKCalendarDisplayMode)displayMode
