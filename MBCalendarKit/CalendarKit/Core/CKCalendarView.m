@@ -198,11 +198,6 @@
     [self _installTable];
 }
 
-- (void)drawRect:(CGRect)rect
-{
-    [super drawRect:rect];
-}
-
 -(void)removeFromSuperview
 {
     [self.superview removeConstraints:self.table.constraints];
