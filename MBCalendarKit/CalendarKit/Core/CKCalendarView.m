@@ -134,6 +134,18 @@
     return self;
 }
 
+- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder
+{
+    self = [super awakeAfterUsingCoder:aDecoder];
+    
+    if(self)
+    {
+        [self commonInitializer];
+    }
+    
+    return self;
+}
+
 - (void)awakeFromNib
 {
     [super awakeFromNib];
@@ -173,7 +185,7 @@
      *  Reload the calendar view.
      */
     
-    [self updateConstraintsAnimated:animated];
+    [self _layoutCellsAnimated:animated];
     [self.headerView reloadData];
     [self.table reloadData];
 }
@@ -218,24 +230,11 @@
 - (CGFloat)_heightForDisplayMode:(CKCalendarDisplayMode)displayMode
 {
     CGFloat headerHeight = self.headerView.intrinsicContentSize.height;
+    CGFloat columnCount = [self _columnCountForDisplayMode:self.displayMode];
+    CGFloat rowCount = [self _rowCountForDisplayMode:self.displayMode];
+    CGFloat cellSideLength = columnCount > 0 ? CGRectGetWidth(self.superview.bounds)/columnCount : 0.0;
     
-    CGFloat height = headerHeight; /* CKCalendarViewModeDay */
-    
-    CGFloat daysPerWeek = [self _columnCountForDisplayMode:self.displayMode];
-    CGFloat weeksInCurrentMonth = [self _rowCountForDisplayMode:self.displayMode];
-    CGFloat cellSideLength = CGRectGetWidth(self.superview.bounds)/daysPerWeek;
-    
-    if (displayMode == CKCalendarViewModeWeek)
-    {
-        if(daysPerWeek > 0)
-        {
-            height = headerHeight + cellSideLength;
-        }
-    }
-    else if (displayMode == CKCalendarViewModeMonth)
-    {
-        height = headerHeight + (cellSideLength * weeksInCurrentMonth);
-    }
+    CGFloat height = headerHeight + (cellSideLength * rowCount);
     
     return height;
 }
@@ -252,13 +251,8 @@
 
 - (void)updateConstraints
 {
-    [self updateConstraintsAnimated:NO];
+    [self _layoutCellsAnimated:NO];
     [super updateConstraints];
-}
-
-- (void)updateConstraintsAnimated:(BOOL)animated
-{
-    [self _layoutCellsAnimated:animated];
 }
 
 // TODO: Try basing this off of wrapper height,
@@ -771,8 +765,7 @@
     [_calendar setLocale:_locale];
     [_calendar setFirstWeekday:_firstWeekDay];
     
-    [self updateConstraintsAnimated:animated];
-    [self.headerView reloadData];
+    [self reloadAnimated:animated];
 }
 
 - (void)setLocale:(NSLocale *)locale
@@ -789,8 +782,7 @@
     _locale = locale;
     [[self calendar] setLocale:locale];
     
-    [self updateConstraintsAnimated:animated];
-    [self.headerView reloadData];
+    [self reloadAnimated:animated];
 }
 
 - (void)setTimeZone:(NSTimeZone *)timeZone
@@ -806,8 +798,7 @@
     
     [[self calendar] setTimeZone:timeZone];
     
-    [self updateConstraintsAnimated:animated];
-    [self.headerView reloadData];
+    [self reloadAnimated:animated];
 }
 
 - (void)setDisplayMode:(CKCalendarDisplayMode)displayMode
@@ -824,8 +815,7 @@
     NSInteger newIndex = [[self calendar] daysFromDate:[self _firstVisibleDateForDisplayMode:displayMode] toDate:[self date]];
     [self setSelectedIndex:newIndex];
     
-    [self updateConstraintsAnimated:animated];
-    [self.headerView reloadData];
+    [self reloadAnimated:animated];
 }
 
 - (void)setDate:(NSDate *)date
@@ -877,8 +867,7 @@
     NSUInteger index = [[self calendar] daysFromDate:newFirstVisible toDate:date];
     [self setSelectedIndex:index];
     
-    [self updateConstraintsAnimated:animated];
-    [self.headerView reloadData];
+    [self reloadAnimated:animated];
 }
 
 
