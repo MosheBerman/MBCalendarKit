@@ -440,29 +440,30 @@
     if(![self.wrapper isDescendantOfView:self])
     {
         [self addSubview:self.wrapper];
+//        self.wrapper.backgroundColor = UIColor.blueColor;
         self.wrapper.translatesAutoresizingMaskIntoConstraints = NO;
         
-        NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.wrapper
-                                                                   attribute:NSLayoutAttributeCenterX
+        NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.wrapper
+                                                                   attribute:NSLayoutAttributeTrailing
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:self
-                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   attribute:NSLayoutAttributeTrailing
                                                                   multiplier:1.0
                                                                     constant:0.0];
         
-        NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.wrapper
-                                                                   attribute:NSLayoutAttributeCenterY
+        NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.wrapper
+                                                                   attribute:NSLayoutAttributeTop
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:self
-                                                                   attribute:NSLayoutAttributeCenterY
+                                                                   attribute:NSLayoutAttributeTop
                                                                   multiplier:1.0
                                                                     constant:0.0];
         
-        NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self.wrapper
-                                                                  attribute:NSLayoutAttributeHeight
+        NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.wrapper
+                                                                  attribute:NSLayoutAttributeBottom
                                                                   relatedBy:NSLayoutRelationEqual
                                                                      toItem:self
-                                                                  attribute:NSLayoutAttributeHeight
+                                                                  attribute:NSLayoutAttributeBottom
                                                                  multiplier:1.0
                                                                    constant:0.0];
         
@@ -475,7 +476,7 @@
                                                                   constant:0.0];
         
         
-        [self addConstraints:@[centerX, centerY, height, leading]];
+        [self addConstraints:@[trailing, top, bottom, leading]];
     }
 }
 
