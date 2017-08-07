@@ -2,9 +2,9 @@
 
 ## 5.0.0
 - Adopts autolayout.
-- Integrates as a dynamic framework.
-- CKCalendarView renders as an IBDesignable.
-- Supports localization, including right-to-left languages.
+- Integrates into your project as a dynamic framework.
+- `CKCalendarView` renders in Interface Builder as an IBDesignable.
+- Supports localization, including flipping the layout in right-to-left environments.
 - Add a changelog.
 
 ## 4.0.1
