@@ -369,6 +369,7 @@
 {
     [self _updateMonthLabelText];
     [self _updateMonthLabelHighlighting];
+    [self _adjustMonthLabelForColumnTitles];
 }
 
 /**
