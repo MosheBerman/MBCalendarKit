@@ -360,20 +360,20 @@
         self.wrapper.translatesAutoresizingMaskIntoConstraints = NO;
         
         NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.wrapper
-                                                                   attribute:NSLayoutAttributeTrailing
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:self
-                                                                   attribute:NSLayoutAttributeTrailing
-                                                                  multiplier:1.0
-                                                                    constant:0.0];
+                                                                    attribute:NSLayoutAttributeTrailing
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:self
+                                                                    attribute:NSLayoutAttributeTrailing
+                                                                   multiplier:1.0
+                                                                     constant:0.0];
         
         NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.wrapper
-                                                                   attribute:NSLayoutAttributeTop
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:self
-                                                                   attribute:NSLayoutAttributeTop
-                                                                  multiplier:1.0
-                                                                    constant:0.0];
+                                                               attribute:NSLayoutAttributeTop
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self
+                                                               attribute:NSLayoutAttributeTop
+                                                              multiplier:1.0
+                                                                constant:0.0];
         
         NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.wrapper
                                                                   attribute:NSLayoutAttributeBottom
@@ -384,12 +384,12 @@
                                                                    constant:0.0];
         
         NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.wrapper
-                                                                 attribute:NSLayoutAttributeLeading
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self
-                                                                 attribute:NSLayoutAttributeLeading
-                                                                multiplier:1.0
-                                                                  constant:0.0];
+                                                                   attribute:NSLayoutAttributeLeading
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self
+                                                                   attribute:NSLayoutAttributeLeading
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
         
         
         [self addConstraints:@[trailing, top, bottom, leading]];
@@ -584,12 +584,12 @@
             }
             
             cell.topConstraint = [NSLayoutConstraint constraintWithItem:cell
-                                                                  attribute:NSLayoutAttributeTop
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:verticalPinningView
-                                                                  attribute:NSLayoutAttributeBottom
-                                                                 multiplier:1.0
-                                                                   constant:0.0];
+                                                              attribute:NSLayoutAttributeTop
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:verticalPinningView
+                                                              attribute:NSLayoutAttributeBottom
+                                                             multiplier:1.0
+                                                               constant:0.0];
             
             if(row == 0)
             {
@@ -597,12 +597,12 @@
             }
             
             cell.leadingConstraint = [NSLayoutConstraint constraintWithItem:cell
-                                                                      attribute:NSLayoutAttributeLeading
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:horizontalPinningView
-                                                                      attribute:horizontalPinningAttribute
-                                                                     multiplier:1.0
-                                                                       constant:0.0];
+                                                                  attribute:NSLayoutAttributeLeading
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:horizontalPinningView
+                                                                  attribute:horizontalPinningAttribute
+                                                                 multiplier:1.0
+                                                                   constant:0.0];
             
             
             
@@ -643,21 +643,21 @@
         duration = 0.0;
     }
     
-
-        [self.superview layoutIfNeeded];
-        [UIView
-         animateWithDuration:duration
-         animations:^{
-             [self _moveCellsIntoView:cellsBeingAnimatedIntoView andCellsOutOfView:cellsToRemoveAfterAnimation usingOffset:yOffset];
-             [self invalidateIntrinsicContentSize];
-             [self.superview layoutIfNeeded];
-         }
-         completion:^(BOOL finished) {
-             
-             [self _cleanupCells:cellsToRemoveAfterAnimation];
-             [cellsBeingAnimatedIntoView removeAllObjects];
-             [self setIsAnimating:NO];
-         }];
+    
+    [self.superview layoutIfNeeded];
+    [UIView
+     animateWithDuration:duration
+     animations:^{
+         [self _moveCellsIntoView:cellsBeingAnimatedIntoView andCellsOutOfView:cellsToRemoveAfterAnimation usingOffset:yOffset];
+         [self invalidateIntrinsicContentSize];
+         [self.superview layoutIfNeeded];
+     }
+     completion:^(BOOL finished) {
+         
+         [self _cleanupCells:cellsToRemoveAfterAnimation];
+         [cellsBeingAnimatedIntoView removeAllObjects];
+         [self setIsAnimating:NO];
+     }];
     
     
     
