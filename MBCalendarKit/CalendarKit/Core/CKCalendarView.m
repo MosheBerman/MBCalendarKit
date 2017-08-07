@@ -138,7 +138,7 @@
 {
     [super awakeFromNib];
     
-    [self reloadAnimated:YES];
+    [self reloadAnimated:NO];
 }
 
 // MARK: - Reload
@@ -206,80 +206,38 @@
     [super removeFromSuperview];
 }
 
+- (void)prepareForInterfaceBuilder
+{
+    [super prepareForInterfaceBuilder];
+    
+    [self reloadAnimated:NO];
+}
+
 // MARK: - Size
 
 - (CGFloat)_heightForDisplayMode:(CKCalendarDisplayMode)displayMode
 {
-    CGFloat height = CGRectGetHeight(self.headerView.bounds); /* CKCalendarViewModeDay */
+    CGFloat headerHeight = self.headerView.intrinsicContentSize.height;
+    
+    CGFloat height = headerHeight; /* CKCalendarViewModeDay */
+    
+    CGFloat daysPerWeek = [self _columnCountForDisplayMode:self.displayMode];
+    CGFloat weeksInCurrentMonth = [self _rowCountForDisplayMode:self.displayMode];
+    CGFloat cellSideLength = CGRectGetWidth(self.superview.bounds)/daysPerWeek;
     
     if (displayMode == CKCalendarViewModeWeek)
     {
-        CGFloat daysPerWeek = [self.calendar daysPerWeek];
         if(daysPerWeek > 0)
         {
-            height = CGRectGetHeight(self.headerView.bounds) + CGRectGetWidth(self.superview.bounds)/daysPerWeek;
+            height = headerHeight + cellSideLength;
         }
     }
     else if (displayMode == CKCalendarViewModeMonth)
     {
-        height = CGRectGetHeight(self.headerView.bounds) + self.bounds.size.width;
+        height = headerHeight + (cellSideLength * weeksInCurrentMonth);
     }
     
     return height;
-}
-
-- (CGRect)_rectForDisplayMode:(CKCalendarDisplayMode)displayMode
-{
-    CGRect rect = self.superview.bounds;
-    
-    if (!self.superview)
-    {
-        rect = CGRectZero;
-    }
-    
-    if(displayMode == CKCalendarViewModeDay)
-    {
-        //  Hide the cells entirely and only show the events table
-        rect = CGRectMake(0, 0, rect.size.width, self.headerView.bounds.size.height);
-    }
-    
-    //  Show one row of days for week mode
-    if (displayMode == CKCalendarViewModeWeek) {
-        rect = [self _rectForCellsForDisplayMode:displayMode];
-        rect.size.height += [[self headerView] frame].size.height;
-        rect.origin.y -= [[self headerView] frame].size.height;
-    }
-    
-    //  Show enough for all the visible weeks
-    else if(displayMode == CKCalendarViewModeMonth)
-    {
-        rect = [self _rectForCellsForDisplayMode:displayMode];
-        rect.size.height += [[self headerView] frame].size.height;
-        rect.origin.y -= [[self headerView] frame].size.height;
-    }
-    
-    return rect;
-}
-
-- (CGRect)_rectForCellsForDisplayMode:(CKCalendarDisplayMode)displayMode
-{
-    CGFloat cellRatio = [self _cellRatio];
-    
-    if (displayMode == CKCalendarViewModeDay) {
-        return CGRectZero;
-    }
-    else if(displayMode == CKCalendarViewModeWeek)
-    {
-        NSUInteger daysPerWeek = [[self calendar] daysPerWeekUsingReferenceDate:[self date]];
-        return CGRectMake(0, cellRatio, (CGFloat)daysPerWeek*cellRatio, self._cellRatio);
-    }
-    else if(displayMode == CKCalendarViewModeMonth)
-    {
-        CGFloat width = (CGFloat)[self _columnCountForDisplayMode:CKCalendarViewModeMonth] * cellRatio;
-        CGFloat height = (CGFloat)[self _rowCountForDisplayMode:CKCalendarViewModeMonth] * cellRatio;
-        return CGRectMake(0, [[self headerView] bounds].size.height, width, height);
-    }
-    return CGRectZero;
 }
 
 - (CGFloat)_cellRatio
@@ -300,7 +258,6 @@
 
 - (void)updateConstraintsAnimated:(BOOL)animated
 {
-    [self _updateDimensionsForModeAnimated:animated];
     [self _layoutCellsAnimated:animated];
 }
 
@@ -309,8 +266,16 @@
 // constraint.
 - (CGSize)intrinsicContentSize
 {
+    CGFloat width = UIViewNoIntrinsicMetric;
+    
+    if(self.superview)
+    {
+        width = CGRectGetWidth(self.superview.bounds);
+    }
+    
     CGFloat height = [self _heightForDisplayMode:self.displayMode];
-    return CGSizeMake(UIViewNoIntrinsicMetric, height);
+    
+    return CGSizeMake(width, height);
 }
 
 + (BOOL)requiresConstraintBasedLayout
@@ -338,48 +303,6 @@
     {
         return UILayoutPriorityRequired;
     }
-}
-
-// MARK: - Updating the Calendar's Height
-
-- (void)_updateDimensionsForModeAnimated:(BOOL)animated
-{
-    /*  Enforce view dimensions appropriate for given mode */
-    
-    if(!self.heightConstraint)
-    {
-        self.heightConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                             attribute:NSLayoutAttributeHeight
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:nil
-                                                             attribute:NSLayoutAttributeNotAnAttribute
-                                                            multiplier:1.0
-                                                              constant:0.0];
-    }
-    
-    if (![self.constraints containsObject:self.heightConstraint])
-    {
-        [self addConstraint:self.heightConstraint];
-    }
-    
-    NSTimeInterval duration = 0.3;
-    
-    if (!animated)
-    {
-        duration = 0.0;
-    }
-    
-    [UIView animateWithDuration:duration
-                     animations:^{
-                         CGFloat height =  [self _rectForDisplayMode:self.displayMode].size.height;
-                         if (isnan(height))
-                         {
-                             height = 0;
-                         }
-                         
-                         self.heightConstraint.constant = height;
-                         [self.superview layoutIfNeeded];
-                     }];
 }
 
 # pragma mark - Installing Internal Views
@@ -440,7 +363,6 @@
     if(![self.wrapper isDescendantOfView:self])
     {
         [self addSubview:self.wrapper];
-//        self.wrapper.backgroundColor = UIColor.blueColor;
         self.wrapper.translatesAutoresizingMaskIntoConstraints = NO;
         
         NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.wrapper
@@ -552,13 +474,13 @@
     
     // If the next month is about to be shown, we want to add the new cells at the bottom of the calendar
     if (isNextMonth) {
-        yOffset = [self _rectForCellsForDisplayMode:[self displayMode]].size.height - cellRatio;
+        yOffset = [self _heightForDisplayMode:[self displayMode]] - cellRatio;
     }
     
     //  If we're showing the previous month, add the cells at the top
     else if(isPreviousMonth)
     {
-        yOffset = -([self _rectForCellsForDisplayMode:[self displayMode]].size.height) + cellRatio;
+        yOffset = -([self _heightForDisplayMode:[self displayMode]]) + cellRatio;
     }
     
     else if ([[self calendar] date:[self previousDate] isSameDayAs:[self date]])
@@ -720,14 +642,21 @@
     
     /* Perform the animation */
     
-    if (animated)
+    NSTimeInterval duration = 0.4;
+    
+    if (!animated)
     {
-        [self.wrapper layoutIfNeeded];
+        duration = 0.0;
+    }
+    
+
+        [self.superview layoutIfNeeded];
         [UIView
-         animateWithDuration:0.4
+         animateWithDuration:duration
          animations:^{
              [self _moveCellsIntoView:cellsBeingAnimatedIntoView andCellsOutOfView:cellsToRemoveAfterAnimation usingOffset:yOffset];
-             [self.wrapper layoutIfNeeded];
+             [self invalidateIntrinsicContentSize];
+             [self.superview layoutIfNeeded];
          }
          completion:^(BOOL finished) {
              
@@ -735,15 +664,7 @@
              [cellsBeingAnimatedIntoView removeAllObjects];
              [self setIsAnimating:NO];
          }];
-    }
-    else
-    {
-        [self _moveCellsIntoView:cellsBeingAnimatedIntoView andCellsOutOfView:cellsToRemoveAfterAnimation usingOffset:yOffset];
-        [self layoutIfNeeded];
-        [self _cleanupCells:cellsToRemoveAfterAnimation];
-        [cellsBeingAnimatedIntoView removeAllObjects];
-        [self setIsAnimating:NO];
-    }
+    
     
     
 }
@@ -1273,7 +1194,14 @@
         return 0;
     }
     
-    return [[self calendar] daysPerWeekUsingReferenceDate:[self date]];
+    NSUInteger columnCount = [[self calendar] daysPerWeekUsingReferenceDate:[self date]];
+    
+    if (columnCount == 0)
+    {
+        columnCount = 7.0; // Disallow 0, because we divide by this return value in several places.
+    }
+    
+    return columnCount;
 }
 
 // MARK: - UITableViewDataSource
@@ -1530,7 +1458,7 @@
     bounds.origin.y += [self headerView].frame.size.height;
     bounds.size.height -= [self headerView].frame.size.height;
     
-    if(CGRectContainsPoint([self _rectForCellsForDisplayMode:_displayMode], point)){
+    if(CGRectContainsPoint(self.wrapper.bounds, point)){
         /* Highlight and select the appropriate cell */
         
         NSUInteger index = [self selectedIndex];
