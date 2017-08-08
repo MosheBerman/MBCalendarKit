@@ -200,9 +200,13 @@
     [[self dot] setHidden:!showDot];
 }
 
-#pragma mark - Recycling Behavior
+// MARK: - Cell Recycling
 
--(void)prepareForReuse
+/**
+ Called before the cell is dequeued by the calendar view.
+ Use this to reset colors and opacities to their default values.
+ */
+-(void)prepareForReuse;
 {
     //  Alpha, by default, is 1.0
     [[self label]setAlpha:1.0];
@@ -212,7 +216,7 @@
     [self applyColors];
 }
 
-#pragma mark - Label 
+// MARK: - Label
 
 - (void)configureLabel
 {
@@ -224,7 +228,7 @@
     [label setBackgroundColor:[UIColor clearColor]];
 }
 
-#pragma mark - Dot
+// MARK: - Dot
 
 - (void)configureDot
 {
@@ -234,7 +238,7 @@
     [dot.layer setCornerRadius:dotRadius/2];
 }
 
-#pragma mark - UI Coloring
+// MARK: - Coloring the Cell
 
 - (void)applyColors
 {    
@@ -304,11 +308,14 @@
     [[self dot] setAlpha:[[self label] alpha]];
 }
 
-#pragma mark - Selection State
+// MARK: - Setting the Cell's Selection State
 
-- (void)setSelected
+
+/**
+ Marks the cell as selected and invokes an update on the appearance of the cell..
+ */
+- (void)setSelected;
 {
-    
     CKCalendarMonthCellState state = [self state];
     
     if (state == CKCalendarMonthCellStateInactive) {
@@ -324,7 +331,10 @@
     }
 }
 
-- (void)setDeselected
+/**
+ Mark the cell as deselected and invokes an update on the appearance of the cell..
+ */
+- (void)setDeselected;
 {
     CKCalendarMonthCellState state = [self state];
     
@@ -341,7 +351,10 @@
     }
 }
 
-- (void)setOutOfRange
+/**
+ Mark the cell as out of range, when the calendar has a minimumDate or maximumDate set.
+ */
+- (void)setOutOfRange;
 {
     [self setState:CKCalendarMonthCellStateOutOfRange];
 }
