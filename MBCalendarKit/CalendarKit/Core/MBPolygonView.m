@@ -11,28 +11,37 @@
 #import "CKCalendarHeaderColors.h"
 
 @interface MBPolygonView ()
-    @property NSInteger numberOfSides;
-    @property CGFloat scalingFactor;
-    @property CGFloat rotation;
-    @property (strong) UIImageView *imageView;
+@property NSInteger numberOfSides;
+@property CGFloat scalingFactor;
+@property CGFloat rotation;
+@property (strong) UIImageView *imageView;
 @end
 
 @implementation MBPolygonView
 
-//
-//  Convenience method to convert between Degrees and Radians
-//
-
+/**
+ A convenience method to convert between degrees and radians
+ 
+ @param deg The numer of degrees.
+ @return A corresponding value, in radians.
+ */
 float degToRad(float deg)
 {
     return deg*(M_PI/180);
 }
 
-//
-//  Designated initializer
-//
+// MARK: - Initializing a Polygon View
 
-- (id)initWithFrame:(CGRect)frame numberOfSides:(NSInteger)numberOfSides andRotation:(CGFloat)rotation andScale:(CGFloat) scale
+/**
+ Initialize a Frame
+ 
+ @param frame The frame of the polygon view. In an autolayout world, this property is essentially ignored.
+ @param numberOfSides The number of sides to draw the polygon with.
+ @param rotation A measure, in degrees, specifying how much to rotate the polygon.
+ @param scale An arbitrary scale used to grow or shrink the polygon.
+ @return A polygon view, ready for drawing.
+ */
+- (id)initWithFrame:(CGRect)frame numberOfSides:(NSInteger)numberOfSides andRotation:(CGFloat)rotation andScale:(CGFloat) scale;
 {
     self = [super initWithFrame:frame];
     
@@ -44,25 +53,45 @@ float degToRad(float deg)
         _fillColor = kCalendarColorHeaderMonth;
         [self setOpaque:NO];
         _imageView = [[UIImageView alloc] init];
+        [self configureGesture];
     }
     
     return self;
 }
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    
-    //
-    //  Create a poly image
-    //
-    
-    UIImage *i = [self polyImage];
-    
-    self.imageView.image = i;
-    [self.imageView sizeToFit];
-    
+    self = [self initWithFrame:frame numberOfSides:3 andRotation:0.0 andScale:1.0];
+    if (self)
+    {
+        
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [self initWithFrame:CGRectZero numberOfSides:3 andRotation:0.0 andScale:1.0];
+    if (self) {
+        
+    }
+    return self;
+}
+
+// MARK: - Layout
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+}
+
++ (BOOL)requiresConstraintBasedLayout
+{
+    return YES;
+}
+
+- (void)updateConstraints
+{
     if (![self.subviews containsObject:self.imageView])
     {
         [self addSubview:self.imageView];
@@ -84,22 +113,39 @@ float degToRad(float deg)
                                                                     constant:0.0];
         
         [self addConstraints:@[centerX, centerY]];
-        
-        //
-        //  Set up a long press to remove the poly from the screen
-        //
-        
-        UILongPressGestureRecognizer *removeGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cleanUp)];
-        removeGesture.minimumPressDuration = 1.0;
-        [self addGestureRecognizer:removeGesture];
     }
+    
+    [super updateConstraints];
 }
 
-//
-//  Draw a a polygon into a UIImage and returns the image
-//
+// MARK: - Drawing
 
-- (UIImage *)polyImage
+/**
+ Renders the rectangle.
+ 
+ @param rect The rectangle that needs drawing.
+ */
+- (void)drawRect:(CGRect)rect
+{
+    
+    //
+    //  Create a poly image
+    //
+    
+    UIImage *i = [self polyImage];
+    
+    self.imageView.image = i;
+    [self.imageView sizeToFit];
+}
+
+// MARK: - Rendering a Polygon
+
+/**
+ Draws a polygon in a graphics context and returns it as a UIImage.
+ 
+ @return An image containing the polygon.
+ */
+- (UIImage *)polyImage;
 {
     // Drawing code
     
@@ -110,7 +156,7 @@ float degToRad(float deg)
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //  Clear the background
-     CGContextClearRect(context, self.frame);
+    CGContextClearRect(context, self.frame);
     
     //Save the state of the context
     CGContextSaveGState(context);
@@ -125,7 +171,7 @@ float degToRad(float deg)
         CGContextTranslateCTM(context, self.bounds.size.width, 0.0);
         CGContextScaleCTM(context, -1.0, 1.0);
     }
-
+    
     //Set the stroke to white
     [self.fillColor set];
     
@@ -136,7 +182,7 @@ float degToRad(float deg)
     CGFloat angle = (kDegreesInPoly/self.numberOfSides);
     
     //  Calculate the starting point
-    CGPoint point = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    CGPoint point = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
     
     //  We draw an extra line to connect the start and end points
     for(int i=0; i<=self.numberOfSides; i++){
@@ -156,8 +202,8 @@ float degToRad(float deg)
         point.y *= self.scalingFactor;
         
         //  Offset to the center
-        point.x += self.frame.size.width/2;
-        point.y +=self.frame.size.height/2;
+        point.x += self.bounds.size.width/2;
+        point.y +=self.bounds.size.height/2;
         
         //  Set the starting point if we're working
         //  the inital point. Core Graphics needs this.
@@ -175,11 +221,8 @@ float degToRad(float deg)
     //Restore the state
     CGContextRestoreGState(context);
     
-    
     //Grab an image from the context
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-
-    
     
     //clean up the context
     UIGraphicsEndImageContext();
@@ -188,7 +231,20 @@ float degToRad(float deg)
     return image;
 }
 
-- (void) cleanUp{
+// MARK: - Cleaning Up
+
+- (void)configureGesture
+{
+    // Set up a gesture to clear the polygon.
+    UILongPressGestureRecognizer *removeGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cleanUp)];
+    removeGesture.minimumPressDuration = 1.0;
+    [self addGestureRecognizer:removeGesture];
+}
+
+// MARK: - Cleaning Up In Between Rendering Passes
+
+- (void) cleanUp
+{
     self.isDeleted = YES;
 }
 @end
