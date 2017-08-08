@@ -73,22 +73,22 @@
 
 #pragma mark - Layout
 
+- (void)layoutSubviews
+{
+    [self _installLabel];
+    [self _installDot];
+    
+    [super layoutSubviews];
+}
+
 + (BOOL)requiresConstraintBasedLayout
 {
     return YES;
 }
 
-- (void)updateConstraints
-{
-    [self _installLabel];
-    [self _installDot];
-    
-    [super updateConstraints];
-}
-
 - (void)_installLabel
 {
-    if(![self.subviews containsObject:self.label])
+    if(![self.label isDescendantOfView:self])
     {
         [self addSubview:self.label];
         self.label.translatesAutoresizingMaskIntoConstraints = NO;
@@ -131,7 +131,7 @@
 
 - (void)_installDot
 {
-    if(![self.subviews containsObject:self.dot])
+    if(![self.dot isDescendantOfView:self])
     {
         [self addSubview:self.dot];
         self.dot.translatesAutoresizingMaskIntoConstraints = NO;
