@@ -184,15 +184,9 @@
 
 // MARK: - View Lifecycle
 
-- (void)willMoveToSuperview:(UIView *)newSuperview
-{
-    [super willMoveToSuperview:newSuperview];
-}
-
 - (void)didMoveToSuperview
 {
     [super didMoveToSuperview];
-    
     [self _installTable];
     [self reloadAnimated:NO];
 }
@@ -270,8 +264,8 @@
 - (CGFloat)_heightForDisplayMode:(CKCalendarDisplayMode)displayMode
 {
     CGFloat headerHeight = self.headerView.intrinsicContentSize.height;
-    CGFloat columnCount = [self _columnCountForDisplayMode:self.displayMode];
-    CGFloat rowCount = [self _rowCountForDisplayMode:self.displayMode];
+    CGFloat columnCount = (CGFloat)[self _columnCountForDisplayMode:self.displayMode];
+    CGFloat rowCount = (CGFloat)[self _rowCountForDisplayMode:self.displayMode];
     CGFloat cellSideLength = columnCount > 0 ? CGRectGetWidth(self.superview.bounds)/columnCount : 0.0;
     
     CGFloat height = headerHeight + (cellSideLength * rowCount);
@@ -283,7 +277,7 @@
 {
     NSCalendar *calendar = self.calendar;
     
-    CGFloat numberOfDaysPerWeek = [calendar daysPerWeek];
+    CGFloat numberOfDaysPerWeek = (CGFloat)[calendar daysPerWeek];
     CGFloat width = CGRectGetWidth(self.bounds);
     
     return width/numberOfDaysPerWeek;
