@@ -159,13 +159,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9tH-47-eKk" customClass="CKCalendarView">
-                                <rect key="frame" x="0.0" y="64" width="375" height="364"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="312"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="9tH-47-eKk" firstAttribute="width" secondItem="rBI-7O-sVI" secondAttribute="width" id="91J-AZ-3XA"/>
                             <constraint firstItem="9tH-47-eKk" firstAttribute="top" secondItem="IW5-yO-1gm" secondAttribute="bottom" id="G85-0N-url"/>
                             <constraint firstItem="9tH-47-eKk" firstAttribute="centerX" secondItem="rBI-7O-sVI" secondAttribute="centerX" id="gLz-L8-4i2"/>
                         </constraints>
@@ -173,7 +172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UuN-qS-PTL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1222" y="734"/>
+            <point key="canvasLocation" x="1221.5999999999999" y="732.68365817091455"/>
         </scene>
     </scenes>
 </document>
