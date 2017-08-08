@@ -10,6 +10,7 @@
 		46363C271F392295002BA215 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 46363C241F392295002BA215 /* CHANGELOG.md */; };
 		46363C281F392295002BA215 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 46363C251F392295002BA215 /* LICENSE.md */; };
 		46363C291F392295002BA215 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 46363C261F392295002BA215 /* README.md */; };
+		46363C2B1F393D61002BA215 /* DemoRootTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46363C2A1F393D61002BA215 /* DemoRootTableViewController.swift */; };
 		4643199817E343BE0001B5CB /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 4643198F17E343BE0001B5CB /* Icon-72.png */; };
 		4643199917E343BE0001B5CB /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4643199017E343BE0001B5CB /* Icon-72@2x.png */; };
 		4643199A17E343BE0001B5CB /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 4643199117E343BE0001B5CB /* Icon-Small-50.png */; };
@@ -118,6 +119,7 @@
 		46363C241F392295002BA215 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		46363C251F392295002BA215 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		46363C261F392295002BA215 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		46363C2A1F393D61002BA215 /* DemoRootTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoRootTableViewController.swift; path = MBCalendarKit/DemoRootTableViewController.swift; sourceTree = "<group>"; };
 		4643198F17E343BE0001B5CB /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Icons/Icon-72.png"; sourceTree = "<group>"; };
 		4643199017E343BE0001B5CB /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "Icons/Icon-72@2x.png"; sourceTree = "<group>"; };
 		4643199117E343BE0001B5CB /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Icons/Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 			children = (
 				464A86FE171F174D00E7AB19 /* CKAppDelegate.h */,
 				464A86FF171F174D00E7AB19 /* CKAppDelegate.m */,
+				46363C2A1F393D61002BA215 /* DemoRootTableViewController.swift */,
 				46895C98171F5AA60072DBCF /* CKDemoViewController.h */,
 				46895C99171F5AA60072DBCF /* CKDemoViewController.m */,
 				46A789E81A606CF00096E2BB /* SwiftDemoViewController.swift */,
@@ -696,6 +699,7 @@
 				46363C271F392295002BA215 /* CHANGELOG.md in Sources */,
 				464A8734171F174D00E7AB19 /* CKAppDelegate.m in Sources */,
 				464A8740171F174D00E7AB19 /* main.m in Sources */,
+				46363C2B1F393D61002BA215 /* DemoRootTableViewController.swift in Sources */,
 				46895C9A171F5AA60072DBCF /* CKDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

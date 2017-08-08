@@ -12,7 +12,7 @@
         <!--Demos-->
         <scene sceneID="wi7-Rg-VQM">
             <objects>
-                <tableViewController id="hUo-Qi-nY8" sceneMemberID="viewController">
+                <tableViewController id="hUo-Qi-nY8" customClass="DemoRootTableViewController" customModule="MBCalendarKit_Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="1eI-dw-Iha">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
