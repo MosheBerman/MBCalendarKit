@@ -10,6 +10,13 @@
 
 #import "CKCalendarMonthCellStates.h"
 
+
+/**
+ The `CKCalendarCell` class manages the display of a single date in the calendar.
+ It is responsible for handling its visual state, and its contents. Specifically,
+ the cell class configures the number representing a date, and the visibility of 
+ the event indicator dot.
+ */
 @interface CKCalendarCell : UIView
 
 // MARK: - Layout Constraints
