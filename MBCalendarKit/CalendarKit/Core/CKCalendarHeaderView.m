@@ -88,7 +88,7 @@
         @throw [NSException exceptionWithName:@"CKCalendarViewHeaderException" reason:@"Header can't be installed without a data source" userInfo:@{@"Header": self}];
     }
     
-    [self _installMonthLabel];
+    [self _installTitleLabel];
     [self _adjustMonthLabelForColumnTitles];
     [self _installBackwardAndForwardButtons];
     [self _installColumnTitleLabels];
@@ -105,7 +105,7 @@
 {
     [super drawRect:rect];
     
-    [self _updateMonthLabelDisplay];
+    [self _updateTitleLabelDisplay];
 }
 
 - (CGSize)intrinsicContentSize
@@ -121,7 +121,7 @@
  */
 - (void)reloadData;
 {
-    [self _updateMonthLabelDisplay];
+    [self _updateTitleLabelDisplay];
     [self _installColumnTitleLabels];
 }
 
@@ -312,7 +312,7 @@
 /**
  If the month label isn't in the view hierarchy, set it up.
  */
-- (void)_installMonthLabel
+- (void)_installTitleLabel
 {
     if(![self.subviews containsObject:self.titleLabel])
     {
@@ -350,7 +350,6 @@
                                                                   attribute:NSLayoutAttributeBottom
                                                                  multiplier:1.0 constant:0.0];
         
-        bottom.identifier = @"com.mosheberman.constraint-title-bottom";
         self.titleLabelBottomPaddingConstraint = bottom;
         
         [self addConstraints:@[centerX, leading, top, bottom]];
@@ -362,17 +361,17 @@
  Update contents and the highlighting 
  of the month label, as appropriate.
  */
-- (void)_updateMonthLabelDisplay
+- (void)_updateTitleLabelDisplay
 {
-    [self _updateMonthLabelText];
-    [self _updateMonthLabelHighlighting];
+    [self _updateTitleLabelText];
+    [self _updateTitleLabelHighlighting];
     [self _adjustMonthLabelForColumnTitles];
 }
 
 /**
  Update the text of the month label.
  */
-- (void)_updateMonthLabelText
+- (void)_updateTitleLabelText
 {
     NSString *title = [self.dataSource titleForHeader:self];
     self.titleLabel.text = title;
@@ -381,7 +380,7 @@
 /**
  Update the highlighting of the month label.
  */
-- (void)_updateMonthLabelHighlighting
+- (void)_updateTitleLabelHighlighting
 {
     if ([self shouldHighlightTitle])
     {
