@@ -19,7 +19,6 @@
 @interface CKCalendarHeaderView ()
 {
     NSUInteger _columnCount;
-    CGFloat _columnTitleHeight;
 }
 
 @property (nonatomic, strong) UILabel *monthTitle;
@@ -45,10 +44,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        _headerMonthTextFont = [UIFont boldSystemFontOfSize:22];
+        _headerMonthTextFont = [UIFont boldSystemFontOfSize:[UIFont preferredFontForTextStyle:UIFontTextStyleTitle1].pointSize];
         _headerMonthTextColor = kCalendarColorHeaderMonth;
         _headerMonthTextShadow = kCalendarColorHeaderMonthShadow;
-        _headerWeekdayTitleFont = [UIFont boldSystemFontOfSize:10];
+        _headerWeekdayTitleFont = [UIFont boldSystemFontOfSize:[UIFont preferredFontForTextStyle:UIFontTextStyleCaption1].pointSize];
         _headerWeekdayTitleColor = kCalendarColorHeaderWeekdayTitle;
         _headerWeekdayShadowColor = kCalendarColorHeaderWeekdayShadow;
         _headerGradient = kCalendarColorHeaderGradientDark;
@@ -64,8 +63,6 @@
         
         _columnTitles = [NSMutableArray new];
         _columnLabels = [NSMutableArray new];
-        
-        _columnTitleHeight = 10;
         
         _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
         [self addGestureRecognizer:_tapGesture];
