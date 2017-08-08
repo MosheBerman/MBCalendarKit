@@ -175,7 +175,7 @@
     /* Remove old labels */
     for (UILabel *label in self.columnLabels)
     {
-        [self removeConstraints:label.constraints];
+        [NSLayoutConstraint deactivateConstraints:label.constraints];
         [label removeFromSuperview];
     }
     
