@@ -26,27 +26,59 @@
     NSUInteger _firstWeekDay;
 }
 
+// MARK: - Cell Recycling
+
+/**
+ Cells that were enqueued after being cleared off of the screen.
+ */
 @property (nonatomic, strong) NSMutableArray <CKCalendarCell *> * spareCells;
+
+/**
+ Cells that are dequeued for display. Usually on the screen, but might not be if an animation is in progress.
+ */
 @property (nonatomic, strong) NSMutableArray <CKCalendarCell *> * usedCells;
 
-@property (nonatomic, strong) NSDateFormatter *formatter;
+// MARK: - Internal Views
 
+/**
+ The header view which shows the month and weekday names.
+ */
 @property (nonatomic, strong) CKCalendarHeaderView *headerView;
 
+
+/**
+ A wrapper that clips the cells and header so that cells animating in or out don't overflow the calendar view.
+ */
+@property (nonatomic, strong) CKCalendarAnimationWrapperView *wrapper;
+
+/**
+ A table view to show event details in.
+ */
 @property (nonatomic, strong) UITableView *table;
+
+// MARK: - Calendar State State
+
+/**
+ A cache for events that are being displayed.
+ */
 @property (nonatomic, strong) NSArray *events;
 
-//  The index of the highlighted cell
+/**
+ The index of the selected cell.
+ */
 @property (nonatomic, assign) NSUInteger selectedIndex;
 
-@property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
-@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
-@property (nonatomic, strong) CKCalendarAnimationWrapperView *wrapper;
+/**
+ The date that was last selected by the user, either by tapping on a cell or one of the arrows in the header.
+ */
 @property (nonatomic, strong) NSDate *previousDate;
-@property (nonatomic, assign) BOOL isAnimating;
 
-@property (nonatomic, strong) NSLayoutConstraint *heightConstraint;
+
+/**
+ Are the cells animating? Used to prevent animation races.
+ */
+@property (nonatomic, assign) BOOL isAnimating;
 
 @end
 
@@ -54,13 +86,64 @@
 
 // MARK: - Initializers
 
-// Designated Initializer
+/**
+ Initializes the calendar with a display mode.
 
--(void)commonInitializer {
+ @param CalendarDisplayMode How much content to display: a month, a week, or a day?
+ @return An instance of CKCalendarView.
+ */
+- (instancetype)initWithMode:(CKCalendarDisplayMode)CalendarDisplayMode
+{
+    self = [super initWithFrame:CGRectZero];
+    if (self) {
+        _displayMode = CalendarDisplayMode;
+        [self commonInitializer];
+    }
+    return self;
+}
+
+
+/**
+ Calls `initWithMode:` with a mode of CKCalendarViewModeMonth.
+
+ @param frame The frame. Doesn't matter because we drop this.
+ @return An instance of CKCalendarView.
+ */
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [self initWithMode:CKCalendarViewModeMonth];
+    if (self) {
+        
+    }
+    return self;
+}
+
+/**
+ Calls `initWithMode:` with a mode of CKCalendarViewModeMonth.
+ 
+ @param coder An NSCoder. Doesn't matter because we drop this.
+ @return An instance of CKCalendarView.
+ */
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [self initWithMode:CKCalendarViewModeMonth];
+    if (self) {
+        
+    }
+    return self;
+}
+
+// MARK: - Common Initializer
+
+/**
+ This is code that gets run from every initializer.
+ */
+- (void)commonInitializer
+{
     _locale = [NSLocale currentLocale];
     _calendar = [NSCalendar autoupdatingCurrentCalendar];
     [_calendar setLocale:_locale];
-    _timeZone = nil;
     _date = [NSDate date];
     
     NSDateComponents *components = [_calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:_date];
@@ -99,42 +182,8 @@
     [self _installHeader];
     [self _installWrapper];
 }
-- (instancetype)init
-{
-    self = [super init];
-    
-    if (self) {
-        [self commonInitializer];
-    }
-    return self;
-}
 
-- (instancetype)initWithMode:(CKCalendarDisplayMode)CalendarDisplayMode
-{
-    self = [self init];
-    if (self) {
-        _displayMode = CalendarDisplayMode;
-    }
-    return self;
-}
-
-- (instancetype) initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    
-    if (self) {
-        [self commonInitializer];
-    }
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self commonInitializer];
-    }
-    return self;
-}
+// MARK: - View Lifecycle
 
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder
 {
@@ -148,9 +197,42 @@
     return self;
 }
 
+- (void)willMoveToSuperview:(UIView *)newSuperview
+{
+    [[self layer] setShadowColor:[[UIColor darkGrayColor] CGColor]];
+    [[self layer] setShadowOffset:CGSizeMake(0, 3)];
+    [[self layer] setShadowOpacity:1.0];
+    
+    [self reloadAnimated:NO];
+    
+    [super willMoveToSuperview:newSuperview];
+}
+
+- (void)didMoveToSuperview
+{
+    [super didMoveToSuperview];
+    
+    [self _installTable];
+}
+
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    
+    [self reloadAnimated:NO];
+}
+
+-(void)removeFromSuperview
+{
+    [self.superview removeConstraints:self.table.constraints];
+    [self.table removeFromSuperview];
+    
+    [super removeFromSuperview];
+}
+
+- (void)prepareForInterfaceBuilder
+{
+    [super prepareForInterfaceBuilder];
     
     [self reloadAnimated:NO];
 }
@@ -192,41 +274,6 @@
     [self.table reloadData];
 }
 
-// MARK: - View Hierarchy
-
-- (void)willMoveToSuperview:(UIView *)newSuperview
-{
-    [[self layer] setShadowColor:[[UIColor darkGrayColor] CGColor]];
-    [[self layer] setShadowOffset:CGSizeMake(0, 3)];
-    [[self layer] setShadowOpacity:1.0];
-    
-    [self reloadAnimated:NO];
-    
-    [super willMoveToSuperview:newSuperview];
-}
-
-- (void)didMoveToSuperview
-{
-    [super didMoveToSuperview];
-    
-    [self _installTable];
-}
-
--(void)removeFromSuperview
-{
-    [self.superview removeConstraints:self.table.constraints];
-    [self.table removeFromSuperview];
-    
-    [super removeFromSuperview];
-}
-
-- (void)prepareForInterfaceBuilder
-{
-    [super prepareForInterfaceBuilder];
-    
-    [self reloadAnimated:NO];
-}
-
 // MARK: - Size
 
 - (CGFloat)_heightForDisplayMode:(CKCalendarDisplayMode)displayMode
@@ -251,15 +298,14 @@
     return width/numberOfDaysPerWeek;
 }
 
+// MARK: - Layout
+
 - (void)updateConstraints
 {
     [self _layoutCellsAnimated:NO];
     [super updateConstraints];
 }
 
-// TODO: Try basing this off of wrapper height,
-// and manipulate wrapper height instead of own
-// constraint.
 - (CGSize)intrinsicContentSize
 {
     CGFloat width = UIViewNoIntrinsicMetric;
@@ -301,7 +347,7 @@
     }
 }
 
-# pragma mark - Installing Internal Views
+// MARK: - Installing Internal Views
 
 - (void)_installTable
 {
@@ -752,6 +798,8 @@
 
 // MARK: - Setters
 
+// TODO: Consider observing the `NSCalendar` instance to catch these changes for animation instead of overriding all these methods.
+
 - (void)setCalendar:(NSCalendar *)calendar
 {
     [self setCalendar:calendar animated:NO];
@@ -787,6 +835,11 @@
     [self reloadAnimated:animated];
 }
 
+- (NSTimeZone *)timeZone
+{
+    return self.calendar.timeZone;
+}
+
 - (void)setTimeZone:(NSTimeZone *)timeZone
 {
     [self setTimeZone:timeZone animated:NO];
@@ -794,8 +847,9 @@
 
 - (void)setTimeZone:(NSTimeZone *)timeZone animated:(BOOL)animated
 {
-    if (!timeZone) {
-        timeZone = [NSTimeZone localTimeZone];
+    if (!timeZone)
+    {
+        timeZone = [NSTimeZone defaultTimeZone];
     }
     
     [[self calendar] setTimeZone:timeZone];
@@ -1273,7 +1327,6 @@
 
 - (void)setFirstWeekDay:(NSUInteger)firstWeekDay
 {
-    
     _firstWeekDay = firstWeekDay;
     self.calendar.firstWeekday = firstWeekDay;
     
