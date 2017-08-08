@@ -6,19 +6,9 @@
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
-@import MBCalendarKit;
-
 #import "CKAppDelegate.h"
-#import "CKDemoViewController.h"
-#import "MBCalendarKit_Demo-Swift.h"
-
-//  Uncomment the following line for the Swift version.
-//  #import "MBCalendarKit-Swift.h"
 
 @interface CKAppDelegate ()
-
-@property (nonatomic, strong) UINavigationController *navigationController;
-@property (strong, nonatomic) UIViewController *viewController;
 
 @end
 
