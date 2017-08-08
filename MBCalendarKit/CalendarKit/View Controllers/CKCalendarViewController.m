@@ -1,6 +1,6 @@
 //
 //  CKViewController.m
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -14,10 +14,20 @@
 
 @interface CKCalendarViewController () <CKCalendarViewDataSource, CKCalendarViewDelegate>
 
+/**
+ The calendar view used in the view controller.
+ */
 @property (nonatomic, strong) CKCalendarView *calendarView;
 
+/**
+ A control that allows users to choose between month, week, and day modes.
+ */
 @property (nonatomic, strong) UISegmentedControl *modePicker;
 
+
+/**
+ The events to display in the calendar.
+ */
 @property (nonatomic, strong) NSMutableArray *events;
 
 @end
