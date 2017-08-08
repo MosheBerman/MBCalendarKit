@@ -1,6 +1,6 @@
 //
 //  CKCalendarHeaderView.h
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/14/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -8,27 +8,8 @@
 
 @import UIKit;
 
-@class CKCalendarHeaderView;
-
-@protocol CKCalendarHeaderViewDataSource <NSObject>
-
-- (NSString *)titleForHeader:(CKCalendarHeaderView *)header;
-
-- (NSUInteger)numberOfColumnsForHeader:(CKCalendarHeaderView *)header;
-- (NSString *)header:(CKCalendarHeaderView *)header titleForColumnAtIndex:(NSInteger)index;
-
-- (BOOL)headerShouldHighlightTitle:(CKCalendarHeaderView *)header;
-- (BOOL)headerShouldDisableForwardButton:(CKCalendarHeaderView *)header;
-- (BOOL)headerShouldDisableBackwardButton:(CKCalendarHeaderView *)header;
-
-@end
-
-@protocol CKCalendarHeaderViewDelegate <NSObject>
-
-- (void)forwardTapped;
-- (void)backwardTapped;
-
-@end
+@protocol CKCalendarHeaderViewDataSource;
+@protocol CKCalendarHeaderViewDelegate;
 
 @interface CKCalendarHeaderView : UIView
 

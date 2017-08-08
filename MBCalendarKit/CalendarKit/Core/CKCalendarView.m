@@ -12,6 +12,8 @@
 
 //  Auxiliary Views
 #import "CKCalendarHeaderView.h"
+#import "CKCalendarHeaderViewDelegate.h"
+#import "CKCalendarHeaderViewDataSource.h"
 #import "CKCalendarCell.h"
 #import "CKTableViewCell.h"
 #import "CKCalendarAnimationWrapperView.h"

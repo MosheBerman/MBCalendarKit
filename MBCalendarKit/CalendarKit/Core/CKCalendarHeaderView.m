@@ -7,14 +7,14 @@
 //
 
 #import "CKCalendarHeaderView.h"
-
-#import "UIView+Border.h"
-
 #import "CKCalendarHeaderColors.h"
-
 #import "CKCalendarViewModes.h"
 
+#import "CKCalendarHeaderViewDataSource.h"
+#import "CKCalendarHeaderViewDelegate.h"
+
 #import "MBPolygonView.h"
+#import "UIView+Border.h"
 
 @interface CKCalendarHeaderView ()
 {

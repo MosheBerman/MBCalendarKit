@@ -24,6 +24,8 @@ FOUNDATION_EXPORT const unsigned char MBCalendarKitVersionString[];
 #import <MBCalendarKit/CKCalendarDataSource.h>
 #import <MBCalendarKit/CKCalendarDelegate.h>
 #import <MBCalendarKit/CKCalendarHeaderView.h>
+#import <MBCalendarKit/CKCalendarHeaderViewDataSource.h>
+#import <MBCalendarKit/CKCalendarHeaderViewDelegate.h>
 #import <MBCalendarKit/CKCalendarHeaderColors.h>
 #import <MBCalendarKit/CKTableViewCell.h>
 #import <MBCalendarKit/MBPolygonView.h> 
