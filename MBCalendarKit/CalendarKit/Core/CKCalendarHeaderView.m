@@ -21,7 +21,7 @@
     NSUInteger _columnCount;
 }
 
-@property (nonatomic, strong) UILabel *monthTitle;
+@property (nonatomic, strong) UILabel *titleLabel;
 
 @property (nonatomic, strong) NSMutableArray <NSString *> *columnTitles;
 @property (nonatomic, strong) NSMutableArray <UILabel *> *columnLabels;
@@ -53,13 +53,13 @@
         _headerGradient = kCalendarColorHeaderGradientDark;
         _headerTitleHighlightedTextColor = kCalendarColorHeaderTitleHighlightedBlue;
         
-        _monthTitle = [UILabel new];
-        [_monthTitle setTextColor:_headerMonthTextColor];
-        [_monthTitle setShadowColor:_headerMonthTextShadow];
-        [_monthTitle setShadowOffset:CGSizeMake(0, 1)];
-        [_monthTitle setBackgroundColor:[UIColor clearColor]];
-        [_monthTitle setTextAlignment:NSTextAlignmentCenter];
-        [_monthTitle setFont:_headerMonthTextFont];
+        _titleLabel = [UILabel new];
+        [_titleLabel setTextColor:_headerMonthTextColor];
+        [_titleLabel setShadowColor:_headerMonthTextShadow];
+        [_titleLabel setShadowOffset:CGSizeMake(0, 1)];
+        [_titleLabel setBackgroundColor:[UIColor clearColor]];
+        [_titleLabel setTextAlignment:NSTextAlignmentCenter];
+        [_titleLabel setFont:_headerMonthTextFont];
         
         _columnTitles = [NSMutableArray new];
         _columnLabels = [NSMutableArray new];
@@ -314,13 +314,13 @@
  */
 - (void)_installMonthLabel
 {
-    if(![self.subviews containsObject:self.monthTitle])
+    if(![self.subviews containsObject:self.titleLabel])
     {
-        [self addSubview:self.monthTitle];
+        [self addSubview:self.titleLabel];
         
-        self.monthTitle.translatesAutoresizingMaskIntoConstraints = NO;
+        self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         
-        NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.monthTitle
+        NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.titleLabel
                                                                    attribute:NSLayoutAttributeCenterX
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:self
@@ -328,14 +328,14 @@
                                                                   multiplier:1.0
                                                                     constant:0.0];
         
-        NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.monthTitle
+        NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.titleLabel
                                                                attribute:NSLayoutAttributeTop
                                                                relatedBy:NSLayoutRelationEqual
                                                                   toItem:self
                                                                attribute:NSLayoutAttributeTop
                                                               multiplier:1.0 constant:0.0];
         
-        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.monthTitle
+        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.titleLabel
                                                                    attribute:NSLayoutAttributeLeading
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:self
@@ -343,7 +343,7 @@
                                                                   multiplier:1.0
                                                                     constant:0.0];
         
-        NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.monthTitle
+        NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.titleLabel
                                                                   attribute:NSLayoutAttributeBottom
                                                                   relatedBy:NSLayoutRelationEqual
                                                                      toItem:self
@@ -375,7 +375,7 @@
 - (void)_updateMonthLabelText
 {
     NSString *title = [self.dataSource titleForHeader:self];
-    self.monthTitle.text = title;
+    self.titleLabel.text = title;
 }
 
 /**
@@ -385,11 +385,11 @@
 {
     if ([self shouldHighlightTitle])
     {
-        [[self monthTitle] setTextColor:self.headerTitleHighlightedTextColor];
+        [[self titleLabel] setTextColor:self.headerTitleHighlightedTextColor];
     }
     else
     {
-        [[self monthTitle] setTextColor:self.headerMonthTextColor];
+        [[self titleLabel] setTextColor:self.headerMonthTextColor];
     }
 }
 
@@ -465,7 +465,7 @@
     NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:polygonView
                                                               attribute:NSLayoutAttributeHeight
                                                               relatedBy:NSLayoutRelationEqual
-                                                                 toItem:self.monthTitle
+                                                                 toItem:self.titleLabel
                                                               attribute:NSLayoutAttributeHeight
                                                              multiplier:1.0
                                                                constant:0.0];
@@ -480,7 +480,7 @@
     NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:polygonView
                                                                attribute:NSLayoutAttributeCenterY
                                                                relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.monthTitle
+                                                                  toItem:self.titleLabel
                                                                attribute:NSLayoutAttributeCenterY
                                                               multiplier:1.0
                                                                 constant:0.0];
@@ -525,19 +525,19 @@
 - (void)setHeaderMonthTextFont:(UIFont *)headerMonthTextFont {
     _headerMonthTextFont = headerMonthTextFont;
     
-    [self.monthTitle setFont:_headerMonthTextFont];
+    [self.titleLabel setFont:_headerMonthTextFont];
 }
 
 - (void)setHeaderMonthTextColor:(UIColor *)headerMonthTextColor {
     _headerMonthTextColor = headerMonthTextColor;
     
-    [self.monthTitle setTextColor:headerMonthTextColor];
+    [self.titleLabel setTextColor:headerMonthTextColor];
 }
 
 - (void)setHeaderMonthTextShadow:(UIColor *)headerMonthTextShadow {
     _headerMonthTextShadow = headerMonthTextShadow;
     
-    [self.monthTitle setShadowColor:headerMonthTextShadow];
+    [self.titleLabel setShadowColor:headerMonthTextShadow];
 }
 
 
