@@ -179,6 +179,7 @@
     
     [self _installHeader];
     [self _installWrapper];
+    [self _installShadow];
     
 }
 
@@ -1528,15 +1529,13 @@
     
     NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
     [self setDate:dateToSelect animated:NO];
-    
-    
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    CGRect bounds = [self bounds];
-    bounds.origin.y += [self headerView].frame.size.height;
-    bounds.size.height -= [self headerView].frame.size.height;
+//    CGRect bounds = [self bounds];
+//    bounds.origin.y += [self headerView].frame.size.height;
+//    bounds.size.height -= [self headerView].frame.size.height;
     
     if(CGRectContainsPoint(self.wrapper.bounds, point)){
         /* Highlight and select the appropriate cell */
