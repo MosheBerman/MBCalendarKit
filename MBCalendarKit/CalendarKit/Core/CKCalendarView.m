@@ -446,8 +446,6 @@
 
 - (void)_installHeader
 {
-    /* Install the header */
-    
     CKCalendarHeaderView *header = [self headerView];
     header.translatesAutoresizingMaskIntoConstraints = NO;
     [header setDelegate:self];
