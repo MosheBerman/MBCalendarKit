@@ -1,6 +1,6 @@
 //
-//   CKCalendarView.m
-//   MBCalendarKit
+//  CKCalendarView.m
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -56,7 +56,7 @@
  */
 @property (nonatomic, strong) UITableView *table;
 
-// MARK: - Calendar State State
+// MARK: - Calendar State
 
 /**
  A cache for events that are being displayed.
@@ -68,12 +68,10 @@
  */
 @property (nonatomic, assign) NSUInteger selectedIndex;
 
-
 /**
  The date that was last selected by the user, either by tapping on a cell or one of the arrows in the header.
  */
 @property (nonatomic, strong) NSDate *previousDate;
-
 
 /**
  Are the cells animating? Used to prevent animation races.
@@ -181,30 +179,13 @@
     
     [self _installHeader];
     [self _installWrapper];
+    
 }
 
 // MARK: - View Lifecycle
 
-- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder
-{
-    self = [super awakeAfterUsingCoder:aDecoder];
-    
-    if(self)
-    {
-        [self commonInitializer];
-    }
-    
-    return self;
-}
-
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
-    [[self layer] setShadowColor:[[UIColor darkGrayColor] CGColor]];
-    [[self layer] setShadowOffset:CGSizeMake(0, 3)];
-    [[self layer] setShadowOpacity:1.0];
-    
-    [self reloadAnimated:NO];
-    
     [super willMoveToSuperview:newSuperview];
 }
 
@@ -213,17 +194,27 @@
     [super didMoveToSuperview];
     
     [self _installTable];
+    [self reloadAnimated:NO];
 }
 
 - (void)awakeFromNib
 {
-    [super awakeFromNib];
     
+#if TARGET_INTERFACE_BUILDER
+    [self invalidateIntrinsicContentSize];
+    [self.superview setNeedsLayout];
+#else 
     [self reloadAnimated:NO];
+#endif
+    
+    [super awakeFromNib];
 }
 
--(void)removeFromSuperview
+- (void)removeFromSuperview
 {
+    self.headerView.delegate = nil;
+    self.headerView.dataSource = nil;
+    
     [self.superview removeConstraints:self.table.constraints];
     [self.table removeFromSuperview];
     
@@ -481,6 +472,13 @@
         
         [self.wrapper addConstraints:@[top, leading, trailing]];
     }
+}
+
+- (void)_installShadow
+{
+    [self.layer setShadowColor:[[UIColor darkGrayColor] CGColor]];
+    [self.layer setShadowOffset:CGSizeMake(0, 3)];
+    [self.layer setShadowOpacity:1.0];
 }
 
 // MARK: - Lay Out Cells
@@ -1494,18 +1492,54 @@
 
 // MARK: - Touch Handling
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     UITouch *t = [touches anyObject];
     
     CGPoint p = [t locationInView:self];
     
     [self pointInside:p withEvent:event];
+    [super touchesMoved:touches withEvent:event];
+}
+
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    
+    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
+    NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
+    
+    BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
+    
+    [self setDate:dateToSelect animated:animated];
+    
+    [super touchesEnded:touches withEvent:event];
+}
+
+/**
+ If a touch was cancelled, reset the index.
+ */
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
+    
+    NSUInteger index = [[self calendar] daysFromDate:firstDate toDate:[self date]];
+    
+    [self setSelectedIndex:index];
+    
+    NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
+    [self setDate:dateToSelect animated:NO];
+    
+    
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    
     CGRect bounds = [self bounds];
     bounds.origin.y += [self headerView].frame.size.height;
     bounds.size.height -= [self headerView].frame.size.height;
@@ -1553,30 +1587,6 @@
     }
     
     return [super pointInside:point withEvent:event];
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    
-    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
-    NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
-    
-    BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
-    
-    [self setDate:dateToSelect animated:animated];
-}
-
-// If a touch was cancelled, reset the index
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
-    
-    NSUInteger index = [[self calendar] daysFromDate:firstDate toDate:[self date]];
-    
-    [self setSelectedIndex:index];
-    
-    NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
-    [self setDate:dateToSelect animated:NO];
 }
 
 @end
