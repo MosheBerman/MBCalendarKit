@@ -93,20 +93,15 @@
     self.calendarView.dataSource = self;
     self.calendarView.delegate = self;
     [self.view addSubview:self.calendarView];
-    [self enableAutolayoutOnCalendar];
+    [self layoutCalendar];
 }
 
 
 /**
- This method sets up constraints on the calendar view.
-
- NOTE: CalendarKit does not yet play nicely with autolayout,
- because there's a bug causing a layout loop.
- 
- Don't call this yet.
+ This method sets up the minimal constraints on the calendar view required to lay it out.
  */
 
-- (void)enableAutolayoutOnCalendar
+- (void)layoutCalendar
 {
     self.calendarView.translatesAutoresizingMaskIntoConstraints = NO;
     NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.calendarView
@@ -117,14 +112,6 @@
                                                           multiplier:1.0
                                                             constant:0.0];
     
-    NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.calendarView
-                                                               attribute:NSLayoutAttributeCenterX
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.view
-                                                               attribute:NSLayoutAttributeCenterX
-                                                              multiplier:1.0
-                                                                constant:0.0];
-    
     NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.calendarView
                                                              attribute:NSLayoutAttributeLeading
                                                              relatedBy:NSLayoutRelationEqual
@@ -133,7 +120,7 @@
                                                             multiplier:1.0
                                                               constant:0.0];
     
-    [self.view addConstraints:@[top, centerX, leading]];
+    [self.view addConstraints:@[top, leading]];
 }
 
 #pragma mark - Toolbar Items
