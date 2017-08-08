@@ -2,12 +2,13 @@
 
 ## 5.0.0
 - Autolayout support.
-- Integratation into your project as a dynamic framework.
+- Integration into your project with dynamic framework support.
 - Rendering in Interface Builder as an IBDesignable.
 - Support for localization, including appropriate layout in right-to-left environments.
 - An updated sample app to try out different parts of the framework.
-- Improved documentation.
-- An updated changelog.
+- Updated changelog history going back to version 1.
+- Added a migration guide for MBCalendarKit 5.
+- Vastly improved documentation.
 
 ## 4.0.1
 - Convert demo to Swift 3.
