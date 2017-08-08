@@ -80,11 +80,6 @@ float degToRad(float deg)
 
 // MARK: - Layout
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-}
-
 + (BOOL)requiresConstraintBasedLayout
 {
     return YES;
