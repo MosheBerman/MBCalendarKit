@@ -1,6 +1,6 @@
 //
 //  CKCalendarHeaderView.m
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/14/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -21,12 +21,33 @@
     NSUInteger _columnCount;
 }
 
+/**
+ The label that displays the title provided by the data source.
+ */
 @property (nonatomic, strong) UILabel *titleLabel;
 
+
+/**
+ A cache, containing the titles obtained from the data source on the last call to `reloadData`.
+ */
 @property (nonatomic, strong) NSMutableArray <NSString *> *columnTitles;
+
+
+/**
+ A cache of labels used to display the titles.
+ */
 @property (nonatomic, strong) NSMutableArray <UILabel *> *columnLabels;
 
+// MARK: - Forward and Backward Buttons
+
+/**
+ The forward button.
+ */
 @property (nonatomic, strong) MBPolygonView *forwardButton;
+
+/**
+ The backward button.
+ */
 @property (nonatomic, strong) MBPolygonView *backwardButton;
 
 // MARK: - Private Constraints
@@ -354,7 +375,6 @@
         
         [self addConstraints:@[centerX, leading, top, bottom]];
     }
-    
 }
 
 /**
@@ -391,7 +411,6 @@
         [[self titleLabel] setTextColor:self.headerMonthTextColor];
     }
 }
-
 
 /**
  Adjusts the constant of the bottom padding constraint
