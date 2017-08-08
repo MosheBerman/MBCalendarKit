@@ -49,7 +49,7 @@ Really easy, but this small change simplifies the framework and adds enough flex
 
 ### A Deeper Look at MBCalendarKit's Autolayout Adoption
 
-`CKCalendarView` adopts auto layout by overriding `intrinsicContentSize`. `CKCalendar
+`CKCalendarView` and adopts auto layout by overriding `intrinsicContentSize`. `CKCalendarHeaderView` stretches to the width of `CKCalendarView` and has a fixed height of 44.0 points. 
 
 Here's how `CKCalendarView` lays itself out:
 
@@ -59,5 +59,12 @@ Here's how `CKCalendarView` lays itself out:
 
 2. The height of a row of cells (`computedRowHeight`) is the width of the calendar view divided by the number of days in the `NSCalendar` instance's week. If you're paying attention, you may have noticed a recursive calculation, because the calendar view's intrinsic width isn't yet known in `intrinsicContentSize`. So, we short-circuit this by using the width of the superview's `bounds` instead.
 
-If the calendar view doesn't have a superview, then its intrinsic width is `UIViewNoIntrinsicMetric`, and the view probably won't be able to calculate its intrinsic height. Unless the calendar view is the root view in an app, this won't be a problem. 
-3. Whenever the calendar view lays out a grid of cells, such as when the selected date changes, it will call `invalidateIntrinsicContentSize` and animate to the appropriate height to fit its content. 
+3. If the calendar view doesn't have a superview, then its intrinsic width is `UIViewNoIntrinsicMetric`, and the view probably won't be able to calculate its intrinsic height. Unless the calendar view is the root view in an app, this won't be a problem. If you do present the calendar view as the root view, you might see an autolayout error like this:
+
+> Failed to rebuild layout engine without detectable loss of precision.  This should never happen.  Performance and correctness may suffer.
+
+There are very few Google/Stack Overflow results for this message, but this answer (by a UIKit Engineer before he joined Apple) has a lot of good info: https://stackoverflow.com/a/27284071/224988 
+
+As a result, if the calendar tries to compute constraints or dimensions based on a nonexistent superview, we just short-circuit the entire method. ls
+
+4. Whenever the calendar view lays out a grid of cells, such as when the selected date changes, it will call `invalidateIntrinsicContentSize` and animate to the appropriate height to fit its content. 
