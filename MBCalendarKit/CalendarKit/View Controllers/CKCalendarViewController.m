@@ -34,7 +34,10 @@
         [self setEdgesForExtendedLayout:UIRectEdgeNone];
     }
     
-    [self setTitle:NSLocalizedString(@"Calendar", @"A title for the calendar view.")];
+    if(!self.title)
+    {
+        [self setTitle:NSLocalizedString(@"Calendar", @"A title for the calendar view.")];
+    }
     
     /* Prepare the events array */
     
