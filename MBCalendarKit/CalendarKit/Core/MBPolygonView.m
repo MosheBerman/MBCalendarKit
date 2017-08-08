@@ -162,8 +162,8 @@ float degToRad(float deg)
     CGContextSaveGState(context);
     
     // Flip for RTL languages
-    NSLocale *locale = [NSLocale autoupdatingCurrentLocale];
-    NSString * languageCode = [locale languageCode];
+    NSLocale *locale = [NSLocale currentLocale];
+    NSString * languageCode = [locale objectForKey:NSLocaleLanguageCode];
     NSLocaleLanguageDirection languageDirection = [NSLocale characterDirectionForLanguage:languageCode];
     
     if (languageDirection == NSLocaleLanguageDirectionRightToLeft)
