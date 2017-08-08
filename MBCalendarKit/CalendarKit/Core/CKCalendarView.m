@@ -490,7 +490,8 @@
 
 - (void)_layoutCellsAnimated:(BOOL)animated
 {
-    if ([self isAnimating]) {
+    if ([self isAnimating] || !self.superview)
+    {
         return;
     }
     
