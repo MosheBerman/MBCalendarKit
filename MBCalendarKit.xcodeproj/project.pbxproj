@@ -84,6 +84,7 @@
 		46895C9A171F5AA60072DBCF /* CKDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46895C99171F5AA60072DBCF /* CKDemoViewController.m */; };
 		469D857E1A3766A100E2B305 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 469D857D1A3766A100E2B305 /* Images.xcassets */; };
 		46A789E91A606CF00096E2BB /* SwiftDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A789E81A606CF00096E2BB /* SwiftDemoViewController.swift */; };
+		46AF0D711F39D4D4005F37EC /* MIGRATIONGUIDE.md in Sources */ = {isa = PBXBuildFile; fileRef = 46AF0D701F39D4D4005F37EC /* MIGRATIONGUIDE.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -222,6 +223,7 @@
 		469D857D1A3766A100E2B305 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MBCalendarKit/Images.xcassets; sourceTree = "<group>"; };
 		46A789E71A606CEF0096E2BB /* MBCalendarKit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MBCalendarKit-Bridging-Header.h"; sourceTree = "<group>"; };
 		46A789E81A606CF00096E2BB /* SwiftDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftDemoViewController.swift; path = MBCalendarKit/SwiftDemoViewController.swift; sourceTree = "<group>"; };
+		46AF0D701F39D4D4005F37EC /* MIGRATIONGUIDE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = MIGRATIONGUIDE.md; sourceTree = "<group>"; };
 		46BFBCBF1715FB3F00D4733E /* MBCalendarKit-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MBCalendarKit-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCDF9503193CF941002266D5 /* CKTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTableViewCell.h; sourceTree = "<group>"; };
 		CCDF9504193CF941002266D5 /* CKTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTableViewCell.m; sourceTree = "<group>"; };
@@ -449,6 +451,7 @@
 				46363C241F392295002BA215 /* CHANGELOG.md */,
 				46363C251F392295002BA215 /* LICENSE.md */,
 				46363C261F392295002BA215 /* README.md */,
+				46AF0D701F39D4D4005F37EC /* MIGRATIONGUIDE.md */,
 				469D857D1A3766A100E2B305 /* Images.xcassets */,
 				464A86CA171F174D00E7AB19 /* CalendarKit */,
 				464A870A171F174D00E7AB19 /* MBCalendarKitTests */,
@@ -701,6 +704,7 @@
 				467B12D41F2F547500CABA27 /* CKCalendarView.m in Sources */,
 				467B12D61F2F547500CABA27 /* CKTableViewCell.m in Sources */,
 				467B12D81F2F547500CABA27 /* MBPolygonView.m in Sources */,
+				46AF0D711F39D4D4005F37EC /* MIGRATIONGUIDE.md in Sources */,
 				46363C2C1F394393002BA215 /* CHANGELOG.md in Sources */,
 				467B12E21F2F547500CABA27 /* CKCalendarViewController.m in Sources */,
 			);
