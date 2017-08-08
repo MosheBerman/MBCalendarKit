@@ -103,6 +103,7 @@
 
 - (void)layoutCalendar
 {
+    self.calendarView.translatesAutoresizingMaskIntoConstraints = NO;
     NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.calendarView
                                                            attribute:NSLayoutAttributeTop
                                                            relatedBy:NSLayoutRelationEqual

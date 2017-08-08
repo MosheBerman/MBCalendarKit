@@ -311,11 +311,6 @@
     return YES;
 }
 
-- (BOOL)translatesAutoresizingMaskIntoConstraints
-{
-    return NO;
-}
-
 - (UILayoutPriority)contentCompressionResistancePriorityForAxis:(UILayoutConstraintAxis)axis
 {
     return UILayoutPriorityRequired;
