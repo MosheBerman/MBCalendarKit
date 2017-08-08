@@ -65,7 +65,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        _headerMonthTextFont = [UIFont boldSystemFontOfSize:[UIFont preferredFontForTextStyle:UIFontTextStyleTitle1].pointSize];
+        _headerMonthTextFont = [UIFont boldSystemFontOfSize:[UIFont preferredFontForTextStyle:UIFontTextStyleHeadline
+                                                             ].pointSize];
         _headerMonthTextColor = kCalendarColorHeaderMonth;
         _headerMonthTextShadow = kCalendarColorHeaderMonthShadow;
         _headerWeekdayTitleFont = [UIFont boldSystemFontOfSize:[UIFont preferredFontForTextStyle:UIFontTextStyleCaption1].pointSize];
