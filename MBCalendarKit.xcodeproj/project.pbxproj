@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		46341C2C1F3A36380090FFAF /* CKCalendarGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = 46341C2A1F3A36380090FFAF /* CKCalendarGridView.h */; };
+		46341C2D1F3A36380090FFAF /* CKCalendarGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46341C2B1F3A36380090FFAF /* CKCalendarGridView.m */; };
 		46363C2B1F393D61002BA215 /* DemoRootTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46363C2A1F393D61002BA215 /* DemoRootTableViewController.swift */; };
 		46363C2C1F394393002BA215 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 46363C241F392295002BA215 /* CHANGELOG.md */; };
 		46363C2D1F394393002BA215 /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 46363C251F392295002BA215 /* LICENSE.md */; };
@@ -132,6 +134,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		46341C2A1F3A36380090FFAF /* CKCalendarGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarGridView.h; sourceTree = "<group>"; };
+		46341C2B1F3A36380090FFAF /* CKCalendarGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarGridView.m; sourceTree = "<group>"; };
 		46363C241F392295002BA215 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		46363C251F392295002BA215 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		46363C261F392295002BA215 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -346,6 +350,8 @@
 			children = (
 				464A86EC171F174D00E7AB19 /* CKCalendarCell.h */,
 				464A86ED171F174D00E7AB19 /* CKCalendarCell.m */,
+				46341C2A1F3A36380090FFAF /* CKCalendarGridView.h */,
+				46341C2B1F3A36380090FFAF /* CKCalendarGridView.m */,
 				467B13071F2FB12900CABA27 /* CKCalendarAnimationWrapperView.h */,
 				467B13081F2FB12900CABA27 /* CKCalendarAnimationWrapperView.m */,
 				464A86EE171F174D00E7AB19 /* CKCalendarEvent.h */,
@@ -512,6 +518,7 @@
 				467B12C51F2F547500CABA27 /* NSString+Color.h in Headers */,
 				467B12C71F2F547500CABA27 /* UIColor+HexString.h in Headers */,
 				467B12C91F2F547500CABA27 /* UIView+AnimatedFrame.h in Headers */,
+				46341C2C1F3A36380090FFAF /* CKCalendarGridView.h in Headers */,
 				467B12CB1F2F547500CABA27 /* UIView+Border.h in Headers */,
 				467B12CD1F2F547500CABA27 /* CKCalendarCell.h in Headers */,
 				467B12CF1F2F547500CABA27 /* CKCalendarEvent.h in Headers */,
@@ -688,6 +695,7 @@
 				467B12B91F2F547500CABA27 /* NSCalendar+DateManipulation.m in Sources */,
 				467B12BB1F2F547500CABA27 /* NSCalendar+Juncture.m in Sources */,
 				467B12BD1F2F547500CABA27 /* NSCalendar+Ranges.m in Sources */,
+				46341C2D1F3A36380090FFAF /* CKCalendarGridView.m in Sources */,
 				467B12C01F2F547500CABA27 /* NSDate+Components.m in Sources */,
 				467B12C21F2F547500CABA27 /* NSDate+Description.m in Sources */,
 				467B12C41F2F547500CABA27 /* NSDateComponents+AllComponents.m in Sources */,
