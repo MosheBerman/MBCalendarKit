@@ -11,12 +11,23 @@
 @protocol CKCalendarHeaderViewDataSource;
 @protocol CKCalendarHeaderViewDelegate;
 
-
-
 /**
  The CKCalendarHeaderView provides the month title for calendar and names of the days of the week, where appropriate.
  */
 @interface CKCalendarHeaderView : UIView
+
+// MARK: - Configuring the Header View
+
+/**
+ The calendar's data source.
+ */
+@property (nonatomic, weak) id<CKCalendarHeaderViewDataSource> dataSource;
+
+/**
+ The calendar's delegate.
+ */
+@property (nonatomic, weak) id<CKCalendarHeaderViewDelegate> delegate;
+
 
 // MARK: - Styling the Weekday Labels
 
@@ -65,17 +76,7 @@
  */
 @property (nonatomic, strong) UIColor *headerGradient UI_APPEARANCE_SELECTOR;
 
-// MARK: - Configuring the Data
-
-/**
- The calendar's data source.
- */
-@property (nonatomic, assign) id<CKCalendarHeaderViewDataSource> dataSource;
-
-/**
- The calendar's delegate.
- */
-@property (nonatomic, assign) id<CKCalendarHeaderViewDelegate> delegate;
+// MARK: - Handling Interactions
 
 /**
  The gesture recognizer that handles taps on the next/back buttons. 
