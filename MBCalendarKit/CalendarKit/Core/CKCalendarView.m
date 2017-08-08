@@ -490,6 +490,15 @@
 
 - (void)_layoutCellsAnimated:(BOOL)animated
 {
+    /*
+     If we don't require a superview, the cell width computation will be wrong.
+     Autolayout may complain, and bad things will happen. The warning is: 
+     
+     > Failed to rebuild layout engine without detectable loss of precision.  This should never happen.  Performance and correctness may suffer.
+     
+     There are very few Google/Stack Overflow results for this message, 
+     but this answer (by a UIKit Engineer before he joined Apple) has a lot of good info: https://stackoverflow.com/a/27284071/224988
+     */
     if ([self isAnimating] || !self.superview)
     {
         return;
