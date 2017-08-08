@@ -98,7 +98,7 @@
 
 
 /**
- This method sets up the minimal constraints on the calendar view required to lay it out.
+ This method sets up constraints on the calendar view.
  */
 
 - (void)layoutCalendar
