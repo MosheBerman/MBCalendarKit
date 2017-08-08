@@ -1,11 +1,13 @@
 # Changelog
 
 ## 5.0.0
-- Adopts autolayout.
-- Integrates into your project as a dynamic framework.
-- `CKCalendarView` renders in Interface Builder as an IBDesignable.
-- Supports localization, including flipping the layout in right-to-left environments.
-- Add a changelog.
+- Autolayout support.
+- Integratation into your project as a dynamic framework.
+- Rendering in Interface Builder as an IBDesignable.
+- Support for localization, including appropriate layout in right-to-left environments.
+- An updated sample app to try out different parts of the framework.
+- Improved documentation.
+- An updated changelog.
 
 ## 4.0.1
 - Convert demo to Swift 3.
