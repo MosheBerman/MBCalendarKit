@@ -17,20 +17,11 @@
  the cell class configures the number representing a date, and the visibility of 
  the event indicator dot.
  */
-@interface CKCalendarCell : UIView
+@interface CKCalendarCell : UICollectionViewCell
 
-// MARK: - Layout Constraints
+// MARK: - Initializers
 
-/**
- A constraint used to pin the cell vertically
- */
-@property (nonatomic, strong) NSLayoutConstraint *topConstraint;
-
-/**
- A constraint used to pin the cell horizontally, starting at the leading edge.
- */
-@property (nonatomic, strong) NSLayoutConstraint *leadingConstraint;
-
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 
 // MARK: - Tracking Cell State and Touch Tracking
 

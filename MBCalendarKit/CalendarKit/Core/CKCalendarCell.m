@@ -29,7 +29,7 @@
 
 - (id)init
 {
-    self = [super init];
+    self = [super initWithFrame:CGRectZero];
     if (self) {
         // Initialization code
         _state = CKCalendarMonthCellStateNormal;
@@ -70,6 +70,26 @@
     return self;
 }
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [self init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [self init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+// MARK: -
+
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     [self configureLabel];
@@ -83,26 +103,13 @@
 {
     if (![self.subviews containsObject:self.label])
     {
-        [self addSubview:self.label];
+        [self.contentView addSubview:self.label];
         [self _constrainLabel];
     }
     
     if(![self.subviews containsObject:self.dot])
     {
-        [self addSubview:self.dot];
-        [self _constrainDot];
-    }
-}
-
-- (void)didAddSubview:(UIView *)subview
-{
-    if ([subview isEqual:self.label])
-    {
-        [self _constrainLabel];
-    }
-    
-    if([subview isEqual:self.dot])
-    {
+        [self.contentView addSubview:self.dot];
         [self _constrainDot];
     }
 }
@@ -121,7 +128,7 @@
     NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.label
                                                                attribute:NSLayoutAttributeCenterX
                                                                relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self
+                                                                  toItem:self.contentView
                                                                attribute:NSLayoutAttributeCenterX
                                                               multiplier:1.0
                                                                 constant:0.0];
@@ -129,7 +136,7 @@
     NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.label
                                                                attribute:NSLayoutAttributeCenterY
                                                                relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self
+                                                                  toItem:self.contentView
                                                                attribute:NSLayoutAttributeCenterY
                                                               multiplier:1.0
                                                                 constant:0.0];
@@ -137,7 +144,7 @@
     NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.label
                                                            attribute:NSLayoutAttributeTop
                                                            relatedBy:NSLayoutRelationEqual
-                                                              toItem:self
+                                                              toItem:self.contentView
                                                            attribute:NSLayoutAttributeTop
                                                           multiplier:1.0
                                                             constant:0.0];
@@ -145,12 +152,12 @@
     NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.label
                                                                attribute:NSLayoutAttributeLeading
                                                                relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self
+                                                                  toItem:self.contentView
                                                                attribute:NSLayoutAttributeLeading
                                                               multiplier:1.0
                                                                 constant:0.0];
     
-    [self addConstraints:@[centerY, centerX, top, leading]];
+    [self.contentView addConstraints:@[centerY, centerX, top, leading]];
     
 }
 
@@ -161,7 +168,7 @@
     NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.dot
                                                                attribute:NSLayoutAttributeCenterX
                                                                relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self
+                                                                  toItem:self.contentView
                                                                attribute:NSLayoutAttributeCenterX
                                                               multiplier:1.0
                                                                 constant:0.0];
@@ -169,7 +176,7 @@
     NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.dot
                                                               attribute:NSLayoutAttributeBottom
                                                               relatedBy:NSLayoutRelationEqual
-                                                                 toItem:self
+                                                                 toItem:self.contentView
                                                               attribute:NSLayoutAttributeBottom
                                                              multiplier:0.8
                                                                constant:0.0];
@@ -190,7 +197,7 @@
                                                             multiplier:1.0
                                                               constant:3.0];
     
-    [self addConstraints:@[centerX, bottom, ratio, width]];
+    [self.contentView addConstraints:@[centerX, bottom, ratio, width]];
     
 }
 
@@ -236,6 +243,7 @@
     [self setState:CKCalendarMonthCellStateNormal];
     
     [self applyColors];
+    [super prepareForReuse];
 }
 
 // MARK: - Label
