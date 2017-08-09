@@ -136,6 +136,16 @@
     cell.layer.borderWidth = 1.0;
 }
 
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    NSUInteger numberOfDaysPerWeek = [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length;
+    CGFloat width = CGRectGetWidth(self.superview.bounds);
+    CGFloat margin = (CGFloat)((NSInteger)width % numberOfDaysPerWeek);
+    CGFloat inset = margin / 2.0;
+    
+    return UIEdgeInsetsMake(0, inset, 0, inset);
+}
+
 // MARK: - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -147,7 +157,9 @@
         return CGSizeZero;
     }
     
-    CGFloat side = CGRectGetWidth(self.superview.bounds) / (CGFloat)numberOfDaysPerWeek;
+    CGFloat width = CGRectGetWidth(self.superview.bounds);
+    CGFloat widthAdjustForEvenDivisionByDaysPerWeek = width - (CGFloat)((NSInteger)width % numberOfDaysPerWeek);
+    CGFloat side =  widthAdjustForEvenDivisionByDaysPerWeek / (CGFloat)numberOfDaysPerWeek;
     
     return CGSizeMake(side, side);
 }

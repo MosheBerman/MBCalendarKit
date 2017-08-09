@@ -261,25 +261,27 @@
 
 - (CGFloat)_heightForDisplayMode:(CKCalendarDisplayMode)displayMode
 {
+    
+    
     CGFloat headerHeight = self.headerView.intrinsicContentSize.height;
+    
+    CGFloat height = headerHeight;
+    
     CGFloat columnCount = (CGFloat)[self _columnCountForDisplayMode:self.displayMode];
     CGFloat rowCount = (CGFloat)[self _rowCountForDisplayMode:self.displayMode];
-    CGFloat cellSideLength = columnCount > 0 ? CGRectGetWidth(self.superview.bounds)/columnCount : 0.0;
     
-    CGFloat height = headerHeight + (cellSideLength * rowCount);
+    if (columnCount > 0) /* Month and Week Mode */
+    {
+        CGFloat width = CGRectGetWidth(self.superview.bounds);
+        CGFloat widthAdjustForEvenDivisionByDaysPerWeek = width - (CGFloat)((NSInteger)width % (NSInteger)columnCount);
+        CGFloat cellSideLength = columnCount > 0 ? widthAdjustForEvenDivisionByDaysPerWeek / columnCount : 0.0;
+        
+        height = headerHeight + (cellSideLength * rowCount);
+    }
     
     return height;
 }
 
-- (CGFloat)_cellRatio
-{
-    NSCalendar *calendar = self.calendar;
-    
-    CGFloat numberOfDaysPerWeek = (CGFloat)[calendar daysPerWeek];
-    CGFloat width = CGRectGetWidth(self.bounds);
-    
-    return width/numberOfDaysPerWeek;
-}
 
 // MARK: - Layout
 
@@ -296,6 +298,12 @@
     if(self.superview)
     {
         width = CGRectGetWidth(self.superview.bounds);
+        NSInteger daysPerWeek = [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length;
+        
+        /* Adjust width for more perfect divisibility. */
+        CGFloat widthAdjustedForDivisibilityByDaysPerWeek = width - (CGFloat)((NSInteger)width % daysPerWeek);
+        
+        width = widthAdjustedForDivisibilityByDaysPerWeek;
     }
     
     CGFloat height = [self _heightForDisplayMode:self.displayMode];
@@ -578,7 +586,13 @@
 
 - (void)_layoutCellsAnimated:(BOOL)animated
 {
+    NSInteger duration = animated ? 0.3 : 0.0;
     
+    [self.superview setNeedsLayout];
+    [UIView animateWithDuration:duration animations:^{
+        [self invalidateIntrinsicContentSize];
+        [self.superview setNeedsLayout];
+    }];
 }
 
 
