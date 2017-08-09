@@ -10,10 +10,11 @@
 
 #import "CKCalendarView.h"
 
-//  Auxiliary Views
 #import "CKCalendarHeaderView.h"
 #import "CKCalendarHeaderViewDelegate.h"
 #import "CKCalendarHeaderViewDataSource.h"
+
+#import "CKCalendarGridView.h"
 #import "CKCalendarCell.h"
 #import "CKTableViewCell.h"
 #import "CKCalendarAnimationWrapperView.h"
@@ -26,18 +27,6 @@
     NSUInteger _firstWeekDay;
 }
 
-// MARK: - Cell Recycling
-
-/**
- Cells that were enqueued after being cleared off of the screen.
- */
-@property (nonatomic, strong) NSMutableArray <CKCalendarCell *> * spareCells;
-
-/**
- Cells that are dequeued for display. Usually on the screen, but might not be if an animation is in progress.
- */
-@property (nonatomic, strong) NSMutableArray <CKCalendarCell *> * usedCells;
-
 // MARK: - Internal Views
 
 /**
@@ -45,6 +34,10 @@
  */
 @property (nonatomic, strong) CKCalendarHeaderView *headerView;
 
+/**
+ A collection view to drive the display of the calendar.
+ */
+@property (nonatomic, strong) CKCalendarGridView *gridView;
 
 /**
  A wrapper that clips the cells and header so that cells animating in or out don't overflow the calendar view.
@@ -148,8 +141,6 @@
     _date = [_calendar dateFromComponents:components];
     
     _displayMode = CKCalendarViewModeMonth;
-    _spareCells = [NSMutableArray new];
-    _usedCells = [NSMutableArray new];
     _selectedIndex = [_calendar daysFromDate:[self _firstVisibleDateForDisplayMode:_displayMode] toDate:_date];
     _headerView = [CKCalendarHeaderView new];
     
@@ -177,7 +168,11 @@
     //  First Weekday
     _firstWeekDay = [_calendar firstWeekday];
     
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    _gridView = [[CKCalendarGridView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    
     [self _installHeader];
+    [self _installGridView];
     [self _installWrapper];
     [self _installShadow];
     
@@ -190,6 +185,8 @@
     [super didMoveToSuperview];
     [self _installTable];
     [self reloadAnimated:NO];
+    
+    [super didMoveToSuperview];
 }
 
 - (void)awakeFromNib
@@ -425,6 +422,111 @@
     }
 }
 
+- (void)_installGridView
+{
+    
+    self.gridView.calendar = self.calendar;
+    self.gridView.date = self.date;
+    
+    
+    __weak CKCalendarView *weakSelf = self;
+    
+    self.gridView.cellConfigurationBlock = ^(UICollectionViewCell * _Nonnull cell, NSDate * _Nonnull date) {
+      
+        BOOL cellRepresentsToday = [[weakSelf calendar] date:date isSameDayAs:[NSDate date]];
+        BOOL isThisMonth = [[weakSelf calendar] date:date isSameMonthAs:[weakSelf date]];
+        BOOL isInRange = [weakSelf _dateIsBetweenMinimumAndMaximumDates:date];
+        isInRange = isInRange || [[weakSelf calendar] date:date isSameDayAs:[self minimumDate]];
+        isInRange = isInRange || [[weakSelf calendar] date:date isSameDayAs:[self maximumDate]];
+        
+        
+        CKCalendarCell *calendarCell = (CKCalendarCell *)cell;
+        
+        /* STEP 3:  Here we style the cells accordingly.
+         
+         If the cell represents "today" then select it, and set
+         the selectedIndex.
+         
+         If the cell is part of another month, gray it out.
+         
+         If the cell can't be selected, hide the number entirely.
+         */
+        
+        if (cellRepresentsToday && isThisMonth && isInRange)
+        {
+            calendarCell.state = CKCalendarMonthCellStateTodayDeselected;
+        }
+        else if(!isInRange)
+        {
+            [calendarCell setOutOfRange];
+        }
+        else if (!isThisMonth) {
+            calendarCell.state = CKCalendarMonthCellStateInactive;
+        }
+        else
+        {
+            calendarCell.state = CKCalendarMonthCellStateNormal;
+        }
+        
+        /* STEP 4: Show the day of the month in the cell. */
+        
+        NSUInteger day = [weakSelf.calendar daysInDate:date];
+        calendarCell.number = @(day);
+        
+        if([weakSelf.dataSource respondsToSelector:@selector(calendarView:eventsForDate:)])
+        {
+            BOOL showDot = ([[weakSelf.dataSource calendarView:self eventsForDate:date] count] > 0);
+            calendarCell.showDot = showDot;
+        }
+        else
+        {
+            calendarCell.showDot = NO;
+        }
+    };
+    
+    if(![self.wrapper.subviews containsObject:self.gridView])
+    {
+        self.gridView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.wrapper addSubview:self.gridView];
+        
+        NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.gridView
+                                                                    attribute:NSLayoutAttributeTop
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:self.headerView
+                                                                    attribute:NSLayoutAttributeBottom
+                                                                   multiplier:1.0
+                                                                     constant:0.0];
+        
+        NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.gridView
+                                                               attribute:NSLayoutAttributeBottom
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.wrapper
+                                                               attribute:NSLayoutAttributeBottom
+                                                              multiplier:1.0
+                                                                constant:0.0];
+        
+        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.gridView
+                                                                   attribute:NSLayoutAttributeLeading
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.wrapper
+                                                                  attribute:NSLayoutAttributeLeading
+                                                                 multiplier:1.0
+                                                                   constant:0.0];
+        
+        NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.gridView
+                                                                   attribute:NSLayoutAttributeTrailing
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.wrapper
+                                                                   attribute:NSLayoutAttributeTrailing
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        
+        [NSLayoutConstraint activateConstraints:@[trailing, top, bottom, leading]];
+
+    }
+}
+
 - (void)_installHeader
 {
     CKCalendarHeaderView *header = [self headerView];
@@ -476,319 +578,7 @@
 
 - (void)_layoutCellsAnimated:(BOOL)animated
 {
-    /*
-     If we don't require a superview, the cell width computation will be wrong.
-     Autolayout may complain, and bad things will happen. The warning is: 
-     
-     > Failed to rebuild layout engine without detectable loss of precision.  This should never happen.  Performance and correctness may suffer.
-     
-     There are very few Google/Stack Overflow results for this message, 
-     but this answer (by a UIKit Engineer before he joined Apple) has a lot of good info: https://stackoverflow.com/a/27284071/224988
-     */
-    if ([self isAnimating] || !self.superview)
-    {
-        return;
-    }
     
-    [self setIsAnimating:YES];
-    
-    //  Count the rows and columns that we'll need
-    NSUInteger rowCount = [self _rowCountForDisplayMode:[self displayMode]];
-    NSUInteger columnCount = [self _columnCountForDisplayMode:[self displayMode]];
-    
-    
-    /* Do some animation setup. */
-    NSMutableArray <CKCalendarCell *> *cellsToRemoveAfterAnimation = self.usedCells.mutableCopy;
-    NSMutableArray <CKCalendarCell *> *cellsBeingAnimatedIntoView = [NSMutableArray new];
-    
-    /* Calculate the pre-animation offset */
-    
-    CGFloat yOffset = 0;
-    CGFloat cellRatio = [self _cellRatio];
-    
-    BOOL isDifferentMonth = ![[self calendar] date:[self date] isSameMonthAs:[self previousDate]];
-    BOOL isNextMonth = isDifferentMonth && ([[self date] timeIntervalSinceDate:[self previousDate]] > 0);
-    BOOL isPreviousMonth = isDifferentMonth && (!isNextMonth);
-    
-    // If the next month is about to be shown, we want to add the new cells at the bottom of the calendar
-    if (isNextMonth) {
-        yOffset = [self _heightForDisplayMode:[self displayMode]] - cellRatio;
-    }
-    
-    //  If we're showing the previous month, add the cells at the top
-    else if(isPreviousMonth)
-    {
-        yOffset = -([self _heightForDisplayMode:[self displayMode]]) + cellRatio;
-    }
-    
-    else if ([[self calendar] date:[self previousDate] isSameDayAs:[self date]])
-    {
-        yOffset = 0;
-    }
-    
-    //  Cache the start date & header offset
-    NSDate *workingDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
-    
-    //  A working index...
-    NSUInteger cellIndex = 0;
-    
-    // Pinning cells instead of manually positioning.
-    UIView *verticalPinningView = self.headerView;
-    UIView *horizontalPinningView = self.wrapper;
-    
-    NSLayoutAttribute horizontalPinningAttribute = NSLayoutAttributeLeading;
-    
-    for (NSUInteger row = 0; row < rowCount; row++) {
-        
-        horizontalPinningAttribute = NSLayoutAttributeLeading;
-        horizontalPinningView = self.wrapper;
-        
-        for (NSUInteger column = 0; column < columnCount; column++) {
-            
-            /* STEP 1: create the cell */
-            CKCalendarCell *cell = [self _dequeueCell];
-            
-            /* STEP 2:  We need to know some information about the cells - namely, if they're in
-             the same month as the selected date and if any of them represent the system's
-             value representing "today".
-             */
-            
-            BOOL cellRepresentsToday = [[self calendar] date:workingDate isSameDayAs:[NSDate date]];
-            BOOL isThisMonth = [[self calendar] date:workingDate isSameMonthAs:[self date]];
-            BOOL isInRange = [self _dateIsBetweenMinimumAndMaximumDates:workingDate];
-            isInRange = isInRange || [[self calendar] date:workingDate isSameDayAs:[self minimumDate]];
-            isInRange = isInRange || [[self calendar] date:workingDate isSameDayAs:[self maximumDate]];
-            
-            /* STEP 3:  Here we style the cells accordingly.
-             
-             If the cell represents "today" then select it, and set
-             the selectedIndex.
-             
-             If the cell is part of another month, gray it out.
-             
-             If the cell can't be selected, hide the number entirely.
-             */
-            
-            if (cellRepresentsToday && isThisMonth && isInRange) {
-                [cell setState:CKCalendarMonthCellStateTodayDeselected];
-            }
-            else if(!isInRange)
-            {
-                [cell setOutOfRange];
-            }
-            else if (!isThisMonth) {
-                [cell setState:CKCalendarMonthCellStateInactive];
-            }
-            else
-            {
-                [cell setState:CKCalendarMonthCellStateNormal];
-            }
-            
-            /* STEP 4: Show the day of the month in the cell. */
-            
-            NSUInteger day = [[self calendar] daysInDate:workingDate];
-            [cell setNumber:@(day)];
-            
-            
-            /* STEP 5: Show event dots */
-            
-            if([[self dataSource] respondsToSelector:@selector(calendarView:eventsForDate:)])
-            {
-                BOOL showDot = ([[[self dataSource] calendarView:self eventsForDate:workingDate] count] > 0);
-                [cell setShowDot:showDot];
-            }
-            else
-            {
-                [cell setShowDot:NO];
-            }
-            
-            /* STEP 6: Set the index */
-            [cell setIndex:cellIndex];
-            
-            if (cellIndex == [self selectedIndex]) {
-                [cell setSelected];
-            }
-            
-            /* Step 7: Prepare the cell for animation */
-            [cellsBeingAnimatedIntoView addObject:cell];
-            
-            /* STEP 8: Install the cell in the view hierarchy. */
-            [self.wrapper addSubview:cell];
-            
-            /* STEP 9: Position the cell. */
-            
-            if (cell.topConstraint)
-            {
-                [cell removeConstraint:cell.topConstraint];
-            }
-            
-            if (cell.leadingConstraint)
-            {
-                [cell removeConstraint:cell.leadingConstraint];
-            }
-            
-            cell.topConstraint = [NSLayoutConstraint constraintWithItem:cell
-                                                              attribute:NSLayoutAttributeTop
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:verticalPinningView
-                                                              attribute:NSLayoutAttributeBottom
-                                                             multiplier:1.0
-                                                               constant:0.0];
-            
-            if(row == 0)
-            {
-                cell.topConstraint.constant = yOffset;
-            }
-            
-            cell.leadingConstraint = [NSLayoutConstraint constraintWithItem:cell
-                                                                  attribute:NSLayoutAttributeLeading
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:horizontalPinningView
-                                                                  attribute:horizontalPinningAttribute
-                                                                 multiplier:1.0
-                                                                   constant:0.0];
-            
-            
-            
-            NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:cell
-                                                                     attribute:NSLayoutAttributeWidth
-                                                                     relatedBy:NSLayoutRelationEqual
-                                                                        toItem:self.wrapper
-                                                                     attribute:NSLayoutAttributeWidth
-                                                                    multiplier:1.0/columnCount
-                                                                      constant:0.0];
-            
-            [self.wrapper addConstraints:@[width, cell.leadingConstraint, cell.topConstraint]];
-            
-            /* STEP 10: Update our pinning views and attributes for the following cell. */
-            
-            horizontalPinningView = cell;
-            horizontalPinningAttribute = NSLayoutAttributeTrailing;
-            
-            if (column == columnCount - 1)
-            {
-                verticalPinningView = cell;
-            }
-            
-            /* STEP 11: Move to the next date before we continue iterating. */
-            workingDate = [[self calendar] dateByAddingDays:1 toDate:workingDate];
-            cellIndex++;
-        }
-    }
-    
-    [self.wrapper bringSubviewToFront:self.headerView];
-    
-    /* Perform the animation */
-    
-    NSTimeInterval duration = 0.4;
-    
-    if (!animated)
-    {
-        duration = 0.0;
-    }
-    
-    
-    [self.superview layoutIfNeeded];
-    [UIView
-     animateWithDuration:duration
-     animations:^{
-         [self _moveCellsIntoView:cellsBeingAnimatedIntoView andCellsOutOfView:cellsToRemoveAfterAnimation usingOffset:yOffset];
-         [self invalidateIntrinsicContentSize];
-         [self.superview layoutIfNeeded];
-     }
-     completion:^(BOOL finished) {
-         
-         [self _cleanupCells:cellsToRemoveAfterAnimation];
-         [cellsBeingAnimatedIntoView removeAllObjects];
-         [self setIsAnimating:NO];
-     }];
-    
-    
-    
-}
-
-// MARK: - Cell Animation
-
-- (void)_moveCellsIntoView:(NSMutableArray <CKCalendarCell *> *)cellsBeingAnimatedIntoView andCellsOutOfView:(NSMutableArray <CKCalendarCell *> *)cellsToRemoveAfterAnimation usingOffset:(CGFloat)yOffset
-{
-    for (CKCalendarCell *appearingCell in cellsBeingAnimatedIntoView)
-    {
-        appearingCell.topConstraint.constant = 0.0;
-    }
-    
-    // Only animate the top row - the rest will follow.
-    NSInteger numberOfAnimatedCells = 0;
-    
-    for (CKCalendarCell *disappearingCell in cellsToRemoveAfterAnimation)
-    {
-        if(numberOfAnimatedCells >= [self _columnCountForDisplayMode:self.displayMode])
-        {
-            return;
-        }
-        
-        disappearingCell.topConstraint.constant = -yOffset;
-        numberOfAnimatedCells++;
-    }
-}
-
-- (void)_cleanupCells:(NSMutableArray <CKCalendarCell *> *)cellsToCleanup
-{
-    for (CKCalendarCell *cell in cellsToCleanup) {
-        [self _moveCellFromUsedToSpare:cell];
-        
-        [self.wrapper removeConstraints:cell.constraints];
-        
-        [cell removeFromSuperview];
-    }
-    
-    [cellsToCleanup removeAllObjects];
-}
-
-// MARK: - Cell Recycling
-
-- (CKCalendarCell *)_dequeueCell
-{
-    CKCalendarCell *cell = [[self spareCells] firstObject];
-    
-    if (!cell)
-    {
-        cell = [[CKCalendarCell alloc] init];
-        cell.translatesAutoresizingMaskIntoConstraints = NO;
-        NSLayoutConstraint *ratio = [NSLayoutConstraint constraintWithItem:cell
-                                                                 attribute:NSLayoutAttributeHeight
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:cell
-                                                                 attribute:NSLayoutAttributeWidth
-                                                                multiplier:1.0
-                                                                  constant:0.0];
-        [cell addConstraint:ratio];
-    }
-    
-    [self _moveCellFromSpareToUsed:cell];
-    
-    [cell prepareForReuse];
-    
-    return cell;
-}
-
-- (void)_moveCellFromSpareToUsed:(CKCalendarCell *)cell
-{
-    //  Move the used cells to the appropriate set
-    [[self usedCells] addObject:cell];
-    
-    if ([[self spareCells] containsObject:cell]) {
-        [[self spareCells] removeObject:cell];
-    }
-}
-
-- (void)_moveCellFromUsedToSpare:(CKCalendarCell *)cell
-{
-    //  Move the used cells to the appropriate set
-    [[self spareCells] addObject:cell];
-    
-    if ([[self usedCells] containsObject:cell]) {
-        [[self usedCells] removeObject:cell];
-    }
 }
 
 
@@ -808,6 +598,7 @@
     }
     
     _calendar = calendar;
+    _gridView.calendar = calendar;
     [_calendar setLocale:_locale];
     [_calendar setFirstWeekday:_firstWeekDay];
     
@@ -904,6 +695,7 @@
     
     _previousDate = _date;
     _date = date;
+    _gridView.date = date;
     
     if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectDate:)]) {
         [[self delegate] calendarView:self didSelectDate:date];
@@ -1482,49 +1274,49 @@
 
 // MARK: - Touch Handling
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [super touchesBegan:touches withEvent:event];
-}
-
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    UITouch *t = [touches anyObject];
-    
-    CGPoint p = [t locationInView:self];
-    
-    [self pointInside:p withEvent:event];
-    [super touchesMoved:touches withEvent:event];
-}
-
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    
-    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
-    NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
-    
-    BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
-    
-    [self setDate:dateToSelect animated:animated];
-    
-    [super touchesEnded:touches withEvent:event];
-}
-
-/**
- If a touch was cancelled, reset the index.
- */
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
-    
-    NSUInteger index = [[self calendar] daysFromDate:firstDate toDate:[self date]];
-    
-    [self setSelectedIndex:index];
-    
-    NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
-    [self setDate:dateToSelect animated:NO];
-}
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    [super touchesBegan:touches withEvent:event];
+//}
+//
+//- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    UITouch *t = [touches anyObject];
+//    
+//    CGPoint p = [t locationInView:self];
+//    
+//    [self pointInside:p withEvent:event];
+//    [super touchesMoved:touches withEvent:event];
+//}
+//
+//
+//- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    
+//    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
+//    NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
+//    
+//    BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
+//    
+//    [self setDate:dateToSelect animated:animated];
+//    
+//    [super touchesEnded:touches withEvent:event];
+//}
+//
+///**
+// If a touch was cancelled, reset the index.
+// */
+//- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
+//    
+//    NSUInteger index = [[self calendar] daysFromDate:firstDate toDate:[self date]];
+//    
+//    [self setSelectedIndex:index];
+//    
+//    NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
+//    [self setDate:dateToSelect animated:NO];
+//}
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
@@ -1532,48 +1324,48 @@
 //    bounds.origin.y += [self headerView].frame.size.height;
 //    bounds.size.height -= [self headerView].frame.size.height;
     
-    if(CGRectContainsPoint(self.wrapper.bounds, point)){
-        /* Highlight and select the appropriate cell */
-        
-        NSUInteger index = [self selectedIndex];
-        
-        //  Get the index from the cell we're in
-        for (CKCalendarCell *cell in [self usedCells]) {
-            CGRect rect = [cell frame];
-            if (CGRectContainsPoint(rect, point)) {
-                index = [cell index];
-                break;
-            }
-            
-        }
-        
-        //  Clip the index to minimum and maximum dates
-        NSDate *date = [self _dateFromIndex:index];
-        
-        if ([self _dateIsAfterMaximumDate:date]) {
-            index = [self _indexFromDate:[self maximumDate]];
-        }
-        else if([self _dateIsBeforeMinimumDate:date])
-        {
-            index = [self _indexFromDate:[self minimumDate]];
-        }
-        
-        // Save the new index
-        [self setSelectedIndex:index];
-        
-        //  Update the cell highlighting
-        for (CKCalendarCell *cell in [self usedCells]) {
-            if ([cell index] == [self selectedIndex]) {
-                [cell setSelected];
-            }
-            else
-            {
-                [cell setDeselected];
-            }
-            
-        }
-    }
-    
+//    if(CGRectContainsPoint(self.wrapper.bounds, point)){
+//        /* Highlight and select the appropriate cell */
+//        
+//        NSUInteger index = [self selectedIndex];
+//        
+//        //  Get the index from the cell we're in
+//        for (CKCalendarCell *cell in self.gridView.visibleCells) {
+//            CGRect rect = [cell frame];
+//            if (CGRectContainsPoint(rect, point)) {
+//                index = [cell index];
+//                break;
+//            }
+//            
+//        }
+//        
+//        //  Clip the index to minimum and maximum dates
+//        NSDate *date = [self _dateFromIndex:index];
+//        
+//        if ([self _dateIsAfterMaximumDate:date]) {
+//            index = [self _indexFromDate:[self maximumDate]];
+//        }
+//        else if([self _dateIsBeforeMinimumDate:date])
+//        {
+//            index = [self _indexFromDate:[self minimumDate]];
+//        }
+//        
+//        // Save the new index
+//        [self setSelectedIndex:index];
+//        
+//        //  Update the cell highlighting
+//        for (CKCalendarCell *cell in self.gridView.visibleCells) {
+//            if ([cell index] == [self selectedIndex]) {
+//                [cell setSelected];
+//            }
+//            else
+//            {
+//                [cell setDeselected];
+//            }
+//            
+//        }
+//    }
+//    
     return [super pointInside:point withEvent:event];
 }
 
