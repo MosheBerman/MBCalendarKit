@@ -338,8 +338,23 @@
     [[self dot] setAlpha:[[self label] alpha]];
 }
 
-// MARK: - Setting the Cell's Selection State
+// MARK: - Collection View Cell Highlighting
 
+- (void)setHighlighted:(BOOL)highlighted
+{
+    [super setHighlighted:highlighted];
+    
+    if(highlighted)
+    {
+        [self setSelected];
+    }
+    else
+    {
+        [self setDeselected];
+    }
+}
+
+// MARK: - Setting the Cell's Selection State
 
 /**
  Marks the cell as selected and invokes an update on the appearance of the cell..
