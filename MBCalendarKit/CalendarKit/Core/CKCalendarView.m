@@ -59,7 +59,7 @@
 /**
  The index of the selected cell.
  */
-@property (nonatomic, assign) NSUInteger selectedIndex;
+//@property (nonatomic, assign) NSUInteger selectedIndex;
 
 /**
  The date that was last selected by the user, either by tapping on a cell or one of the arrows in the header.
@@ -135,13 +135,8 @@
     _locale = [NSLocale currentLocale];
     _calendar = [NSCalendar autoupdatingCurrentCalendar];
     [_calendar setLocale:_locale];
-    _date = [NSDate date];
-    
-    NSDateComponents *components = [_calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:_date];
-    _date = [_calendar dateFromComponents:components];
     
     _displayMode = CKCalendarViewModeMonth;
-    _selectedIndex = [_calendar daysFromDate:[self _firstVisibleDateForDisplayMode:_displayMode] toDate:_date];
     _headerView = [CKCalendarHeaderView new];
     
     //  Accessory Table
@@ -170,6 +165,10 @@
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     _gridView = [[CKCalendarGridView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    _gridView.date = [NSDate date];
+    
+    NSDateComponents *components = [_calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:_gridView.date];
+    _gridView.date = [_calendar dateFromComponents:components];
     
     [self _installHeader];
     [self _installGridView];
@@ -435,7 +434,7 @@
     
     self.gridView.calendar = self.calendar;
     self.gridView.date = self.date;
-    
+    [self.gridView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
     
     __weak CKCalendarView *weakSelf = self;
     
@@ -447,18 +446,7 @@
         isInRange = isInRange || [[weakSelf calendar] date:date isSameDayAs:[self minimumDate]];
         isInRange = isInRange || [[weakSelf calendar] date:date isSameDayAs:[self maximumDate]];
         
-        
         CKCalendarCell *calendarCell = (CKCalendarCell *)cell;
-        
-        /* STEP 3:  Here we style the cells accordingly.
-         
-         If the cell represents "today" then select it, and set
-         the selectedIndex.
-         
-         If the cell is part of another month, gray it out.
-         
-         If the cell can't be selected, hide the number entirely.
-         */
         
         if (cellRepresentsToday && isThisMonth && isInRange)
         {
@@ -476,7 +464,14 @@
             calendarCell.state = CKCalendarMonthCellStateNormal;
         }
         
-        /* STEP 4: Show the day of the month in the cell. */
+        /* */
+        
+        if([weakSelf.gridView.calendar date:weakSelf.gridView.date isSameDayAs:date])
+        {
+            [calendarCell setSelected];
+        }
+        
+        /* Show the day of the month in the cell. */
         
         NSUInteger day = [weakSelf.calendar daysInDate:date];
         calendarCell.number = @(day);
@@ -581,6 +576,17 @@
     [self.layer setShadowOpacity:1.0];
 }
 
+// MARK: - Observe Calendar Size Changes
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if ([self.gridView isEqual:object] && [keyPath isEqualToString:@"contentSize"])
+    {
+        [self invalidateIntrinsicContentSize];
+        [self.superview setNeedsLayout];
+    }
+}
+
 // MARK: - Lay Out Cells
 
 
@@ -666,13 +672,14 @@
 - (void)setDisplayMode:(CKCalendarDisplayMode)displayMode animated:(BOOL)animated
 {
     _displayMode = displayMode;
-    _previousDate = _date;
-    
-    //  Update the index, so that we don't lose selection between mode changes
-    NSInteger newIndex = [[self calendar] daysFromDate:[self _firstVisibleDateForDisplayMode:displayMode] toDate:[self date]];
-    [self setSelectedIndex:newIndex];
+    _previousDate = self.date;
     
     [self reloadAnimated:animated];
+}
+
+- (NSDate *)date
+{
+    return _gridView.date;
 }
 
 - (void)setDate:(NSDate *)date
@@ -707,8 +714,7 @@
         [[self delegate] calendarView:self willSelectDate:date];
     }
     
-    _previousDate = _date;
-    _date = date;
+    _previousDate = _gridView.date;
     _gridView.date = date;
     
     if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectDate:)]) {
@@ -719,11 +725,6 @@
         [self setEvents:[[self dataSource] calendarView:self eventsForDate:date]];
         [[self table] reloadData];
     }
-    
-    //  Update the index
-    NSDate *newFirstVisible = [self _firstVisibleDateForDisplayMode:[self displayMode]];
-    NSUInteger index = [[self calendar] daysFromDate:newFirstVisible toDate:date];
-    [self setSelectedIndex:index];
     
     [self reloadAnimated:animated];
 }
@@ -1270,117 +1271,6 @@
     }
     
     return [[self calendar] date:date isAfterDate:[self minimumDate]] && [[self calendar] date:date isBeforeDate:[self maximumDate]];
-}
-
-// MARK: - Dates & Indices
-
-- (NSInteger)_indexFromDate:(NSDate *)date
-{
-    NSDate *firstVisible = [self firstVisibleDate];
-    return [[self calendar] daysFromDate:firstVisible toDate:date];
-}
-
-- (NSDate *)_dateFromIndex:(NSInteger)index
-{
-    NSDate *firstVisible = [self firstVisibleDate];
-    return [[self calendar] dateByAddingDays:index toDate:firstVisible];
-}
-
-// MARK: - Touch Handling
-
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-//{
-//    [super touchesBegan:touches withEvent:event];
-//}
-//
-//- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-//{
-//    UITouch *t = [touches anyObject];
-//    
-//    CGPoint p = [t locationInView:self];
-//    
-//    [self pointInside:p withEvent:event];
-//    [super touchesMoved:touches withEvent:event];
-//}
-//
-//
-//- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-//{
-//    
-//    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
-//    NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
-//    
-//    BOOL animated = ![[self calendar] date:[self date] isSameMonthAs:dateToSelect];
-//    
-//    [self setDate:dateToSelect animated:animated];
-//    
-//    [super touchesEnded:touches withEvent:event];
-//}
-//
-///**
-// If a touch was cancelled, reset the index.
-// */
-//- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-//{
-//    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
-//    
-//    NSUInteger index = [[self calendar] daysFromDate:firstDate toDate:[self date]];
-//    
-//    [self setSelectedIndex:index];
-//    
-//    NSDate *dateToSelect = [[self calendar] dateByAddingDays:[self selectedIndex] toDate:firstDate];
-//    [self setDate:dateToSelect animated:NO];
-//}
-
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
-{
-//    CGRect bounds = [self bounds];
-//    bounds.origin.y += [self headerView].frame.size.height;
-//    bounds.size.height -= [self headerView].frame.size.height;
-    
-//    if(CGRectContainsPoint(self.wrapper.bounds, point)){
-//        /* Highlight and select the appropriate cell */
-//        
-//        NSUInteger index = [self selectedIndex];
-//        
-//        //  Get the index from the cell we're in
-//        for (CKCalendarCell *cell in self.gridView.visibleCells) {
-//            CGRect rect = [cell frame];
-//            if (CGRectContainsPoint(rect, point)) {
-//                index = [cell index];
-//                break;
-//            }
-//            
-//        }
-//        
-//        //  Clip the index to minimum and maximum dates
-//        NSDate *date = [self _dateFromIndex:index];
-//        
-//        if ([self _dateIsAfterMaximumDate:date]) {
-//            index = [self _indexFromDate:[self maximumDate]];
-//        }
-//        else if([self _dateIsBeforeMinimumDate:date])
-//        {
-//            index = [self _indexFromDate:[self minimumDate]];
-//        }
-//        
-//        // Save the new index
-//        [self setSelectedIndex:index];
-//        
-//        //  Update the cell highlighting
-//        for (CKCalendarCell *cell in self.gridView.visibleCells) {
-//            if ([cell index] == [self selectedIndex]) {
-//                [cell setSelected];
-//            }
-//            else
-//            {
-//                [cell setDeselected];
-//            }
-//            
-//        }
-//    }
-//    
-    return [super pointInside:point withEvent:event];
 }
 
 @end
