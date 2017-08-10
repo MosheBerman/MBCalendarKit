@@ -54,7 +54,7 @@
     return [comps day];
 }
 
-- (NSInteger)monthsInDate:(NSDate*)date
+- (NSInteger)monthsInDate:(nonnull NSDate*)date
 {
     NSDateComponents *comps = [self components:NSCalendarUnitMonth fromDate:date];
     return [comps month];
