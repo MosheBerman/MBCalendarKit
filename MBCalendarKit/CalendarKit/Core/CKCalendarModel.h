@@ -8,9 +8,8 @@
 
 @import Foundation;
 
-
 /**
- New in MBCalendarKit 5.0.0, this class abstracts the data related aspects of `CKCalendarView`.
+ This class abstracts the data our from behind `CKCalendarView`, to seperate rendering from calculations.
  */
 @interface CKCalendarModel : NSObject
 
@@ -28,6 +27,13 @@
  */
 @property (nonatomic, strong, nonnull) NSDate *date;
 
-// MARK: - 
+// MARK: - Getting the First Visible Date
+
+/**
+ Returns the first visible date in the calendar grid view.
+ 
+ @return A date representing the first day of the week, respecting the calendar's start date.
+ */
+@property (nonnull, nonatomic, readonly) NSDate *firstVisibleDate;
 
 @end
