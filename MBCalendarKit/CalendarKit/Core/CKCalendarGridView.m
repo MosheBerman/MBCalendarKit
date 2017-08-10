@@ -10,6 +10,7 @@
 #import "CKCalendarCell.h"
 #include <tgmath.h>
 #import "NSCalendarCategories.h"
+#import "NSDateComponents+AllComponents.h"
 
 @interface CKCalendarGridView () <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
 
@@ -57,7 +58,6 @@
 
 // MARK: - Mapping Dates and Index Paths
 
-
 /**
  Returns an NSDate representing the day being displayed by the index path.
 
@@ -65,16 +65,14 @@
  @param indexPath An index path to convert to a date.
  @return An NSDate represented by the index path.
  */
-- (nullable NSDate *)dateForIndexPath:(nonnull NSIndexPath *)indexPath
+- (nullable NSDate *)dateForIndexPath:(nonnull NSIndexPath *)indexPath;
 {
     NSDate *correspondingDate = nil;
-    
     
     NSDate *firstVisible = [self firstVisibleDate];
     NSInteger daysToAdd = (indexPath.section * [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length) + indexPath.item;
     
     correspondingDate = [self.calendar dateByAddingUnit:NSCalendarUnitDay value:daysToAdd toDate:firstVisible options:0];
-    
     
     return correspondingDate;
 }
@@ -87,20 +85,88 @@
  @param date Returns a date corresponding to the index path.
  @return An index path for the cell displaying the date.
  */
-- (nullable NSIndexPath *)indexPathForDate:(NSDate *)date
+- (nullable NSIndexPath *)indexPathForDate:(NSDate *)date;
 {
-    return nil;
+    NSIndexPath *indexPath = nil;
+    
+    NSDate *firstDate = [self firstVisibleDate];
+    NSInteger weeks = [self.calendar components:NSCalendarUnitWeekOfYear fromDate:firstDate toDate:date options:0].weekOfYear;
+    NSInteger days = [self.calendar components:NSCalendarUnitDay fromDate:firstDate toDate:date options:0].day;
+    NSInteger daysPerWeek = [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:date].length;
+    
+    indexPath = [NSIndexPath indexPathForRow:days % daysPerWeek inSection:weeks];
+    
+    return indexPath;
 }
 
-// MARK: -
+// MARK: - Getting the First Visible Date
 
+
+/**
+ Returns the first visible date in the calendar grid view.
+
+ @return A date representing the first day of the week, respecting the calendar's start date.
+ */
 - (NSDate *)firstVisibleDate
 {
-
     NSDate *firstOfTheMonth = [self.calendar firstDayOfTheMonthUsingReferenceDate:self.date];
     NSDate *firstVisible = [self.calendar firstDayOfTheWeekUsingReferenceDate:firstOfTheMonth andStartDay:self.calendar.firstWeekday];
     
     return firstVisible;
+}
+
+// MARK: - Date Scrubbing
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = touches.allObjects.firstObject;
+    CGPoint point = [touch locationInView:self];
+    
+    /* Highlight the cell under the touch. */
+    NSIndexPath *indexPath = [self indexPathForItemAtPoint:point];
+    UICollectionViewCell *selectedCell = [self cellForItemAtIndexPath:indexPath];
+    
+    for(UICollectionViewCell *cell in self.visibleCells)
+    {
+        BOOL userIsTouchingCell = [cell isEqual:selectedCell];
+        
+        cell.highlighted = userIsTouchingCell;
+    }
+    
+    [super touchesMoved:touches withEvent:event];
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = touches.allObjects.firstObject;
+    CGPoint point = [touch locationInView:self];
+    
+    NSIndexPath *indexPath = [self indexPathForItemAtPoint:point];
+    UICollectionViewCell *selectedCell = [self cellForItemAtIndexPath:indexPath];
+    
+    for(UICollectionViewCell *cell in self.visibleCells)
+    {
+        BOOL userIsTouchingCell = [cell isEqual:selectedCell];
+        
+        if(userIsTouchingCell)
+        {
+            self.date = [self dateForIndexPath:indexPath];
+            [self reloadData];
+        }
+    }
+    
+    [super touchesEnded:touches withEvent:event];
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self reloadData];
+    [super touchesCancelled:touches withEvent:event];
 }
 
 // MARK: - UICollectionViewDataSource
@@ -133,7 +199,7 @@
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
     cell.layer.borderColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.5].CGColor;
-    cell.layer.borderWidth = 1.0;
+    cell.layer.borderWidth = 0.5;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -159,9 +225,13 @@
     
     CGFloat width = CGRectGetWidth(self.superview.bounds);
     CGFloat widthAdjustForEvenDivisionByDaysPerWeek = width - (CGFloat)((NSInteger)width % numberOfDaysPerWeek);
-    CGFloat side =  widthAdjustForEvenDivisionByDaysPerWeek / (CGFloat)numberOfDaysPerWeek;
+    CGFloat side = widthAdjustForEvenDivisionByDaysPerWeek / (CGFloat)numberOfDaysPerWeek;
     
-    return CGSizeMake(side, side);
+    CGFloat extra = width - widthAdjustForEvenDivisionByDaysPerWeek;
+    
+    CGFloat extraPixel = 0;
+    
+    return CGSizeMake(side + extraPixel, side);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
