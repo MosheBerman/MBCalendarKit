@@ -22,17 +22,21 @@
 {
     self = [super initWithFrame:frame collectionViewLayout:layout];
     if (self) {
-        [self configure];
+        [self _configure];
     }
     return self;
 }
 
+- (void)_registerDefaultCells
+{
+    self.cellClass = CKCalendarCell.class;
+}
 
 // MARK: - Configuring the Collection View
 
-- (void)configure
+- (void)_configure
 {
-    [self registerCells];
+    [self _registerDefaultCells];
 
     self.delegate = self;
     self.dataSource = self;
@@ -49,11 +53,6 @@
     
     [self registerClass:cellClass forCellWithReuseIdentifier:NSStringFromClass(cellClass)];
     _cellClass = cellClass;
-}
-
-- (void)registerCells
-{
-    self.cellClass = CKCalendarCell.class;
 }
 
 // MARK: - Mapping Dates and Index Paths
