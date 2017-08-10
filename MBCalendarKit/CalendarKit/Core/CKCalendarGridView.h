@@ -7,26 +7,14 @@
 //
 
 @import UIKit;
+
 #import "CKCalendarCellConfiguration.h"
+#import "CKCalendarGridViewDataSource.h"
 
 /**
  The CKCalendarGridView manages the display of cells in the calendar view.
  */
 @interface CKCalendarGridView : UICollectionView
-
-// MARK: - The Calendar
-
-/**
- The NSCalendar which acts as a model for the calendar view.
- */
-@property (nonatomic, strong, nonnull) NSCalendar *calendar;
-
-// MARK: - Selected Date
-
-/**
- The active date.
- */
-@property (nonatomic, strong, nonnull) NSDate *date;
 
 // MARK: - Configuring Cell Display
 
@@ -39,5 +27,11 @@
  *  A block used to configure the cell. This is called multiple times per layout pass.
  */
 @property (strong, nonatomic) CKCalendarCellConfigurationBlock _Nullable cellConfigurationBlock;
+
+/**
+ *  The calendar data source provides information about
+ */
+
+@property (nonatomic, strong, nonnull) id<CKCalendarGridViewDataSource> gridDataSource;
 
 @end
