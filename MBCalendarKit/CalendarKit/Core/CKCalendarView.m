@@ -57,11 +57,6 @@
 @property (nonatomic, strong) NSArray *events;
 
 /**
- The index of the selected cell.
- */
-//@property (nonatomic, assign) NSUInteger selectedIndex;
-
-/**
  The date that was last selected by the user, either by tapping on a cell or one of the arrows in the header.
  */
 @property (nonatomic, strong) NSDate *previousDate;
