@@ -80,7 +80,11 @@
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(self.cellClass) forIndexPath:indexPath];
     
-//    self.cellConfigurationBlock(cell, [self dateForIndexPath:indexPath]);
+    if ([self.gridAppearanceDelegate respondsToSelector:@selector(calendarGrid:willDisplayCell:forDate:)])
+    {
+        NSDate *date = [self.gridDataSource dateForIndexPath:indexPath];
+        [self.gridAppearanceDelegate calendarGrid:self willDisplayCell:cell forDate:date];
+    }
     
     return cell;
 }
