@@ -72,6 +72,17 @@
     }
 }
 
+- (void)setDisplayMode:(CKCalendarDisplayMode)displayMode
+{
+    _displayMode = displayMode;
+    
+    if ([self.observer respondsToSelector:@selector(calendarModelDidInvalidate:)])
+    {
+        [self.observer calendarModelDidInvalidate:self];
+    }
+
+}
+
 // MARK: - Getting the First Visible Date
 
 /**

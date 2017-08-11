@@ -71,6 +71,12 @@
  */
 @property (nonatomic, strong) CKCalendarModel *calendarModel;
 
+/**
+ This date is set at the beginning of a scrub operation, and used to reset the model in the event of a cancelled scrub.
+ It may be `nil`, or stale.
+ */
+@property (nonatomic, strong, nullable) NSDate *temporaryDate;
+
 @end
 
 @implementation CKCalendarView
@@ -192,8 +198,6 @@
 {
     self.headerView.delegate = nil;
     self.headerView.dataSource = nil;
-    
-    [self.gridView removeObserver:self forKeyPath:@"contentSize"];
     
     [self.superview removeConstraints:self.table.constraints];
     [self.table removeFromSuperview];
@@ -318,6 +322,8 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
+    
+    self.temporaryDate = self.calendarModel.date;
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -346,6 +352,12 @@
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
+    if(self.temporaryDate)
+    {
+        self.calendarModel.date = self.temporaryDate;
+        self.temporaryDate = nil;
+    }
+    
     [super touchesCancelled:touches withEvent:event];
 }
 
@@ -485,8 +497,6 @@
     self.gridView.gridDataSource = self.calendarModel;
     self.gridView.gridAppearanceDelegate = self;
     
-    [self.gridView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-    
     if(![self.wrapper.subviews containsObject:self.gridView])
     {
         self.gridView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -575,16 +585,6 @@
     (self.layer).shadowOpacity = 1.0;
 }
 
-// MARK: - Observe Calendar Size Changes
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
-{
-    if ([self.gridView isEqual:object] && [keyPath isEqualToString:@"contentSize"])
-    {
-        [self _adjustToFitCells:YES];
-    }
-}
-
 // MARK: - Observe Model Changes
 
 - (void)calendarModel:(CKCalendarModel *)model willChangeFromDate:(NSDate *)fromDate toNewDate:(NSDate *)toDate
@@ -596,6 +596,11 @@
 
 - (void)calendarModel:(CKCalendarModel *)model didChangeFromDate:(NSDate *)fromDate toNewDate:(NSDate *)toDate
 {
+       [self _adjustToFitCells:YES];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        
+    }];
     [self.gridView reloadData];
     [self.headerView reloadData];
     
@@ -607,6 +612,16 @@
         [self setEvents:[[self dataSource] calendarView:self eventsForDate:toDate]];
         [[self table] reloadData];
     }
+}
+
+/**
+ Called after the calendar model updates its `displayMode`, `calendar` or `locale` properties.
+ 
+ @param model The model that did change.
+ */
+- (void)calendarModelDidInvalidate:(CKCalendarModel *)model;
+{
+    [self _adjustToFitCells:YES];
 }
 
 // MARK: - Lay Out Cells
@@ -655,7 +670,7 @@
         calendarCell.state = CKCalendarMonthCellStateNormal;
     }
     
-    /* */
+    /* - */
     
     if([self.calendarModel.calendar date:self.calendarModel.date isSameDayAs:date])
     {
