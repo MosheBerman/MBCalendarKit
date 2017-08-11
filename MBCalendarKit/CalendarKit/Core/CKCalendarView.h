@@ -122,7 +122,7 @@ IB_DESIGNABLE
  @discussion If `minimumDate` or `maximumDate` are set, and the `date` is out of range, it will be clamped to the appropriate bounding date.
  @param animated Determines if the layout pass that this triggers should animate.
  */
-- (void)setDate:(NSDate * _Nonnull)date animated:(BOOL)animated;
+- (void)setDate:(nonnull NSDate *)date animated:(BOOL)animated;
 
 
 // MARK: - Clamping the Minimum Date
@@ -138,12 +138,19 @@ IB_DESIGNABLE
 - (nullable NSDate *)minimumDate;
 
 /**
+ Calls `setMinimumDate:animated:` with the date provided as the `minimumDate` and `NO` for `animated`.
+
+ @param minimumDate The date to set as the minimum date.
+ */
+- (void)setMinimumDate:(nullable NSDate *)minimumDate;
+
+/**
  Sets the minimum date with an optional animation.
 
  @param minimumDate The minimum date the calendar view allows to display or be interacted with.
  @param animated Determines if the layout pass that this triggers should animate.
  */
-- (void)setMinimumDate:(NSDate * _Nullable)minimumDate animated:(BOOL)animated;
+- (void)setMinimumDate:(nullable NSDate *)minimumDate animated:(BOOL)animated;
 
 
 // MARK: - Clamping the Maximum Date
@@ -153,10 +160,17 @@ IB_DESIGNABLE
  
  When set, this prevents dates later to itself from being selected in the calendar or set programmatically.
  By default, this is `nil`.
-
+ 
  @return The calendar's maximum date, or `nil`.
  */
 - (nullable NSDate *)maximumDate;
+
+/**
+ Calls `setMaximumDate:animated:` with the date provided as the `maximumDate` and `NO` for `animated`.
+ 
+ @param maximumDate The date to set as the minimum date.
+ */
+- (void)setMaximumDate:(nullable NSDate *)maximumDate;
 
 /**
  Sets the maximum date with an optional animation.
@@ -164,17 +178,18 @@ IB_DESIGNABLE
  @param maximumDate The maximum date the calendar view allows to display or be interacted with.
  @param animated Determines if the layout pass that this triggers should animate.
  */
-- (void)setMaximumDate:(NSDate * _Nullable)maximumDate animated:(BOOL)animated;
+- (void)setMaximumDate:(nullable NSDate *)maximumDate animated:(BOOL)animated;
 
 
 // MARK: - Customizing the First Day of the Week
 
 /**
  An integer value from 1-7, specifying the first day of the week.
- 1 is Sunday, 2 is Monday, etc.
+ On the gregorian calendar, 1 is Sunday, 2 is Monday, etc.
+ 
  The first weekday is shown in the leading column of the calendar.
  */
-@property (nonatomic, assign) NSUInteger firstWeekDay;  //  Proxies to the calendar's firstWeekDay so we can update the UI immediately.
+@property (nonatomic, assign) NSUInteger firstWeekDay;
 
 // MARK: - Displaying Data in the Calendar View
 
