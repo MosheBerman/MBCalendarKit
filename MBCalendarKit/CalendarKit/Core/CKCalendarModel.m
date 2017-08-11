@@ -58,21 +58,18 @@
         }
     }
     
-//    if ([[self delegate] respondsToSelector:@selector(calendarView:willSelectDate:)]) {
-//        [[self delegate] calendarView:self willSelectDate:date];
-//    }
+    if ([self.observer respondsToSelector:@selector(calendarModel:willChangeFromDate:toNewDate:)])
+    {
+        [self.observer calendarModel:self willChangeFromDate:self.date toNewDate:date];
+    }
     
     _previousDate = self.date;
     _date = date;
     
-//    if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectDate:)]) {
-//        [[self delegate] calendarView:self didSelectDate:date];
-//    }
-//    
-//    if ([[self dataSource] respondsToSelector:@selector(calendarView:eventsForDate:)]) {
-//        [self setEvents:[[self dataSource] calendarView:self eventsForDate:date]];
-//        [[self table] reloadData];
-//    }
+    if([self.observer respondsToSelector:@selector(calendarModel:didChangeFromDate:toNewDate:)])
+    {
+        [self.observer calendarModel:self didChangeFromDate:self.previousDate toNewDate:self.date];
+    }
 }
 
 // MARK: - Getting the First Visible Date

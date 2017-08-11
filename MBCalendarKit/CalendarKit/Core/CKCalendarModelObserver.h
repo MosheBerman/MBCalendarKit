@@ -20,14 +20,18 @@
  Called before the calendar model will change the its date.
 
  @param model The model object that will change.
+ @param fromDate The old date.
+ @param toDate The new date.
  */
-- (void)modelWillChangeDate:(CKCalendarModel *)model;
+- (void)calendarModel:(CKCalendarModel *)model willChangeFromDate:(NSDate *)fromDate toNewDate:(NSDate *)toDate;
 
 /**
- Called after the model will change the its date.
-
- @param model The model object that was changed.
+ Called before the calendar model will change the its date.
+ 
+ @param model The model object that will change.
+ @param fromDate The old date.
+ @param toDate The new date.
  */
-- (void)modelDidChangeDate:(CKCalendarModel *)model;
+- (void)calendarModel:(CKCalendarModel *)model didChangeFromDate:(NSDate *)fromDate toNewDate:(NSDate *)toDate;
 
 @end

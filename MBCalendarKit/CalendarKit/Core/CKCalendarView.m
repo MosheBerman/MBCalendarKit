@@ -28,7 +28,7 @@
 #import "NSDate+Description.h"
 #import "UIView+AnimatedFrame.h"
 
-@interface CKCalendarView () <UITableViewDataSource, UITableViewDelegate, CKCalendarGridViewDelegate> {
+@interface CKCalendarView () <UITableViewDataSource, UITableViewDelegate, CKCalendarGridViewDelegate, CKCalendarModelObserver> {
     NSUInteger _firstWeekDay;
 }
 
@@ -138,6 +138,7 @@
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     _gridView = [[CKCalendarGridView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    _gridView.userInteractionEnabled = NO;
     
     //  Accessory Table
     _table = [UITableView new];
@@ -154,6 +155,8 @@
     _wrapper = [CKCalendarAnimationWrapperView new];
     _wrapper.clipsToBounds = YES;
     _isAnimating = NO;
+    
+    _calendarModel.observer = self;
     
     [self _installHeader];
     [self _installGridView];
@@ -309,6 +312,76 @@
         return UILayoutPriorityRequired;
     }
 }
+
+// MARK: - Calendar Scrubbing
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    UICollectionViewCell *cellFromTouch = [self cellFromTouches:touches];
+    
+    for (UICollectionViewCell *cell in self.gridView.visibleCells)
+    {
+        BOOL highlighted = [cell isEqual:cellFromTouch];
+        [cell setHighlighted:highlighted];
+    }
+    
+    [super touchesMoved:touches withEvent:event];
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    NSDate *dateFromTouches = [self dateFromTouches:touches];
+    UICollectionViewCell *cell = [self cellFromTouches:touches];
+    
+    cell.selected = YES;
+    self.calendarModel.date = dateFromTouches;
+    
+    [super touchesEnded:touches withEvent:event];
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [super touchesCancelled:touches withEvent:event];
+}
+
+/**
+ Finds the grid cell beneath the user's touch.
+
+ @param touches The touches to use to find the cell.
+ @return A cell beneath the finger.
+ */
+- (nullable UICollectionViewCell *)cellFromTouches:(NSSet<UITouch *> *)touches
+{
+    UITouch *touch = touches.anyObject;
+    CGPoint locationInView = [touch locationInView:self.gridView];
+    NSIndexPath *indexPath = [self.gridView indexPathForItemAtPoint:locationInView];
+    UICollectionViewCell *cell = [self.gridView cellForItemAtIndexPath:indexPath];
+    
+    return cell;
+}
+
+
+/**
+ Finds the date who's cell is beneath the user's touch.
+
+ @param touches The touches to use to find the cell.
+ @return A date, represented by the cell beneath the finger.
+ */
+- (nullable NSDate *)dateFromTouches:(NSSet<UITouch *> *)touches
+{
+    UITouch *touch = touches.anyObject;
+    CGPoint locationInView = [touch locationInView:self.gridView];
+    NSIndexPath *indexPath = [self.gridView indexPathForItemAtPoint:locationInView];
+    NSDate *date = [self.calendarModel dateForIndexPath:indexPath];
+    
+    return date;
+}
+
 
 // MARK: - Installing Internal Views
 
@@ -509,6 +582,30 @@
     if ([self.gridView isEqual:object] && [keyPath isEqualToString:@"contentSize"])
     {
         [self _adjustToFitCells:YES];
+    }
+}
+
+// MARK: - Observe Model Changes
+
+- (void)calendarModel:(CKCalendarModel *)model willChangeFromDate:(NSDate *)fromDate toNewDate:(NSDate *)toDate
+{
+    if ([[self delegate] respondsToSelector:@selector(calendarView:willSelectDate:)]) {
+        [[self delegate] calendarView:self willSelectDate:toDate];
+    }
+}
+
+- (void)calendarModel:(CKCalendarModel *)model didChangeFromDate:(NSDate *)fromDate toNewDate:(NSDate *)toDate
+{
+    [self.gridView reloadData];
+    [self.headerView reloadData];
+    
+    if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectDate:)]) {
+        [[self delegate] calendarView:self didSelectDate:toDate];
+    }
+    
+    if ([[self dataSource] respondsToSelector:@selector(calendarView:eventsForDate:)]) {
+        [self setEvents:[[self dataSource] calendarView:self eventsForDate:toDate]];
+        [[self table] reloadData];
     }
 }
 
