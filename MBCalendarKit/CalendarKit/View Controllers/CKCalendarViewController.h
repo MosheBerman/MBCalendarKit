@@ -16,6 +16,6 @@
 @property (nonatomic, assign) id<CKCalendarViewDataSource> dataSource;
 @property (nonatomic, assign) id<CKCalendarViewDelegate> delegate;
 
-- (CKCalendarView *)calendarView;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) CKCalendarView *calendarView;
 
 @end

@@ -41,7 +41,7 @@
     
     /* iOS 7 hack*/
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-        [self setEdgesForExtendedLayout:UIRectEdgeNone];
+        self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
     if(!self.title)
@@ -51,7 +51,7 @@
     
     /* Prepare the events array */
     
-    [self setEvents:[NSMutableArray new]];
+    self.events = [NSMutableArray new];
     
     [self _configureCalendarView];
     
@@ -59,18 +59,18 @@
     
     NSArray *items = @[NSLocalizedString(@"Month", @"A title for the month view button."), NSLocalizedString(@"Week",@"A title for the week view button."), NSLocalizedString(@"Day", @"A title for the day view button.")];
     
-    [self setModePicker:[[UISegmentedControl alloc] initWithItems:items]];
-    [[self modePicker] addTarget:self action:@selector(modeChangedUsingControl:) forControlEvents:UIControlEventValueChanged];
-    [[self modePicker] setSelectedSegmentIndex:0];
+    self.modePicker = [[UISegmentedControl alloc] initWithItems:items];
+    [self.modePicker addTarget:self action:@selector(modeChangedUsingControl:) forControlEvents:UIControlEventValueChanged];
+    self.modePicker.selectedSegmentIndex = 0;
     
     /* Toolbar setup */
     
     NSString *todayTitle = NSLocalizedString(@"Today", @"A button which sets the calendar to today.");
     UIBarButtonItem *todayButton = [[UIBarButtonItem alloc] initWithTitle:todayTitle style:UIBarButtonItemStylePlain target:self action:@selector(todayButtonTapped:)];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:[self modePicker]];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.modePicker];
     
     [self setToolbarItems:@[todayButton, item] animated:NO];
-    [[self navigationController] setToolbarHidden:NO animated:NO];
+    [self.navigationController setToolbarHidden:NO animated:NO];
     
     /* Remove bar translucency. */
     
@@ -127,20 +127,20 @@
 
 - (void)modeChangedUsingControl:(id)sender
 {
-    [[self calendarView] setDisplayMode:(CKCalendarDisplayMode)[[self modePicker] selectedSegmentIndex]];
+    self.calendarView.displayMode = (CKCalendarDisplayMode)self.modePicker.selectedSegmentIndex;
 }
 
 - (void)todayButtonTapped:(id)sender
 {
-    [[self calendarView] setDate:[NSDate date] animated:NO];
+    [self.calendarView setDate:[NSDate date] animated:NO];
 }
 
 #pragma mark - CKCalendarViewDataSource
 
 - (NSArray *)calendarView:(CKCalendarView *)CalendarView eventsForDate:(NSDate *)date
 {
-    if ([[self dataSource] respondsToSelector:@selector(calendarView:eventsForDate:)]) {
-        return [[self dataSource] calendarView:CalendarView eventsForDate:date];
+    if ([self.dataSource respondsToSelector:@selector(calendarView:eventsForDate:)]) {
+        return [self.dataSource calendarView:CalendarView eventsForDate:date];
     }
     return nil;
 }
@@ -150,36 +150,36 @@
 // Called before the selected date changes
 - (void)calendarView:(CKCalendarView *)calendarView willSelectDate:(NSDate *)date
 {
-    if ([self isEqual:[self delegate]]) {
+    if ([self isEqual:self.delegate]) {
         return;
     }
     
-    if ([[self delegate] respondsToSelector:@selector(calendarView:willSelectDate:)]) {
-        [[self delegate] calendarView:calendarView willSelectDate:date];
+    if ([self.delegate respondsToSelector:@selector(calendarView:willSelectDate:)]) {
+        [self.delegate calendarView:calendarView willSelectDate:date];
     }
 }
 
 // Called after the selected date changes
 - (void)calendarView:(CKCalendarView *)calendarView didSelectDate:(NSDate *)date
 {
-    if ([self isEqual:[self delegate]]) {
+    if ([self isEqual:self.delegate]) {
         return;
     }
     
-    if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectDate:)]) {
-        [[self delegate] calendarView:calendarView didSelectDate:date];
+    if ([self.delegate respondsToSelector:@selector(calendarView:didSelectDate:)]) {
+        [self.delegate calendarView:calendarView didSelectDate:date];
     }
 }
 
 //  A row is selected in the events table. (Use to push a detail view or whatever.)
 - (void)calendarView:(CKCalendarView *)calendarView didSelectEvent:(CKCalendarEvent *)event
 {
-    if ([self isEqual:[self delegate]]) {
+    if ([self isEqual:self.delegate]) {
         return;
     }
     
-    if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectEvent:)]) {
-        [[self delegate] calendarView:calendarView didSelectEvent:event];
+    if ([self.delegate respondsToSelector:@selector(calendarView:didSelectEvent:)]) {
+        [self.delegate calendarView:calendarView didSelectEvent:event];
     }
 }
 
@@ -194,7 +194,7 @@
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [[self calendarView] reloadAnimated:NO];
+        [self.calendarView reloadAnimated:NO];
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         
     }];
@@ -202,7 +202,7 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    [[self calendarView] reloadAnimated:NO];
+    [self.calendarView reloadAnimated:NO];
 }
 
 @end

@@ -25,7 +25,7 @@
 {
     NSDate *correspondingDate = nil;
     
-    NSDate *firstVisible = [self firstVisibleDate];
+    NSDate *firstVisible = self.firstVisibleDate;
     NSInteger daysToAdd = (indexPath.section * [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length) + indexPath.item;
     
     correspondingDate = [self.calendar dateByAddingUnit:NSCalendarUnitDay value:daysToAdd toDate:firstVisible options:0];
@@ -44,7 +44,7 @@
 {
     NSIndexPath *indexPath = nil;
     
-    NSDate *firstDate = [self firstVisibleDate];
+    NSDate *firstDate = self.firstVisibleDate;
     NSInteger weeks = [self.calendar components:NSCalendarUnitWeekOfYear fromDate:firstDate toDate:date options:0].weekOfYear;
     NSInteger days = [self.calendar components:NSCalendarUnitDay fromDate:firstDate toDate:date options:0].day;
     NSInteger daysPerWeek = [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:date].length;

@@ -32,7 +32,7 @@
  @param scale An arbitrary scale used to grow or shrink the polygon.
  @return A polygon view, ready for drawing.
  */
-- (id)initWithFrame:(CGRect)frame numberOfSides:(NSInteger)numberOfSides andRotation:(CGFloat)rotation andScale:(CGFloat) scale NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithFrame:(CGRect)frame numberOfSides:(NSInteger)numberOfSides andRotation:(CGFloat)rotation andScale:(CGFloat) scale NS_DESIGNATED_INITIALIZER;
 
 // MARK: - Rendering a Polygon
 
@@ -41,7 +41,7 @@
 
  @return An image containing the polygon.
  */
-- (UIImage *)polyImage;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) UIImage *polyImage;
 
 
 

@@ -41,7 +41,7 @@ float degToRad(float deg)
  @param scale An arbitrary scale used to grow or shrink the polygon.
  @return A polygon view, ready for drawing.
  */
-- (id)initWithFrame:(CGRect)frame numberOfSides:(NSInteger)numberOfSides andRotation:(CGFloat)rotation andScale:(CGFloat) scale;
+- (instancetype)initWithFrame:(CGRect)frame numberOfSides:(NSInteger)numberOfSides andRotation:(CGFloat)rotation andScale:(CGFloat) scale;
 {
     self = [super initWithFrame:frame];
     
@@ -145,7 +145,7 @@ float degToRad(float deg)
     // Drawing code
     
     //Create an image context
-    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [[UIScreen mainScreen] scale]);
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [UIScreen mainScreen].scale);
     
     //Get a context
     CGContextRef context = UIGraphicsGetCurrentContext();

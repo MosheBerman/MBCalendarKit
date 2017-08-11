@@ -14,12 +14,12 @@
 {
     if (animated) {
         [UIView animateWithDuration:0.4 animations:^{
-            [self setFrame:frame];
+            self.frame = frame;
         }];
     }
     else
     {
-        [self setFrame:frame];
+        self.frame = frame;
     }
 }
 

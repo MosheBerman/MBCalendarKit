@@ -32,8 +32,8 @@
      *  Wire up the data source and delegate.
      */
     
-    [self setDataSource:self];
-    [self setDelegate:self];
+    self.dataSource = self;
+    self.delegate = self;
     
     /**
      *  Create some events.
@@ -102,7 +102,7 @@
 
 - (NSArray *)calendarView:(CKCalendarView *)calendarView eventsForDate:(NSDate *)date
 {
-    return [self data][date];
+    return self.data[date];
 }
 
 #pragma mark - CKCalendarViewDelegate

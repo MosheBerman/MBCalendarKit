@@ -10,7 +10,7 @@
 
 @interface NSDate (Description)
 
-- (NSString *)description;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *description;
 
 // Returns a three letter abbreviation of weekday name
 - (NSString *)dayNameOnCalendar:(NSCalendar *)calendar;

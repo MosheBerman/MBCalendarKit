@@ -10,6 +10,6 @@
 
 @interface NSString (Color)
 
-- (UIColor *)toColor;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor *toColor;
 
 @end

@@ -238,37 +238,37 @@
 
 - (NSInteger)secondsFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
 {
-    return [[self components:NSCalendarUnitSecond fromDate:fromDate toDate:toDate options:0] second];
+    return [self components:NSCalendarUnitSecond fromDate:fromDate toDate:toDate options:0].second;
 }
 
 - (NSInteger)minutesFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
 {
-    return [[self components:NSCalendarUnitMinute fromDate:fromDate toDate:toDate options:0] minute];
+    return [self components:NSCalendarUnitMinute fromDate:fromDate toDate:toDate options:0].minute;
 }
 
 - (NSInteger)hoursFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
 {
-    return [[self components:NSCalendarUnitHour fromDate:fromDate toDate:toDate options:0] hour];
+    return [self components:NSCalendarUnitHour fromDate:fromDate toDate:toDate options:0].hour;
 }
 
 - (NSInteger)daysFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate
 {
-    return [[self components:NSCalendarUnitDay fromDate:fromDate toDate:toDate options:0] day];
+    return [self components:NSCalendarUnitDay fromDate:fromDate toDate:toDate options:0].day;
 }
 
 - (NSInteger)weeksFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate
 {
-    return [[self components:NSCalendarUnitWeekOfYear fromDate:fromDate toDate:toDate options:0] weekOfYear];
+    return [self components:NSCalendarUnitWeekOfYear fromDate:fromDate toDate:toDate options:0].weekOfYear;
 }
 
 - (NSInteger)monthsFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate
 {
-    return [[self components:NSCalendarUnitMonth fromDate:fromDate toDate:toDate options:0] month];
+    return [self components:NSCalendarUnitMonth fromDate:fromDate toDate:toDate options:0].month;
 }
 
 - (NSInteger)yearsFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate
 {
-    return [[self components:NSCalendarUnitYear fromDate:fromDate toDate:toDate options:0] year];
+    return [self components:NSCalendarUnitYear fromDate:fromDate toDate:toDate options:0].year;
 }
 
 

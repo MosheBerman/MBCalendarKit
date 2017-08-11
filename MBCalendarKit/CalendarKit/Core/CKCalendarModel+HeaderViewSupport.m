@@ -20,7 +20,7 @@
     
     if(mode == CKCalendarViewModeMonth)
     {
-        return [[self date] monthAndYearOnCalendar:self.calendar];
+        return [self.date monthAndYearOnCalendar:self.calendar];
     }
     
     else if (mode == CKCalendarViewModeWeek)
@@ -44,7 +44,7 @@
     }
     
     //Otherwise, return today's date as a string
-    return [[self date] monthAndDayAndYearOnCalendar:self.calendar];
+    return [self.date monthAndDayAndYearOnCalendar:self.calendar];
 }
 
 - (NSUInteger)numberOfColumnsForHeader:(CKCalendarHeaderView *)header
@@ -78,7 +78,7 @@
     CKCalendarDisplayMode mode = self.displayMode;
     
     if (mode == CKCalendarViewModeDay) {
-        return [self.calendar date:[NSDate date] isSameDayAs:[self date]];
+        return [self.calendar date:[NSDate date] isSameDayAs:self.date];
     }
     
     return NO;
@@ -88,7 +88,7 @@
 {
     
     //  Never disable if there's no minimum date
-    if (![self minimumDate]) {
+    if (!self.minimumDate) {
         return NO;
     }
     
@@ -96,21 +96,21 @@
     
     if (mode == CKCalendarViewModeMonth)
     {
-        return [self.calendar date:[self date] isSameMonthAs:[self minimumDate]];
+        return [self.calendar date:self.date isSameMonthAs:self.minimumDate];
     }
     else if(mode == CKCalendarViewModeWeek)
     {
-        return [self.calendar date:[self date] isSameWeekAs:[self minimumDate]];
+        return [self.calendar date:self.date isSameWeekAs:self.minimumDate];
     }
     
-    return [self.calendar date:[self date] isSameDayAs:[self minimumDate]];
+    return [self.calendar date:self.date isSameDayAs:self.minimumDate];
 }
 
 - (BOOL)headerShouldDisableForwardButton:(CKCalendarHeaderView *)header
 {
     
     //  Never disable if there's no minimum date
-    if (![self maximumDate]) {
+    if (!self.maximumDate) {
         return NO;
     }
     
@@ -118,21 +118,21 @@
     
     if (mode == CKCalendarViewModeMonth)
     {
-        return [self.calendar date:[self date] isSameMonthAs:[self maximumDate]];
+        return [self.calendar date:self.date isSameMonthAs:self.maximumDate];
     }
     else if(mode == CKCalendarViewModeWeek)
     {
-        return [self.calendar date:[self date] isSameWeekAs:[self maximumDate]];
+        return [self.calendar date:self.date isSameWeekAs:self.maximumDate];
     }
     
-    return [self.calendar date:[self date] isSameDayAs:[self maximumDate]];
+    return [self.calendar date:self.date isSameDayAs:self.maximumDate];
 }
 
 // MARK: - CKCalendarHeaderViewDelegate
 
 - (void)forwardTapped
 {
-    NSDate *date = [self date];
+    NSDate *date = self.date;
     NSDate *today = [NSDate date];
     
     /* If the cells are animating, don't do anything or we'll break the view */
@@ -212,7 +212,7 @@
 - (void)backwardTapped
 {
     
-    NSDate *date = [self date];
+    NSDate *date = self.date;
     NSDate *today = [NSDate date];
     
     /*

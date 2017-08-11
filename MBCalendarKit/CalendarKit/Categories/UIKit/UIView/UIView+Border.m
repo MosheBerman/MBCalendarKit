@@ -22,13 +22,13 @@
         [self setBorderWidth:1.0];
     }
     
-    [[self layer] setBorderColor:[self borderColor].CGColor];
-    [[self layer] setBorderWidth:[self borderWidth]];
+    self.layer.borderColor = [self borderColor].CGColor;
+    self.layer.borderWidth = [self borderWidth];
 }
 
 - (void) hideBorder{
-    [[self layer] setBorderWidth:0.0];
-    [[self layer] setBorderColor:[UIColor clearColor].CGColor];
+    self.layer.borderWidth = 0.0;
+    self.layer.borderColor = [UIColor clearColor].CGColor;
 }
 
 #pragma mark - Border Color

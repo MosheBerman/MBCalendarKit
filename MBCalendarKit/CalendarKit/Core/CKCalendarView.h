@@ -135,14 +135,13 @@ IB_DESIGNABLE
  
  @return The calendar's minimum date, or `nil`.
  */
-- (nullable NSDate *)minimumDate;
+@property (NS_NONATOMIC_IOSONLY, copy) NSDate * _Nullable minimumDate;
 
 /**
  Calls `setMinimumDate:animated:` with the date provided as the `minimumDate` and `NO` for `animated`.
 
  @param minimumDate The date to set as the minimum date.
  */
-- (void)setMinimumDate:(nullable NSDate *)minimumDate;
 
 /**
  Sets the minimum date with an optional animation.
@@ -163,14 +162,13 @@ IB_DESIGNABLE
  
  @return The calendar's maximum date, or `nil`.
  */
-- (nullable NSDate *)maximumDate;
+@property (NS_NONATOMIC_IOSONLY, copy) NSDate * _Nullable maximumDate;
 
 /**
  Calls `setMaximumDate:animated:` with the date provided as the `maximumDate` and `NO` for `animated`.
  
  @param maximumDate The date to set as the minimum date.
  */
-- (void)setMaximumDate:(nullable NSDate *)maximumDate;
 
 /**
  Sets the maximum date with an optional animation.

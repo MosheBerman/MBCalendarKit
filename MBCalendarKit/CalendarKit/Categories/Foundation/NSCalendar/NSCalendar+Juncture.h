@@ -12,7 +12,7 @@
 
 #pragma mark - First of Week
 
-- (NSDate *)firstDayOfTheWeek;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDate *firstDayOfTheWeek;
 - (NSDate *)firstDayOfTheWeekUsingReferenceDate:(NSDate *)date;
 
 /**
@@ -28,15 +28,15 @@
 
 #pragma mark - Last of Week
 
-- (NSDate *)lastDayOfTheWeek;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDate *lastDayOfTheWeek;
 - (NSDate *)lastDayOfTheWeekUsingReferenceDate:(NSDate *)date;
 
 #pragma mark - First/Last of Month
 
-- (NSDate *)firstDayOfTheMonth;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDate *firstDayOfTheMonth;
 - (NSDate *)firstDayOfTheMonthUsingReferenceDate:(NSDate *)date;
 
-- (NSDate *)lastDayOfTheMonth;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDate *lastDayOfTheMonth;
 - (NSDate *)lastDayOfTheMonthUsingReferenceDate:(NSDate *)date;
 
 @end

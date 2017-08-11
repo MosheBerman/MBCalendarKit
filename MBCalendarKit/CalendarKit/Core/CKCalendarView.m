@@ -141,8 +141,8 @@
     
     //  Accessory Table
     _table = [UITableView new];
-    [_table setDelegate:self];
-    [_table setDataSource:self];
+    _table.delegate = self;
+    _table.dataSource = self;
     
     [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     [_table registerClass:[UITableViewCell class] forCellReuseIdentifier:@"noDataCell"];
@@ -218,15 +218,15 @@
      *  Sort & cache the events for the current date.
      */
     
-    if ([[self dataSource] respondsToSelector:@selector(calendarView:eventsForDate:)]) {
-        NSArray *sortedArray = [[[self dataSource] calendarView:self eventsForDate:[self date]] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    if ([self.dataSource respondsToSelector:@selector(calendarView:eventsForDate:)]) {
+        NSArray *sortedArray = [[self.dataSource calendarView:self eventsForDate:self.date] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             NSDate *d1 = [obj1 date];
             NSDate *d2 = [obj2 date];
             
             return [d1 compare:d2];
         }];
         
-        [self setEvents:sortedArray];
+        self.events = sortedArray;
     }
     
     /**
@@ -497,9 +497,9 @@
 
 - (void)_installShadow
 {
-    [self.layer setShadowColor:[[UIColor darkGrayColor] CGColor]];
-    [self.layer setShadowOffset:CGSizeMake(0, 3)];
-    [self.layer setShadowOpacity:1.0];
+    (self.layer).shadowColor = [UIColor darkGrayColor].CGColor;
+    (self.layer).shadowOffset = CGSizeMake(0, 3);
+    (self.layer).shadowOpacity = 1.0;
 }
 
 // MARK: - Observe Calendar Size Changes
@@ -534,8 +534,8 @@
 
 - (UICollectionViewCell *)calendarGrid:(CKCalendarGridView *)gridView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date
 {
-    BOOL cellRepresentsToday = [[self calendar] date:date isSameDayAs:[NSDate date]];
-    BOOL isThisMonth = [[self calendar] date:date isSameMonthAs:[self date]];
+    BOOL cellRepresentsToday = [self.calendar date:date isSameDayAs:[NSDate date]];
+    BOOL isThisMonth = [self.calendar date:date isSameMonthAs:self.date];
     BOOL isInRange = [self.calendarModel dateIsBetweenMinimumAndMaximumDates:date];
     isInRange = isInRange || [self.calendarModel.calendar date:date isSameDayAs:self.calendarModel.minimumDate];
     isInRange = isInRange || [self.calendarModel.calendar date:date isSameDayAs:self.calendarModel.maximumDate];
@@ -572,7 +572,7 @@
     
     if([self.dataSource respondsToSelector:@selector(calendarView:eventsForDate:)])
     {
-        BOOL showDot = ([[self.dataSource calendarView:self eventsForDate:date] count] > 0);
+        BOOL showDot = ([self.dataSource calendarView:self eventsForDate:date].count > 0);
         calendarCell.showDot = showDot;
     }
     else
@@ -756,7 +756,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger count = [[self events] count];
+    NSInteger count = self.events.count;
     
     if (count == 0) {
         count = 2;
@@ -767,35 +767,35 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUInteger count = [[self events] count];
+    NSUInteger count = self.events.count;
     
     if (count == 0) {
-        UITableViewCell *cell = [[self table] dequeueReusableCellWithIdentifier:@"noDataCell"];
-        [[cell textLabel] setTextAlignment:NSTextAlignmentCenter];
-        [[cell textLabel] setTextColor:[UIColor colorWithWhite:0.2 alpha:0.8]];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        UITableViewCell *cell = [self.table dequeueReusableCellWithIdentifier:@"noDataCell"];
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.textColor = [UIColor colorWithWhite:0.2 alpha:0.8];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        if ([indexPath row] == 1) {
-            [[cell textLabel] setText:NSLocalizedString(@"No Events", @"A label for a table with no events.")];
+        if (indexPath.row == 1) {
+            [cell.textLabel setText:NSLocalizedString(@"No Events", @"A label for a table with no events.")];
         }
         else
         {
-            [[cell textLabel] setText:@""];
+            cell.textLabel.text = @"";
         }
         return cell;
     }
     
     CKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
-    CKCalendarEvent *event = [[self events] objectAtIndex:[indexPath row]];
+    CKCalendarEvent *event = self.events[indexPath.row];
     
-    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    [[cell textLabel] setText:[event title]];
+    cell.textLabel.text = event.title;
     
     UIView *colorView = [[UIView alloc] initWithFrame:CGRectMake(3, 6, 20, 20)];
     CALayer *layer = [CALayer layer];
-    layer.backgroundColor = [[event color] CGColor];
+    layer.backgroundColor = event.color.CGColor;
     layer.frame = colorView.frame;
     [colorView.layer insertSublayer:layer atIndex:0];
     
@@ -815,12 +815,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if ([[self events] count] == 0) {
+    if (self.events.count == 0) {
         return;
     }
     
-    if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectEvent:)]) {
-        [[self delegate] calendarView:self didSelectEvent:[self events][[indexPath row]]];
+    if ([self.delegate respondsToSelector:@selector(calendarView:didSelectEvent:)]) {
+        [self.delegate calendarView:self didSelectEvent:self.events[indexPath.row]];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

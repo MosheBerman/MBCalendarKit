@@ -24,9 +24,9 @@
 {
     
     NSDateComponents *components = [[NSDateComponents alloc] init];
-    [components setDay:day];
-    [components setMonth:month];
-    [components setYear:year];
+    components.day = day;
+    components.month = month;
+    components.year = year;
     
     return [calendar dateFromComponents:components];
 }
@@ -37,16 +37,16 @@
 {
     
     NSDateComponents *components = [[NSDateComponents alloc] init];
-    [components setEra:era];
-    [components setYear:year];
-    [components setMonth:month];
-    [components setDay:day];
-    [components setHour:hour];
-    [components setMinute:minute];
-    [components setSecond:second];
-    [components setWeekOfYear:week];
-    [components setWeekday:weekday];
-    [components setWeekdayOrdinal:weekdayOrdinal];
+    components.era = era;
+    components.year = year;
+    components.month = month;
+    components.day = day;
+    components.hour = hour;
+    components.minute = minute;
+    components.second = second;
+    components.weekOfYear = week;
+    components.weekday = weekday;
+    components.weekdayOrdinal = weekdayOrdinal;
     
     return [calendar dateFromComponents:components];
 }
@@ -56,103 +56,103 @@
 //    All default values return components of [NSDate date].
 + (NSInteger)defaultEraForCalendar:(NSCalendar *)calendar
 {
-    return [[NSDate defaultComponentsForCalendar:calendar] era];
+    return [NSDate defaultComponentsForCalendar:calendar].era;
 }
 
 + (NSInteger)defaultYearForCalendar:(NSCalendar *)calendar
 {
-    return [[NSDate defaultComponentsForCalendar:calendar] year];
+    return [NSDate defaultComponentsForCalendar:calendar].year;
 }
 
 + (NSInteger)defaultMonthForCalendar:(NSCalendar *)calendar
 {
-    return [[NSDate defaultComponentsForCalendar:calendar] month];
+    return [NSDate defaultComponentsForCalendar:calendar].month;
 }
 
 + (NSInteger)defaultDayForCalendar:(NSCalendar *)calendar
 {
-    return [[NSDate defaultComponentsForCalendar:calendar] day];
+    return [NSDate defaultComponentsForCalendar:calendar].day;
 }
 
 + (NSInteger)defaultHourForCalendar:(NSCalendar *)calendar
 {
-    return [[NSDate defaultComponentsForCalendar:calendar] hour];
+    return [NSDate defaultComponentsForCalendar:calendar].hour;
 }
 
 + (NSInteger)defaultMinuteForCalendar:(NSCalendar *)calendar
 {
-    return [[NSDate defaultComponentsForCalendar:calendar] minute];
+    return [NSDate defaultComponentsForCalendar:calendar].minute;
 }
 
 + (NSInteger)defaultSecondForCalendar:(NSCalendar *)calendar
 {
-    return [[NSDate defaultComponentsForCalendar:calendar] second];
+    return [NSDate defaultComponentsForCalendar:calendar].second;
 }
 
 + (NSInteger)defaultWeekForCalendar:(NSCalendar *)calendar
 {
-    return [[NSDate defaultComponentsForCalendar:calendar] weekOfYear];
+    return [NSDate defaultComponentsForCalendar:calendar].weekOfYear;
 }
 
 + (NSInteger)defaultWeekdayForCalendar:(NSCalendar *)calendar
 {
-    return [[NSDate defaultComponentsForCalendar:calendar] weekday];
+    return [NSDate defaultComponentsForCalendar:calendar].weekday;
 }
 
 + (NSInteger)defaultWeekdayOrdinalForCalendar:(NSCalendar *)calendar
 {
-    return [[NSDate defaultComponentsForCalendar:calendar] weekdayOrdinal];
+    return [NSDate defaultComponentsForCalendar:calendar].weekdayOrdinal;
 }
 
 //  These use [NSCalendar currentCalendar].
 + (NSInteger)defaultEra
 {
-    return [[NSDate defaultComponents] era];
+    return [NSDate defaultComponents].era;
 }
 
 + (NSInteger)defaultYear
 {
-    return [[NSDate defaultComponents] year];
+    return [NSDate defaultComponents].year;
 }
 
 + (NSInteger)defaultMonth
 {
-    return [[NSDate defaultComponents] month];
+    return [NSDate defaultComponents].month;
 }
 
 + (NSInteger)defaultDay
 {
-    return [[NSDate defaultComponents] day];
+    return [NSDate defaultComponents].day;
 }
 
 + (NSInteger)defaultHour
 {
-    return [[NSDate defaultComponents] hour];
+    return [NSDate defaultComponents].hour;
 }
 
 + (NSInteger)defaultMinute
 {
-    return [[NSDate defaultComponents] minute];
+    return [NSDate defaultComponents].minute;
 }
 
 + (NSInteger)defaultSecond
 {
-    return [[NSDate defaultComponents] second];
+    return [NSDate defaultComponents].second;
 }
 
 + (NSInteger)defaultWeek
 {
-    return [[NSDate defaultComponents] weekOfYear];
+    return [NSDate defaultComponents].weekOfYear;
 }
 
 + (NSInteger)defaultWeekday
 {
-    return [[NSDate defaultComponents] weekday];
+    return [NSDate defaultComponents].weekday;
 }
 
 + (NSInteger)defaultWeekdayOrdinal
 {
-    return [[NSDate defaultComponents] weekdayOrdinal];
+    return [NSDate defaultComponents].weekdayOrdinal;
 }
 
 #pragma mark - Default Components and Calendar

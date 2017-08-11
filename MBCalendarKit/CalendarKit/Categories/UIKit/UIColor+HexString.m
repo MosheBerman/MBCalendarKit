@@ -11,9 +11,9 @@
 @implementation UIColor(HexString)
 
 + (UIColor *) colorWithHexString: (NSString *) hexString {
-    NSString *colorString = [[hexString stringByReplacingOccurrencesOfString: @"#" withString: @""] uppercaseString];
+    NSString *colorString = [hexString stringByReplacingOccurrencesOfString: @"#" withString: @""].uppercaseString;
     CGFloat alpha, red, blue, green;
-    switch ([colorString length]) {
+    switch (colorString.length) {
         case 3: // #RGB
             alpha = 1.0f;
             red   = [self colorComponentFrom: colorString start: 0 length: 1];

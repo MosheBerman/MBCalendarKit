@@ -12,77 +12,77 @@
 
 #pragma mark - Units Per Minute
 
-- (NSUInteger)secondsPerMinute;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger secondsPerMinute;
 - (NSUInteger)secondsPerMinuteUsingReferenceDate:(NSDate *)date;
 
 #pragma mark - Units Per Hour
 
-- (NSUInteger)secondsPerHour;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger secondsPerHour;
 - (NSUInteger)secondsPerHourUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)minutesPerHour;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger minutesPerHour;
 - (NSUInteger)minutesPerHourUsingReferenceDate:(NSDate *)date;
 
 #pragma mark - Units Per Day
 
-- (NSUInteger)secondsPerDay;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger secondsPerDay;
 - (NSUInteger)secondsPerDayUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)minutesPerDay;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger minutesPerDay;
 - (NSUInteger)minutesPerDayUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)hoursPerDay;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger hoursPerDay;
 - (NSUInteger)hoursPerDayUsingReferenceDate:(NSDate *)date;
 
 #pragma mark - Units Per Week
 
-- (NSUInteger)secondsPerWeek;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger secondsPerWeek;
 - (NSUInteger)secondsPerWeekUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)minutesPerWeek;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger minutesPerWeek;
 - (NSUInteger)minutesPerWeekUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)hoursPerWeek;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger hoursPerWeek;
 - (NSUInteger)hoursPerWeekUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)daysPerWeek;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger daysPerWeek;
 - (NSUInteger)daysPerWeekUsingReferenceDate:(NSDate *)date;
 
 #pragma mark - Units Per Month
 
-- (NSUInteger)secondsPerMonth;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger secondsPerMonth;
 - (NSUInteger)secondsPerMonthUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)minutesPerMonth;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger minutesPerMonth;
 - (NSUInteger)minutesPerMonthUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)hoursPerMonth;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger hoursPerMonth;
 - (NSUInteger)hoursPerMonthUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)daysPerMonth;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger daysPerMonth;
 - (NSUInteger)daysPerMonthUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)weeksPerMonth;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger weeksPerMonth;
 - (NSUInteger)weeksPerMonthUsingReferenceDate:(NSDate *)date;
 
 #pragma mark - Units Per Year
 
-- (NSUInteger)secondsPerYear;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger secondsPerYear;
 - (NSUInteger)secondsPerYearUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)minutesPerYear;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger minutesPerYear;
 - (NSUInteger)minutesPerYearUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)hoursPerYear;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger hoursPerYear;
 - (NSUInteger)hoursPerYearUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)daysPerYear;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger daysPerYear;
 - (NSUInteger)daysPerYearUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)weeksPerYear;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger weeksPerYear;
 - (NSUInteger)weeksPerYearUsingReferenceDate:(NSDate *)date;
 
-- (NSUInteger)monthsPerYear;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger monthsPerYear;
 - (NSUInteger)monthsPerYearUsingReferenceDate:(NSDate *)date;
 
 #pragma mark - Ranges Between Dates

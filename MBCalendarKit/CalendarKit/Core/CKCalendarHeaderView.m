@@ -59,7 +59,7 @@
 
 // MARK: - Initializer
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -75,12 +75,12 @@
         _headerTitleHighlightedTextColor = kCalendarColorHeaderTitleHighlightedBlue;
         
         _titleLabel = [UILabel new];
-        [_titleLabel setTextColor:_headerMonthTextColor];
-        [_titleLabel setShadowColor:_headerMonthTextShadow];
-        [_titleLabel setShadowOffset:CGSizeMake(0, 1)];
-        [_titleLabel setBackgroundColor:[UIColor clearColor]];
-        [_titleLabel setTextAlignment:NSTextAlignmentCenter];
-        [_titleLabel setFont:_headerMonthTextFont];
+        _titleLabel.textColor = _headerMonthTextColor;
+        _titleLabel.shadowColor = _headerMonthTextShadow;
+        _titleLabel.shadowOffset = CGSizeMake(0, 1);
+        _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.font = _headerMonthTextFont;
         
         _columnTitles = [NSMutableArray new];
         _columnLabels = [NSMutableArray new];
@@ -96,7 +96,7 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     [super willMoveToSuperview:newSuperview];
-    [self setBackgroundColor:self.headerGradient];
+    self.backgroundColor = self.headerGradient;
     [self reloadData];
 }
 
@@ -105,7 +105,7 @@
 - (void)updateConstraints {
     
     /*  Check for a data source for the header to be installed. */
-    if (![self dataSource]) {
+    if (!self.dataSource) {
         @throw [NSException exceptionWithName:@"CKCalendarViewHeaderException" reason:@"Header can't be installed without a data source" userInfo:@{@"Header": self}];
     }
     
@@ -229,12 +229,12 @@
 
 - (void)_configureLabel:(UILabel *)label
 {
-    [label setBackgroundColor:[UIColor clearColor]];
-    [label setTextColor:self.headerWeekdayTitleColor];
-    [label setShadowColor:self.headerWeekdayShadowColor];
-    [label setTextAlignment:NSTextAlignmentCenter];
-    [label setFont:self.headerWeekdayTitleFont];
-    [label setShadowOffset:CGSizeMake(0, 1)];
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = self.headerWeekdayTitleColor;
+    label.shadowColor = self.headerWeekdayShadowColor;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = self.headerWeekdayTitleFont;
+    label.shadowOffset = CGSizeMake(0, 1);
 }
 
 /* Creates and configures a label for a column title */
@@ -243,7 +243,7 @@
 {
     UILabel *l = [UILabel new];
     [self _configureLabel:l];
-    [l setText:title];
+    l.text = title;
     
     return l;
 }
@@ -404,11 +404,11 @@
 {
     if ([self shouldHighlightTitle])
     {
-        [[self titleLabel] setTextColor:self.headerTitleHighlightedTextColor];
+        self.titleLabel.textColor = self.headerTitleHighlightedTextColor;
     }
     else
     {
-        [[self titleLabel] setTextColor:self.headerMonthTextColor];
+        self.titleLabel.textColor = self.headerMonthTextColor;
     }
 }
 
@@ -455,11 +455,11 @@
     }
     
     if ([self shouldDisableForwardButton]) {
-        [self.forwardButton setAlpha:0.5];
+        (self.forwardButton).alpha = 0.5;
     }
     
     if ([self shouldDisableBackwardButton]) {
-        [self.backwardButton setAlpha:0.5];
+        (self.backwardButton).alpha = 0.5;
     }
 }
 
@@ -523,16 +523,16 @@
 {
     CGPoint location = [gesture locationInView:self];
     
-    if ([gesture state] != UIGestureRecognizerStateEnded) {
+    if (gesture.state != UIGestureRecognizerStateEnded) {
         return;
     }
     
-    if (CGRectContainsPoint([[self forwardButton] frame], location) && ![self shouldDisableForwardButton])
+    if (CGRectContainsPoint(self.forwardButton.frame, location) && ![self shouldDisableForwardButton])
     {
         [self forwardButtonTapped];
     }
     
-    else if(CGRectContainsPoint([[self backwardButton] frame],location) && ![self shouldDisableBackwardButton])
+    else if(CGRectContainsPoint(self.backwardButton.frame,location) && ![self shouldDisableBackwardButton])
     {
         [self backwardButtonTapped];
     }
@@ -543,19 +543,19 @@
 - (void)setHeaderMonthTextFont:(UIFont *)headerMonthTextFont {
     _headerMonthTextFont = headerMonthTextFont;
     
-    [self.titleLabel setFont:_headerMonthTextFont];
+    (self.titleLabel).font = _headerMonthTextFont;
 }
 
 - (void)setHeaderMonthTextColor:(UIColor *)headerMonthTextColor {
     _headerMonthTextColor = headerMonthTextColor;
     
-    [self.titleLabel setTextColor:headerMonthTextColor];
+    (self.titleLabel).textColor = headerMonthTextColor;
 }
 
 - (void)setHeaderMonthTextShadow:(UIColor *)headerMonthTextShadow {
     _headerMonthTextShadow = headerMonthTextShadow;
     
-    [self.titleLabel setShadowColor:headerMonthTextShadow];
+    (self.titleLabel).shadowColor = headerMonthTextShadow;
 }
 
 
@@ -580,22 +580,22 @@
 - (void)setHeaderGradient:(UIColor *)headerGradient {
     _headerGradient = headerGradient;
     
-    [self setBackgroundColor:headerGradient];
+    self.backgroundColor = headerGradient;
 }
 
 #pragma mark - Button Handling
 
 - (void)forwardButtonTapped
 {
-    if ([[self delegate] respondsToSelector:@selector(forwardTapped)]) {
-        [[self delegate] forwardTapped];
+    if ([self.delegate respondsToSelector:@selector(forwardTapped)]) {
+        [self.delegate forwardTapped];
     }
 }
 
 - (void)backwardButtonTapped
 {
-    if ([[self delegate] respondsToSelector:@selector(backwardTapped)]) {
-        [[self delegate] backwardTapped];
+    if ([self.delegate respondsToSelector:@selector(backwardTapped)]) {
+        [self.delegate backwardTapped];
     }
 }
 
@@ -603,8 +603,8 @@
 
 - (BOOL)shouldHighlightTitle
 {
-    if ([[self delegate] respondsToSelector:@selector(headerShouldHighlightTitle:)]) {
-        return [[self dataSource] headerShouldHighlightTitle:self];
+    if ([self.delegate respondsToSelector:@selector(headerShouldHighlightTitle:)]) {
+        return [self.dataSource headerShouldHighlightTitle:self];
     }
     return NO;  //  Default is no.
 }
@@ -613,16 +613,16 @@
 
 - (BOOL)shouldDisableForwardButton
 {
-    if ([[self dataSource] respondsToSelector:@selector(headerShouldDisableForwardButton:)]) {
-        return [[self dataSource] headerShouldDisableForwardButton:self];
+    if ([self.dataSource respondsToSelector:@selector(headerShouldDisableForwardButton:)]) {
+        return [self.dataSource headerShouldDisableForwardButton:self];
     }
     return NO;  //  Default is no.
 }
 
 - (BOOL)shouldDisableBackwardButton
 {
-    if ([[self dataSource] respondsToSelector:@selector(headerShouldDisableBackwardButton:)]) {
-        return [[self dataSource] headerShouldDisableBackwardButton:self];
+    if ([self.dataSource respondsToSelector:@selector(headerShouldDisableBackwardButton:)]) {
+        return [self.dataSource headerShouldDisableBackwardButton:self];
     }
     return NO;  //  Default is no.
 }

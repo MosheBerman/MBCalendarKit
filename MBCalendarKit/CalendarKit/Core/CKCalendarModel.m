@@ -50,11 +50,11 @@
     if (minimumIsBeforeMaximum) {
         
         if ([self _dateIsBeforeMinimumDate:date]) {
-            date = [self minimumDate];
+            date = self.minimumDate;
         }
         else if([self _dateIsAfterMaximumDate:date])
         {
-            date = [self maximumDate];
+            date = self.maximumDate;
         }
     }
     
@@ -142,22 +142,22 @@
         return YES;
     }
     
-    return [[self calendar] date:[self minimumDate] isBeforeDate:[self maximumDate]];
+    return [self.calendar date:self.minimumDate isBeforeDate:self.maximumDate];
 }
 
 - (BOOL)_hasNonNilMinimumAndMaximumDates
 {
-    return [self minimumDate] != nil && [self maximumDate] != nil;
+    return self.minimumDate != nil && self.maximumDate != nil;
 }
 
 - (BOOL)_dateIsBeforeMinimumDate:(NSDate *)date
 {
-    return [[self calendar] date:date isBeforeDate:[self minimumDate]];
+    return [self.calendar date:date isBeforeDate:self.minimumDate];
 }
 
 - (BOOL)_dateIsAfterMaximumDate:(NSDate *)date
 {
-    return [[self calendar] date:date isAfterDate:[self maximumDate]];
+    return [self.calendar date:date isAfterDate:self.maximumDate];
 }
 
 
@@ -171,25 +171,25 @@
 {
     //  If there are both the minimum and maximum dates are unset,
     //  behave as if all dates are in range.
-    if (![self minimumDate] && ![self maximumDate]) {
+    if (!self.minimumDate && !self.maximumDate) {
         return YES;
     }
     
     //  If there's no minimum, treat all dates that are before
     //  the maximum as valid
-    else if(![self minimumDate])
+    else if(!self.minimumDate)
     {
-        return [[self calendar]date:date isBeforeDate:[self maximumDate]];
+        return [self.calendar date:date isBeforeDate:self.maximumDate];
     }
     
     //  If there's no maximum, treat all dates that are before
     //  the minimum as valid
-    else if(![self maximumDate])
+    else if(!self.maximumDate)
     {
-        return [[self calendar] date:date isAfterDate:[self minimumDate]];
+        return [self.calendar date:date isAfterDate:self.minimumDate];
     }
     
-    return [[self calendar] date:date isAfterDate:[self minimumDate]] && [[self calendar] date:date isBeforeDate:[self maximumDate]];
+    return [self.calendar date:date isAfterDate:self.minimumDate] && [self.calendar date:date isBeforeDate:self.maximumDate];
 }
 
 
