@@ -54,5 +54,25 @@
     return indexPath;
 }
 
+// MARK: - CKCalendarGridViewDataSource
+
+/**
+ The number of columns that the grid view should display.
+ */
+- (NSUInteger)numberOfColumns;
+{
+    return [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length;
+}
+
+
+/**
+ The number of rows that the grid view should display.
+ */
+- (NSUInteger)numberOfRows;
+{
+    return [self.calendar rangeOfUnit:NSCalendarUnitWeekOfMonth inUnit:NSCalendarUnitMonth forDate:self.date].length;
+}
+
+
 
 @end
