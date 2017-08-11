@@ -86,46 +86,54 @@
 
 - (BOOL)headerShouldDisableBackwardButton:(CKCalendarHeaderView *)header
 {
-    
     //  Never disable if there's no minimum date
-    if (!self.minimumDate) {
-        return NO;
-    }
+    BOOL should = NO;
     
-    CKCalendarDisplayMode mode = self.displayMode;
-    
-    if (mode == CKCalendarViewModeMonth)
+    if (self.minimumDate != nil)
     {
-        return [self.calendar date:self.date isSameMonthAs:self.minimumDate];
-    }
-    else if(mode == CKCalendarViewModeWeek)
-    {
-        return [self.calendar date:self.date isSameWeekAs:self.minimumDate];
+        CKCalendarDisplayMode mode = self.displayMode;
+        
+        if (mode == CKCalendarViewModeMonth)
+        {
+            should = [self.calendar date:self.date isSameMonthAs:self.minimumDate];
+        }
+        else if(mode == CKCalendarViewModeWeek)
+        {
+            should = [self.calendar date:self.date isSameWeekAs:self.minimumDate];
+        }
+        else if(mode == CKCalendarViewModeDay)
+        {
+            should =  [self.calendar date:self.date isSameDayAs:self.minimumDate];
+        }
     }
     
-    return [self.calendar date:self.date isSameDayAs:self.minimumDate];
+    return should;
 }
 
 - (BOOL)headerShouldDisableForwardButton:(CKCalendarHeaderView *)header
 {
+    //  Never disable if there's no maximum date
+    BOOL should = NO;
     
-    //  Never disable if there's no minimum date
-    if (!self.maximumDate) {
-        return NO;
-    }
-    
-    CKCalendarDisplayMode mode = self.displayMode;
-    
-    if (mode == CKCalendarViewModeMonth)
+    if (self.maximumDate != nil)
     {
-        return [self.calendar date:self.date isSameMonthAs:self.maximumDate];
-    }
-    else if(mode == CKCalendarViewModeWeek)
-    {
-        return [self.calendar date:self.date isSameWeekAs:self.maximumDate];
+        CKCalendarDisplayMode mode = self.displayMode;
+        
+        if (mode == CKCalendarViewModeMonth)
+        {
+            should = [self.calendar date:self.date isSameMonthAs:self.maximumDate];
+        }
+        else if(mode == CKCalendarViewModeWeek)
+        {
+            should = [self.calendar date:self.date isSameWeekAs:self.maximumDate];
+        }
+        else if (mode == CKCalendarViewModeDay)
+        {
+            should = [self.calendar date:self.date isSameDayAs:self.maximumDate];
+        }
     }
     
-    return [self.calendar date:self.date isSameDayAs:self.maximumDate];
+    return should;
 }
 
 // MARK: - CKCalendarHeaderViewDelegate
