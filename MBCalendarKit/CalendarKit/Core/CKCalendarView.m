@@ -141,6 +141,7 @@
 {
     _calendarModel = [[CKCalendarModel alloc] init];
     _headerView = [CKCalendarHeaderView new];
+
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     _gridView = [[CKCalendarGridView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
@@ -168,6 +169,7 @@
     [self _installGridView];
     [self _installWrapper];
     [self _installShadow];
+    [self reload];
 }
 
 // MARK: - View Lifecycle
@@ -244,9 +246,9 @@
      *  Reload the calendar view.
      */
     
-    [self.gridView reloadData];
     [self _layoutCellsAnimated:animated];
     [self.headerView reloadData];
+    [self.wrapper bringSubviewToFront:self.headerView];
     [self.table reloadData];
 }
 
@@ -321,9 +323,9 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [super touchesBegan:touches withEvent:event];
-    
     self.temporaryDate = self.calendarModel.date;
+
+    [super touchesBegan:touches withEvent:event];
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -341,25 +343,70 @@
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    NSDate *dateFromTouches = [self dateFromTouches:touches];
-    UICollectionViewCell *cell = [self cellFromTouches:touches];
+    UITouch *touch = touches.anyObject;
+    CGPoint point = [touch locationInView:self];
+    BOOL isInGrid = CGRectContainsPoint(self.gridView.frame, point);
     
-    cell.selected = YES;
-    self.calendarModel.date = dateFromTouches;
-    
+    if(isInGrid)
+    {
+        NSDate *dateFromTouches = [self dateFromTouches:touches];
+        UICollectionViewCell *cell = [self cellFromTouches:touches];
+        
+        cell.selected = YES;
+        self.calendarModel.date = dateFromTouches;
+    }
+    else
+    {
+        [self restoreDateFromBeforeInteraction];
+    }
     [super touchesEnded:touches withEvent:event];
+    
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+
+    BOOL touchIsInHeader = [self touch:touches.anyObject isInView:self.headerView];
+    if(!touchIsInHeader)
+    {
+        [self restoreDateFromBeforeInteraction];
+    }
+    
+    [super touchesCancelled:touches withEvent:event];
+}
+
+// MARK: - Cancelling Date Scrubbing
+
+/**
+ Handle cancellations of a scrub interaction.
+ */
+- (void)restoreDateFromBeforeInteraction
 {
     if(self.temporaryDate)
     {
         self.calendarModel.date = self.temporaryDate;
         self.temporaryDate = nil;
     }
-    
-    [super touchesCancelled:touches withEvent:event];
 }
+
+// MARK: - Hit Testing Touches
+
+/**
+ Determines if a touch is inside the bounds of another view.
+
+ @param touch The touch to evaluate.
+ @param view The view to evaluate against.
+ @return The value of CGRectContainsPoint(view.frame, ...) returns for the location of the touch in `self`.
+ */
+- (BOOL)touch:(UITouch *)touch isInView:(UIView *)view
+{
+    CGPoint point = [touch locationInView:self];
+    BOOL isInView = CGRectContainsPoint(view.frame, point);
+    
+    return isInView;
+}
+
+// MARK: - Correlating Touches with Cells and Dates
 
 /**
  Finds the grid cell beneath the user's touch.
@@ -393,7 +440,6 @@
     
     return date;
 }
-
 
 // MARK: - Installing Internal Views
 
@@ -628,7 +674,7 @@
 
 - (void)_layoutCellsAnimated:(BOOL)animated
 {
-    
+    [self.gridView reloadData];
 }
 
 - (void)_adjustToFitCells:(BOOL)animated
