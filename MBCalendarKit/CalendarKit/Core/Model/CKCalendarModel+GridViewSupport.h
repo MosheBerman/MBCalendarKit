@@ -7,6 +7,7 @@
 //
 
 #import "CKCalendarModel.h"
+#import "CKCalendarGridViewDataSource.h"
 
 @interface CKCalendarModel (GridViewSupport) <CKCalendarGridViewDataSource>
 

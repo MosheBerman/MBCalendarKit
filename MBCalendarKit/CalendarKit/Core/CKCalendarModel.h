@@ -8,13 +8,17 @@
 
 @import Foundation;
 
-#import "CKCalendarGridViewDataSource.h"
 #import "CKCalendarViewMode.h"
+#import "CKCalendarModelObserver.h"
 
 /**
  This class abstracts the data our from behind `CKCalendarView`, to seperate rendering from calculations.
  */
 @interface CKCalendarModel : NSObject
+
+// MARK: - Observing Changes to the Model
+
+@property (nonatomic, weak, nullable) id<CKCalendarModelObserver> observer;
 
 // MARK: - The Calendar System
 
@@ -52,12 +56,14 @@
  */
 - (BOOL)dateIsBetweenMinimumAndMaximumDates:(nonnull NSDate *)date;
 
+
 // MARK: - Display Mode
 
 /**
  The display mode determines how much information the calendar shows at once.
  */
 @property (nonatomic, assign) CKCalendarDisplayMode displayMode;
+
 
 // MARK: - Getting the First Visible Date
 
