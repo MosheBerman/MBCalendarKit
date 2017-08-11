@@ -28,7 +28,7 @@
 #import "NSDate+Description.h"
 #import "UIView+AnimatedFrame.h"
 
-@interface CKCalendarView () <UITableViewDataSource, UITableViewDelegate> {
+@interface CKCalendarView () <UITableViewDataSource, UITableViewDelegate, CKCalendarGridViewDelegate> {
     NSUInteger _firstWeekDay;
 }
 
@@ -136,6 +136,9 @@
     _calendarModel = [[CKCalendarModel alloc] init];
     _headerView = [CKCalendarHeaderView new];
     
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    _gridView = [[CKCalendarGridView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    
     //  Accessory Table
     _table = [UITableView new];
     [_table setDelegate:self];
@@ -156,7 +159,6 @@
     [self _installGridView];
     [self _installWrapper];
     [self _installShadow];
-    
 }
 
 // MARK: - View Lifecycle
@@ -233,7 +235,8 @@
      *  Reload the calendar view.
      */
     
-    [self _layoutCellsAnimated:animated];
+    [self.gridView reloadData];
+//    [self _layoutCellsAnimated:animated];
     [self.headerView reloadData];
     [self.table reloadData];
 }
@@ -242,10 +245,7 @@
 
 - (CGFloat)_heightForDisplayMode:(CKCalendarDisplayMode)displayMode
 {
-    
-    
     CGFloat headerHeight = self.headerView.intrinsicContentSize.height;
-    
     CGFloat height = headerHeight;
     
     CGFloat columnCount = (CGFloat)self.calendarModel.numberOfColumns;
@@ -413,62 +413,10 @@
 
 - (void)_installGridView
 {
-    
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    _gridView = [[CKCalendarGridView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    self.gridView.gridDataSource = self.calendarModel;
+    self.gridView.gridAppearanceDelegate = self;
     
     [self.gridView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-    
-    __weak CKCalendarView *weakSelf = self;
-    
-    self.gridView.cellConfigurationBlock = ^(UICollectionViewCell * _Nonnull cell, NSDate * _Nonnull date) {
-      
-        BOOL cellRepresentsToday = [[weakSelf calendar] date:date isSameDayAs:[NSDate date]];
-        BOOL isThisMonth = [[weakSelf calendar] date:date isSameMonthAs:[weakSelf date]];
-        BOOL isInRange = [weakSelf _dateIsBetweenMinimumAndMaximumDates:date];
-        isInRange = isInRange || [[weakSelf calendar] date:date isSameDayAs:[self minimumDate]];
-        isInRange = isInRange || [[weakSelf calendar] date:date isSameDayAs:[self maximumDate]];
-        
-        CKCalendarCell *calendarCell = (CKCalendarCell *)cell;
-        
-        if (cellRepresentsToday && isThisMonth && isInRange)
-        {
-            calendarCell.state = CKCalendarMonthCellStateTodayDeselected;
-        }
-        else if(!isInRange)
-        {
-            [calendarCell setOutOfRange];
-        }
-        else if (!isThisMonth) {
-            calendarCell.state = CKCalendarMonthCellStateInactive;
-        }
-        else
-        {
-            calendarCell.state = CKCalendarMonthCellStateNormal;
-        }
-        
-        /* */
-        
-//        if([weakSelf.gridView.calendar date:weakSelf.gridView.date isSameDayAs:date])
-//        {
-//            [calendarCell setSelected];
-//        }
-        
-        /* Show the day of the month in the cell. */
-        
-        NSUInteger day = [weakSelf.calendar daysInDate:date];
-        calendarCell.number = @(day);
-        
-        if([weakSelf.dataSource respondsToSelector:@selector(calendarView:eventsForDate:)])
-        {
-            BOOL showDot = ([[weakSelf.dataSource calendarView:self eventsForDate:date] count] > 0);
-            calendarCell.showDot = showDot;
-        }
-        else
-        {
-            calendarCell.showDot = NO;
-        }
-    };
     
     if(![self.wrapper.subviews containsObject:self.gridView])
     {
@@ -509,7 +457,6 @@
         
         
         [NSLayoutConstraint activateConstraints:@[trailing, top, bottom, leading]];
-
     }
 }
 
@@ -571,8 +518,12 @@
 
 // MARK: - Lay Out Cells
 
-
 - (void)_layoutCellsAnimated:(BOOL)animated
+{
+    
+}
+
+- (void)_adjustToFitCells:(BOOL)animated
 {
     NSInteger duration = animated ? 0.3 : 0.0;
     
@@ -580,12 +531,69 @@
     [UIView animateWithDuration:duration animations:^{
         [self invalidateIntrinsicContentSize];
         [self.superview setNeedsLayout];
-        [self.superview layoutIfNeeded];
     }];
 }
 
+// MARK: - CKCalendarGridDelegate
 
-// MARK: - Setters
+- (UICollectionViewCell *)calendarGrid:(CKCalendarGridView *)gridView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date
+{
+    BOOL cellRepresentsToday = [[self calendar] date:date isSameDayAs:[NSDate date]];
+    BOOL isThisMonth = [[self calendar] date:date isSameMonthAs:[self date]];
+    BOOL isInRange = [self.calendarModel dateIsBetweenMinimumAndMaximumDates:date];
+    isInRange = isInRange || [self.calendarModel.calendar date:date isSameDayAs:self.calendarModel.minimumDate];
+    isInRange = isInRange || [self.calendarModel.calendar date:date isSameDayAs:self.calendarModel.maximumDate];
+    
+    CKCalendarCell *calendarCell = (CKCalendarCell *)cell;
+    
+    if (cellRepresentsToday && isThisMonth && isInRange)
+    {
+        calendarCell.state = CKCalendarMonthCellStateTodayDeselected;
+    }
+    else if(!isInRange)
+    {
+        [calendarCell setOutOfRange];
+    }
+    else if (!isThisMonth) {
+        calendarCell.state = CKCalendarMonthCellStateInactive;
+    }
+    else
+    {
+        calendarCell.state = CKCalendarMonthCellStateNormal;
+    }
+    
+    /* */
+    
+    if([self.calendarModel.calendar date:self.calendarModel.date isSameDayAs:date])
+    {
+        [calendarCell setSelected];
+    }
+    
+    /* Show the day of the month in the cell. */
+    
+    NSUInteger day = [self.calendar daysInDate:date];
+    calendarCell.number = @(day);
+    
+    if([self.dataSource respondsToSelector:@selector(calendarView:eventsForDate:)])
+    {
+        BOOL showDot = ([[self.dataSource calendarView:self eventsForDate:date] count] > 0);
+        calendarCell.showDot = showDot;
+    }
+    else
+    {
+        calendarCell.showDot = NO;
+    }
+    
+    return calendarCell;
+}
+
+
+// MARK: - Calendar
+
+- (NSCalendar *)calendar
+{
+    return self.calendarModel.calendar;
+}
 
 // TODO: Consider observing the `NSCalendar` instance to catch these changes for animation instead of overriding all these methods.
 
@@ -597,12 +605,15 @@
 - (void)setCalendar:(NSCalendar *)calendar animated:(BOOL)animated
 {
     if (calendar == nil) {
-        calendar = [NSCalendar currentCalendar];
+        calendar = [NSCalendar autoupdatingCurrentCalendar];
     }
     
-    _calendar = calendar;
-    [_calendar setLocale:_locale];
-    [_calendar setFirstWeekday:_firstWeekDay];
+    NSLocale *locale = self.calendarModel.calendar.locale;
+    NSUInteger firstWeekday = self.calendarModel.calendar.firstWeekday;
+    
+    self.calendarModel.calendar = calendar;
+    self.calendarModel.calendar.locale = locale;
+    self.calendarModel.calendar.firstWeekday = firstWeekday;
     
     [self reloadAnimated:animated];
 }
@@ -618,8 +629,7 @@
         locale = [NSLocale currentLocale];
     }
     
-    _locale = locale;
-    [[self calendar] setLocale:locale];
+    self.calendarModel.calendar.locale = locale;
     
     [self reloadAnimated:animated];
 }
@@ -640,8 +650,7 @@
     {
         timeZone = [NSTimeZone defaultTimeZone];
     }
-    
-    [[self calendar] setTimeZone:timeZone];
+    self.calendarModel.calendar.timeZone = timeZone;
     
     [self reloadAnimated:animated];
 }
@@ -653,7 +662,7 @@
 
 - (void)setDisplayMode:(CKCalendarDisplayMode)displayMode animated:(BOOL)animated
 {
-    _displayMode = displayMode;
+    self.calendarModel.displayMode = displayMode;
     
     [self reloadAnimated:animated];
 }
@@ -670,50 +679,11 @@
 
 - (void)setDate:(NSDate *)date animated:(BOOL)animated
 {
-    
-    if (!date) {
-        date = [NSDate date];
-    }
-    
-    NSDateComponents *components = [self.calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
-    date = [self.calendar dateFromComponents:components];
-    
-    BOOL minimumIsBeforeMaximum = [self _minimumDateIsBeforeMaximumDate];
-    
-    if (minimumIsBeforeMaximum) {
-        
-        if ([self _dateIsBeforeMinimumDate:date]) {
-            date = [self minimumDate];
-        }
-        else if([self _dateIsAfterMaximumDate:date])
-        {
-            date = [self maximumDate];
-        }
-    }
-    
-    if ([[self delegate] respondsToSelector:@selector(calendarView:willSelectDate:)]) {
-        [[self delegate] calendarView:self willSelectDate:date];
-    }
-
-    
-    // TODO: Update previous date here, and set next date.
-    
     self.calendarModel.date = date;
-    
-    if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectDate:)]) {
-        [[self delegate] calendarView:self didSelectDate:date];
-    }
-    
-    if ([[self dataSource] respondsToSelector:@selector(calendarView:eventsForDate:)]) {
-        [self setEvents:[[self dataSource] calendarView:self eventsForDate:date]];
-        [[self table] reloadData];
-    }
-    
+    [self.table reloadData];
     [self reloadAnimated:animated];
 }
 
-
-// MARK: - Minimum Date
 
 // MARK: - Clamping the Minimum Date
 
@@ -755,6 +725,20 @@
 - (void)setMaximumDate:(NSDate *)maximumDate animated:(BOOL)animated
 {
     self.calendarModel.maximumDate = maximumDate;
+}
+
+// MARK: - First Weekday
+
+- (void)setFirstWeekDay:(NSUInteger)firstWeekDay
+{
+    self.calendarModel.calendar.firstWeekday = firstWeekDay;
+    
+    [self reload];
+}
+
+- (NSUInteger)firstWeekDay
+{
+    return self.calendarModel.calendar.firstWeekday;
 }
 
 // MARK: - Calendar Data Source
@@ -838,73 +822,6 @@
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-// MARK: - First Weekday
-
-- (void)setFirstWeekDay:(NSUInteger)firstWeekDay
-{
-    _firstWeekDay = firstWeekDay;
-    self.calendar.firstWeekday = firstWeekDay;
-    
-    [self reload];
-}
-
-- (NSUInteger)firstWeekDay
-{
-    return _firstWeekDay;
-}
-
-// MARK: - Minimum and Maximum Dates
-
-- (BOOL)_minimumDateIsBeforeMaximumDate
-{
-    //  If either isn't set, return YES
-    if (![self _hasNonNilMinimumAndMaximumDates]) {
-        return YES;
-    }
-    
-    return [[self calendar] date:[self minimumDate] isBeforeDate:[self maximumDate]];
-}
-
-- (BOOL)_hasNonNilMinimumAndMaximumDates
-{
-    return [self minimumDate] != nil && [self maximumDate] != nil;
-}
-
-- (BOOL)_dateIsBeforeMinimumDate:(NSDate *)date
-{
-    return [[self calendar] date:date isBeforeDate:[self minimumDate]];
-}
-
-- (BOOL)_dateIsAfterMaximumDate:(NSDate *)date
-{
-    return [[self calendar] date:date isAfterDate:[self maximumDate]];
-}
-
-- (BOOL)_dateIsBetweenMinimumAndMaximumDates:(NSDate *)date
-{
-    //  If there are both the minimum and maximum dates are unset,
-    //  behave as if all dates are in range.
-    if (![self minimumDate] && ![self maximumDate]) {
-        return YES;
-    }
-    
-    //  If there's no minimum, treat all dates that are before
-    //  the maximum as valid
-    else if(![self minimumDate])
-    {
-        return [[self calendar]date:date isBeforeDate:[self maximumDate]];
-    }
-    
-    //  If there's no maximum, treat all dates that are before
-    //  the minimum as valid
-    else if(![self maximumDate])
-    {
-        return [[self calendar] date:date isAfterDate:[self minimumDate]];
-    }
-    
-    return [[self calendar] date:date isAfterDate:[self minimumDate]] && [[self calendar] date:date isBeforeDate:[self maximumDate]];
 }
 
 @end
