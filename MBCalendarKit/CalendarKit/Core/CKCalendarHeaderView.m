@@ -86,6 +86,7 @@
         _columnLabels = [NSMutableArray new];
         
         _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
+        _tapGesture.cancelsTouchesInView = YES;
         [self addGestureRecognizer:_tapGesture];
     }
     return self;
@@ -518,7 +519,6 @@
 }
 
 // MARK: - Touch Handling
-
 - (void)tapHandler:(UITapGestureRecognizer *)gesture
 {
     CGPoint location = [gesture locationInView:self];
