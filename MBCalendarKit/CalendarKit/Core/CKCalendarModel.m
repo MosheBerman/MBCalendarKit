@@ -9,6 +9,15 @@
 #import "CKCalendarModel.h"
 #import "NSCalendar+Juncture.h"
 
+@interface CKCalendarModel ()
+
+/**
+ The date that was last selected by the user, either by tapping on a cell or one of the arrows in the header.
+ */
+@property (nonatomic, strong) NSDate *previousDate;
+
+@end
+
 @implementation CKCalendarModel
 
 // MARK: - Initializer
@@ -17,7 +26,7 @@
 {
     self = [super init];
     if (self) {
-        _calendar = [NSCalendar currentCalendar];
+        _calendar = [NSCalendar autoupdatingCurrentCalendar];
         _displayMode = CKCalendarViewModeMonth;
         _date = [NSDate date];
     }

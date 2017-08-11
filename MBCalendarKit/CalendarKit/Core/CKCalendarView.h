@@ -21,10 +21,10 @@ IB_DESIGNABLE
 /**
  Initialize an instance of CKCalendarView.
  
- @param CalendarDisplayMode The display mode to use.
+ @param mode The display mode to use.
  @return An instance of CKCalendarView.
  */
-- (instancetype)initWithMode:(CKCalendarDisplayMode)CalendarDisplayMode NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithMode:(CKCalendarDisplayMode)mode NS_DESIGNATED_INITIALIZER;
 
 // MARK: - Display Mode
 
@@ -45,13 +45,13 @@ IB_DESIGNABLE
 // MARK: - Getting and Setting the Backing NSCalendar
 
 /**
- The calendar displayed by the calendar view. 
+ The calendar system used to display the calendar view.
  
- This is used for things like the names of the months and how many rows to show for a given month.
+ This is used for things like the names of the months and how many weeks are required to display a given month.
  
  The default is `NSCalendar.currentCalendar`. Setting to `nil` restores the default.
  */
-@property(nonatomic, copy) NSCalendar *calendar;
+@property(nonatomic, copy, nonnull) NSCalendar *calendar;
 
 /**
  Set the `NSCalendar` backing the calendar view.
@@ -59,7 +59,7 @@ IB_DESIGNABLE
  @param calendar An `NSCalendar` instance.
  @param animated Determines if the layout pass that this triggers should animate.
  */
-- (void)setCalendar:(NSCalendar *)calendar animated:(BOOL)animated;
+- (void)setCalendar:(NSCalendar * _Nonnull)calendar animated:(BOOL)animated;
 
 // MARK: - The Format Locale
 
@@ -68,7 +68,7 @@ IB_DESIGNABLE
  
  The default is `NSLocale.currentLocale`. Setting to `nil` restores the default.
  */
-@property(nonatomic, strong) NSLocale *locale;
+@property(nonatomic, strong) NSLocale * _Nonnull locale;
 
 /**
  Sets the locale that the calendar view uses to format things, such as week names.
@@ -78,7 +78,7 @@ IB_DESIGNABLE
  @param locale An `NSLocale` instance.
  @param animated Determines if the layout pass that this triggers should animate.
  */
-- (void)setLocale:(NSLocale *)locale animated:(BOOL)animated;
+- (void)setLocale:(nonnull NSLocale *)locale animated:(BOOL)animated;
 
 
 // MARK: - Getting and Setting the Time Zone
@@ -94,7 +94,7 @@ IB_DESIGNABLE
  As a result, the default value is now `NSTimeZone.defaultTimeZone`. To make the setter consistent with this, setting to `nil` now sets to `NSTimeZone.defaultTimeZone`.
  
  */
-@property(nonatomic, strong) NSTimeZone *timeZone;
+@property(nonatomic, strong, nonnull) NSTimeZone *timeZone;
 
 /**
  Sets the time zone on `self.calendar`.
@@ -104,7 +104,7 @@ IB_DESIGNABLE
  @param timeZone An `NSTimeZone` instance.
  @param animated Determines if the layout pass that this triggers should animate.
  */
-- (void)setTimeZone:(NSTimeZone *)timeZone animated:(BOOL)animated;
+- (void)setTimeZone:(NSTimeZone * _Nonnull)timeZone animated:(BOOL)animated;
 
 
 // MARK: - Getting and Setting the Current Date
@@ -112,7 +112,7 @@ IB_DESIGNABLE
 /**
  The currently selected date on the calendar.
  */
-@property (nonatomic, strong) NSDate *date;
+@property (nonatomic, strong, nonnull) NSDate *date;
 
 /**
  Set the selected `date` property on the calendar vies.
@@ -122,16 +122,20 @@ IB_DESIGNABLE
  @discussion If `minimumDate` or `maximumDate` are set, and the `date` is out of range, it will be clamped to the appropriate bounding date.
  @param animated Determines if the layout pass that this triggers should animate.
  */
-- (void)setDate:(NSDate *)date animated:(BOOL)animated;
+- (void)setDate:(NSDate * _Nonnull)date animated:(BOOL)animated;
 
 
 // MARK: - Clamping the Minimum Date
 
 /**
- When set, this prevents dates prior to itself from being selected in the calendar or set programmatically.
+ Returns the value of the calendar's `minimumDate` if it is set.
+ 
+ When set, this prevents dates later to itself from being selected in the calendar or set programmatically.
  By default, this is `nil`.
+ 
+ @return The calendar's minimum date, or `nil`.
  */
-@property (nonatomic, strong) NSDate *minimumDate;
+- (nullable NSDate *)minimumDate;
 
 /**
  Sets the minimum date with an optional animation.
@@ -139,16 +143,20 @@ IB_DESIGNABLE
  @param minimumDate The minimum date the calendar view allows to display or be interacted with.
  @param animated Determines if the layout pass that this triggers should animate.
  */
-- (void)setMinimumDate:(NSDate *)minimumDate animated:(BOOL)animated;
+- (void)setMinimumDate:(NSDate * _Nullable)minimumDate animated:(BOOL)animated;
 
 
 // MARK: - Clamping the Maximum Date
 
 /**
+ Returns the value of the calendar's `maximumDate` if it is set.
+ 
  When set, this prevents dates later to itself from being selected in the calendar or set programmatically.
  By default, this is `nil`.
+
+ @return The calendar's maximum date, or `nil`.
  */
-@property (nonatomic, strong) NSDate *maximumDate;
+- (nullable NSDate *)maximumDate;
 
 /**
  Sets the maximum date with an optional animation.
@@ -156,7 +164,7 @@ IB_DESIGNABLE
  @param maximumDate The maximum date the calendar view allows to display or be interacted with.
  @param animated Determines if the layout pass that this triggers should animate.
  */
-- (void)setMaximumDate:(NSDate *)maximumDate animated:(BOOL)animated;
+- (void)setMaximumDate:(NSDate * _Nullable)maximumDate animated:(BOOL)animated;
 
 
 // MARK: - Customizing the First Day of the Week
@@ -173,14 +181,14 @@ IB_DESIGNABLE
 /**
  The data source which provides events for the calendar.
  */
-@property (nonatomic, weak) id<CKCalendarViewDataSource> dataSource;
+@property (nonatomic, weak, nullable) id<CKCalendarViewDataSource> dataSource;
 
 // MARK: - Handling Interaction with the Calendar
 
 /**
  The delegate handles date changes and event selections.
  */
-@property (nonatomic, weak) id<CKCalendarViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<CKCalendarViewDelegate> delegate;
 
 
 // MARK: - Reloading the Calendar and Event Table

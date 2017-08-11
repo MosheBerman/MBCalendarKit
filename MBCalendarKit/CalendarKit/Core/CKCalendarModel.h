@@ -30,6 +30,21 @@
  */
 @property (nonatomic, strong, nonnull) NSDate *date;
 
+// MARK: - Clamping Date with Minimum and Maximum
+
+/**
+ When set, this prevents dates prior to itself from being selected in the calendar or set programmatically.
+ By default, this is `nil`.
+ */
+@property (nonatomic, strong, nullable) NSDate *minimumDate;
+
+/**
+ When set, this prevents dates later to itself from being selected in the calendar or set programmatically.
+ By default, this is `nil`.
+ */
+@property (nonatomic, strong, nullable) NSDate *maximumDate;
+
+
 // MARK: - Display Mode
 
 /**

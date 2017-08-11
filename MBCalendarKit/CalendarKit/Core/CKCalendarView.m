@@ -10,20 +10,25 @@
 
 #import "CKCalendarView.h"
 
+#import "CKCalendarModel.h"
+#import "CKCalendarModel+GridViewSupport.h"
+#import "CKCalendarModel+HeaderViewSupport.h"
+
+#import "CKCalendarAnimationWrapperView.h"
+#import "CKCalendarGridView.h"
+
 #import "CKCalendarHeaderView.h"
 #import "CKCalendarHeaderViewDelegate.h"
 #import "CKCalendarHeaderViewDataSource.h"
 
-#import "CKCalendarGridView.h"
 #import "CKCalendarCell.h"
 #import "CKTableViewCell.h"
-#import "CKCalendarAnimationWrapperView.h"
 
 #import "NSCalendarCategories.h"
 #import "NSDate+Description.h"
 #import "UIView+AnimatedFrame.h"
 
-@interface CKCalendarView () <CKCalendarHeaderViewDataSource, CKCalendarHeaderViewDelegate, UITableViewDataSource, UITableViewDelegate> {
+@interface CKCalendarView () <UITableViewDataSource, UITableViewDelegate> {
     NSUInteger _firstWeekDay;
 }
 
@@ -57,14 +62,14 @@
 @property (nonatomic, strong) NSArray *events;
 
 /**
- The date that was last selected by the user, either by tapping on a cell or one of the arrows in the header.
- */
-@property (nonatomic, strong) NSDate *previousDate;
-
-/**
  Are the cells animating? Used to prevent animation races.
  */
 @property (nonatomic, assign) BOOL isAnimating;
+
+/**
+ *  A model, encapsulating the state of a calendar.
+ */
+@property (nonatomic, strong) CKCalendarModel *calendarModel;
 
 @end
 
@@ -78,11 +83,11 @@
  @param CalendarDisplayMode How much content to display: a month, a week, or a day?
  @return An instance of CKCalendarView.
  */
-- (instancetype)initWithMode:(CKCalendarDisplayMode)CalendarDisplayMode
+- (instancetype)initWithMode:(CKCalendarViewMode)mode
 {
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        _displayMode = CalendarDisplayMode;
+        _displayMode = mode;
         [self commonInitializer];
     }
     return self;
@@ -98,7 +103,8 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [self initWithMode:CKCalendarViewModeMonth];
-    if (self) {
+    if (self)
+    {
         
     }
     return self;
@@ -127,11 +133,7 @@
  */
 - (void)commonInitializer
 {
-    _locale = [NSLocale currentLocale];
-    _calendar = [NSCalendar autoupdatingCurrentCalendar];
-    [_calendar setLocale:_locale];
-    
-    _displayMode = CKCalendarViewModeMonth;
+    _calendarModel = [[CKCalendarModel alloc] init];
     _headerView = [CKCalendarHeaderView new];
     
     //  Accessory Table
@@ -146,24 +148,9 @@
     _events = [NSMutableArray new];
     
     //  Used for animation
-    _previousDate = [NSDate date];
     _wrapper = [CKCalendarAnimationWrapperView new];
     _wrapper.clipsToBounds = YES;
     _isAnimating = NO;
-    
-    //  Date bounds
-    _minimumDate = nil;
-    _maximumDate = nil;
-    
-    //  First Weekday
-    _firstWeekDay = [_calendar firstWeekday];
-    
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    _gridView = [[CKCalendarGridView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-    _gridView.date = [NSDate date];
-    
-    NSDateComponents *components = [_calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:_gridView.date];
-    _gridView.date = [_calendar dateFromComponents:components];
     
     [self _installHeader];
     [self _installGridView];
@@ -261,8 +248,8 @@
     
     CGFloat height = headerHeight;
     
-    CGFloat columnCount = (CGFloat)[self _columnCountForDisplayMode:self.displayMode];
-    CGFloat rowCount = (CGFloat)[self _rowCountForDisplayMode:self.displayMode];
+    CGFloat columnCount = (CGFloat)self.calendarModel.numberOfColumns;
+    CGFloat rowCount = (CGFloat)self.calendarModel.numberOfRows;
     
     if (columnCount > 0) /* Month and Week Mode */
     {
@@ -292,7 +279,7 @@
     if(self.superview)
     {
         width = CGRectGetWidth(self.superview.bounds);
-        NSInteger daysPerWeek = [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length;
+        NSInteger daysPerWeek = self.calendarModel.numberOfColumns;
         
         /* Adjust width for more perfect divisibility. */
         CGFloat widthAdjustedForDivisibilityByDaysPerWeek = width - (CGFloat)((NSInteger)width % daysPerWeek);
@@ -427,8 +414,9 @@
 - (void)_installGridView
 {
     
-    self.gridView.calendar = self.calendar;
-    self.gridView.date = self.date;
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    _gridView = [[CKCalendarGridView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    
     [self.gridView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
     
     __weak CKCalendarView *weakSelf = self;
@@ -461,10 +449,10 @@
         
         /* */
         
-        if([weakSelf.gridView.calendar date:weakSelf.gridView.date isSameDayAs:date])
-        {
-            [calendarCell setSelected];
-        }
+//        if([weakSelf.gridView.calendar date:weakSelf.gridView.date isSameDayAs:date])
+//        {
+//            [calendarCell setSelected];
+//        }
         
         /* Show the day of the month in the cell. */
         
@@ -527,10 +515,10 @@
 
 - (void)_installHeader
 {
-    CKCalendarHeaderView *header = [self headerView];
+    CKCalendarHeaderView *header = self.headerView;
     header.translatesAutoresizingMaskIntoConstraints = NO;
-    [header setDelegate:self];
-    [header setDataSource:self];
+    header.delegate = self.calendarModel;
+    header.dataSource = self.calendarModel;
     
     if (![self.headerView isDescendantOfView:self.wrapper])
     {
@@ -577,8 +565,7 @@
 {
     if ([self.gridView isEqual:object] && [keyPath isEqualToString:@"contentSize"])
     {
-        [self invalidateIntrinsicContentSize];
-        [self.superview setNeedsLayout];
+        [self _layoutCellsAnimated:YES];
     }
 }
 
@@ -593,6 +580,7 @@
     [UIView animateWithDuration:duration animations:^{
         [self invalidateIntrinsicContentSize];
         [self.superview setNeedsLayout];
+        [self.superview layoutIfNeeded];
     }];
 }
 
@@ -613,7 +601,6 @@
     }
     
     _calendar = calendar;
-    _gridView.calendar = calendar;
     [_calendar setLocale:_locale];
     [_calendar setFirstWeekday:_firstWeekDay];
     
@@ -667,14 +654,13 @@
 - (void)setDisplayMode:(CKCalendarDisplayMode)displayMode animated:(BOOL)animated
 {
     _displayMode = displayMode;
-    _previousDate = self.date;
     
     [self reloadAnimated:animated];
 }
 
 - (NSDate *)date
 {
-    return _gridView.date;
+    return self.calendarModel.date;
 }
 
 - (void)setDate:(NSDate *)date
@@ -708,9 +694,11 @@
     if ([[self delegate] respondsToSelector:@selector(calendarView:willSelectDate:)]) {
         [[self delegate] calendarView:self willSelectDate:date];
     }
+
     
-    _previousDate = _gridView.date;
-    _gridView.date = date;
+    // TODO: Update previous date here, and set next date.
+    
+    self.calendarModel.date = date;
     
     if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectDate:)]) {
         [[self delegate] calendarView:self didSelectDate:date];
@@ -725,6 +713,19 @@
 }
 
 
+// MARK: - Minimum Date
+
+// MARK: - Clamping the Minimum Date
+
+/**
+ When set, this prevents dates prior to itself from being selected in the calendar or set programmatically.
+ By default, this is `nil`.
+ */
+- (nullable NSDate *)minimumDate;
+{
+    return self.calendarModel.minimumDate;
+}
+
 - (void)setMinimumDate:(NSDate *)minimumDate
 {
     [self setMinimumDate:minimumDate animated:NO];
@@ -732,319 +733,37 @@
 
 - (void)setMinimumDate:(NSDate *)minimumDate animated:(BOOL)animated
 {
-    _minimumDate = minimumDate;
-    [self setDate:[self date] animated:animated];
+    self.calendarModel.minimumDate = minimumDate;
+}
+
+// MARK: - Maximum Date
+
+/**
+ When set, this prevents dates later to itself from being selected in the calendar or set programmatically.
+ By default, this is `nil`.
+ */
+- (nullable NSDate *)maximumDate;
+{
+    return self.calendarModel.maximumDate;
 }
 
 - (void)setMaximumDate:(NSDate *)maximumDate
 {
-    [self setMaximumDate:[self date] animated:NO];
+    [self setMaximumDate:maximumDate animated:NO];
 }
 
 - (void)setMaximumDate:(NSDate *)maximumDate animated:(BOOL)animated
 {
-    _maximumDate = maximumDate;
-    [self setDate:[self date] animated:animated];
+    self.calendarModel.maximumDate = maximumDate;
 }
+
+// MARK: - Calendar Data Source
 
 - (void)setDataSource:(id<CKCalendarViewDataSource>)dataSource
 {
     _dataSource = dataSource;
     
     [self reloadAnimated:NO];
-}
-
-// MARK: - CKCalendarHeaderViewDataSource
-
-- (NSString *)titleForHeader:(CKCalendarHeaderView *)header
-{
-    CKCalendarDisplayMode mode = [self displayMode];
-    
-    if(mode == CKCalendarViewModeMonth)
-    {
-        return [[self date] monthAndYearOnCalendar:[self calendar]];
-    }
-    
-    else if (mode == CKCalendarViewModeWeek)
-    {
-        NSDate *firstVisibleDay = [self _firstVisibleDateForDisplayMode:mode];
-        NSDate *lastVisibleDay = [self _lastVisibleDateForDisplayMode:mode];
-        
-        NSMutableString *result = [NSMutableString new];
-        
-        [result appendString:[firstVisibleDay monthAndYearOnCalendar:[self calendar]]];
-        
-        //  Show the day and year
-        if (![[self calendar] date:firstVisibleDay isSameMonthAs:lastVisibleDay]) {
-            result = [[firstVisibleDay monthAbbreviationAndYearOnCalendar:[self calendar]] mutableCopy];
-            [result appendString:@" - "];
-            [result appendString:[lastVisibleDay monthAbbreviationAndYearOnCalendar:[self calendar]]];
-        }
-        
-        
-        return result;
-    }
-    
-    //Otherwise, return today's date as a string
-    return [[self date] monthAndDayAndYearOnCalendar:[self calendar]];
-}
-
-- (NSUInteger)numberOfColumnsForHeader:(CKCalendarHeaderView *)header
-{
-    return [self _columnCountForDisplayMode:[self displayMode]];
-}
-
-- (NSString *)header:(CKCalendarHeaderView *)header titleForColumnAtIndex:(NSInteger)index
-{
-    NSDate *firstDate = [self _firstVisibleDateForDisplayMode:[self displayMode]];
-    NSDate *columnToShow = [[self calendar] dateByAddingDays:index toDate:firstDate];
-    
-    return [columnToShow dayNameOnCalendar:[self calendar]];
-}
-
-
-- (BOOL)headerShouldHighlightTitle:(CKCalendarHeaderView *)header
-{
-    CKCalendarDisplayMode mode = [self displayMode];
-    
-    if (mode == CKCalendarViewModeDay) {
-        return [[self calendar] date:[NSDate date] isSameDayAs:[self date]];
-    }
-    
-    return NO;
-}
-
-- (BOOL)headerShouldDisableBackwardButton:(CKCalendarHeaderView *)header
-{
-    
-    //  Never disable if there's no minimum date
-    if (![self minimumDate]) {
-        return NO;
-    }
-    
-    CKCalendarDisplayMode mode = [self displayMode];
-    
-    if (mode == CKCalendarViewModeMonth)
-    {
-        return [[self calendar] date:[self date] isSameMonthAs:[self minimumDate]];
-    }
-    else if(mode == CKCalendarViewModeWeek)
-    {
-        return [[self calendar] date:[self date] isSameWeekAs:[self minimumDate]];
-    }
-    
-    return [[self calendar] date:[self date] isSameDayAs:[self minimumDate]];
-}
-
-- (BOOL)headerShouldDisableForwardButton:(CKCalendarHeaderView *)header
-{
-    
-    //  Never disable if there's no minimum date
-    if (![self maximumDate]) {
-        return NO;
-    }
-    
-    CKCalendarDisplayMode mode = [self displayMode];
-    
-    if (mode == CKCalendarViewModeMonth)
-    {
-        return [[self calendar] date:[self date] isSameMonthAs:[self maximumDate]];
-    }
-    else if(mode == CKCalendarViewModeWeek)
-    {
-        return [[self calendar] date:[self date] isSameWeekAs:[self maximumDate]];
-    }
-    
-    return [[self calendar] date:[self date] isSameDayAs:[self maximumDate]];
-}
-
-// MARK: - CKCalendarHeaderViewDelegate
-
-- (void)forwardTapped
-{
-    NSDate *date = [self date];
-    NSDate *today = [NSDate date];
-    
-    /* If the cells are animating, don't do anything or we'll break the view */
-    
-    if ([self isAnimating]) {
-        return;
-    }
-    
-    /*
-     
-     Moving forward or backwards for month mode
-     should select the first day of the month,
-     unless the newly visible month contains
-     [NSDate date], in which case we want to
-     highlight that day instead.
-     
-     */
-    
-    
-    if ([self displayMode] == CKCalendarViewModeMonth) {
-        
-        NSUInteger maxDays = [[self calendar] daysPerMonthUsingReferenceDate:date];
-        NSUInteger todayInMonth =[[self calendar] daysInDate:date];
-        
-        //  If we're the last day of the month, just roll over a day
-        if (maxDays == todayInMonth) {
-            date = [[self calendar] dateByAddingDays:1 toDate:date];
-        }
-        
-        //  Otherwise, add a month and then go to the first of the month
-        else{
-            date = [[self calendar] dateByAddingMonths:1 toDate:date];              //  Add a month
-            NSUInteger day = [[self calendar] daysInDate:date];                     //  Only then go to the first of the next month.
-            date = [[self calendar] dateBySubtractingDays:day-1 fromDate:date];
-        }
-        
-        //  If today is in the visible month, jump to today
-        if([[self calendar] date:date isSameMonthAs:[NSDate date]]){
-            NSUInteger distance = [[self calendar] daysFromDate:date toDate:today];
-            date = [[self calendar] dateByAddingDays:distance toDate:date];
-        }
-    }
-    
-    /*
-     
-     For week mode, we move ahead by a week, then jump to
-     the first day of the week. If the newly visible week
-     contains today, we set today as the active date.
-     
-     */
-    
-    else if([self displayMode] == CKCalendarViewModeWeek)
-    {
-        
-        date = [[self calendar] dateByAddingWeeks:1 toDate:date];                   //  Add a week
-        
-        NSUInteger dayOfWeek = [[self calendar] weekdayInDate:date];
-        date = [[self calendar] dateBySubtractingDays:dayOfWeek-self.calendar.firstWeekday fromDate:date];   //  Jump to sunday
-        
-        //  If today is in the visible week, jump to today
-        if ([[self calendar] date:date isSameWeekAs:today]) {
-            NSUInteger distance = [[self calendar] daysFromDate:date toDate:today];
-            date = [[self calendar] dateByAddingDays:distance toDate:date];
-        }
-        
-    }
-    
-    /*
-     
-     In day mode, simply move ahead by one day.
-     
-     */
-    
-    else{
-        date = [[self calendar] dateByAddingDays:1 toDate:date];
-    }
-    
-    //apply the new date
-    [self setDate:date animated:YES];
-}
-
-- (void)backwardTapped
-{
-    
-    NSDate *date = [self date];
-    NSDate *today = [NSDate date];
-    
-    /* If the cells are animating, don't do anything or we'll break the view */
-    
-    if ([self isAnimating]) {
-        return;
-    }
-    
-    /*
-     
-     Moving forward or backwards for month mode
-     should select the first day of the month,
-     unless the newly visible month contains
-     [NSDate date], in which case we want to
-     highlight that day instead.
-     
-     */
-    
-    if ([self displayMode] == CKCalendarViewModeMonth) {
-        
-        date = [[self calendar] dateBySubtractingMonths:1 fromDate:date];       //  Subtract a month
-        NSUInteger day = [[self calendar] daysInDate:date];
-        date = [[self calendar] dateBySubtractingDays:day-1 fromDate:date];     //  Go to the first of the month
-        
-        //  If today is in the visible month, jump to today
-        if([[self calendar] date:date isSameMonthAs:[NSDate date]]){
-            NSUInteger distance = [[self calendar] daysFromDate:date toDate:today];
-            date = [[self calendar] dateByAddingDays:distance toDate:date];
-        }
-    }
-    
-    /*
-     
-     For week mode, we move backward by a week, then jump
-     to the first day of the week. If the newly visible
-     week contains today, we set today as the active date.
-     
-     */
-    
-    else if([self displayMode] == CKCalendarViewModeWeek)
-    {
-        date = [[self calendar] dateBySubtractingWeeks:1 fromDate:date];               //  Add a week
-        
-        NSUInteger dayOfWeek = [[self calendar] weekdayInDate:date];
-        date = [[self calendar] dateBySubtractingDays:dayOfWeek-1 fromDate:date];   //  Jump to sunday
-        
-        //  If today is in the visible week, jump to today
-        if ([[self calendar] date:date isSameWeekAs:today]) {
-            NSUInteger distance = [[self calendar] daysFromDate:date toDate:today];
-            date = [[self calendar] dateByAddingDays:distance toDate:date];
-        }
-        
-    }
-    
-    /*
-     
-     In day mode, simply move backward by one day.
-     
-     */
-    
-    else{
-        date = [[self calendar] dateBySubtractingDays:1 fromDate:date];
-    }
-    
-    //apply the new date
-    [self setDate:date animated:YES];
-}
-
-// MARK: - Rows and Columns
-
-- (NSUInteger)_rowCountForDisplayMode:(CKCalendarDisplayMode)displayMode
-{
-    if (displayMode == CKCalendarViewModeWeek) {
-        return 1;
-    }
-    else if(displayMode == CKCalendarViewModeMonth)
-    {
-        return [[self calendar] weeksPerMonthUsingReferenceDate:[self date]];
-    }
-    
-    return 0;
-}
-
-- (NSUInteger)_columnCountForDisplayMode:(NSUInteger)displayMode
-{
-    if (displayMode == CKCalendarViewModeDay) {
-        return 0;
-    }
-    
-    NSUInteger columnCount = [[self calendar] daysPerWeekUsingReferenceDate:[self date]];
-    
-    if (columnCount == 0)
-    {
-        columnCount = 7.0; // Disallow 0, because we divide by this return value in several places.
-    }
-    
-    return columnCount;
 }
 
 // MARK: - UITableViewDataSource
@@ -1134,86 +853,6 @@
 - (NSUInteger)firstWeekDay
 {
     return _firstWeekDay;
-}
-
-// MARK: - Date Calculations
-
-- (NSDate *)firstVisibleDate
-{
-    return [self _firstVisibleDateForDisplayMode:[self displayMode]];
-}
-
-- (NSDate *)_firstVisibleDateForDisplayMode:(CKCalendarDisplayMode)displayMode
-{
-    // for the day mode, just return today
-    if (displayMode == CKCalendarViewModeDay) {
-        return [self date];
-    }
-    else if(displayMode == CKCalendarViewModeWeek)
-    {
-        return [[self calendar] firstDayOfTheWeekUsingReferenceDate:[self date] andStartDay:self.calendar.firstWeekday];
-    }
-    else if(displayMode == CKCalendarViewModeMonth)
-    {
-        NSDate *firstOfTheMonth = [[self calendar] firstDayOfTheMonthUsingReferenceDate:[self date]];
-        
-        NSDate *firstVisible = [[self calendar] firstDayOfTheWeekUsingReferenceDate:firstOfTheMonth andStartDay:self.calendar.firstWeekday];
-        
-        return firstVisible;
-    }
-    
-    return [self date];
-}
-
-- (NSDate *)lastVisibleDate
-{
-    return [self _lastVisibleDateForDisplayMode:[self displayMode]];
-}
-
-- (NSDate *)_lastVisibleDateForDisplayMode:(CKCalendarDisplayMode)displayMode
-{
-    // for the day mode, just return today
-    if (displayMode == CKCalendarViewModeDay) {
-        return [self date];
-    }
-    else if(displayMode == CKCalendarViewModeWeek)
-    {
-        return [[self calendar] lastDayOfTheWeekUsingReferenceDate:[self date]];
-    }
-    else if(displayMode == CKCalendarViewModeMonth)
-    {
-        NSDate *lastOfTheMonth = [[self calendar] lastDayOfTheMonthUsingReferenceDate:[self date]];
-        return [[self calendar] lastDayOfTheWeekUsingReferenceDate:lastOfTheMonth];
-    }
-    
-    return [self date];
-}
-
-- (NSUInteger)_numberOfVisibleDaysforDisplayMode:(CKCalendarDisplayMode)displayMode
-{
-    //  If we're showing one day, well, we only one
-    if (displayMode == CKCalendarViewModeDay) {
-        return 1;
-    }
-    
-    //  If we're showing a week, count the days per week
-    else if (displayMode == CKCalendarViewModeWeek)
-    {
-        return [[self calendar] daysPerWeek];
-    }
-    
-    //  If we're showing a month, we need to account for the
-    //  days that complete the first and last week of the month
-    else if (displayMode == CKCalendarViewModeMonth)
-    {
-        
-        NSDate *firstVisible = [self _firstVisibleDateForDisplayMode:CKCalendarViewModeMonth];
-        NSDate *lastVisible = [self _lastVisibleDateForDisplayMode:CKCalendarViewModeMonth];
-        return [[self calendar] daysFromDate:firstVisible toDate:lastVisible];
-    }
-    
-    //  Default to 1;
-    return 1;
 }
 
 // MARK: - Minimum and Maximum Dates
