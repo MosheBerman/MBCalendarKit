@@ -8,8 +8,8 @@
 
 @import UIKit;
 
-#import "CKCalendarCellConfiguration.h"
 #import "CKCalendarGridViewDataSource.h"
+#import "CKCalendarGridViewDelegate.h"
 
 /**
  The CKCalendarGridView manages the display of cells in the calendar view.
@@ -24,14 +24,18 @@
 @property (strong, nonatomic, nonnull) Class cellClass;
 
 /**
- *  A block used to configure the cell. This is called multiple times per layout pass.
+ The grid appearance delegate is responsible for configuring cells for display, based on the parameters passed into it.
  */
-@property (strong, nonatomic) CKCalendarCellConfigurationBlock _Nullable cellConfigurationBlock;
+@property (nonatomic, weak, nullable) id<CKCalendarGridViewDelegate> gridAppearanceDelegate;
+
+// MARK: - Configuring How Much Data To Show
 
 /**
- *  The calendar data source provides information about
+ *  The calendar data source provides information about how many rows and columns need to be displayed.
  */
+@property (nonatomic, weak, nullable) id<CKCalendarGridViewDataSource> gridDataSource;
 
-@property (nonatomic, strong, nonnull) id<CKCalendarGridViewDataSource> gridDataSource;
+
+
 
 @end
