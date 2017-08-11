@@ -10,6 +10,18 @@
 
 @implementation CKCalendarGridTransitionCollectionViewFlowLayout
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _transitionDirection = CKCalendarTransitionDirectionForward;
+        _transitionAxis = CKCalendarGridTransitionAxisVertical;
+    }
+    return self;
+}
+
+// MARK: - Animating
+
 - (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
 {
     UICollectionViewLayoutAttributes *attr = [self layoutAttributesForItemAtIndexPath:itemIndexPath];

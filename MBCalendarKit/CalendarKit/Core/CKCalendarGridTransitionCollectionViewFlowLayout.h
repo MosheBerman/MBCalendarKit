@@ -9,9 +9,19 @@
 @import UIKit;
 
 #import "CKCalendarGridTransitionDirection.h"
+#import "CKCalendarGridTransitionAxis.h"
 
 @interface CKCalendarGridTransitionCollectionViewFlowLayout : UICollectionViewFlowLayout
 
-@property (nonatomic, assign) CKCalendarTransitionDirection temporalDirection;
+/**
+ Defines if we are animating forward or backward.
+ */
+@property (nonatomic, assign) CKCalendarTransitionDirection transitionDirection;
+
+
+/**
+ Determines along which axis to animate along. (i.e. Do we slide in from the bottom/top or left/right?)
+ */
+@property (nonatomic, assign) CKCalendarGridTransitionAxis transitionAxis;
 
 @end

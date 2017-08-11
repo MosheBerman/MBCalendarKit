@@ -96,6 +96,7 @@
 		46AA211F1F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 46AA211D1F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.h */; };
 		46AA21201F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AA211E1F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.m */; };
 		46AA21221F3DF3EF00E5F832 /* CKCalendarGridTransitionDirection.h in Headers */ = {isa = PBXBuildFile; fileRef = 46AA21211F3DF3EF00E5F832 /* CKCalendarGridTransitionDirection.h */; };
+		46AA21241F3E0FA000E5F832 /* CKCalendarGridTransitionAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 46AA21231F3E0FA000E5F832 /* CKCalendarGridTransitionAxis.h */; };
 		46AF0D711F39D4D4005F37EC /* MIGRATIONGUIDE.md in Sources */ = {isa = PBXBuildFile; fileRef = 46AF0D701F39D4D4005F37EC /* MIGRATIONGUIDE.md */; };
 		46EF359B1F3C295700095A9E /* CKCalendarModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EF35991F3C295700095A9E /* CKCalendarModel.h */; };
 		46EF359C1F3C295700095A9E /* CKCalendarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF359A1F3C295700095A9E /* CKCalendarModel.m */; };
@@ -249,6 +250,7 @@
 		46AA211D1F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarGridTransitionCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		46AA211E1F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarGridTransitionCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		46AA21211F3DF3EF00E5F832 /* CKCalendarGridTransitionDirection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarGridTransitionDirection.h; sourceTree = "<group>"; };
+		46AA21231F3E0FA000E5F832 /* CKCalendarGridTransitionAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarGridTransitionAxis.h; sourceTree = "<group>"; };
 		46AF0D701F39D4D4005F37EC /* MIGRATIONGUIDE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = MIGRATIONGUIDE.md; sourceTree = "<group>"; };
 		46BFBCBF1715FB3F00D4733E /* MBCalendarKit-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MBCalendarKit-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		46EF35991F3C295700095A9E /* CKCalendarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarModel.h; sourceTree = "<group>"; };
@@ -501,6 +503,7 @@
 				46AA211D1F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.h */,
 				46AA211E1F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.m */,
 				46AA21211F3DF3EF00E5F832 /* CKCalendarGridTransitionDirection.h */,
+				46AA21231F3E0FA000E5F832 /* CKCalendarGridTransitionAxis.h */,
 				46AA20D81F3D24BE00E5F832 /* CKCalendarGridViewDataSource.h */,
 				46AA210C1F3D58F600E5F832 /* CKCalendarGridViewDelegate.h */,
 				467B13071F2FB12900CABA27 /* CKCalendarAnimationWrapperView.h */,
@@ -605,6 +608,7 @@
 				467B12DA1F2F547500CABA27 /* CKCalendarHeaderColors.h in Headers */,
 				467B12DB1F2F547500CABA27 /* CKCalendarMonthCellStates.h in Headers */,
 				46363C351F397501002BA215 /* CKCalendarHeaderViewDataSource.h in Headers */,
+				46AA21241F3E0FA000E5F832 /* CKCalendarGridTransitionAxis.h in Headers */,
 				467B12DC1F2F547500CABA27 /* CKCalendarViewMode.h in Headers */,
 				467B12DD1F2F547500CABA27 /* CKCalendarDelegate.h in Headers */,
 				467B12DE1F2F547500CABA27 /* CKCalendarDataSource.h in Headers */,
