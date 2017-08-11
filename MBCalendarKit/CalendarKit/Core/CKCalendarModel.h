@@ -8,6 +8,9 @@
 
 @import Foundation;
 
+#import "CKCalendarGridViewDataSource.h"
+#import "CKCalendarViewMode.h"
+
 /**
  This class abstracts the data our from behind `CKCalendarView`, to seperate rendering from calculations.
  */
@@ -27,13 +30,25 @@
  */
 @property (nonatomic, strong, nonnull) NSDate *date;
 
+// MARK: - Display Mode
+
+/**
+ The display mode determines how much information the calendar shows at once.
+ */
+@property (nonatomic, assign) CKCalendarDisplayMode displayMode;
+
 // MARK: - Getting the First Visible Date
 
 /**
- Returns the first visible date in the calendar grid view.
- 
- @return A date representing the first day of the week, respecting the calendar's start date.
+ The first visible date in the calendar grid view,
+ based on the value of displayMode.
  */
 @property (nonnull, nonatomic, readonly) NSDate *firstVisibleDate;
+
+/**
+ The last visible date in the calendar grid view,
+ based on the value of displayMode.
+ */
+@property (nonnull, nonatomic, readonly) NSDate *lastVisibleDate;
 
 @end
