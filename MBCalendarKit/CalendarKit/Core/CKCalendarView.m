@@ -190,6 +190,8 @@
     self.headerView.delegate = nil;
     self.headerView.dataSource = nil;
     
+    [self.gridView removeObserver:self forKeyPath:@"contentSize"];
+    
     [self.superview removeConstraints:self.table.constraints];
     [self.table removeFromSuperview];
     
@@ -236,7 +238,7 @@
      */
     
     [self.gridView reloadData];
-//    [self _layoutCellsAnimated:animated];
+    [self _layoutCellsAnimated:animated];
     [self.headerView reloadData];
     [self.table reloadData];
 }
@@ -265,12 +267,6 @@
 
 
 // MARK: - Layout
-
-- (void)updateConstraints
-{
-    [self _layoutCellsAnimated:NO];
-    [super updateConstraints];
-}
 
 - (CGSize)intrinsicContentSize
 {
@@ -512,7 +508,7 @@
 {
     if ([self.gridView isEqual:object] && [keyPath isEqualToString:@"contentSize"])
     {
-        [self _layoutCellsAnimated:YES];
+        [self _adjustToFitCells:YES];
     }
 }
 
@@ -618,6 +614,8 @@
     [self reloadAnimated:animated];
 }
 
+// MARK: - Locale
+
 - (void)setLocale:(NSLocale *)locale
 {
     [self setLocale:locale animated:NO];
@@ -633,6 +631,8 @@
     
     [self reloadAnimated:animated];
 }
+
+// MARK: - Time Zone
 
 - (NSTimeZone *)timeZone
 {
@@ -654,6 +654,8 @@
     
     [self reloadAnimated:animated];
 }
+
+// MARK: - Display Mode
 
 - (void)setDisplayMode:(CKCalendarDisplayMode)displayMode
 {
