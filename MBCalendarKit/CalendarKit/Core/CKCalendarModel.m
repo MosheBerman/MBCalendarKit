@@ -61,12 +61,9 @@
 //    if ([[self delegate] respondsToSelector:@selector(calendarView:willSelectDate:)]) {
 //        [[self delegate] calendarView:self willSelectDate:date];
 //    }
-//
     
-    [self willChangeValueForKey:@"date"];
     _previousDate = self.date;
     _date = date;
-    [self didChangeValueForKey:@"date"];
     
 //    if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectDate:)]) {
 //        [[self delegate] calendarView:self didSelectDate:date];
@@ -163,7 +160,14 @@
     return [[self calendar] date:date isAfterDate:[self maximumDate]];
 }
 
-- (BOOL)_dateIsBetweenMinimumAndMaximumDates:(NSDate *)date
+
+/**
+ Determines if the supplied date is within range of the minimum and maximum dates. 
+
+ @param date The date to check.
+ @return `YES` as long as the `date` is not before `minimum` or after `maximum`.
+ */
+- (BOOL)dateIsBetweenMinimumAndMaximumDates:(NSDate *)date;
 {
     //  If there are both the minimum and maximum dates are unset,
     //  behave as if all dates are in range.

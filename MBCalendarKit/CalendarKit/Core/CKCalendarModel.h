@@ -44,6 +44,13 @@
  */
 @property (nonatomic, strong, nullable) NSDate *maximumDate;
 
+/**
+ Determines if the supplied date is within range of the minimum and maximum dates.
+ 
+ @param date The date to check.
+ @return `YES` as long as the `date` is not before `minimum` or after `maximum`.
+ */
+- (BOOL)dateIsBetweenMinimumAndMaximumDates:(nonnull NSDate *)date;
 
 // MARK: - Display Mode
 
