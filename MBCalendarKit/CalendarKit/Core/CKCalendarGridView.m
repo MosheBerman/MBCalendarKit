@@ -11,7 +11,7 @@
 #import "NSCalendarCategories.h"
 #import "NSDateComponents+AllComponents.h"
 
-@interface CKCalendarGridView ()
+@interface CKCalendarGridView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @end
 
@@ -33,6 +33,8 @@
 - (void)_configure
 {
     [self _registerDefaultCells];
+    self.dataSource = self;
+    self.delegate = self;
 }
 
 - (void)_registerDefaultCells
