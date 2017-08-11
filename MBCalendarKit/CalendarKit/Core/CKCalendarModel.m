@@ -11,6 +11,19 @@
 
 @implementation CKCalendarModel
 
+// MARK: - Initializer
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _calendar = [NSCalendar currentCalendar];
+        _displayMode = CKCalendarViewModeMonth;
+        _date = [NSDate date];
+    }
+    return self;
+}
+
 // MARK: - Getting the First Visible Date
 
 /**
