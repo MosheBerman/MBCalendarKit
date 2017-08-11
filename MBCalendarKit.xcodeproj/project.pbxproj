@@ -288,8 +288,6 @@
 				46087AD71F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m */,
 				46AA20DA1F3D36C800E5F832 /* CKCalendarModel+HeaderViewSupport.h */,
 				46AA20DB1F3D36C800E5F832 /* CKCalendarModel+HeaderViewSupport.m */,
-				464A86EE171F174D00E7AB19 /* CKCalendarEvent.h */,
-				464A86EF171F174D00E7AB19 /* CKCalendarEvent.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -387,8 +385,7 @@
 				46087AD11F3C2CF1004655C6 /* Model */,
 				464A86F2171F174D00E7AB19 /* CKCalendarView.h */,
 				464A86F3171F174D00E7AB19 /* CKCalendarView.m */,
-				CCDF9503193CF941002266D5 /* CKTableViewCell.h */,
-				CCDF9504193CF941002266D5 /* CKTableViewCell.m */,
+				46AA211C1F3DF13E00E5F832 /* Showing Events */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -501,6 +498,17 @@
 				467B13081F2FB12900CABA27 /* CKCalendarAnimationWrapperView.m */,
 			);
 			name = Grid;
+			sourceTree = "<group>";
+		};
+		46AA211C1F3DF13E00E5F832 /* Showing Events */ = {
+			isa = PBXGroup;
+			children = (
+				CCDF9503193CF941002266D5 /* CKTableViewCell.h */,
+				CCDF9504193CF941002266D5 /* CKTableViewCell.m */,
+				464A86EE171F174D00E7AB19 /* CKCalendarEvent.h */,
+				464A86EF171F174D00E7AB19 /* CKCalendarEvent.m */,
+			);
+			name = "Showing Events";
 			sourceTree = "<group>";
 		};
 		46BFBCB61715FB3F00D4733E = {
