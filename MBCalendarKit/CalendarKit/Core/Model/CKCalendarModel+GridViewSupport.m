@@ -64,14 +64,25 @@
     return [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length;
 }
 
-
 /**
  The number of rows that the grid view should display.
  */
 - (NSUInteger)numberOfRows;
 {
-    return [self.calendar rangeOfUnit:NSCalendarUnitWeekOfMonth inUnit:NSCalendarUnitMonth forDate:self.date].length;
+    NSInteger numberOfRows = 0;
+    
+    if (self.displayMode == CKCalendarViewModeMonth)
+    {
+        numberOfRows = [self.calendar rangeOfUnit:NSCalendarUnitWeekOfMonth inUnit:NSCalendarUnitMonth forDate:self.date].length;
+    }
+    else if (self.displayMode == CKCalendarViewModeWeek)
+    {
+        numberOfRows = 1;
+    }
+    
+    return numberOfRows;
 }
+
 
 
 
