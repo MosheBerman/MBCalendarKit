@@ -49,17 +49,29 @@
 
 - (NSUInteger)numberOfColumnsForHeader:(CKCalendarHeaderView *)header
 {
-    return [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length;
+    NSInteger numberOfColumns = [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length;
+    
+    if (self.displayMode == CKCalendarViewModeDay)
+    {
+        numberOfColumns = 0;
+    }
+    
+    return numberOfColumns;
 }
 
 - (NSString *)header:(CKCalendarHeaderView *)header titleForColumnAtIndex:(NSInteger)index
 {
     NSDate *firstDate = self.firstVisibleDate;
     NSDate *columnToShow = [self.calendar dateByAddingDays:index toDate:firstDate];
+    NSString *title = nil;
     
-    return [columnToShow dayNameOnCalendar:self.calendar];
+    if (self.displayMode != CKCalendarViewModeDay)
+    {
+        title = [columnToShow dayNameOnCalendar:self.calendar];
+    }
+    
+    return title;
 }
-
 
 - (BOOL)headerShouldHighlightTitle:(CKCalendarHeaderView *)header
 {
