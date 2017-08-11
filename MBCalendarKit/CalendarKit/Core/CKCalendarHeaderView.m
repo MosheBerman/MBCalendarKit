@@ -8,7 +8,6 @@
 
 #import "CKCalendarHeaderView.h"
 #import "CKCalendarHeaderColors.h"
-#import "CKCalendarViewModes.h"
 
 #import "CKCalendarHeaderViewDataSource.h"
 #import "CKCalendarHeaderViewDelegate.h"
