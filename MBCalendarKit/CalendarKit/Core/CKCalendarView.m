@@ -10,12 +10,14 @@
 
 #import "CKCalendarView.h"
 
+#import "CKCalendarAnimationWrapperView.h"
+
 #import "CKCalendarModel.h"
 #import "CKCalendarModel+GridViewSupport.h"
 #import "CKCalendarModel+GridViewAnimationSupport.h"
 #import "CKCalendarModel+HeaderViewSupport.h"
 
-#import "CKCalendarAnimationWrapperView.h"
+
 #import "CKCalendarGridView.h"
 #import "CKCalendarGridTransitionCollectionViewFlowLayout.h"
 
@@ -24,6 +26,8 @@
 #import "CKCalendarHeaderViewDataSource.h"
 
 #import "CKCalendarCell.h"
+#import "CKCalendarCellColors.h"
+
 #import "CKTableViewCell.h"
 
 #import "NSCalendarCategories.h"
@@ -558,6 +562,7 @@
 {
     self.gridView.gridDataSource = self.calendarModel;
     self.gridView.gridAppearanceDelegate = self;
+    self.gridView.backgroundColor = kCalendarColorLightGray;
     
     if(![self.wrapper.subviews containsObject:self.gridView])
     {
