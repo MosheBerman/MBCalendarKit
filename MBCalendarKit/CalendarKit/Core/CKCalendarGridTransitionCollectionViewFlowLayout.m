@@ -16,7 +16,6 @@
     if (self) {
         _transitionDirection = CKCalendarTransitionDirectionForward;
         _transitionAxis = CKCalendarGridTransitionAxisVertical;
-        _differenceInSectionCountAfterUpdates = 0;
         
         self.collectionView.viewForBaselineLayout.layer.duration = 0.4;
     }
