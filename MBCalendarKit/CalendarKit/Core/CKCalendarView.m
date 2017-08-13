@@ -12,10 +12,12 @@
 
 #import "CKCalendarModel.h"
 #import "CKCalendarModel+GridViewSupport.h"
+#import "CKCalendarModel+GridViewAnimationSupport.h"
 #import "CKCalendarModel+HeaderViewSupport.h"
 
 #import "CKCalendarAnimationWrapperView.h"
 #import "CKCalendarGridView.h"
+#import "CKCalendarGridTransitionCollectionViewFlowLayout.h"
 
 #import "CKCalendarHeaderView.h"
 #import "CKCalendarHeaderViewDelegate.h"
@@ -26,7 +28,6 @@
 
 #import "NSCalendarCategories.h"
 #import "NSDate+Description.h"
-#import "UIView+AnimatedFrame.h"
 
 @interface CKCalendarView () <UITableViewDataSource, UITableViewDelegate, CKCalendarGridViewDelegate, CKCalendarModelObserver> {
     NSUInteger _firstWeekDay;
@@ -43,6 +44,11 @@
  A collection view to drive the display of the calendar.
  */
 @property (nonatomic, strong) CKCalendarGridView *gridView;
+
+/**
+ *  A weak reference to the grid layout to ease animating.
+ */
+@property (nonatomic, weak, nullable) CKCalendarGridTransitionCollectionViewFlowLayout *layout;
 
 /**
  A wrapper that clips the cells and header so that cells animating in or out don't overflow the calendar view.
@@ -143,9 +149,12 @@
     _headerView = [CKCalendarHeaderView new];
 
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    CKCalendarGridTransitionCollectionViewFlowLayout *layout = [[CKCalendarGridTransitionCollectionViewFlowLayout alloc] init];
+    _layout = layout;
+    
     _gridView = [[CKCalendarGridView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     _gridView.userInteractionEnabled = NO;
+    
     
     //  Accessory Table
     _table = [UITableView new];
@@ -223,6 +232,11 @@
 
 - (void)reloadAnimated:(BOOL)animated
 {
+    [self reloadAnimated:animated transitioningFromDate:self.date toDate:self.date];
+}
+
+- (void)reloadAnimated:(BOOL)animated transitioningFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
+{
     /**
      *  Sort & cache the events for the current date.
      */
@@ -246,7 +260,7 @@
      *  Reload the calendar view.
      */
     
-    [self _layoutCellsAnimated:animated];
+    [self _layoutCellsAnimated:animated transitioningFrom:fromDate toDate:toDate];
     [self.headerView reloadData];
     [self.wrapper bringSubviewToFront:self.headerView];
     [self.table reloadData];
@@ -642,13 +656,10 @@
 
 - (void)calendarModel:(CKCalendarModel *)model didChangeFromDate:(NSDate *)fromDate toNewDate:(NSDate *)toDate
 {
-       [self _adjustToFitCells:YES];
+    [self _adjustToFitCells:YES];
     
-    [UIView animateWithDuration:0.3 animations:^{
-        
-    }];
-    [self.gridView reloadData];
-    [self.headerView reloadData];
+    // TODO: Cache a `wantsAnimation` on `self` before using one of the animated setters.
+    [self reloadAnimated:YES transitioningFromDate:fromDate toDate:toDate];
     
     if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectDate:)]) {
         [[self delegate] calendarView:self didSelectDate:toDate];
@@ -672,9 +683,58 @@
 
 // MARK: - Lay Out Cells
 
-- (void)_layoutCellsAnimated:(BOOL)animated
+
+/**
+ Reloads the cells, taking into account the change in dates.
+
+ @param fromDate The date before reload.
+ @param toDate The date after reload.
+ */
+- (void)_layoutCellsAnimated:(BOOL)animated transitioningFrom:(NSDate *)fromDate toDate:(NSDate *)toDate;
 {
-    [self.gridView reloadData];
+    // This property allows the model to check for animation based on display mode and avoid animating
+    // between dates within the same scope. (scope = month/week)
+    BOOL modelSaysWeCanAnimate = [self.calendarModel shouldAnimateTransitionFromDate:fromDate toDate:toDate];
+    
+    if(animated && modelSaysWeCanAnimate)
+    {
+        NSInteger numberOfSectionsBefore = [self.calendarModel numberOfRowsForDate:fromDate];
+        NSInteger numberOfSectionsAfter = [self.calendarModel numberOfRowsForDate:toDate];
+        
+        if ([self.calendarModel.calendar date:toDate isAfterDate:fromDate])
+        {
+            self.layout.transitionDirection = CKCalendarTransitionDirectionForward;
+        }
+        else
+        {
+            self.layout.transitionDirection = CKCalendarTransitionDirectionBackward;
+        }
+        
+        NSIndexSet *indexSetBefore = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, numberOfSectionsBefore)];
+        NSIndexSet *indexSetAfter = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, numberOfSectionsAfter)];
+        
+        
+        CKCalendarGridView *gridView = self.gridView;
+        
+        [gridView performBatchUpdates:^{
+            
+            if (numberOfSectionsBefore > 0)
+            {
+                [gridView deleteSections:indexSetBefore];
+            }
+            if (numberOfSectionsAfter > 0)
+            {
+                [gridView insertSections:indexSetAfter];
+            }
+            
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+    else
+    {
+        [self.gridView reloadData];
+    }
 }
 
 - (void)_adjustToFitCells:(BOOL)animated
@@ -840,8 +900,6 @@
 - (void)setDate:(NSDate *)date animated:(BOOL)animated
 {
     self.calendarModel.date = date;
-    [self.table reloadData];
-    [self reloadAnimated:animated];
 }
 
 

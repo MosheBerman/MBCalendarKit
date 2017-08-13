@@ -7,6 +7,7 @@
 //
 
 #import "CKCalendarModel+GridViewSupport.h"
+#import "CKCalendarModel+GridViewAnimationSupport.h"
 
 @import UIKit;
 
@@ -69,18 +70,7 @@
  */
 - (NSUInteger)numberOfRows;
 {
-    NSInteger numberOfRows = 0;
-    
-    if (self.displayMode == CKCalendarViewModeMonth)
-    {
-        numberOfRows = [self.calendar rangeOfUnit:NSCalendarUnitWeekOfMonth inUnit:NSCalendarUnitMonth forDate:self.date].length;
-    }
-    else if (self.displayMode == CKCalendarViewModeWeek)
-    {
-        numberOfRows = 1;
-    }
-    
-    return numberOfRows;
+    return [self numberOfRowsForDate:self.date];
 }
 
 
