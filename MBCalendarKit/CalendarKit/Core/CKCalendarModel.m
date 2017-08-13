@@ -76,11 +76,7 @@
 {
     _displayMode = displayMode;
     
-    if ([self.observer respondsToSelector:@selector(calendarModelDidInvalidate:)])
-    {
-        [self.observer calendarModelDidInvalidate:self];
-    }
-
+    [self informObserverOfInvalidatedState];
 }
 
 // MARK: - Getting the First Visible Date
@@ -143,6 +139,48 @@
 
 // MARK: - Minimum and Maximum Dates
 
+- (void)setMinimumDate:(NSDate *)minimumDate
+{
+    if([self _dateIsAfterMaximumDate:minimumDate])
+    {
+        NSLog(@"It is an error to set a minimum date that is later than the maximum date.");
+        return;
+    }
+    
+    _minimumDate = minimumDate;
+    
+    if (minimumDate && [self _dateIsBeforeMinimumDate:self.date])
+    {
+        self.date = minimumDate;
+        // This will also invalidate, so we don't need to call the observer again here.
+    }
+    else
+    {
+        [self informObserverOfInvalidatedState];
+    }
+}
+
+- (void)setMaximumDate:(NSDate *)maximumDate
+{
+    if([self _dateIsBeforeMinimumDate:maximumDate])
+    {
+        NSLog(@"It is an error to set a maximum date that is earlier than the minimum date.");
+        return;
+    }
+    
+    _maximumDate = maximumDate;
+    
+    if(maximumDate && [self _dateIsAfterMaximumDate:self.date])
+    {
+        self.date = maximumDate;
+        // This will also invalidate, so we don't need to call the observer again here.
+    }
+    else
+    {
+        [self informObserverOfInvalidatedState];
+    }
+}
+
 - (BOOL)_minimumDateIsBeforeMaximumDate
 {
     //  If either isn't set, return YES
@@ -198,6 +236,21 @@
     }
     
     return [self.calendar date:date isAfterDate:self.minimumDate] && [self.calendar date:date isBeforeDate:self.maximumDate];
+}
+
+// MARK: - Inform Observer of Invalidated State
+
+
+/**
+ This method lets the observer know that some property has changed.
+ Usually this is the calendar view, so that it knows to re-render.
+ */
+- (void)informObserverOfInvalidatedState
+{
+    if ([self.observer respondsToSelector:@selector(calendarModelDidInvalidate:)])
+    {
+        [self.observer calendarModelDidInvalidate:self];
+    }
 }
 
 
