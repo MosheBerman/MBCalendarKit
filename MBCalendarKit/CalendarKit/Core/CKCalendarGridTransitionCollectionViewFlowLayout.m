@@ -16,8 +16,6 @@
     if (self) {
         _transitionDirection = CKCalendarTransitionDirectionForward;
         _transitionAxis = CKCalendarGridTransitionAxisVertical;
-        
-        self.collectionView.viewForBaselineLayout.layer.duration = 0.4;
     }
     return self;
 }
@@ -26,7 +24,6 @@
 
 - (void)prepareForCollectionViewUpdates:(NSArray<UICollectionViewUpdateItem *> *)updateItems
 {
-    
     [super prepareForCollectionViewUpdates:updateItems];
 }
 
