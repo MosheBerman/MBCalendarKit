@@ -18,15 +18,13 @@
 
 /**
  Allows the data source to supply events to display on the calendar.
-
+ 
  @param calendarView The calendar view instance that will display the data.
  @param date The date for which the calendar view wants events.
- @return An array of events objects.
+ @return An array of events objects. If there are no events for a given date, return an empty array.
  */
-- (NSArray <CKCalendarEvent *> *)calendarView:(CKCalendarView *)calendarView eventsForDate:(NSDate *)date;
+- (nonnull NSArray <CKCalendarEvent *> *)calendarView:(nonnull CKCalendarView *)calendarView eventsForDate:(nonnull NSDate *)date;
 
 @end
-
-
 
 #endif
