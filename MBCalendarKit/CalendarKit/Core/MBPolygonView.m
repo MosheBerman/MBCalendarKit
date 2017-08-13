@@ -107,7 +107,24 @@ float degToRad(float deg)
                                                                   multiplier:1.0
                                                                     constant:0.0];
         
-        [self addConstraints:@[centerX, centerY]];
+        NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:self.imageView
+                                                                  attribute:NSLayoutAttributeHeight
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self
+                                                                  attribute:NSLayoutAttributeHeight
+                                                                 multiplier:1.0
+                                                                   constant:0.0];
+        
+        
+        NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.imageView
+                                                                  attribute:NSLayoutAttributeWidth
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self
+                                                                  attribute:NSLayoutAttributeWidth
+                                                                 multiplier:1.0
+                                                                   constant:0.0];
+        
+        [self addConstraints:@[centerX, centerY, height, width]];
     }
     
     [super updateConstraints];
