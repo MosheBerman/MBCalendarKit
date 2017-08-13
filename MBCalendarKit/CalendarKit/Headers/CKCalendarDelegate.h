@@ -14,6 +14,8 @@
 
 @protocol CKCalendarViewDelegate <NSObject>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @optional
 
 // MARK: - Handling Date Selection
@@ -48,5 +50,6 @@
 
 @end
 
+NS_ASSUME_NONNULL_END
 
 #endif
