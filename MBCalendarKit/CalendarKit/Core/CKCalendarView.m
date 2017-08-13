@@ -179,6 +179,8 @@
     [self _installWrapper];
     [self _installShadow];
     [self reload];
+    
+    self.translatesAutoresizingMaskIntoConstraints = NO;
 }
 
 // MARK: - View Lifecycle
