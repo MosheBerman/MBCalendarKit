@@ -143,8 +143,6 @@
     NSDate *date = self.date;
     NSDate *today = [NSDate date];
     
-    /* If the cells are animating, don't do anything or we'll break the view */
-    
     /*
      
      Moving forward or backwards for month mode
@@ -159,7 +157,7 @@
     if (self.displayMode == CKCalendarViewModeMonth) {
         
         NSUInteger maxDays = [self.calendar daysPerMonthUsingReferenceDate:date];
-        NSUInteger todayInMonth =[self.calendar daysInDate:date];
+        NSUInteger todayInMonth = [self.calendar daysInDate:date];
         
         //  If we're the last day of the month, just roll over a day
         if (maxDays == todayInMonth) {

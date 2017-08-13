@@ -37,6 +37,23 @@
     return isAppropriate;
 }
 
+// MARK: - Determining the Axis of Animation
+
+/**
+ Returns an appropriate axis to animate along, depending on the display mode.
+ 
+ @return Either `CKCalendarGridTransitionAxisHorizontal` or `CKCalendarGridTransitionAxisVertical`.
+ */
+- (CKCalendarGridTransitionAxis)transitionAxis;
+{
+    if (self.displayMode == CKCalendarViewModeMonth)
+    {
+        return CKCalendarGridTransitionAxisVertical;
+    }
+    
+    return CKCalendarGridTransitionAxisHorizontal;
+}
+
 // MARK: - Calculating Row Counts for Animation
 
 /**

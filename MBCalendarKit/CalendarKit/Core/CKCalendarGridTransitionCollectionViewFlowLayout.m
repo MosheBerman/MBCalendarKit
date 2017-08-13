@@ -32,13 +32,19 @@
 {
     UICollectionViewLayoutAttributes *attr = [super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
     
+    CGRect frame = attr.frame;
+    
     if (self.transitionAxis == CKCalendarGridTransitionAxisVertical)
     {
-        CGRect frame = attr.frame;
         frame.origin.y += -self.initialOffset;
-        attr.frame = frame;
-        attr.alpha = 1.0;
     }
+    else
+    {
+        frame.origin.x += -self.initialOffset;
+    }
+    
+    attr.frame = frame;
+    attr.alpha = 1.0;
     
     return attr;
 }
@@ -48,13 +54,18 @@
 {
     UICollectionViewLayoutAttributes *attr = [super finalLayoutAttributesForDisappearingItemAtIndexPath:itemIndexPath];
     
+    CGRect frame = attr.frame;
+    
     if (self.transitionAxis == CKCalendarGridTransitionAxisVertical)
     {
-        CGRect frame = attr.frame;
         frame.origin.y += self.initialOffset;
-        attr.frame = frame;
-        attr.alpha = 1.0;
     }
+    else
+    {
+        frame.origin.x += self.initialOffset;
+    }
+    attr.frame = frame;
+    attr.alpha = 1.0;
     
     return attr;
 }

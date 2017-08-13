@@ -710,6 +710,8 @@
             self.layout.transitionDirection = CKCalendarTransitionDirectionBackward;
         }
         
+        self.layout.transitionAxis = self.calendarModel.transitionAxis;
+        
         NSIndexSet *indexSetBefore = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, numberOfSectionsBefore)];
         NSIndexSet *indexSetAfter = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, numberOfSectionsAfter)];
         
