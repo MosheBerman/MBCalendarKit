@@ -181,7 +181,6 @@
     [self _installHeader];
     [self _installGridView];
     [self _installWrapper];
-    [self _installShadow];
     [self reload];
     
     self.translatesAutoresizingMaskIntoConstraints = NO;
@@ -645,13 +644,6 @@
     }
 }
 
-- (void)_installShadow
-{
-    (self.layer).shadowColor = [UIColor darkGrayColor].CGColor;
-    (self.layer).shadowOffset = CGSizeMake(0, 3);
-    (self.layer).shadowOpacity = 1.0;
-}
-
 // MARK: - Observe Model Changes
 
 - (void)calendarModel:(CKCalendarModel *)model willChangeFromDate:(NSDate *)fromDate toNewDate:(NSDate *)toDate
@@ -663,7 +655,6 @@
 
 - (void)calendarModel:(CKCalendarModel *)model didChangeFromDate:(NSDate *)fromDate toNewDate:(NSDate *)toDate
 {
-    [self _adjustToFitCells:YES];
     
     // TODO: Cache a `wantsAnimation` on `self` before using one of the animated setters.
     [self reloadAnimated:YES transitioningFromDate:fromDate toDate:toDate];
@@ -737,23 +728,38 @@
             }
             
         } completion:^(BOOL finished) {
-            
+            [self _adjustToFitCells:animated];
         }];
     }
     else
     {
         [self.gridView reloadData];
+        [self _adjustToFitCells:NO];
     }
 }
 
+
+/**
+ Invalidates the intrinsic content size to allow display of all cells.
+
+ @param animated Should we animate the change.
+ */
 - (void)_adjustToFitCells:(BOOL)animated
 {
-    NSInteger duration = animated ? 0.3 : 0.0;
+    NSInteger duration = 0.0;
     
-    [self.superview setNeedsLayout];
+    if(animated)
+    {
+        duration = 0.3;
+    }
+    
+    [self invalidateIntrinsicContentSize];
+    [self.wrapper invalidateIntrinsicContentSize];
+    
     [UIView animateWithDuration:duration animations:^{
-        [self invalidateIntrinsicContentSize];
+        
         [self.superview setNeedsLayout];
+        [self.superview layoutIfNeeded];
     }];
 }
 
