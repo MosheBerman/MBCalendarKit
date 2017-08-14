@@ -16,14 +16,14 @@
 
 - (NSString *)titleForHeader:(CKCalendarHeaderView *)header
 {
-    CKCalendarDisplayMode mode = self.displayMode;
+    CKCalendarViewDisplayMode mode = self.displayMode;
     
-    if(mode == CKCalendarViewModeMonth)
+    if(mode == CKCalendarViewDisplayModeMonth)
     {
         return [self.date monthAndYearOnCalendar:self.calendar];
     }
     
-    else if (mode == CKCalendarViewModeWeek)
+    else if (mode == CKCalendarViewDisplayModeWeek)
     {
         NSDate *firstVisibleDay = self.firstVisibleDate;
         NSDate *lastVisibleDay = self.lastVisibleDate;
@@ -51,7 +51,7 @@
 {
     NSInteger numberOfColumns = [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length;
     
-    if (self.displayMode == CKCalendarViewModeDay)
+    if (self.displayMode == CKCalendarViewDisplayModeDay)
     {
         numberOfColumns = 0;
     }
@@ -65,7 +65,7 @@
     NSDate *columnToShow = [self.calendar dateByAddingDays:index toDate:firstDate];
     NSString *title = nil;
     
-    if (self.displayMode != CKCalendarViewModeDay)
+    if (self.displayMode != CKCalendarViewDisplayModeDay)
     {
         title = [columnToShow dayNameOnCalendar:self.calendar];
     }
@@ -75,9 +75,9 @@
 
 - (BOOL)headerShouldHighlightTitle:(CKCalendarHeaderView *)header
 {
-    CKCalendarDisplayMode mode = self.displayMode;
+    CKCalendarViewDisplayMode mode = self.displayMode;
     
-    if (mode == CKCalendarViewModeDay) {
+    if (mode == CKCalendarViewDisplayModeDay) {
         return [self.calendar date:[NSDate date] isSameDayAs:self.date];
     }
     
@@ -91,17 +91,17 @@
     
     if (self.minimumDate != nil)
     {
-        CKCalendarDisplayMode mode = self.displayMode;
+        CKCalendarViewDisplayMode mode = self.displayMode;
         
-        if (mode == CKCalendarViewModeMonth)
+        if (mode == CKCalendarViewDisplayModeMonth)
         {
             should = [self.calendar date:self.date isSameMonthAs:self.minimumDate];
         }
-        else if(mode == CKCalendarViewModeWeek)
+        else if(mode == CKCalendarViewDisplayModeWeek)
         {
             should = [self.calendar date:self.date isSameWeekAs:self.minimumDate];
         }
-        else if(mode == CKCalendarViewModeDay)
+        else if(mode == CKCalendarViewDisplayModeDay)
         {
             should =  [self.calendar date:self.date isSameDayAs:self.minimumDate];
         }
@@ -117,17 +117,17 @@
     
     if (self.maximumDate != nil)
     {
-        CKCalendarDisplayMode mode = self.displayMode;
+        CKCalendarViewDisplayMode mode = self.displayMode;
         
-        if (mode == CKCalendarViewModeMonth)
+        if (mode == CKCalendarViewDisplayModeMonth)
         {
             should = [self.calendar date:self.date isSameMonthAs:self.maximumDate];
         }
-        else if(mode == CKCalendarViewModeWeek)
+        else if(mode == CKCalendarViewDisplayModeWeek)
         {
             should = [self.calendar date:self.date isSameWeekAs:self.maximumDate];
         }
-        else if (mode == CKCalendarViewModeDay)
+        else if (mode == CKCalendarViewDisplayModeDay)
         {
             should = [self.calendar date:self.date isSameDayAs:self.maximumDate];
         }
@@ -154,7 +154,7 @@
      */
     
     
-    if (self.displayMode == CKCalendarViewModeMonth) {
+    if (self.displayMode == CKCalendarViewDisplayModeMonth) {
         
         NSUInteger maxDays = [self.calendar daysPerMonthUsingReferenceDate:date];
         NSUInteger todayInMonth = [self.calendar daysInDate:date];
@@ -186,7 +186,7 @@
      
      */
     
-    else if(self.displayMode == CKCalendarViewModeWeek)
+    else if(self.displayMode == CKCalendarViewDisplayModeWeek)
     {
         
         date = [self.calendar dateByAddingWeeks:1 toDate:date];                   //  Add a week
@@ -231,7 +231,7 @@
      
      */
     
-    if (self.displayMode == CKCalendarViewModeMonth) {
+    if (self.displayMode == CKCalendarViewDisplayModeMonth) {
         
         date = [self.calendar dateBySubtractingMonths:1 fromDate:date];       //  Subtract a month
         NSUInteger day = [self.calendar daysInDate:date];
@@ -252,7 +252,7 @@
      
      */
     
-    else if(self.displayMode == CKCalendarViewModeWeek)
+    else if(self.displayMode == CKCalendarViewDisplayModeWeek)
     {
         date = [self.calendar dateBySubtractingWeeks:1 fromDate:date];               //  Add a week
         

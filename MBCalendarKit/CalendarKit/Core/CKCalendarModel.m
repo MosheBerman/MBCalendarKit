@@ -72,9 +72,9 @@
     }
 }
 
-- (void)setDisplayMode:(CKCalendarDisplayMode)displayMode
+- (void)setDisplayMode:(CKCalendarViewDisplayMode)mode
 {
-    _displayMode = displayMode;
+    _displayMode = mode;
     
     [self informObserverOfInvalidatedState];
 }
@@ -88,7 +88,7 @@
  */
 - (nonnull NSDate *)firstVisibleDate;
 {
-    CKCalendarDisplayMode displayMode = self.displayMode;
+    CKCalendarViewDisplayMode displayMode = self.displayMode;
     NSDate *firstVisibleDate = self.date; /* Default to self.date */
     
     // for the day mode, just return today
@@ -117,7 +117,7 @@
  */
 - (nonnull NSDate *)lastVisibleDate;
 {
-    CKCalendarDisplayMode displayMode = self.displayMode;
+    CKCalendarViewDisplayMode displayMode = self.displayMode;
     NSDate *lastVisibleDate = self.date; /* Default to self.date */
     
     // for the day mode, just return today

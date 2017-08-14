@@ -25,11 +25,11 @@
     BOOL sameMonth = [self.calendar isDate:fromDate equalToDate:toDate toUnitGranularity:NSCalendarUnitMonth];
     BOOL sameWeek = [self.calendar isDate:fromDate equalToDate:toDate toUnitGranularity:NSCalendarUnitWeekOfYear];
     
-    if (self.displayMode == CKCalendarViewModeMonth && sameMonth)
+    if (self.displayMode == CKCalendarViewDisplayModeMonth && sameMonth)
     {
         isAppropriate = NO;
     }
-    if (self.displayMode == CKCalendarViewModeWeek && sameWeek)
+    if (self.displayMode == CKCalendarViewDisplayModeWeek && sameWeek)
     {
         isAppropriate = NO;
     }
@@ -46,7 +46,7 @@
  */
 - (CKCalendarGridTransitionAxis)transitionAxis;
 {
-    if (self.displayMode == CKCalendarViewModeMonth)
+    if (self.displayMode == CKCalendarViewDisplayModeMonth)
     {
         return CKCalendarGridTransitionAxisVertical;
     }
@@ -66,11 +66,11 @@
 {
     NSInteger numberOfRows = 0;
     
-    if (self.displayMode == CKCalendarViewModeMonth)
+    if (self.displayMode == CKCalendarViewDisplayModeMonth)
     {
         numberOfRows = [self.calendar rangeOfUnit:NSCalendarUnitWeekOfMonth inUnit:NSCalendarUnitMonth forDate:date].length;
     }
-    else if (self.displayMode == CKCalendarViewModeWeek)
+    else if (self.displayMode == CKCalendarViewDisplayModeWeek)
     {
         numberOfRows = 1;
     }

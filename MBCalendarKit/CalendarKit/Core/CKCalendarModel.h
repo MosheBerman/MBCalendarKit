@@ -62,7 +62,7 @@
 /**
  The display mode determines how much information the calendar shows at once.
  */
-@property (nonatomic, assign) CKCalendarDisplayMode displayMode;
+@property (nonatomic, assign) CKCalendarViewDisplayMode displayMode;
 
 
 // MARK: - Getting the First Visible Date

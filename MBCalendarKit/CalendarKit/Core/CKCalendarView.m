@@ -99,7 +99,7 @@
  @param CalendarDisplayMode How much content to display: a month, a week, or a day?
  @return An instance of CKCalendarView.
  */
-- (instancetype)initWithMode:(CKCalendarViewMode)mode
+- (instancetype)initWithMode:(CKCalendarViewDisplayMode)mode
 {
     self = [super initWithFrame:CGRectZero];
     if (self) {
@@ -273,7 +273,7 @@
 
 // MARK: - Size
 
-- (CGFloat)_heightForDisplayMode:(CKCalendarDisplayMode)displayMode
+- (CGFloat)_heightForDisplayMode:(CKCalendarViewDisplayMode)mode
 {
     CGFloat headerHeight = self.headerView.intrinsicContentSize.height;
     CGFloat height = headerHeight;
@@ -519,7 +519,7 @@
     {
         [self addSubview:self.wrapper];
         self.wrapper.translatesAutoresizingMaskIntoConstraints = NO;
-        
+        self.wrapper.clipsToBounds = NO;
         NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.wrapper
                                                                     attribute:NSLayoutAttributeTrailing
                                                                     relatedBy:NSLayoutRelationEqual
@@ -890,14 +890,14 @@
 
 // MARK: - Display Mode
 
-- (void)setDisplayMode:(CKCalendarDisplayMode)displayMode
+- (void)setDisplayMode:(CKCalendarViewDisplayMode)mode
 {
-    [self setDisplayMode:displayMode animated:NO];
+    [self setDisplayMode:mode animated:NO];
 }
 
-- (void)setDisplayMode:(CKCalendarDisplayMode)displayMode animated:(BOOL)animated
+- (void)setDisplayMode:(CKCalendarViewDisplayMode)mode animated:(BOOL)animated
 {
-    self.calendarModel.displayMode = displayMode;
+    self.calendarModel.displayMode = mode;
     
     [self reloadAnimated:animated];
 }

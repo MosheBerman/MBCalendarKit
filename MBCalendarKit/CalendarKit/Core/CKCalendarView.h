@@ -24,22 +24,22 @@ IB_DESIGNABLE
  @param mode The display mode to use.
  @return An instance of CKCalendarView.
  */
-- (instancetype _Nonnull)initWithMode:(CKCalendarDisplayMode)mode NS_DESIGNATED_INITIALIZER;
+- (instancetype _Nonnull)initWithMode:(CKCalendarViewDisplayMode)mode NS_DESIGNATED_INITIALIZER;
 
 // MARK: - Display Mode
 
 /**
  The display mode determines how much information the calendar shows at once.
  */
-@property (nonatomic, assign) CKCalendarDisplayMode displayMode;
+@property (nonatomic, assign) CKCalendarViewDisplayMode displayMode;
 
 /**
  Sets the display mode of the calendar view.
  
- @param displayMode A valid CKCalendarDisplayMode value.
+ @param mode A valid CKCalendarViewMode value.
  @param animated Determines if the layout pass that this triggers should animate.
  */
-- (void)setDisplayMode:(CKCalendarDisplayMode)displayMode animated:(BOOL)animated;
+- (void)setDisplayMode:(CKCalendarViewDisplayMode)mode animated:(BOOL)animated;
 
 
 // MARK: - Getting and Setting the Backing NSCalendar
