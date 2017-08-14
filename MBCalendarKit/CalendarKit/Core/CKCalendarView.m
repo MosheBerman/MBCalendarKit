@@ -178,8 +178,6 @@
 
 #if TARGET_INTERFACE_BUILDER
 
-
-
 - (void)awakeFromNib
 {
     [self reload];
@@ -191,7 +189,7 @@
 {
     [super didMoveToWindow];
     
-    [self _adjustToFitCells:NO];
+    [self reload];
 }
 
 - (void)removeFromSuperview
