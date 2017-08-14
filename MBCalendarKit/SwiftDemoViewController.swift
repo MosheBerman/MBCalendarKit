@@ -12,18 +12,18 @@ import MBCalendarKit
 class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource, CKCalendarViewDelegate
 {
     
-    var data : NSMutableDictionary
+    var data : [Date:[CKCalendarEvent]] = [:]
     
     required init?(coder aDecoder: NSCoder) {
         
-        data = NSMutableDictionary()
+        data = [:]
         
         super.init(coder: aDecoder)
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         
-        self.data = NSMutableDictionary()
+        self.data = [:]
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -73,9 +73,9 @@ class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource, C
      @param date The date for which the calendar view wants events.
      @return An array of events objects.
      */
-    func calendarView(_ calendarView: CKCalendarView!, eventsFor date: Date!) -> [CKCalendarEvent]! {
+    func calendarView(_ calendarView: CKCalendarView, eventsFor date: Date) -> [CKCalendarEvent] {
         
-        return self.data.object(forKey: date) as! [CKCalendarEvent]!
+        return self.data[date] ?? []
     }
     
     /*
