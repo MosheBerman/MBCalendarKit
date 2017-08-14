@@ -7,8 +7,6 @@
 //
 
 #import "CKDemoViewController.h"
-#import "NSCalendarCategories.h"
-#import "NSDate+Components.h"
 
 @import MBCalendarKit;
 
@@ -111,12 +109,13 @@
 
 #pragma mark - CKCalendarViewDelegate
 
-// Called before/after the selected date changes
+// Called before the selected date changes
 - (void)calendarView:(CKCalendarView *)CalendarView willSelectDate:(NSDate *)date
 {
     
 }
 
+// Called after the selected date changes.
 - (void)calendarView:(CKCalendarView *)CalendarView didSelectDate:(NSDate *)date
 {
     

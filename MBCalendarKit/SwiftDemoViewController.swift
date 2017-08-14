@@ -9,14 +9,14 @@
 import UIKit
 import MBCalendarKit
 
-class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource, CKCalendarViewDelegate
+class SwiftDemoViewController: CKCalendarViewController, CKCalendarViewDataSource, CKCalendarViewDelegate
 {
     
     var data : [Date:[CKCalendarEvent]] = [:]
     
     required init?(coder aDecoder: NSCoder) {
         
-        data = [:]
+        self.data = [:]
         
         super.init(coder: aDecoder)
     }
@@ -47,24 +47,20 @@ class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource, C
         let date : Date = NSDate(day: 9, month: 1, year: 2015) as Date
         let event : CKCalendarEvent = CKCalendarEvent(title: title as String, andDate: date, andInfo: nil)
         
+        let title2 : NSString = NSLocalizedString("Release MBCalendarKit 5.0.0", comment: "") as NSString
+        let date2 : Date = NSDate(day: 15, month: 8, year: 2017) as Date
+        let event2 : CKCalendarEvent = CKCalendarEvent(title: title2 as String, andDate: date2, andInfo: nil)
+        
         
         //
         //  Step 2 : Add the events to the cache array
         //
         
         self.data[date] = [event]
-        
-        
+        self.data[date2] = [event2]
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    //
     //  MARK: - CKCalendarDataSource
-    //
     
     /**
      Allows the data source to supply events to display on the calendar.
@@ -75,17 +71,25 @@ class SwiftDemoViewController: CKDemoViewController, CKCalendarViewDataSource, C
      */
     func calendarView(_ calendarView: CKCalendarView, eventsFor date: Date) -> [CKCalendarEvent] {
         
-        return self.data[date] ?? []
+        let eventsForDate = self.data[date] ?? []
+        
+        return eventsForDate
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: - CKCalendarDelegate 
+    
+    // Called before the selected date changes.
+    func calendarView(_ calendarView: CKCalendarView, didSelect date: Date) {
+        
     }
-    */
-
+    
+    // Called after the selected date changes.
+    func calendarView(_ calendarView: CKCalendarView, willSelect date: Date) {
+        
+    }
+    
+    // A row was selected in the events table. (Use this to push a details view or whatever.)
+    func calendarView(_ calendarView: CKCalendarView, didSelect event: CKCalendarEvent) {
+        
+    }
 }
