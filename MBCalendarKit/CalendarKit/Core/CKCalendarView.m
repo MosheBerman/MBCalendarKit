@@ -176,15 +176,6 @@
     [super didMoveToSuperview];
 }
 
-#if TARGET_INTERFACE_BUILDER
-
-- (void)awakeFromNib
-{
-    [self reload];
-    [super awakeFromNib];
-}
-#endif
-
 - (void)didMoveToWindow
 {
     [super didMoveToWindow];
@@ -201,13 +192,6 @@
     [self.table removeFromSuperview];
     
     [super removeFromSuperview];
-}
-
-- (void)prepareForInterfaceBuilder
-{
-    [self reload];
-    
-    [super prepareForInterfaceBuilder];
 }
 
 // MARK: - Reload
