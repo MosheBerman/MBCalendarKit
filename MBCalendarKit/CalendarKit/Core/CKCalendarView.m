@@ -161,6 +161,7 @@
     
     [self _installHeader];
     [self _installGridView];
+    [self _installShadow];
     [self reload];
     
     self.translatesAutoresizingMaskIntoConstraints = NO;
@@ -430,57 +431,6 @@
 
 // MARK: - Installing Internal Views
 
-- (void)_installTable
-{
-    if (!self.superview)
-    {
-        return;
-    }
-    
-    if (![self.table isDescendantOfView:self.superview])
-    {
-        /* Set up the table */
-        [self.superview addSubview:self.table];
-        [self.superview bringSubviewToFront:self];
-        
-        self.table.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.table
-                                                                   attribute:NSLayoutAttributeLeading
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:self.superview
-                                                                   attribute:NSLayoutAttributeLeading
-                                                                  multiplier:1.0
-                                                                    constant:0.0];
-        
-        NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.table
-                                                                    attribute:NSLayoutAttributeTrailing
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:self.superview
-                                                                    attribute:NSLayoutAttributeTrailing
-                                                                   multiplier:1.0
-                                                                     constant:0.0];
-        
-        NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.table
-                                                               attribute:NSLayoutAttributeTop
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self
-                                                               attribute:NSLayoutAttributeBottom
-                                                              multiplier:1.0
-                                                                constant:0.0];
-        
-        NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.table
-                                                                  attribute:NSLayoutAttributeBottom
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:self.superview
-                                                                  attribute:NSLayoutAttributeBottom
-                                                                 multiplier:1.0
-                                                                   constant:0.0];
-        
-        [self.superview addConstraints:@[leading, trailing, top, bottom]];
-    }
-}
-
 - (void)_installGridView
 {
     self.gridView.gridDataSource = self.calendarModel;
@@ -535,6 +485,8 @@
     header.translatesAutoresizingMaskIntoConstraints = NO;
     header.delegate = self.calendarModel;
     header.dataSource = self.calendarModel;
+    [header setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+    [header setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
     
     if (![self.subviews containsObject:self.headerView])
     {
@@ -568,6 +520,66 @@
     }
 }
 
+
+- (void)_installTable
+{
+    if (!self.superview)
+    {
+        return;
+    }
+    
+    if (![self.table isDescendantOfView:self.superview])
+    {
+        /* Set up the table */
+        [self.superview addSubview:self.table];
+        [self.superview bringSubviewToFront:self];
+        
+        self.table.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.table
+                                                                   attribute:NSLayoutAttributeLeading
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.superview
+                                                                   attribute:NSLayoutAttributeLeading
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.table
+                                                                    attribute:NSLayoutAttributeTrailing
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:self.superview
+                                                                    attribute:NSLayoutAttributeTrailing
+                                                                   multiplier:1.0
+                                                                     constant:0.0];
+        
+        NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.table
+                                                               attribute:NSLayoutAttributeTop
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self
+                                                               attribute:NSLayoutAttributeBottom
+                                                              multiplier:1.0
+                                                                constant:0.0];
+        
+        NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.table
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.superview
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                 multiplier:1.0
+                                                                   constant:0.0];
+        
+        [self.superview addConstraints:@[leading, trailing, top, bottom]];
+    }
+}
+
+
+- (void)_installShadow
+{
+    (self.layer).shadowOpacity = 1.0;
+    (self.layer).shadowColor = UIColor.darkGrayColor.CGColor;
+    (self.layer).shadowOffset = CGSizeMake(0, 3);
+}
+
 // MARK: - Observe Model Changes
 
 - (void)calendarModel:(CKCalendarModel *)model willChangeFromDate:(NSDate *)fromDate toNewDate:(NSDate *)toDate
@@ -579,8 +591,6 @@
 
 - (void)calendarModel:(CKCalendarModel *)model didChangeFromDate:(NSDate *)fromDate toNewDate:(NSDate *)toDate
 {
-    
-    // TODO: Cache a `wantsAnimation` on `self` before using one of the animated setters.
     [self reloadAnimated:YES transitioningFromDate:fromDate toDate:toDate];
     
     if ([[self delegate] respondsToSelector:@selector(calendarView:didSelectDate:)]) {
@@ -603,8 +613,8 @@
     [self _adjustToFitCells:YES];
 }
 
-// MARK: - Lay Out Cells
 
+// MARK: - Lay Out Cells
 
 /**
  Reloads the cells, taking into account the change in dates.
