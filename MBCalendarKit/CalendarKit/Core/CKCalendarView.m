@@ -161,7 +161,6 @@
     
     [self _installHeader];
     [self _installGridView];
-    [self _installShadow];
     [self reload];
     
     self.translatesAutoresizingMaskIntoConstraints = NO;
@@ -552,14 +551,6 @@
         
         [self.superview addConstraints:@[leading, trailing, top, bottom]];
     }
-}
-
-
-- (void)_installShadow
-{
-    (self.layer).shadowOpacity = 1.0;
-    (self.layer).shadowColor = UIColor.darkGrayColor.CGColor;
-    (self.layer).shadowOffset = CGSizeMake(0, 3);
 }
 
 // MARK: - Observe Model Changes

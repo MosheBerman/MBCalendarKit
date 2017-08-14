@@ -92,10 +92,10 @@
     self.calendarView = [[CKCalendarView alloc] init];
     self.calendarView.dataSource = self;
     self.calendarView.delegate = self;
+    [self installShadow];
     [self.view addSubview:self.calendarView];
     [self layoutCalendar];
 }
-
 
 /**
  This method sets up constraints on the calendar view.
@@ -121,6 +121,20 @@
                                                               constant:0.0];
     
     [self.view addConstraints:@[top, centerX]];
+    
+}
+
+
+// MARK: - Allows Users to Install The Shadows
+
+/**
+ Install the shadow on the calendar.
+ */
+- (void)installShadow
+{
+    (self.calendarView.layer).shadowOpacity = 1.0;
+    (self.calendarView.layer).shadowColor = UIColor.darkGrayColor.CGColor;
+    (self.calendarView.layer).shadowOffset = CGSizeMake(0, 3);
 }
 
 #pragma mark - Toolbar Items
