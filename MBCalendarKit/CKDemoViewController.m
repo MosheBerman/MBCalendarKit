@@ -7,13 +7,17 @@
 //
 
 #import "CKDemoViewController.h"
-
 #import "NSCalendarCategories.h"
-
 #import "NSDate+Components.h"
 
+@import MBCalendarKit;
+
 @interface CKDemoViewController () <CKCalendarViewDelegate, CKCalendarViewDataSource>
-@property (nonatomic, strong) NSMutableDictionary *data;
+
+/**
+ This dictionary contains the events for the view controller, keyed by date.
+ */
+@property (nonatomic, strong) NSMutableDictionary<NSDate *, NSArray<CKCalendarEvent *> *> *data;
 @end
 
 @implementation CKDemoViewController
