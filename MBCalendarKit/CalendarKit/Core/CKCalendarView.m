@@ -118,7 +118,7 @@
  */
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    self = [self initWithMode:CKCalendarViewModeMonth];
+    self = [self initWithMode:CKCalendarViewDisplayModeMonth];
     if (self)
     {
         
@@ -135,7 +135,7 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
-    self = [self initWithMode:CKCalendarViewModeMonth];
+    self = [self initWithMode:CKCalendarViewDisplayModeMonth];
     if (self) {
         
     }

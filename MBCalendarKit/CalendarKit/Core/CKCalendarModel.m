@@ -28,7 +28,7 @@
     self = [super init];
     if (self) {
         _calendar = [NSCalendar autoupdatingCurrentCalendar];
-        _displayMode = CKCalendarViewModeMonth;
+        _displayMode = CKCalendarViewDisplayModeMonth;
         _date = [NSDate date];
     }
     return self;
@@ -92,15 +92,15 @@
     NSDate *firstVisibleDate = self.date; /* Default to self.date */
     
     // for the day mode, just return today
-    if (displayMode == CKCalendarViewModeDay)
+    if (displayMode == CKCalendarViewDisplayModeDay)
     {
         // The default suits this case well
     }
-    else if(displayMode == CKCalendarViewModeWeek)
+    else if(displayMode == CKCalendarViewDisplayModeWeek)
     {
         firstVisibleDate = [self.calendar firstDayOfTheWeekUsingReferenceDate:self.date andStartDay:self.calendar.firstWeekday];
     }
-    else if(displayMode == CKCalendarViewModeMonth)
+    else if(displayMode == CKCalendarViewDisplayModeMonth)
     {
         NSDate *firstOfTheMonth = [self.calendar firstDayOfTheMonthUsingReferenceDate:self.date];
         
@@ -121,14 +121,14 @@
     NSDate *lastVisibleDate = self.date; /* Default to self.date */
     
     // for the day mode, just return today
-    if (displayMode == CKCalendarViewModeDay) {
+    if (displayMode == CKCalendarViewDisplayModeDay) {
         // The default is fine.
     }
-    else if(displayMode == CKCalendarViewModeWeek)
+    else if(displayMode == CKCalendarViewDisplayModeWeek)
     {
         lastVisibleDate = [self.calendar lastDayOfTheWeekUsingReferenceDate:self.date];
     }
-    else if(displayMode == CKCalendarViewModeMonth)
+    else if(displayMode == CKCalendarViewDisplayModeMonth)
     {
         NSDate *lastOfTheMonth = [self.calendar lastDayOfTheMonthUsingReferenceDate:self.date];
         lastVisibleDate = [self.calendar lastDayOfTheWeekUsingReferenceDate:lastOfTheMonth];
