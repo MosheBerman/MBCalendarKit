@@ -151,14 +151,12 @@
 {
     _calendarModel = [[CKCalendarModel alloc] init];
     _headerView = [CKCalendarHeaderView new];
-
     
     CKCalendarGridTransitionCollectionViewFlowLayout *layout = [[CKCalendarGridTransitionCollectionViewFlowLayout alloc] init];
     _layout = layout;
     
     _gridView = [[CKCalendarGridView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     _gridView.userInteractionEnabled = NO;
-    
     
     //  Accessory Table
     _table = [UITableView new];
@@ -824,8 +822,6 @@
     return self.calendarModel.calendar;
 }
 
-// TODO: Consider observing the `NSCalendar` instance to catch these changes for animation instead of overriding all these methods.
-
 - (void)setCalendar:(NSCalendar *)calendar
 {
     [self setCalendar:calendar animated:NO];
@@ -902,6 +898,8 @@
     [self reloadAnimated:animated];
 }
 
+// MARK: - Changing the Date
+
 - (NSDate *)date
 {
     return self.calendarModel.date;
@@ -960,7 +958,7 @@
     self.calendarModel.maximumDate = maximumDate;
 }
 
-// MARK: - First Weekday
+// MARK: - Settings the First Weekday to Control Weekends
 
 - (void)setFirstWeekDay:(NSUInteger)firstWeekDay
 {
@@ -972,6 +970,18 @@
 - (NSUInteger)firstWeekDay
 {
     return self.calendarModel.calendar.firstWeekday;
+}
+
+// MARK: - Controlling Week Mode Transitions
+
+- (void)setAnimatesWeekTransitions:(BOOL)animatesWeekTransitions
+{
+    self.calendarModel.animatesWeekTransitions = animatesWeekTransitions;
+}
+
+- (BOOL)animatesWeekTransitions
+{
+    return self.calendarModel.animatesWeekTransitions;
 }
 
 // MARK: - Calendar Data Source
