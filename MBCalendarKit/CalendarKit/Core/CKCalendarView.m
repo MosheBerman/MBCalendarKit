@@ -10,8 +10,6 @@
 
 #import "CKCalendarView.h"
 
-#import "CKCalendarAnimationWrapperView.h"
-
 #import "CKCalendarModel.h"
 #import "CKCalendarModel+GridViewSupport.h"
 #import "CKCalendarModel+GridViewAnimationSupport.h"
@@ -55,11 +53,6 @@
 @property (nonatomic, weak, nullable) CKCalendarGridTransitionCollectionViewFlowLayout *layout;
 
 /**
- A wrapper that clips the cells and header so that cells animating in or out don't overflow the calendar view.
- */
-@property (nonatomic, strong) CKCalendarAnimationWrapperView *wrapper;
-
-/**
  A table view to show event details in.
  */
 @property (nonatomic, strong) UITableView *table;
@@ -70,11 +63,6 @@
  A cache for events that are being displayed.
  */
 @property (nonatomic, strong) NSArray *events;
-
-/**
- Are the cells animating? Used to prevent animation races.
- */
-@property (nonatomic, assign) BOOL isAnimating;
 
 /**
  *  A model, encapsulating the state of a calendar.
@@ -169,16 +157,10 @@
     //  Events for selected date
     _events = [NSMutableArray new];
     
-    //  Used for animation
-    _wrapper = [CKCalendarAnimationWrapperView new];
-    _wrapper.clipsToBounds = YES;
-    _isAnimating = NO;
-    
     _calendarModel.observer = self;
     
     [self _installHeader];
     [self _installGridView];
-    [self _installWrapper];
     [self reload];
     
     self.translatesAutoresizingMaskIntoConstraints = NO;
@@ -192,6 +174,17 @@
     
     [super didMoveToSuperview];
 }
+
+#if TARGET_INTERFACE_BUILDER
+
+
+
+- (void)awakeFromNib
+{
+    [self reload];
+    [super awakeFromNib];
+}
+#endif
 
 - (void)didMoveToWindow
 {
@@ -213,9 +206,9 @@
 
 - (void)prepareForInterfaceBuilder
 {
-    [super prepareForInterfaceBuilder];
+    [self reload];
     
-    [self reloadAnimated:NO];
+    [super prepareForInterfaceBuilder];
 }
 
 // MARK: - Reload
@@ -257,7 +250,7 @@
     [self _adjustToFitCells:animated];
     [self _layoutCellsAnimated:animated transitioningFrom:fromDate toDate:toDate];
     [self.headerView reloadData];
-    [self.wrapper bringSubviewToFront:self.headerView];
+    
     [self.table reloadData];
 }
 
@@ -312,15 +305,6 @@
     return YES;
 }
 
-- (UILayoutPriority)contentCompressionResistancePriorityForAxis:(UILayoutConstraintAxis)axis
-{
-    return UILayoutPriorityRequired;
-}
-
-- (UILayoutPriority)contentHuggingPriorityForAxis:(UILayoutConstraintAxis)axis
-{
-    return UILayoutPriorityRequired;
-}
 
 // MARK: - Calendar Scrubbing
 
@@ -497,60 +481,16 @@
     }
 }
 
-- (void)_installWrapper
-{
-    if(![self.wrapper isDescendantOfView:self])
-    {
-        [self addSubview:self.wrapper];
-        self.wrapper.translatesAutoresizingMaskIntoConstraints = NO;
-        self.wrapper.clipsToBounds = NO;
-        NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.wrapper
-                                                                    attribute:NSLayoutAttributeTrailing
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:self
-                                                                    attribute:NSLayoutAttributeTrailing
-                                                                   multiplier:1.0
-                                                                     constant:0.0];
-        
-        NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.wrapper
-                                                               attribute:NSLayoutAttributeTop
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self
-                                                               attribute:NSLayoutAttributeTop
-                                                              multiplier:1.0
-                                                                constant:0.0];
-        
-        NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.wrapper
-                                                                  attribute:NSLayoutAttributeBottom
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:self
-                                                                  attribute:NSLayoutAttributeBottom
-                                                                 multiplier:1.0
-                                                                   constant:0.0];
-        
-        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.wrapper
-                                                                   attribute:NSLayoutAttributeLeading
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:self
-                                                                   attribute:NSLayoutAttributeLeading
-                                                                  multiplier:1.0
-                                                                    constant:0.0];
-        
-        
-        [self addConstraints:@[trailing, top, bottom, leading]];
-    }
-}
-
 - (void)_installGridView
 {
     self.gridView.gridDataSource = self.calendarModel;
     self.gridView.gridAppearanceDelegate = self;
     self.gridView.backgroundColor = kCalendarColorLightGray;
     
-    if(![self.wrapper.subviews containsObject:self.gridView])
+    if(![self.subviews containsObject:self.gridView])
     {
         self.gridView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.wrapper addSubview:self.gridView];
+        [self addSubview:self.gridView];
         
         NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.gridView
                                                                     attribute:NSLayoutAttributeTop
@@ -563,7 +503,7 @@
         NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.gridView
                                                                attribute:NSLayoutAttributeBottom
                                                                relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.wrapper
+                                                                  toItem:self
                                                                attribute:NSLayoutAttributeBottom
                                                               multiplier:1.0
                                                                 constant:0.0];
@@ -571,7 +511,7 @@
         NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.gridView
                                                                    attribute:NSLayoutAttributeLeading
                                                                   relatedBy:NSLayoutRelationEqual
-                                                                     toItem:self.wrapper
+                                                                     toItem:self
                                                                   attribute:NSLayoutAttributeLeading
                                                                  multiplier:1.0
                                                                    constant:0.0];
@@ -579,7 +519,7 @@
         NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.gridView
                                                                    attribute:NSLayoutAttributeTrailing
                                                                    relatedBy:NSLayoutRelationEqual
-                                                                      toItem:self.wrapper
+                                                                      toItem:self
                                                                    attribute:NSLayoutAttributeTrailing
                                                                   multiplier:1.0
                                                                     constant:0.0];
@@ -596,14 +536,14 @@
     header.delegate = self.calendarModel;
     header.dataSource = self.calendarModel;
     
-    if (![self.headerView isDescendantOfView:self.wrapper])
+    if (![self.subviews containsObject:self.headerView])
     {
-        [self.wrapper addSubview:self.headerView];
+        [self addSubview:self.headerView];
         
         NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.headerView
                                                                attribute:NSLayoutAttributeTop
                                                                relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self.wrapper
+                                                                  toItem:self
                                                                attribute:NSLayoutAttributeTop
                                                               multiplier:1.0
                                                                 constant:0.0];
@@ -611,7 +551,7 @@
         NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.headerView
                                                                    attribute:NSLayoutAttributeLeading
                                                                    relatedBy:NSLayoutRelationEqual
-                                                                      toItem:self.wrapper
+                                                                      toItem:self
                                                                    attribute:NSLayoutAttributeLeading
                                                                   multiplier:1.0
                                                                     constant:0.0];
@@ -619,12 +559,12 @@
         NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.headerView
                                                                     attribute:NSLayoutAttributeTrailing
                                                                     relatedBy:NSLayoutRelationEqual
-                                                                       toItem:self.wrapper
+                                                                       toItem:self
                                                                     attribute:NSLayoutAttributeTrailing
                                                                    multiplier:1.0
                                                                      constant:0.0];
         
-        [self.wrapper addConstraints:@[top, leading, trailing]];
+        [self addConstraints:@[top, leading, trailing]];
     }
 }
 
