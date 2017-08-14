@@ -127,7 +127,7 @@
 
 - (void)modeChangedUsingControl:(id)sender
 {
-    self.calendarView.displayMode = (CKCalendarDisplayMode)self.modePicker.selectedSegmentIndex;
+    self.calendarView.displayMode = (CKCalendarViewDisplayMode)self.modePicker.selectedSegmentIndex;
 }
 
 - (void)todayButtonTapped:(id)sender
