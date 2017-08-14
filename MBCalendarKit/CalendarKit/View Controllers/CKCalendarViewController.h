@@ -13,9 +13,19 @@
 
 @interface CKCalendarViewController : UIViewController
 
+/**
+ The data source provides events to the calendar.
+ */
 @property (nonatomic, assign) id<CKCalendarViewDataSource> dataSource;
+
+/**
+ The delegate handles interactions with the calendar view controller's calendar view and table view.
+ */
 @property (nonatomic, assign) id<CKCalendarViewDelegate> delegate;
 
+/**
+ The calendar view.
+ */
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) CKCalendarView *calendarView;
 
 @end
