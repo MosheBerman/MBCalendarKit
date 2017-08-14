@@ -14,6 +14,16 @@
 // MARK: - Determining if Animation is Appropriate
 
 /**
+ Determines if the calendar view should animate from week to week.
+ 
+ Prior to MBCalendarKit 5.0.0, only month transitions animated.
+ With this enabled, week to week transitions can animate as well.
+ 
+ The default value is `NO`, to remain consistent with the legacy iPhone calendar.
+ */
+@property (nonatomic, assign) BOOL animatesWeekTransitions;
+
+/**
  Determines if we should animate transition from one date to another.
 
  @param fromDate The date before the change.

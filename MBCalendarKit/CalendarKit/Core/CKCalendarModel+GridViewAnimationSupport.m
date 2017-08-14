@@ -7,10 +7,43 @@
 //
 
 #import "CKCalendarModel+GridViewAnimationSupport.h"
+#import <objc/runtime.h>
+
+const void *kAnimatesWeekTransitionsKey = "com.mosheberman.calendarkit.animates-weeks";
 
 @implementation CKCalendarModel (GridViewAnimationSupport)
 
+
 // MARK: - Determining if Animation is Appropriate
+
+
+/**
+ Looks up the associated object for the `kAnimatesWeekTransitionsKey` key and returns its BOOL value.
+
+ @return The BOOL value for the associate object. If the object is nil, returns `NO` by default.
+ */
+- (BOOL)animatesWeekTransitions;
+{
+    NSNumber *shouldAnimate = objc_getAssociatedObject(self, kAnimatesWeekTransitionsKey);
+    
+    if (!shouldAnimate)
+    {
+        shouldAnimate = @NO;
+    }
+    
+    return shouldAnimate.boolValue;
+}
+
+
+/**
+ Sets the value for the animatesWeekTranstions preference.
+
+ @param animates The value to set `YES` to enable week transitions, `NO` to disable them.
+ */
+- (void)setAnimatesWeekTransitions:(BOOL)animates;
+{
+    objc_setAssociatedObject(self, kAnimatesWeekTransitionsKey, @(animates), OBJC_ASSOCIATION_ASSIGN);
+}
 
 /**
  Determines if we should animate transition from one date to another.
@@ -29,7 +62,7 @@
     {
         isAppropriate = NO;
     }
-    if (self.displayMode == CKCalendarViewDisplayModeWeek && sameWeek)
+    if (self.displayMode == CKCalendarViewDisplayModeWeek && (sameWeek || !self.animatesWeekTransitions))
     {
         isAppropriate = NO;
     }
