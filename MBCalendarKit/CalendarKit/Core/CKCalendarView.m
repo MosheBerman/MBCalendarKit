@@ -188,24 +188,16 @@
 
 - (void)didMoveToSuperview
 {
-    [super didMoveToSuperview];
     [self _installTable];
-    [self reloadAnimated:NO];
     
     [super didMoveToSuperview];
 }
 
-- (void)awakeFromNib
+- (void)didMoveToWindow
 {
+    [super didMoveToWindow];
     
-#if TARGET_INTERFACE_BUILDER
-    [self invalidateIntrinsicContentSize];
-    [self.superview setNeedsLayout];
-#else 
-    [self reloadAnimated:NO];
-#endif
-    
-    [super awakeFromNib];
+    [self _adjustToFitCells:NO];
 }
 
 - (void)removeFromSuperview
@@ -262,33 +254,39 @@
     /**
      *  Reload the calendar view.
      */
-    
+    [self _adjustToFitCells:animated];
     [self _layoutCellsAnimated:animated transitioningFrom:fromDate toDate:toDate];
     [self.headerView reloadData];
     [self.wrapper bringSubviewToFront:self.headerView];
     [self.table reloadData];
 }
 
-// MARK: - Size
+// MARK: - Intrinsic Layout
 
-- (CGFloat)_heightForDisplayMode:(CKCalendarViewDisplayMode)mode
+
+/**
+ Calculates the length of a side of a single cell.
+
+ @return The size of a square cell, based on the superview, adjusting for divisibility by the number of columns.
+ */
+- (CGFloat)_lengthOfTheSideOfACell
 {
-    CGFloat headerHeight = self.headerView.intrinsicContentSize.height;
-    CGFloat height = headerHeight;
+    CGFloat sideOfACell = UIViewNoIntrinsicMetric;
     
-    CGFloat columnCount = (CGFloat)self.calendarModel.numberOfColumns;
-    CGFloat rowCount = (CGFloat)self.calendarModel.numberOfRows;
-    
-    if (columnCount > 0) /* Month and Week Mode */
+    if (self.superview)
     {
-        CGFloat width = CGRectGetWidth(self.superview.bounds);
-        CGFloat widthAdjustForEvenDivisionByDaysPerWeek = width - (CGFloat)((NSInteger)width % (NSInteger)columnCount);
-        CGFloat cellSideLength = columnCount > 0 ? widthAdjustForEvenDivisionByDaysPerWeek / columnCount : 0.0;
+        CGFloat parentBounds = CGRectGetWidth(self.superview.bounds);
+    
+        // We need this as a `CGFloat` for floating point division
+        // This is very likely always 7.0
+        CGFloat numberOfColumns = (CGFloat)self.calendarModel.numberOfColumns;
+        CGFloat pixelsThatMakePerfectDivisionImpossible = (CGFloat)((NSInteger)parentBounds % (NSInteger)numberOfColumns);
         
-        height = headerHeight + (cellSideLength * rowCount);
+        CGFloat widthAdjustForEvenDivisionByColumnCount = parentBounds - pixelsThatMakePerfectDivisionImpossible;
+        sideOfACell = numberOfColumns > 0 ? widthAdjustForEvenDivisionByColumnCount / numberOfColumns : 0.0;
     }
     
-    return height;
+    return sideOfACell;
 }
 
 
@@ -297,19 +295,14 @@
 - (CGSize)intrinsicContentSize
 {
     CGFloat width = UIViewNoIntrinsicMetric;
+    CGFloat height = UIViewNoIntrinsicMetric;
     
     if(self.superview)
     {
-        width = CGRectGetWidth(self.superview.bounds);
-        NSInteger daysPerWeek = self.calendarModel.numberOfColumns;
-        
-        /* Adjust width for more perfect divisibility. */
-        CGFloat widthAdjustedForDivisibilityByDaysPerWeek = width - (CGFloat)((NSInteger)width % daysPerWeek);
-        
-        width = widthAdjustedForDivisibilityByDaysPerWeek;
+        CGFloat cellLength = [self _lengthOfTheSideOfACell];
+        height = self.headerView.intrinsicContentSize.height + (cellLength * (CGFloat)self.calendarModel.numberOfRows);
+        width = (cellLength * (CGFloat)self.calendarModel.numberOfColumns);
     }
-    
-    CGFloat height = [self _heightForDisplayMode:self.displayMode];
     
     return CGSizeMake(width, height);
 }
@@ -326,14 +319,7 @@
 
 - (UILayoutPriority)contentHuggingPriorityForAxis:(UILayoutConstraintAxis)axis
 {
-    if (axis == UILayoutConstraintAxisHorizontal)
-    {
-        return UILayoutPriorityDefaultLow;
-    }
-    else
-    {
-        return UILayoutPriorityRequired;
-    }
+    return UILayoutPriorityRequired;
 }
 
 // MARK: - Calendar Scrubbing
@@ -726,13 +712,11 @@
             }
             
         } completion:^(BOOL finished) {
-            [self _adjustToFitCells:animated];
         }];
     }
     else
     {
         [self.gridView reloadData];
-        [self _adjustToFitCells:NO];
     }
 }
 
@@ -744,18 +728,16 @@
  */
 - (void)_adjustToFitCells:(BOOL)animated
 {
-    NSInteger duration = 0.0;
+    NSTimeInterval duration = 0.0;
     
     if(animated)
     {
         duration = 0.3;
     }
     
-    [self invalidateIntrinsicContentSize];
-    [self.wrapper invalidateIntrinsicContentSize];
-    
+    [self.superview setNeedsLayout];
     [UIView animateWithDuration:duration animations:^{
-        
+        [self invalidateIntrinsicContentSize];
         [self.superview setNeedsLayout];
         [self.superview layoutIfNeeded];
     }];
