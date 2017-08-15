@@ -91,6 +91,7 @@
 		468CDDD01F42D081008E628D /* CKCustomCellDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468CDDCF1F42D081008E628D /* CKCustomCellDemoViewController.swift */; };
 		468CDDE01F42DE5B008E628D /* CKCalendarCellContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 468CDDDE1F42DE5B008E628D /* CKCalendarCellContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		468CDDE11F42DE5B008E628D /* CKCalendarCellContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 468CDDDF1F42DE5B008E628D /* CKCalendarCellContext.m */; };
+		468CDDE31F42E9BC008E628D /* RTLDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468CDDE21F42E9BC008E628D /* RTLDemo.swift */; };
 		469D857E1A3766A100E2B305 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 469D857D1A3766A100E2B305 /* Images.xcassets */; };
 		46A789E91A606CF00096E2BB /* SwiftDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A789E81A606CF00096E2BB /* SwiftDemoViewController.swift */; };
 		46AA20D91F3D24BE00E5F832 /* CKCalendarGridViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 46AA20D81F3D24BE00E5F832 /* CKCalendarGridViewDataSource.h */; };
@@ -248,6 +249,7 @@
 		468CDDCF1F42D081008E628D /* CKCustomCellDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKCustomCellDemoViewController.swift; sourceTree = "<group>"; };
 		468CDDDE1F42DE5B008E628D /* CKCalendarCellContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarCellContext.h; sourceTree = "<group>"; };
 		468CDDDF1F42DE5B008E628D /* CKCalendarCellContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarCellContext.m; sourceTree = "<group>"; };
+		468CDDE21F42E9BC008E628D /* RTLDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTLDemo.swift; sourceTree = "<group>"; };
 		469D857D1A3766A100E2B305 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MBCalendarKit/Images.xcassets; sourceTree = "<group>"; };
 		46A789E71A606CEF0096E2BB /* MBCalendarKit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MBCalendarKit-Bridging-Header.h"; sourceTree = "<group>"; };
 		46A789E81A606CF00096E2BB /* SwiftDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftDemoViewController.swift; path = MBCalendarKit/SwiftDemoViewController.swift; sourceTree = "<group>"; };
@@ -498,6 +500,7 @@
 			isa = PBXGroup;
 			children = (
 				46363C2A1F393D61002BA215 /* DemoRootTableViewController.swift */,
+				468CDDE41F42E9C0008E628D /* Right To Left Demo */,
 				468CDDD91F42D939008E628D /* Objective-C Demo */,
 				468CDDDA1F42D93F008E628D /* Swift Demo */,
 				468CDDDB1F42D945008E628D /* Custom Cell Demo */,
@@ -549,6 +552,14 @@
 				468CDDCF1F42D081008E628D /* CKCustomCellDemoViewController.swift */,
 			);
 			name = "Custom Cell Demo";
+			sourceTree = "<group>";
+		};
+		468CDDE41F42E9C0008E628D /* Right To Left Demo */ = {
+			isa = PBXGroup;
+			children = (
+				468CDDE21F42E9BC008E628D /* RTLDemo.swift */,
+			);
+			name = "Right To Left Demo";
 			sourceTree = "<group>";
 		};
 		46AA20D61F3D243C00E5F832 /* Header View */ = {
@@ -889,6 +900,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46A789E91A606CF00096E2BB /* SwiftDemoViewController.swift in Sources */,
+				468CDDE31F42E9BC008E628D /* RTLDemo.swift in Sources */,
 				464A8734171F174D00E7AB19 /* CKAppDelegate.m in Sources */,
 				464A8740171F174D00E7AB19 /* main.m in Sources */,
 				46363C2B1F393D61002BA215 /* DemoRootTableViewController.swift in Sources */,
