@@ -43,6 +43,4 @@
  */
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) UIImage *polyImage;
 
-
-
 @end

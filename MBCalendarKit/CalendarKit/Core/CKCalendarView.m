@@ -758,6 +758,18 @@
     return self.calendarModel.calendar.firstWeekday;
 }
 
+// MARK: - Support Manually Overriding RTL
+
+- (void)setSemanticContentAttribute:(UISemanticContentAttribute)semanticContentAttribute
+{
+    [super setSemanticContentAttribute:semanticContentAttribute];
+    
+    [self.headerView setSemanticContentAttribute:semanticContentAttribute];
+    [self.gridView setSemanticContentAttribute:semanticContentAttribute];
+    
+    [self reload];
+}
+
 // MARK: - Controlling Week Mode Transitions
 
 - (void)setAnimatesWeekTransitions:(BOOL)animatesWeekTransitions
@@ -793,4 +805,5 @@
     }
     [self reload];
 }
+
 @end

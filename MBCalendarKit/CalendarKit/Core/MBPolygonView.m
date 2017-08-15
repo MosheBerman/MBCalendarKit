@@ -15,6 +15,7 @@
 @property CGFloat scalingFactor;
 @property CGFloat rotation;
 @property (strong) UIImageView *imageView;
+@property (assign, readonly) BOOL shouldRenderFlipped;
 @end
 
 @implementation MBPolygonView
@@ -173,12 +174,7 @@ float degToRad(float deg)
     //Save the state of the context
     CGContextSaveGState(context);
     
-    // Flip for RTL languages
-    NSLocale *locale = [NSLocale currentLocale];
-    NSString * languageCode = [locale objectForKey:NSLocaleLanguageCode];
-    NSLocaleLanguageDirection languageDirection = [NSLocale characterDirectionForLanguage:languageCode];
-    
-    if (languageDirection == NSLocaleLanguageDirectionRightToLeft)
+    if (self.shouldRenderFlipped)
     {
         CGContextTranslateCTM(context, self.bounds.size.width, 0.0);
         CGContextScaleCTM(context, -1.0, 1.0);
@@ -258,5 +254,27 @@ float degToRad(float deg)
 - (void) cleanUp
 {
     self.isDeleted = YES;
+}
+
+// MARK: - RTL Support
+
+
+/**
+ Determines if the image should render flipped, checking NSLocale's `characterDirectionForLanguage` and `self.semanticContentAttribute`.
+
+ @return `YES` if the view should be drawn right-to-left, otherwise, `NO` for left-to-right. 
+ */
+- (BOOL)shouldRenderFlipped
+{
+    NSLocale *locale = [NSLocale currentLocale];
+    NSString * languageCode = [locale objectForKey:NSLocaleLanguageCode];
+    NSLocaleLanguageDirection languageDirection = [NSLocale characterDirectionForLanguage:languageCode];
+    
+    BOOL isNaturallyRTL = languageDirection == NSLocaleLanguageDirectionRightToLeft;
+    BOOL isSemanticallyRTL = self.semanticContentAttribute == UISemanticContentAttributeForceRightToLeft;
+    BOOL isSemanticallyLTR = self.semanticContentAttribute == UISemanticContentAttributeForceLeftToRight;
+    
+    BOOL shouldRenderFlipped = (isNaturallyRTL || isSemanticallyRTL) && !isSemanticallyLTR;
+    return shouldRenderFlipped;
 }
 @end

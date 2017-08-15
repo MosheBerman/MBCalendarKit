@@ -537,6 +537,14 @@
         [self backwardButtonTapped];
     }
 }
+#pragma mark - RTL Support
+
+- (void)setSemanticContentAttribute:(UISemanticContentAttribute)semanticContentAttribute
+{
+    [super setSemanticContentAttribute:semanticContentAttribute];
+    [self.forwardButton setSemanticContentAttribute:semanticContentAttribute];
+    [self.backwardButton setSemanticContentAttribute:semanticContentAttribute];
+}
 
 #pragma mark - Appearance Handling
 
