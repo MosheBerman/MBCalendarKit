@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param calendarView The calendar view which the user interacted with.
  @param date The date which the user selected.
  */
-- (void)calendarView:(CKCalendarView *)calendarView willSelectDate:(NSDate *)date;
+- (void)calendarView:(nonnull CKCalendarView *)calendarView willSelectDate:(nonnull NSDate *)date;
 
 /**
  Called immediately after a date is selected in the calendar's table view.
@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param calendarView The calendar view which the user interacted with.
  @param date The date which the user selected.
  */
-- (void)calendarView:(CKCalendarView *)calendarView didSelectDate:(NSDate *)date;
+- (void)calendarView:(nonnull CKCalendarView *)calendarView didSelectDate:(nonnull NSDate *)date;
 
 // MARK: - Handling Event Selection
 
@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param calendarView The calendar view who's table view had an event selected.
  @param event The event which was selected.
  */
-- (void)calendarView:(CKCalendarView *)calendarView didSelectEvent:(CKCalendarEvent *)event;
+- (void)calendarView:(nonnull CKCalendarView *)calendarView didSelectEvent:(nonnull CKCalendarEvent *)event;
 
 @end
 
