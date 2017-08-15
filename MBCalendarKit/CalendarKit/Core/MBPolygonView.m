@@ -15,7 +15,6 @@
 @property CGFloat scalingFactor;
 @property CGFloat rotation;
 @property (strong) UIImageView *imageView;
-@property (assign, readonly) BOOL shouldRenderFlipped;
 @end
 
 @implementation MBPolygonView
@@ -272,9 +271,10 @@ float degToRad(float deg)
     
     BOOL isNaturallyRTL = languageDirection == NSLocaleLanguageDirectionRightToLeft;
     BOOL isSemanticallyRTL = self.semanticContentAttribute == UISemanticContentAttributeForceRightToLeft;
-    BOOL isSemanticallyLTR = self.semanticContentAttribute == UISemanticContentAttributeForceLeftToRight;
     
-    BOOL shouldRenderFlipped = (isNaturallyRTL || isSemanticallyRTL) && !isSemanticallyLTR;
+    BOOL shouldRenderFlipped = isNaturallyRTL || isSemanticallyRTL;
+    
     return shouldRenderFlipped;
 }
+
 @end
