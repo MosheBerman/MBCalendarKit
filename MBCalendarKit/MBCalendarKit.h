@@ -6,7 +6,7 @@
 //  Copyright © 2017 Moshe Berman. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 //! Project version number for MBCalendarKit.
 FOUNDATION_EXPORT double MBCalendarKitVersionNumber;
@@ -16,19 +16,30 @@ FOUNDATION_EXPORT const unsigned char MBCalendarKitVersionString[];
 
 // MARK: - Core Library
 
-#import <MBCalendarKit/CKCalendarViewController.h>
+/* The Calendar View */
 #import <MBCalendarKit/CKCalendarView.h>
+#import <MBCalendarKit/CKCalendarView+CustomCells.h>
+#import <MBCalendarKit/CKCustomCellProviding.h>
+
+/* Default Calendar Cell Implementation */
 #import <MBCalendarKit/CKCalendarCell.h>
 #import <MBCalendarKit/CKCalendarCellColors.h>
+
+/* Calendar View Controller */
+#import <MBCalendarKit/CKCalendarViewController.h>
+#import <MBCalendarKit/CKTableViewCell.h>
+
+/* Event Data Source & Delegate */
 #import <MBCalendarKit/CKCalendarEvent.h>
 #import <MBCalendarKit/CKCalendarDataSource.h>
 #import <MBCalendarKit/CKCalendarDelegate.h>
+
+/* Calendar Header View (For Appearance) */
 #import <MBCalendarKit/CKCalendarHeaderView.h>
 #import <MBCalendarKit/CKCalendarHeaderViewDataSource.h>
 #import <MBCalendarKit/CKCalendarHeaderViewDelegate.h>
 #import <MBCalendarKit/CKCalendarHeaderColors.h>
-#import <MBCalendarKit/CKTableViewCell.h>
-#import <MBCalendarKit/MBPolygonView.h> 
+#import <MBCalendarKit/MBPolygonView.h>
 
 // MARK: - Foundation Categories
 
