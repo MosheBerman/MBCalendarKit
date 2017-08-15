@@ -12,10 +12,11 @@
 #import "CKCalendarEvent.h"
 #import "CKCalendarDelegate.h"
 #import "CKCalendarDataSource.h"
+#import "CKCustomCellProviding.h"
 
-IB_DESIGNABLE
+
 NS_SWIFT_NAME(CalendarView)
-@interface CKCalendarView : UIView
+IB_DESIGNABLE @interface CKCalendarView : UIView
 
 // MARK: - Initializers
 
@@ -204,6 +205,10 @@ NS_SWIFT_NAME(CalendarView)
  */
 @property (nonatomic, weak, nullable) id<CKCalendarViewDelegate> delegate;
 
+/**
+ An object that can provide custom calendar cells.
+ */
+@property (nonatomic, weak, nullable) id<CKCustomCellProviding> customCellProvider;
 
 // MARK: - Reloading the Calendar and Event Table
 

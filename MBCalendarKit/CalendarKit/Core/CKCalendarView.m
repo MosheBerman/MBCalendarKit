@@ -9,6 +9,7 @@
 @import QuartzCore;
 
 #import "CKCalendarView.h"
+#import "CKCalendarView+DefaultCellProviderImplementation.h" 
 
 #import "CKCalendarModel.h"
 #import "CKCalendarModel+GridViewSupport.h"
@@ -24,8 +25,6 @@
 
 #import "CKCalendarCell.h"
 #import "CKCalendarCellColors.h"
-
-
 
 #import "NSCalendarCategories.h"
 #import "NSDate+Description.h"
@@ -582,50 +581,13 @@
 
 - (void)calendarGrid:(CKCalendarGridView *)gridView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date
 {
-    BOOL cellRepresentsToday = [self.calendarModel.calendar isDate:date equalToDate:[NSDate date] toUnitGranularity:NSCalendarUnitDay];
-    BOOL isThisMonth = [self.calendar isDate:date equalToDate:self.date toUnitGranularity:NSCalendarUnitMonth];
-    BOOL isInRange = [self.calendarModel dateIsBetweenMinimumAndMaximumDates:date];
-    isInRange = isInRange || [self.calendarModel.calendar isDate:date equalToDate:self.minimumDate toUnitGranularity:NSCalendarUnitDay];
-    isInRange = isInRange || [self.calendarModel.calendar isDate:date equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitDay];
-    
-    CKCalendarCell *calendarCell = (CKCalendarCell *)cell;
-    
-    if (cellRepresentsToday && isThisMonth && isInRange)
+    if([self.customCellProvider respondsToSelector:@selector(calendarView:willDisplayCell:forDate:)])
     {
-        calendarCell.state = CKCalendarMonthCellStateTodayDeselected;
-    }
-    else if(!isInRange)
-    {
-        [calendarCell setOutOfRange];
-    }
-    else if (!isThisMonth) {
-        calendarCell.state = CKCalendarMonthCellStateInactive;
+        [self.customCellProvider calendarView:self willDisplayCell:cell forDate:date];
     }
     else
     {
-        calendarCell.state = CKCalendarMonthCellStateNormal;
-    }
-    
-    /* If a cell represents today, highlight it. */
-    
-    if([self.calendarModel.calendar isDate:date equalToDate:self.calendarModel.date toUnitGranularity:NSCalendarUnitDay])
-    {
-        [calendarCell setSelected];
-    }
-    
-    /* Show the day of the month in the cell. */
-    
-    NSUInteger day = [self.calendar daysInDate:date];
-    calendarCell.number = @(day);
-    
-    if([self.dataSource respondsToSelector:@selector(calendarView:eventsForDate:)])
-    {
-        BOOL showDot = ([self.dataSource calendarView:self eventsForDate:date].count > 0);
-        calendarCell.showDot = showDot;
-    }
-    else
-    {
-        calendarCell.showDot = NO;
+        [self calendarView:self willDisplayCell:cell forDate:date];
     }
 }
 
@@ -804,8 +766,15 @@
 - (void)setDataSource:(id<CKCalendarViewDataSource>)dataSource
 {
     _dataSource = dataSource;
-    
-    [self reloadAnimated:NO];
+    [self reload];
 }
 
+// MARK: - Custom Cell Provider
+
+- (void)setCustomCellProvider:(id<CKCustomCellProviding>)customCellProvider
+{
+    _customCellProvider = customCellProvider;
+    [self.gridView setCellClass:customCellProvider.customCellClass];
+    [self reload];
+}
 @end
