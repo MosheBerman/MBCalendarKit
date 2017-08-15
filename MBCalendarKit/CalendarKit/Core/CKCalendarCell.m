@@ -32,7 +32,7 @@
     self = [super initWithFrame:CGRectZero];
     if (self) {
         // Initialization code
-        _state = CKCalendarCellStateDeselected;
+        _state = CKCalendarCellStateDefault;
         
         //  Normal Cell Colors
         _normalBackgroundColor = kCalendarColorLightGray;
@@ -92,6 +92,7 @@
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
+    [super willMoveToSuperview:newSuperview];
     [self configureLabel];
     [self configureDot];
     [self applyColors];
@@ -120,7 +121,6 @@
 {
     return YES;
 }
-
 
 - (void)_constrainLabel
 {
@@ -240,7 +240,7 @@
     //  Alpha, by default, is 1.0
     self.label.alpha = 1.0;
     
-    self.state = CKCalendarCellStateDeselected;
+    self.state = CKCalendarCellStateDefault;
     
     [self applyColors];
     [super prepareForReuse];
@@ -298,7 +298,7 @@
     }
     
     //  Today cell, selected
-    else if(state == CKCalendarCellStateTodayDeselected)
+    else if(state == CKCalendarCellStateToday)
     {
         self.backgroundColor = self.todayBackgroundColor;
         self.label.shadowColor = self.todayTextShadowColor;
@@ -366,11 +366,11 @@
     if (state == CKCalendarCellStateOutOfCurrentScope) {
         self.state = CKCalendarCellStateOutOfCurrentScopeSelected;
     }
-    else if(state == CKCalendarCellStateDeselected)
+    else if(state == CKCalendarCellStateDefault)
     {
         self.state = CKCalendarCellStateSelected;
     }
-    else if(state == CKCalendarCellStateTodayDeselected)
+    else if(state == CKCalendarCellStateToday)
     {
         self.state = CKCalendarCellStateTodaySelected;
     }
@@ -388,11 +388,11 @@
     }
     else if(state == CKCalendarCellStateSelected)
     {
-        self.state = CKCalendarCellStateDeselected;
+        self.state = CKCalendarCellStateDefault;
     }
     else if(state == CKCalendarCellStateTodaySelected)
     {
-        self.state = CKCalendarCellStateTodayDeselected;
+        self.state = CKCalendarCellStateToday;
     }
 }
 

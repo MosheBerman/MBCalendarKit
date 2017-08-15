@@ -28,12 +28,7 @@ NS_SWIFT_NAME(CalendarCell)
 /**
  The state of the cell.
  */
-@property (nonatomic, assign) CKCalendarMonthCellState state;
-
-/**
- An index used to to correspond dates and cells when tracking touches in the calendar view.
- */
-@property (nonatomic, assign) NSUInteger index DEPRECATED_MSG_ATTRIBUTE("This attribute is not used as of MBCalendarKit 5.0.0");
+@property (nonatomic, assign) CKCalendarCellState state;
 
 // MARK: - Controlling Cell Content
 
@@ -115,14 +110,13 @@ The cell background color for a cells representing dates in months outside the c
  */
 @property (nonatomic, strong, nonnull) UIColor *dotColor UI_APPEARANCE_SELECTOR;
 
-
 /**
  The color for event indicator dots in the cell when it is selected.
  */
 @property (nonatomic, strong, nonnull) UIColor *selectedDotColor UI_APPEARANCE_SELECTOR;
 
-// MARK: - Cell Border Colors
 
+// MARK: - Cell Border Colors
 
 /**
  The border color for the cell.

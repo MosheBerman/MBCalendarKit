@@ -46,30 +46,10 @@
  */
 - (void)calendarView:(CKCalendarView *)calendarView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date withContext:(nonnull CKCalendarCellContext *)context;
 {
-    // STEP 1: First, we figure out some state about the calendar.
-    BOOL cellRepresentsToday = context.isToday;
-    BOOL isThisMonth = context.isInSameMonthAsToday;
-    BOOL isInRange = (!context.isAfterMaximumDate) && (!context.isBeforeMinimumDate);
-    
-    // STEP 2: Now we access the cell. It's safe to cast to whatever class is in `customCellClass`.
+    // STEP 1: Access the cell. It's safe to cast to whatever class is in `customCellClass`.
     CKCalendarCell *calendarCell = (CKCalendarCell *)cell;
     
-    // STEP 3: Configure the cell
-    if (cellRepresentsToday && isThisMonth && isInRange)
-    {
-        calendarCell.state = CKCalendarCellStateTodayDeselected;
-    }
-    else if(!isInRange)
-    {
-        [calendarCell setOutOfRange];
-    }
-    else if (!isThisMonth) {
-        calendarCell.state = CKCalendarCellStateOutOfCurrentScope;
-    }
-    else
-    {
-        calendarCell.state = CKCalendarCellStateDeselected;
-    }
+    calendarCell.state = context.state;
     
     /* If a cell represents today, highlight it. */
     
