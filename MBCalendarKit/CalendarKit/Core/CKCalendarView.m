@@ -586,6 +586,7 @@
 
 - (void)calendarGrid:(CKCalendarGridView *)gridView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date
 {
+    [cell prepareForReuse];
     
     CKCalendarCellContext *calendarContext = [[CKCalendarCellContext alloc] initWithDate:date andCalendarView:self];
     
