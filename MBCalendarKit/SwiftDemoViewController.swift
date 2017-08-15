@@ -11,7 +11,7 @@ import MBCalendarKit
 
 class SwiftDemoViewController: CalendarViewController
 {
-    var data : [Date:[CKCalendarEvent]] = [:]
+    var data : [Date:[CalendarEvent]] = [:]
     
     required init?(coder aDecoder: NSCoder) {
         
@@ -45,14 +45,14 @@ class SwiftDemoViewController: CalendarViewController
         let title : NSString = NSLocalizedString("Add Swift Demo", comment: "") as NSString
         if let date : Date = NSDate(day: 9, month: 1, year: 2015) as Date?
         {
-            let event : CKCalendarEvent = CKCalendarEvent(title: title as String, andDate: date, andInfo: nil)
+            let event : CalendarEvent = CalendarEvent(title: title as String, andDate: date, andInfo: nil)
             self.data[date] = [event]
         }
         
         let title2 : NSString = NSLocalizedString("Release MBCalendarKit 5.0.0", comment: "") as NSString
         if let date2 : Date = NSDate(day: 15, month: 8, year: 2017) as Date?
         {
-            let event2 : CKCalendarEvent = CKCalendarEvent(title: title2 as String, andDate: date2, andInfo: nil)
+            let event2 : CalendarEvent = CalendarEvent(title: title2 as String, andDate: date2, andInfo: nil)
             self.data[date2] = [event2]
         }
         
@@ -69,7 +69,7 @@ class SwiftDemoViewController: CalendarViewController
      @param date The date for which the calendar view wants events.
      @return An array of events objects.
      */
-    override func calendarView(_ calendarView: CalendarView, eventsFor date: Date) -> [CKCalendarEvent] {
+    override func calendarView(_ calendarView: CalendarView, eventsFor date: Date) -> [CalendarEvent] {
         
         let eventsForDate = self.data[date] ?? []
         
@@ -90,7 +90,7 @@ class SwiftDemoViewController: CalendarViewController
     }
     
     // A row was selected in the events table. (Use this to push a details view or whatever.)
-    override func calendarView(_ calendarView: CalendarView, didSelect event: CKCalendarEvent) {
+    override func calendarView(_ calendarView: CalendarView, didSelect event: CalendarEvent) {
         
     }
 }
