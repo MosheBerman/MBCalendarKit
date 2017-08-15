@@ -9,7 +9,7 @@
 import UIKit
 import MBCalendarKit
 
-class SwiftDemoViewController: CKCalendarViewController, CKCalendarViewDataSource, CKCalendarViewDelegate
+class SwiftDemoViewController: CKCalendarViewController
 {
     
     var data : [Date:[CKCalendarEvent]] = [:]
@@ -69,7 +69,7 @@ class SwiftDemoViewController: CKCalendarViewController, CKCalendarViewDataSourc
      @param date The date for which the calendar view wants events.
      @return An array of events objects.
      */
-    func calendarView(_ calendarView: CKCalendarView, eventsFor date: Date) -> [CKCalendarEvent] {
+    override func calendarView(_ calendarView: CKCalendarView, eventsFor date: Date) -> [CKCalendarEvent] {
         
         let eventsForDate = self.data[date] ?? []
         
@@ -79,17 +79,17 @@ class SwiftDemoViewController: CKCalendarViewController, CKCalendarViewDataSourc
     // MARK: - CKCalendarDelegate 
     
     // Called before the selected date changes.
-    func calendarView(_ calendarView: CKCalendarView, didSelect date: Date) {
-        
+    override func calendarView(_ calendarView: CKCalendarView, didSelect date: Date) {
+        super.calendarView(calendarView, didSelect: date) // Call super to ensure it 
     }
     
     // Called after the selected date changes.
-    func calendarView(_ calendarView: CKCalendarView, willSelect date: Date) {
+    override func calendarView(_ calendarView: CKCalendarView, willSelect date: Date) {
         
     }
     
     // A row was selected in the events table. (Use this to push a details view or whatever.)
-    func calendarView(_ calendarView: CKCalendarView, didSelect event: CKCalendarEvent) {
+    override func calendarView(_ calendarView: CKCalendarView, didSelect event: CKCalendarEvent) {
         
     }
 }
