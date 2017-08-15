@@ -16,21 +16,21 @@
 /**
  The data source provides events to the calendar.
  */
-@property (nonatomic, assign) id<CKCalendarViewDataSource> dataSource;
+@property (nonatomic, weak, nullable) id<CKCalendarViewDataSource> dataSource;
 
 /**
  The delegate handles interactions with the calendar view controller's calendar view and table view.
  */
-@property (nonatomic, assign) id<CKCalendarViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<CKCalendarViewDelegate> delegate;
 
 /**
  The calendar view.
  */
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) CKCalendarView *calendarView;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong, nonnull) CKCalendarView *calendarView;
 
 /**
  A table view ahowing events.
  */
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) UITableView *tableView;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong, nonnull) UITableView *tableView;
 
 @end
