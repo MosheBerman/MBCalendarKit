@@ -19,18 +19,18 @@
 /**
  The calendar view used in the view controller.
  */
-@property (nonatomic, strong) CKCalendarView *calendarView;
+@property (nonatomic, strong, nonnull) CKCalendarView *calendarView;
 
 /**
  A control that allows users to choose between month, week, and day modes.
  */
-@property (nonatomic, strong) UISegmentedControl *modePicker;
+@property (nonatomic, strong, nonnull) UISegmentedControl *modePicker;
 
 
 /**
  The events to display in the calendar.
  */
-@property (nonatomic, strong) NSArray <CKCalendarEvent *> *events;
+@property (nonatomic, strong, nonnull) NSArray <CKCalendarEvent *> *events;
 
 @end
 
@@ -68,7 +68,7 @@
     return self;
 }
 
-// MARK: -
+// MARK: - Common Initialization
 
 - (void)_commonInitializer
 {
@@ -79,6 +79,15 @@
     
     _tableView.dataSource = self;
     _tableView.delegate = self;
+    
+    NSArray *items = @[
+                       NSLocalizedString(@"Month", @"A title for the month view button."),
+                       NSLocalizedString(@"Week",@"A title for the week view button."),
+                       NSLocalizedString(@"Day", @"A title for the day view button.")];
+    
+    _modePicker = [[UISegmentedControl alloc] initWithItems:items];
+    [self.modePicker addTarget:self action:@selector(modeChangedUsingControl:) forControlEvents:UIControlEventValueChanged];
+    self.modePicker.selectedSegmentIndex = 0;
 }
 
 // MARK: - View Lifecycle
@@ -104,29 +113,7 @@
     
     [self installCalendarView];
     [self installTableView];
-    
-    /* Mode Picker */
-    
-    NSArray *items = @[NSLocalizedString(@"Month", @"A title for the month view button."), NSLocalizedString(@"Week",@"A title for the week view button."), NSLocalizedString(@"Day", @"A title for the day view button.")];
-    
-    self.modePicker = [[UISegmentedControl alloc] initWithItems:items];
-    [self.modePicker addTarget:self action:@selector(modeChangedUsingControl:) forControlEvents:UIControlEventValueChanged];
-    self.modePicker.selectedSegmentIndex = 0;
-    
-    /* Toolbar setup */
-    
-    NSString *todayTitle = NSLocalizedString(@"Today", @"A button which sets the calendar to today.");
-    UIBarButtonItem *todayButton = [[UIBarButtonItem alloc] initWithTitle:todayTitle style:UIBarButtonItemStylePlain target:self action:@selector(todayButtonTapped:)];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.modePicker];
-    
-    [self setToolbarItems:@[todayButton, item] animated:NO];
-    [self.navigationController setToolbarHidden:NO animated:NO];
-    
-    /* Remove bar translucency. */
-    
-    self.navigationController.navigationBar.translucent = NO;
-    self.navigationController.toolbar.translucent = NO;
-    
+    [self installToolbar];
 }
 
 - (void)didReceiveMemoryWarning
@@ -135,7 +122,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Configuring the Calendar View
+// MARK: - Configure Calendar View
 
 - (void)installCalendarView
 {
@@ -221,8 +208,9 @@
         
         [self.view addConstraints:@[leading, trailing, top, bottom]];
     }
-    
 }
+
+
 
 // MARK: - Allows Users to Install The Shadows
 
@@ -236,7 +224,20 @@
     (self.calendarView.layer).shadowOffset = CGSizeMake(0, 3);
 }
 
-#pragma mark - Toolbar Items
+
+// MARK: - Installing Toolbar
+
+- (void)installToolbar
+{
+    NSString *todayTitle = NSLocalizedString(@"Today", @"A button which sets the calendar to today.");
+    UIBarButtonItem *todayButton = [[UIBarButtonItem alloc] initWithTitle:todayTitle style:UIBarButtonItemStylePlain target:self action:@selector(todayButtonTapped:)];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.modePicker];
+    
+    [self setToolbarItems:@[todayButton, item] animated:NO];
+    [self.navigationController setToolbarHidden:NO animated:NO];
+}
+
+// MARK: - Toolbar Items
 
 - (void)modeChangedUsingControl:(id)sender
 {
@@ -248,7 +249,7 @@
     [self.calendarView setDate:[NSDate date] animated:NO];
 }
 
-#pragma mark - CKCalendarViewDataSource
+// MARK: - CKCalendarViewDataSource
 
 - (NSArray *)calendarView:(CKCalendarView *)calendarView eventsForDate:(NSDate *)date
 {
@@ -259,7 +260,6 @@
 }
 
 // MARK: - Setting the Data Source
-
 
 /**
  Sets the data source. Setting this also causes the cache to reload, and the table view to reload as well.
@@ -274,7 +274,6 @@
     [self updateCacheWithSortedEvents];
     [self.tableView reloadData];
 }
-
 
 /**
  Asks the data source for events for a given date. 
@@ -298,7 +297,7 @@
     }
 }
 
-#pragma mark - CKCalendarViewDelegate
+// MARK: - CKCalendarViewDelegate
 
 // Called before the selected date changes
 - (void)calendarView:(CKCalendarView *)calendarView willSelectDate:(NSDate *)date
