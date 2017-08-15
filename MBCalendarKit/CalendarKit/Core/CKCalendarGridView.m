@@ -52,8 +52,14 @@
 
 - (void)setCellClass:(nonnull Class)cellClass
 {
-    if(self.class == cellClass)
+    if(self.cellClass == cellClass)
     {
+        return;
+    }
+    
+    if(!cellClass)
+    {
+        [self _registerDefaultCells];
         return;
     }
     
