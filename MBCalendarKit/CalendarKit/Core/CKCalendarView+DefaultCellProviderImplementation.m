@@ -44,14 +44,12 @@
  @param cell The cell to configure for display.
  @param date The date that the cell represents.
  */
-- (void)calendarView:(CKCalendarView *)calendarView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date;
+- (void)calendarView:(CKCalendarView *)calendarView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date withContext:(nonnull CKCalendarCellContext *)context;
 {
     // STEP 1: First, we figure out some state about the calendar.
-    BOOL cellRepresentsToday = [self.calendarModel.calendar isDate:date equalToDate:[NSDate date] toUnitGranularity:NSCalendarUnitDay];
-    BOOL isThisMonth = [self.calendarModel.calendar isDate:date equalToDate:self.date toUnitGranularity:NSCalendarUnitMonth];
-    BOOL isInRange = [self.calendarModel dateIsBetweenMinimumAndMaximumDates:date];
-    isInRange = isInRange || [self.calendarModel.calendar isDate:date equalToDate:self.minimumDate toUnitGranularity:NSCalendarUnitDay];
-    isInRange = isInRange || [self.calendarModel.calendar isDate:date equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitDay];
+    BOOL cellRepresentsToday = context.isToday;
+    BOOL isThisMonth = context.isInSameMonthAsToday;
+    BOOL isInRange = (!context.isAfterMaximumDate) && (!context.isBeforeMinimumDate);
     
     // STEP 2: Now we access the cell. It's safe to cast to whatever class is in `customCellClass`.
     CKCalendarCell *calendarCell = (CKCalendarCell *)cell;

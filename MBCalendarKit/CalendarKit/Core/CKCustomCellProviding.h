@@ -12,6 +12,7 @@
 @import Foundation;
 
 @class CKCalendarView;
+@class CKCalendarCellContext;
 
 /**
  This protocol provides the interface necessary to support custom cells in a calendar.
@@ -19,20 +20,23 @@
 NS_SWIFT_NAME(CustomCellProviding)
 @protocol CKCustomCellProviding <NSObject>
 
-
+@optional
 // MARK: - Providing a Custom Cell
 
 /**
  Returns the class to register with the calendar view as capable of acting as a calendar cell.
  This class must subclass `UICollectionViewCell`. 
  
- The calendar view will call this method when you call reload on it, or when you set the its provider. **Important:** This method does not get called for every cell on every rendering pass.
+ The calendar view will call this method when you call reload on it, or when you set the its provider. 
+ **Important:** This method does not get called for every cell on every rendering pass. It is called when you assign the calendar view's 
+ `customCellProvider` property, or when you call the calendar view's register
 
  @return The class to use for the cell.
  */
-- (nonnull Class)customCellClass;
 
+@property (nonatomic, nonnull, readonly) Class customCellClass;
 
+@required
 // MARK: - Configuring the Cell Before Display
 
 /**
@@ -40,9 +44,10 @@ NS_SWIFT_NAME(CustomCellProviding)
 
  @param calendarView The calendar view instance.
  @param cell The cell that will be used. If you registered a custom subclass, it will be of that class. If not, you will get a `CKCalendarCell` instance.
+ @param context Some contextual information about the date represented by the cell.
  @param date The date being used for the calendar cell.
  */
-- (void)calendarView:(nonnull CKCalendarView *)calendarView willDisplayCell:(nonnull UICollectionViewCell *)cell forDate:(nonnull NSDate *)date;
+- (void)calendarView:(nonnull CKCalendarView *)calendarView willDisplayCell:(nonnull UICollectionViewCell *)cell forDate:(nonnull NSDate *)date withContext:(nonnull CKCalendarCellContext *)context;
 
 @end
 

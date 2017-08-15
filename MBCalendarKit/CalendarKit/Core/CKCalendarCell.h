@@ -33,7 +33,7 @@ NS_SWIFT_NAME(CalendarCell)
 /**
  An index used to to correspond dates and cells when tracking touches in the calendar view.
  */
-@property (nonatomic, assign) NSUInteger index;
+@property (nonatomic, assign) NSUInteger index DEPRECATED_MSG_ATTRIBUTE("This attribute is not used as of MBCalendarKit 5.0.0");
 
 // MARK: - Controlling Cell Content
 

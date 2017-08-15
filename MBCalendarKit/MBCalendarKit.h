@@ -18,8 +18,14 @@ FOUNDATION_EXPORT const unsigned char MBCalendarKitVersionString[];
 
 /* The Calendar View */
 #import <MBCalendarKit/CKCalendarView.h>
+
+
+/* Custom Cells */
 #import <MBCalendarKit/CKCalendarView+CustomCells.h>
+
 #import <MBCalendarKit/CKCustomCellProviding.h>
+#import <MBCalendarKit/CKCalendarCellContext.h>
+#import <MBCalendarKit/CKCalendarView+DefaultCellProviderImplementation.h>
 
 /* Default Calendar Cell Implementation */
 #import <MBCalendarKit/CKCalendarCell.h>

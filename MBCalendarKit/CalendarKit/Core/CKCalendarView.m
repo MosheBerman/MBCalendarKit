@@ -9,7 +9,8 @@
 @import QuartzCore;
 
 #import "CKCalendarView.h"
-#import "CKCalendarView+DefaultCellProviderImplementation.h" 
+#import "CKCalendarView+DefaultCellProviderImplementation.h"
+#import "CKCalendarCellContext.h"
 
 #import "CKCalendarModel.h"
 #import "CKCalendarModel+GridViewSupport.h"
@@ -585,13 +586,16 @@
 
 - (void)calendarGrid:(CKCalendarGridView *)gridView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date
 {
-    if([self.customCellProvider respondsToSelector:@selector(calendarView:willDisplayCell:forDate:)])
+    
+    CKCalendarCellContext *calendarContext = [[CKCalendarCellContext alloc] initWithDate:date andCalendarView:self];
+    
+    if([self.customCellProvider respondsToSelector:@selector(calendarView:willDisplayCell:forDate:withContext:)])
     {
-        [self.customCellProvider calendarView:self willDisplayCell:cell forDate:date];
+        [self.customCellProvider calendarView:self willDisplayCell:cell forDate:date withContext:calendarContext];
     }
     else
     {
-        [self calendarView:self willDisplayCell:cell forDate:date];
+        [self calendarView:self willDisplayCell:cell forDate:date withContext:calendarContext];
     }
 }
 
@@ -778,7 +782,14 @@
 - (void)setCustomCellProvider:(id<CKCustomCellProviding>)customCellProvider
 {
     _customCellProvider = customCellProvider;
-    [self.gridView setCellClass:customCellProvider.customCellClass];
+    if ([customCellProvider respondsToSelector:@selector(customCellClass)])
+    {
+        [self.gridView setCellClass:customCellProvider.customCellClass];
+    }
+    else
+    {
+        NSLog(@"(%@) : Your implementation of CKCustomCellProviding doesn't register a custom cell. You will receive the default CKCalendarCell in your implementation of calendarView:willDisplayCell:forDate:withContext:", self.description);
+    }
     [self reload];
 }
 @end
