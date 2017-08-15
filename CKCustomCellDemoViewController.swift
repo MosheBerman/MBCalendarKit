@@ -40,7 +40,7 @@ class CKCustomCellDemoViewController: CalendarViewController, CustomCellProvidin
      @param date The date being used for the calendar cell.
      */
     @available(iOS 6.0, *)
-    func calendarView(_ calendarView: CalendarView, willDisplay cell: UICollectionViewCell, for date: Date, with context: CalendarCellContext) {
+    func calendarView(_ calendarView: CalendarView, willDisplay cell: UICollectionViewCell, in context: CalendarCellContext) {
         
         guard let cell = cell as? CalendarCell else
         {
@@ -53,7 +53,7 @@ class CKCustomCellDemoViewController: CalendarViewController, CustomCellProvidin
         // Step 2: Set the cell context.
         if context.isToday
         {
-            cell.state = .todayDeselected
+            cell.state = .today
         }
         
         if !context.isInSameMonthAsToday
@@ -67,7 +67,7 @@ class CKCustomCellDemoViewController: CalendarViewController, CustomCellProvidin
         }
         
         
-        let dayOfMonth = calendarView.calendar.component(.day, from: date)
+        let dayOfMonth = calendarView.calendar.component(.day, from: context.date)
         cell.number = NSNumber(value:dayOfMonth)
         
         if context.isSelected
