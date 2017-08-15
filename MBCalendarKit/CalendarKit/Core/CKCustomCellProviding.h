@@ -16,6 +16,7 @@
 /**
  This protocol provides the interface necessary to support custom cells in a calendar.
  */
+NS_SWIFT_NAME(CustomCellProviding)
 @protocol CKCustomCellProviding <NSObject>
 
 
