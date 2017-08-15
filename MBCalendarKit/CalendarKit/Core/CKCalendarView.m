@@ -148,8 +148,9 @@
     [self _installHeader];
     [self _installGridView];
     [self reload];
-#if TARGET_INTERFACE_BUILDER
-#else
+    
+//    https://stackoverflow.com/a/45467694/224988
+#if !TARGET_INTERFACE_BUILDER
     self.translatesAutoresizingMaskIntoConstraints = NO;
 #endif
     
