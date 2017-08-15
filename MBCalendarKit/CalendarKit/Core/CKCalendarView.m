@@ -582,11 +582,13 @@
 
 - (void)calendarGrid:(CKCalendarGridView *)gridView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date
 {
-    BOOL cellRepresentsToday = [self.calendar date:date isSameDayAs:[NSDate date]];
-    BOOL isThisMonth = [self.calendar date:date isSameMonthAs:self.date];
+    
+    
+    BOOL cellRepresentsToday = [self.calendarModel.calendar isDate:date equalToDate:[NSDate date] toUnitGranularity:NSCalendarUnitDay];
+    BOOL isThisMonth = [self.calendar isDate:date equalToDate:[NSDate date] toUnitGranularity:NSCalendarUnitMonth];
     BOOL isInRange = [self.calendarModel dateIsBetweenMinimumAndMaximumDates:date];
-    isInRange = isInRange || [self.calendarModel.calendar date:date isSameDayAs:self.calendarModel.minimumDate];
-    isInRange = isInRange || [self.calendarModel.calendar date:date isSameDayAs:self.calendarModel.maximumDate];
+    isInRange = isInRange || [self.calendarModel.calendar isDate:date equalToDate:self.minimumDate toUnitGranularity:NSCalendarUnitDay];
+    isInRange = isInRange || [self.calendarModel.calendar isDate:date equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitDay];
     
     CKCalendarCell *calendarCell = (CKCalendarCell *)cell;
     
@@ -606,9 +608,9 @@
         calendarCell.state = CKCalendarMonthCellStateNormal;
     }
     
-    /* - */
+    /* If a cell represents today, highlight it. */
     
-    if([self.calendarModel.calendar date:self.calendarModel.date isSameDayAs:date])
+    if([self.calendarModel.calendar isDate:date equalToDate:self.calendarModel.date toUnitGranularity:NSCalendarUnitDay])
     {
         [calendarCell setSelected];
     }

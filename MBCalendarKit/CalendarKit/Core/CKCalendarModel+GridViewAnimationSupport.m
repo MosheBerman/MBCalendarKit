@@ -7,7 +7,7 @@
 //
 
 #import "CKCalendarModel+GridViewAnimationSupport.h"
-#import <objc/runtime.h>
+@import ObjectiveC;
 
 const void *kAnimatesWeekTransitionsKey = "com.mosheberman.calendarkit.animates-weeks";
 

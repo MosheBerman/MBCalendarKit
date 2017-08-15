@@ -11,6 +11,7 @@
 /**
  The `CKCalendarGridViewDataSource` defines an interface for the calendar grid to obtain information about how many cells it needs to show.
  */
+NS_SWIFT_NAME(CalendarGridViewDataSource)
 @protocol CKCalendarGridViewDataSource <NSObject>
 
 // MARK: - Mapping Dates and Index Paths

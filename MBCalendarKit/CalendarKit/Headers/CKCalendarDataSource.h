@@ -12,6 +12,7 @@
 @class CKCalendarView;
 @class CKCalendarEvent;
 
+NS_SWIFT_NAME(CalendarViewDataSource)
 @protocol CKCalendarViewDataSource <NSObject>
 
 // MARK: - Supplying Display Data

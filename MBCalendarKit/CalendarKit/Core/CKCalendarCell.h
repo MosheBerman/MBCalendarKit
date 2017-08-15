@@ -1,6 +1,6 @@
 //
 //  CKCalendarCalendarCell.h
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -10,18 +10,18 @@
 
 #import "CKCalendarMonthCellStates.h"
 
-
 /**
  The `CKCalendarCell` class manages the display of a single date in the calendar.
  It is responsible for handling its visual state, and its contents. Specifically,
  the cell class configures the number representing a date, and the visibility of 
  the event indicator dot.
  */
+NS_SWIFT_NAME(CalendarCell)
 @interface CKCalendarCell : UICollectionViewCell
 
 // MARK: - Initializers
 
-- (instancetype)init NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init NS_DESIGNATED_INITIALIZER;
 
 // MARK: - Tracking Cell State and Touch Tracking
 
@@ -40,7 +40,7 @@
 /**
  The day of the month that is shown in the cell.
  */
-@property (nonatomic, strong) NSNumber *number;
+@property (nonatomic, strong, nonnull) NSNumber *number;
 
 /**
  A property which determines if the cell shows a dot for events.
@@ -52,37 +52,37 @@
 /**
  The background color for the cell.
  */
-@property (nonatomic, strong) UIColor *normalBackgroundColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *normalBackgroundColor UI_APPEARANCE_SELECTOR;
 
 /**
  The cell background color for cells displaying a date in the same month as the selected date, when the cell is selected, or when a finger is tracking it.
  */
-@property (nonatomic, strong) UIColor *selectedBackgroundColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *selectedBackgroundColor UI_APPEARANCE_SELECTOR;
 
 /**
 The cell background color for a cells representing dates in months outside the current month, when a finger is tracking on them.
  */
-@property (nonatomic, strong) UIColor *inactiveSelectedBackgroundColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *inactiveSelectedBackgroundColor UI_APPEARANCE_SELECTOR;
 
 /**
  The background color for the cell representing today.
  */
-@property (nonatomic, strong) UIColor *todayBackgroundColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *todayBackgroundColor UI_APPEARANCE_SELECTOR;
 
 /**
  The background color for the cell representing today, when the cell is selected.
  */
-@property (nonatomic, strong) UIColor *todaySelectedBackgroundColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *todaySelectedBackgroundColor UI_APPEARANCE_SELECTOR;
 
 /**
  The label's text color for the cell representing today.
  */
-@property (nonatomic, strong) UIColor *todayTextColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *todayTextColor UI_APPEARANCE_SELECTOR;
 
 /**
  The label's shadow color for the cell representing today.
  */
-@property (nonatomic, strong) UIColor *todayTextShadowColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *todayTextShadowColor UI_APPEARANCE_SELECTOR;
 
 
 // MARK: - Date Label Colors
@@ -90,22 +90,22 @@ The cell background color for a cells representing dates in months outside the c
 /**
  The label's text color.
  */
-@property (nonatomic, strong) UIColor *textColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *textColor UI_APPEARANCE_SELECTOR;
 
 /**
  The label's shadow color.
  */
-@property (nonatomic, strong) UIColor *textShadowColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *textShadowColor UI_APPEARANCE_SELECTOR;
 
 /**
  The label's text color for selected cells.
  */
-@property (nonatomic, strong) UIColor *textSelectedColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *textSelectedColor UI_APPEARANCE_SELECTOR;
 
 /**
  The label's shadow color for selected cells.
  */
-@property (nonatomic, strong) UIColor *textSelectedShadowColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *textSelectedShadowColor UI_APPEARANCE_SELECTOR;
 
 
 // MARK: - Event Dot Color
@@ -113,13 +113,13 @@ The cell background color for a cells representing dates in months outside the c
 /**
  The color for event indicator dots in the cells.
  */
-@property (nonatomic, strong) UIColor *dotColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *dotColor UI_APPEARANCE_SELECTOR;
 
 
 /**
  The color for event indicator dots in the cell when it is selected.
  */
-@property (nonatomic, strong) UIColor *selectedDotColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *selectedDotColor UI_APPEARANCE_SELECTOR;
 
 // MARK: - Cell Border Colors
 
@@ -127,13 +127,13 @@ The cell background color for a cells representing dates in months outside the c
 /**
  The border color for the cell.
  */
-@property (nonatomic, strong) UIColor *cellBorderColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *cellBorderColor UI_APPEARANCE_SELECTOR;
 
 
 /**
  The border color for the cell in its deselected state.
  */
-@property (nonatomic, strong) UIColor *selectedCellBorderColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong, nonnull) UIColor *selectedCellBorderColor UI_APPEARANCE_SELECTOR;
 
 // MARK: - Cell Recycling Behavior
 
@@ -157,7 +157,7 @@ The cell background color for a cells representing dates in months outside the c
 - (void)setDeselected;
 
 /**
- Mark the cell as out of range, when the calendar has a minimumDate or maximumDate set.
+ Mark the cell as representing a date that's out of range, when the calendar has a minimumDate or maximumDate set.
  */
 - (void)setOutOfRange;
 

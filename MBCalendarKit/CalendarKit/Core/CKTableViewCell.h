@@ -8,6 +8,7 @@
 
 @import UIKit;
 
+NS_SWIFT_NAME(CalendarTableViewCell)
 @interface CKTableViewCell : UITableViewCell
 
 @end

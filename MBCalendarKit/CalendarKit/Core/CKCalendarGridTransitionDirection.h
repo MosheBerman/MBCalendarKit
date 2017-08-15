@@ -19,6 +19,6 @@
 typedef NS_ENUM(NSUInteger, CKCalendarTransitionDirection) {
     CKCalendarTransitionDirectionBackward,
     CKCalendarTransitionDirectionForward
-};
+} NS_SWIFT_NAME(CalendarTransitionDirection);
 
 #endif /* CKCalendarGridTransitionDirection_h */

@@ -1,15 +1,21 @@
 //
 //  NSDateComponents+AllComponents.h
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/12/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface NSDateComponents (AllComponents)
 
-+ (NSUInteger)allComponents;
+
+/**
+ Combines all of the `NSCalendarUnit` values for a value with all of the flags enabled.
+
+ @return All of the `NSCalendarUnit` flags.
+ */
++ (NSCalendarUnit)allComponents;
 
 @end

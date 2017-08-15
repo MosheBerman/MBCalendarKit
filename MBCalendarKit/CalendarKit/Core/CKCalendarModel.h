@@ -14,6 +14,7 @@
 /**
  This class abstracts the data our from behind `CKCalendarView`, to seperate rendering from calculations.
  */
+NS_SWIFT_NAME(CalendarModel)
 @interface CKCalendarModel : NSObject
 
 // MARK: - Observing Changes to the Model

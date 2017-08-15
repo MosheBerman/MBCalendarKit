@@ -1,6 +1,6 @@
 //
 //  CKCalendarCalendarView.h
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -14,6 +14,7 @@
 #import "CKCalendarDataSource.h"
 
 IB_DESIGNABLE
+NS_SWIFT_NAME(CalendarView)
 @interface CKCalendarView : UIView
 
 // MARK: - Initializers

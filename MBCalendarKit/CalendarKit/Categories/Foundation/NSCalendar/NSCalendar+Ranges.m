@@ -1,6 +1,6 @@
 //
 //  NSCalendar+Ranges.m
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -278,7 +278,6 @@
 {
     if (!firstDate || !anotherDate)
     {
-//        NSLog(@"(MBCalendarKit | NSCalendar + Ranges) : One of the dates are missing, can't compare.");
         return NO;
     }
     

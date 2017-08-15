@@ -1,6 +1,6 @@
 //
 //  CKCalendarMonthCellStates.h
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -17,6 +17,6 @@ typedef NS_ENUM(NSUInteger, CKCalendarMonthCellState) {
     CKCalendarMonthCellStateInactive,               //  Cells that are not part of this month
     CKCalendarMonthCellStateInactiveSelected,       //  Transient state for out of month cells
     CKCalendarMonthCellStateOutOfRange              //  A state for cells that are bounded my min/max constraints on the calendar picker 
-};
+} NS_SWIFT_NAME(CalendarMonthCellState);
 
 #endif

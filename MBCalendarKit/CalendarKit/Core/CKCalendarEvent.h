@@ -1,6 +1,6 @@
 //
 //  CKCalendarEvent.h
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/14/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -8,10 +8,10 @@
 
 @import UIKit;
 
-
 /**
  CKCalendarEvent is a model object which represents an event on the calendar. It has a date property, a title, and an optional info dictionary.
  */
+NS_SWIFT_NAME(CalendarEvent)
 @interface CKCalendarEvent : NSObject
 
 // MARK: - The Event Date

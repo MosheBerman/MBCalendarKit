@@ -1,6 +1,6 @@
 //
 //  CKViewController.h
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -11,7 +11,8 @@
 #import "CKCalendarDelegate.h"
 #import "CKCalendarDataSource.h"
 
-@interface CKCalendarViewController : UIViewController <CKCalendarViewDataSource, CKCalendarViewDelegate>
+NS_SWIFT_NAME(CalendarViewController)
+@interface CKCalendarViewController : UIViewController  <CKCalendarViewDataSource, CKCalendarViewDelegate>
 
 /**
  The data source provides events to the calendar.

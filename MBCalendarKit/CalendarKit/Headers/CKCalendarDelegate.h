@@ -12,9 +12,8 @@
 @class CKCalendarView;
 @class CKCalendarEvent;
 
+NS_SWIFT_NAME(CalendarViewDelegate)
 @protocol CKCalendarViewDelegate <NSObject>
-
-NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
@@ -49,7 +48,5 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)calendarView:(nonnull CKCalendarView *)calendarView didSelectEvent:(nonnull CKCalendarEvent *)event;
 
 @end
-
-NS_ASSUME_NONNULL_END
 
 #endif

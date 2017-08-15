@@ -13,6 +13,7 @@
 /**
  This protocol defines an interface for the calendar view to internally monitor the `CKCalendarModel`.
  */
+NS_SWIFT_NAME(CalendarModelObserver)
 @protocol CKCalendarModelObserver <NSObject>
 
 // MARK: - Handling Date Changes

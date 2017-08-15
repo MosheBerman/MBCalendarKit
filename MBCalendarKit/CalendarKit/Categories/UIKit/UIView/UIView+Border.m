@@ -7,47 +7,53 @@
 //
 
 #import "UIView+Border.h"
-#import <objc/runtime.h>
+@import ObjectiveC;
+
+static char * kBorderWidthKey = "com.mosheberman.key.border-width";
+static char * kBorderColorKey = "com.mosheberman.key.border-color";
 
 @implementation UIView (Border)
 
-- (void) showBorder
+// MARK: Toggling the Border
+
+/**
+ Shows the a border around the `UIView` instance.
+ */
+- (void)showBorder;
 {
-    
-    if (![self borderColor]) {
-        [self setBorderColor:[UIColor redColor]];
-    }
-    
-    if (![self borderWidth]) {
-        [self setBorderWidth:1.0];
-    }
-    
     self.layer.borderColor = [self borderColor].CGColor;
     self.layer.borderWidth = [self borderWidth];
 }
 
-- (void) hideBorder{
+/**
+ Hides the border by setting `self.layer.borderWidth` to 0.0 and `self.layer.borderColor` to `UIColor.clearColor.CGColor`.
+ */
+- (void)hideBorder
+{
     self.layer.borderWidth = 0.0;
-    self.layer.borderColor = [UIColor clearColor].CGColor;
+    self.layer.borderColor = UIColor.clearColor.CGColor;
 }
 
-#pragma mark - Border Color
-
-static char * kBorderColorKey = "border color key";
+// MARK: - Border Color
 
 - (void) setBorderColor:(UIColor *)color
 {
     objc_setAssociatedObject(self, kBorderColorKey, color, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (UIColor *)borderColor
+- (nonnull UIColor *)borderColor
 {
-    return objc_getAssociatedObject(self, kBorderColorKey);
+    UIColor *color = objc_getAssociatedObject(self, kBorderColorKey);
+    
+    if(!color)
+    {
+        color = [UIColor redColor];
+    }
+    
+    return color;
 }
 
-#pragma mark - Border Width
-
-static char * kBorderWidthKey = "border width key";
+// MARK: - Border Width
 
 - (void) setBorderWidth:(CGFloat)width
 {
@@ -56,7 +62,15 @@ static char * kBorderWidthKey = "border width key";
 
 - (CGFloat)borderWidth
 {
-    return [objc_getAssociatedObject(self, kBorderWidthKey) floatValue];
+    NSNumber *number = objc_getAssociatedObject(self, kBorderWidthKey);
+    CGFloat width = 0.0;
+    
+    if(number)
+    {
+        width = number.floatValue;
+    }
+    
+    return width;
 }
 
 

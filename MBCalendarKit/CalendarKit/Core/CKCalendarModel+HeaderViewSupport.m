@@ -33,7 +33,9 @@
         [result appendString:[firstVisibleDay monthAndYearOnCalendar:self.calendar]];
         
         //  Show the day and year
-        if (![self.calendar date:firstVisibleDay isSameMonthAs:lastVisibleDay]) {
+        
+        BOOL isSameMonth = [self.calendar isDate:firstVisibleDay equalToDate:lastVisibleDay toUnitGranularity:NSCalendarUnitMonth];
+        if (!isSameMonth) {
             result = [[firstVisibleDay monthAbbreviationAndYearOnCalendar:self.calendar] mutableCopy];
             [result appendString:@" - "];
             [result appendString:[lastVisibleDay monthAbbreviationAndYearOnCalendar:self.calendar]];
@@ -77,8 +79,9 @@
 {
     CKCalendarViewDisplayMode mode = self.displayMode;
     
-    if (mode == CKCalendarViewDisplayModeDay) {
-        return [self.calendar date:[NSDate date] isSameDayAs:self.date];
+    if (mode == CKCalendarViewDisplayModeDay)
+    {
+        return [self.calendar isDate:[NSDate date] equalToDate:self.date toUnitGranularity:NSCalendarUnitDay];
     }
     
     return NO;
@@ -95,15 +98,15 @@
         
         if (mode == CKCalendarViewDisplayModeMonth)
         {
-            should = [self.calendar date:self.date isSameMonthAs:self.minimumDate];
+            should = [self.calendar isDate:self.date equalToDate:self.minimumDate toUnitGranularity:NSCalendarUnitMonth];
         }
         else if(mode == CKCalendarViewDisplayModeWeek)
         {
-            should = [self.calendar date:self.date isSameWeekAs:self.minimumDate];
+            should = [self.calendar isDate:self.date equalToDate:self.minimumDate toUnitGranularity:NSCalendarUnitWeekOfYear];
         }
         else if(mode == CKCalendarViewDisplayModeDay)
         {
-            should =  [self.calendar date:self.date isSameDayAs:self.minimumDate];
+            should = [self.calendar isDate:self.date equalToDate:self.minimumDate toUnitGranularity:NSCalendarUnitDay];
         }
     }
     
@@ -121,16 +124,15 @@
         
         if (mode == CKCalendarViewDisplayModeMonth)
         {
-            should = [self.calendar date:self.date isSameMonthAs:self.maximumDate];
+            should = [self.calendar isDate:self.date equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitMonth];
         }
         else if(mode == CKCalendarViewDisplayModeWeek)
         {
-            should = [self.calendar date:self.date isSameWeekAs:self.maximumDate];
+            should = [self.calendar isDate:self.date equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitWeekOfYear];
         }
         else if (mode == CKCalendarViewDisplayModeDay)
         {
-            should = [self.calendar date:self.date isSameDayAs:self.maximumDate];
-        }
+should = [self.calendar isDate:self.date equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitDay];        }
     }
     
     return should;
@@ -172,7 +174,9 @@
         }
         
         //  If today is in the visible month, jump to today
-        if([self.calendar date:date isSameMonthAs:[NSDate date]]){
+        
+        if([self.calendar isDate:date equalToDate:[NSDate date] toUnitGranularity:NSCalendarUnitMonth])
+        {
             NSUInteger distance = [self.calendar daysFromDate:date toDate:today];
             date = [self.calendar dateByAddingDays:distance toDate:date];
         }
@@ -195,7 +199,7 @@
         date = [self.calendar dateBySubtractingDays:dayOfWeek-self.calendar.firstWeekday fromDate:date];   //  Jump to sunday
         
         //  If today is in the visible week, jump to today
-        if ([self.calendar date:date isSameWeekAs:today]) {
+        if ([self.calendar isDate:date equalToDate:[NSDate date] toUnitGranularity:NSCalendarUnitWeekOfYear]) {
             NSUInteger distance = [self.calendar daysFromDate:date toDate:today];
             date = [self.calendar dateByAddingDays:distance toDate:date];
         }
@@ -238,7 +242,7 @@
         date = [self.calendar dateBySubtractingDays:day-1 fromDate:date];     //  Go to the first of the month
         
         //  If today is in the visible month, jump to today
-        if([self.calendar date:date isSameMonthAs:[NSDate date]]){
+        if([self.calendar isDate:date equalToDate:[NSDate date] toUnitGranularity:NSCalendarUnitMonth]){
             NSUInteger distance = [self.calendar daysFromDate:date toDate:today];
             date = [self.calendar dateByAddingDays:distance toDate:date];
         }
@@ -260,7 +264,7 @@
         date = [self.calendar dateBySubtractingDays:dayOfWeek-1 fromDate:date];   //  Jump to sunday
         
         //  If today is in the visible week, jump to today
-        if ([self.calendar date:date isSameWeekAs:today]) {
+        if ([self.calendar isDate:date equalToDate:[NSDate date] toUnitGranularity:NSCalendarUnitWeekOfYear]) {
             NSUInteger distance = [self.calendar daysFromDate:date toDate:today];
             date = [self.calendar dateByAddingDays:distance toDate:date];
         }

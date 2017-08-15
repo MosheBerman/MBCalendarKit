@@ -1,6 +1,6 @@
 //
 //  NSDateComponents+AllComponents.m
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/12/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -12,7 +12,7 @@
 
 #pragma mark - All Components
 
-+ (NSUInteger)allComponents
++ (NSCalendarUnit)allComponents
 {
 return (NSCalendarUnitEra | NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitWeekOfYear);
 }
