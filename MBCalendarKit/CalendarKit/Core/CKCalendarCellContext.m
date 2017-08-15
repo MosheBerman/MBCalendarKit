@@ -27,13 +27,14 @@
     
     if (self)
     {
+        _date = date;
         _isToday = [calendarView.calendar isDate:date equalToDate:NSDate.date toUnitGranularity:NSCalendarUnitDay];
         _isSelected = [calendarView.calendar isDate:date equalToDate:calendarView.date toUnitGranularity:NSCalendarUnitDay];
         _isInSameMonthAsToday = [calendarView.calendar isDate:date equalToDate:calendarView.date toUnitGranularity:NSCalendarUnitMonth];
         _isBeforeMinimumDate = [calendarView.calendar date:date isBeforeDate:calendarView.minimumDate];
         _isAfterMaximumDate = [calendarView.calendar date:calendarView.maximumDate isBeforeDate:date];
         
-        if (_isToday && _isInSameMonthAsToday && !_isBeforeMinimumDate && _isAfterMaximumDate)
+        if (_isToday && _isInSameMonthAsToday && !_isBeforeMinimumDate && !_isAfterMaximumDate)
         {
             _state = CKCalendarCellStateToday;
         }

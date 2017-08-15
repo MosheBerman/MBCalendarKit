@@ -11,11 +11,23 @@
 
 #import "CKCalendarCellState.h"
 
+
+
 NS_SWIFT_NAME(CalendarCellContext)
+/**
+ This class provides a wrapper around the context a cell is being displayed in.
+ */
 @interface CKCalendarCellContext : NSObject
+
+// MARK: - The Date The Cell Represents
+
+@property (nonatomic, strong, nonnull) NSDate *date;
 
 // MARK: - The State that the Cell Is In
 
+/**
+ The state of the cell based on the flags below.
+ */
 @property (nonatomic, assign, readonly) CKCalendarCellState state;
 
 // MARK: - Getting Context Flags for the Cell
