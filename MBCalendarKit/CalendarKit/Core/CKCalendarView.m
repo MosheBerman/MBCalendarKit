@@ -148,8 +148,11 @@
     [self _installHeader];
     [self _installGridView];
     [self reload];
-    
+#if TARGET_INTERFACE_BUILDER
+#else
     self.translatesAutoresizingMaskIntoConstraints = NO;
+#endif
+    
 }
 
 // MARK: - View Lifecycle
