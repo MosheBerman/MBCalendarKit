@@ -1,5 +1,5 @@
 //
-//  CKCalendarCalendarCellColors.h
+//  CKCalendarCellColors.h
 //  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
@@ -8,7 +8,7 @@
 
 /*
  
- Defines standard colors for MBCalendarCalendarView. These were grabbed using the
+ Defines standard colors for CKCalendarView. These were grabbed using the
  color picker in Photoshop CS6 on OS X. There's a gradient across the calendar,
  from the top down, so the colors change slightly by row.
  
