@@ -21,8 +21,7 @@
  @param gridView The grid view making the call.
  @param cell A cell dequeued by the grid view.
  @param date The date represented by the cell.
- @return After configuring the cell, return the same cell you received.
  */
-- (nonnull UICollectionViewCell *)calendarGrid:(nonnull CKCalendarGridView *)gridView willDisplayCell:(nonnull UICollectionViewCell *)cell forDate:(nonnull NSDate *)date;
+- (void)calendarGrid:(nonnull CKCalendarGridView *)gridView willDisplayCell:(nonnull UICollectionViewCell *)cell forDate:(nonnull NSDate *)date;
 
 @end
