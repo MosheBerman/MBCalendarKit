@@ -88,6 +88,9 @@
         _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
         _tapGesture.cancelsTouchesInView = YES;
         [self addGestureRecognizer:_tapGesture];
+        
+        [self _installTitleLabel];
+        [self _installBackwardAndForwardButtons];
     }
     return self;
 }
@@ -110,9 +113,7 @@
         @throw [NSException exceptionWithName:@"CKCalendarViewHeaderException" reason:@"Header can't be installed without a data source" userInfo:@{@"Header": self}];
     }
     
-    [self _installTitleLabel];
     [self _adjustMonthLabelForColumnTitles];
-    [self _installBackwardAndForwardButtons];
     [self _installColumnTitleLabels];
     
     [super updateConstraints];
@@ -511,6 +512,7 @@
                                                               attribute:leadingOrTrailing
                                                              multiplier:1.0
                                                                constant:0.0];
+    anchor.identifier = @"Anchor Constraint";
     
     [self addSubview:polygonView];
     [self addConstraints:@[width, centerY, anchor, height]];
