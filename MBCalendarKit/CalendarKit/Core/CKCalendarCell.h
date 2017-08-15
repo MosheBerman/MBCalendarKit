@@ -8,7 +8,7 @@
 
 @import UIKit;
 
-#import "CKCalendarMonthCellStates.h"
+#import "CKCalendarCellState.h"
 
 /**
  The `CKCalendarCell` class manages the display of a single date in the calendar.

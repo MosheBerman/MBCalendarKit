@@ -32,7 +32,7 @@
     self = [super initWithFrame:CGRectZero];
     if (self) {
         // Initialization code
-        _state = CKCalendarMonthCellStateNormal;
+        _state = CKCalendarCellStateDeselected;
         
         //  Normal Cell Colors
         _normalBackgroundColor = kCalendarColorLightGray;
@@ -205,7 +205,7 @@
 
 - (void)setState:(CKCalendarMonthCellState)state
 {
-    if (state > CKCalendarMonthCellStateOutOfRange || state < CKCalendarMonthCellStateTodaySelected) {
+    if (state > CKCalendarCellStateOutOfRange || state < CKCalendarCellStateTodaySelected) {
         return;
     }
     
@@ -240,7 +240,7 @@
     //  Alpha, by default, is 1.0
     self.label.alpha = 1.0;
     
-    self.state = CKCalendarMonthCellStateNormal;
+    self.state = CKCalendarCellStateDeselected;
     
     [self applyColors];
     [super prepareForReuse];
@@ -289,7 +289,7 @@
     self.backgroundColor = self.normalBackgroundColor;
     
     //  Today cell
-    if(state == CKCalendarMonthCellStateTodaySelected)
+    if(state == CKCalendarCellStateTodaySelected)
     {
         self.backgroundColor = self.todaySelectedBackgroundColor;
         self.label.shadowColor = self.todayTextShadowColor;
@@ -298,7 +298,7 @@
     }
     
     //  Today cell, selected
-    else if(state == CKCalendarMonthCellStateTodayDeselected)
+    else if(state == CKCalendarCellStateTodayDeselected)
     {
         self.backgroundColor = self.todayBackgroundColor;
         self.label.shadowColor = self.todayTextShadowColor;
@@ -308,7 +308,7 @@
     }
     
     //  Selected cells in the active month have a special background color
-    else if(state == CKCalendarMonthCellStateSelected)
+    else if(state == CKCalendarCellStateSelected)
     {
         self.backgroundColor = self.selectedBackgroundColor;
         [self setBorderColor:self.selectedCellBorderColor];
@@ -317,17 +317,17 @@
         self.label.shadowOffset = CGSizeMake(0, -0.5);
     }
     
-    if (state == CKCalendarMonthCellStateInactive) {
+    if (state == CKCalendarCellStateOutOfCurrentScope) {
         self.label.alpha = 0.5;    //  Label alpha needs to be lowered
         self.label.shadowOffset = CGSizeZero;
     }
-    else if (state == CKCalendarMonthCellStateInactiveSelected)
+    else if (state == CKCalendarCellStateOutOfCurrentScopeSelected)
     {
         self.label.alpha = 0.5;    //  Label alpha needs to be lowered
         self.label.shadowOffset = CGSizeZero;
         self.backgroundColor = self.inactiveSelectedBackgroundColor;
     }
-    else if(state == CKCalendarMonthCellStateOutOfRange)
+    else if(state == CKCalendarCellStateOutOfRange)
     {
         self.label.alpha = 0.01;    //  Label alpha needs to be lowered
         self.label.shadowOffset = CGSizeZero;
@@ -363,16 +363,16 @@
 {
     CKCalendarMonthCellState state = self.state;
     
-    if (state == CKCalendarMonthCellStateInactive) {
-        self.state = CKCalendarMonthCellStateInactiveSelected;
+    if (state == CKCalendarCellStateOutOfCurrentScope) {
+        self.state = CKCalendarCellStateOutOfCurrentScopeSelected;
     }
-    else if(state == CKCalendarMonthCellStateNormal)
+    else if(state == CKCalendarCellStateDeselected)
     {
-        self.state = CKCalendarMonthCellStateSelected;
+        self.state = CKCalendarCellStateSelected;
     }
-    else if(state == CKCalendarMonthCellStateTodayDeselected)
+    else if(state == CKCalendarCellStateTodayDeselected)
     {
-        self.state = CKCalendarMonthCellStateTodaySelected;
+        self.state = CKCalendarCellStateTodaySelected;
     }
 }
 
@@ -383,16 +383,16 @@
 {
     CKCalendarMonthCellState state = self.state;
     
-    if (state == CKCalendarMonthCellStateInactiveSelected) {
-        self.state = CKCalendarMonthCellStateInactive;
+    if (state == CKCalendarCellStateOutOfCurrentScopeSelected) {
+        self.state = CKCalendarCellStateOutOfCurrentScope;
     }
-    else if(state == CKCalendarMonthCellStateSelected)
+    else if(state == CKCalendarCellStateSelected)
     {
-        self.state = CKCalendarMonthCellStateNormal;
+        self.state = CKCalendarCellStateDeselected;
     }
-    else if(state == CKCalendarMonthCellStateTodaySelected)
+    else if(state == CKCalendarCellStateTodaySelected)
     {
-        self.state = CKCalendarMonthCellStateTodayDeselected;
+        self.state = CKCalendarCellStateTodayDeselected;
     }
 }
 
@@ -401,7 +401,7 @@
  */
 - (void)setOutOfRange;
 {
-    self.state = CKCalendarMonthCellStateOutOfRange;
+    self.state = CKCalendarCellStateOutOfRange;
 }
 
 @end

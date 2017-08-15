@@ -74,8 +74,8 @@
 		467B12D81F2F547500CABA27 /* MBPolygonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A86F5171F174D00E7AB19 /* MBPolygonView.m */; };
 		467B12D91F2F547500CABA27 /* CKCalendarCellColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86F7171F174D00E7AB19 /* CKCalendarCellColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		467B12DA1F2F547500CABA27 /* CKCalendarHeaderColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86F8171F174D00E7AB19 /* CKCalendarHeaderColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		467B12DB1F2F547500CABA27 /* CKCalendarMonthCellStates.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86F9171F174D00E7AB19 /* CKCalendarMonthCellStates.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		467B12DC1F2F547500CABA27 /* CKCalendarViewMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86FA171F174D00E7AB19 /* CKCalendarViewMode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		467B12DB1F2F547500CABA27 /* CKCalendarCellState.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86F9171F174D00E7AB19 /* CKCalendarCellState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		467B12DC1F2F547500CABA27 /* CKCalendarViewDisplayMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86FA171F174D00E7AB19 /* CKCalendarViewDisplayMode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		467B12DD1F2F547500CABA27 /* CKCalendarDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A877F171F2B3B00E7AB19 /* CKCalendarDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		467B12DE1F2F547500CABA27 /* CKCalendarDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A8780171F2D7800E7AB19 /* CKCalendarDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		467B12E11F2F547500CABA27 /* CKCalendarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86FC171F174D00E7AB19 /* CKCalendarViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -212,8 +212,8 @@
 		464A86F5171F174D00E7AB19 /* MBPolygonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPolygonView.m; sourceTree = "<group>"; };
 		464A86F7171F174D00E7AB19 /* CKCalendarCellColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarCellColors.h; sourceTree = "<group>"; };
 		464A86F8171F174D00E7AB19 /* CKCalendarHeaderColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarHeaderColors.h; sourceTree = "<group>"; };
-		464A86F9171F174D00E7AB19 /* CKCalendarMonthCellStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarMonthCellStates.h; sourceTree = "<group>"; };
-		464A86FA171F174D00E7AB19 /* CKCalendarViewMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarViewMode.h; sourceTree = "<group>"; };
+		464A86F9171F174D00E7AB19 /* CKCalendarCellState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarCellState.h; sourceTree = "<group>"; };
+		464A86FA171F174D00E7AB19 /* CKCalendarViewDisplayMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarViewDisplayMode.h; sourceTree = "<group>"; };
 		464A86FC171F174D00E7AB19 /* CKCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarViewController.h; sourceTree = "<group>"; };
 		464A86FD171F174D00E7AB19 /* CKCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarViewController.m; sourceTree = "<group>"; };
 		464A86FE171F174D00E7AB19 /* CKAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKAppDelegate.h; path = MBCalendarKit/CKAppDelegate.h; sourceTree = "<group>"; };
@@ -413,8 +413,8 @@
 			children = (
 				464A86F7171F174D00E7AB19 /* CKCalendarCellColors.h */,
 				464A86F8171F174D00E7AB19 /* CKCalendarHeaderColors.h */,
-				464A86F9171F174D00E7AB19 /* CKCalendarMonthCellStates.h */,
-				464A86FA171F174D00E7AB19 /* CKCalendarViewMode.h */,
+				464A86F9171F174D00E7AB19 /* CKCalendarCellState.h */,
+				464A86FA171F174D00E7AB19 /* CKCalendarViewDisplayMode.h */,
 				464A877F171F2B3B00E7AB19 /* CKCalendarDelegate.h */,
 				464A8780171F2D7800E7AB19 /* CKCalendarDataSource.h */,
 			);
@@ -688,11 +688,11 @@
 				467B12D91F2F547500CABA27 /* CKCalendarCellColors.h in Headers */,
 				468C69371F42C11D00CCD4E4 /* CKCalendarView+CustomCells.h in Headers */,
 				467B12DA1F2F547500CABA27 /* CKCalendarHeaderColors.h in Headers */,
-				467B12DB1F2F547500CABA27 /* CKCalendarMonthCellStates.h in Headers */,
+				467B12DB1F2F547500CABA27 /* CKCalendarCellState.h in Headers */,
 				468C693A1F42C57300CCD4E4 /* CKCustomCellProviding.h in Headers */,
 				46363C351F397501002BA215 /* CKCalendarHeaderViewDataSource.h in Headers */,
 				46AA21241F3E0FA000E5F832 /* CKCalendarGridTransitionAxis.h in Headers */,
-				467B12DC1F2F547500CABA27 /* CKCalendarViewMode.h in Headers */,
+				467B12DC1F2F547500CABA27 /* CKCalendarViewDisplayMode.h in Headers */,
 				467B12DD1F2F547500CABA27 /* CKCalendarDelegate.h in Headers */,
 				467B12DE1F2F547500CABA27 /* CKCalendarDataSource.h in Headers */,
 				46AA20D91F3D24BE00E5F832 /* CKCalendarGridViewDataSource.h in Headers */,

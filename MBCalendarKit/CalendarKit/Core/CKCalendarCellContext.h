@@ -9,10 +9,16 @@
 @import Foundation;
 @class CKCalendarView;
 
+#import "CKCalendarCellState.h"
+
 NS_SWIFT_NAME(CalendarCellContext)
 @interface CKCalendarCellContext : NSObject
 
-// MARK: - Getting Context for the Cell
+// MARK: - The State that the Cell Is In
+
+@property (nonatomic, assign, readonly) CKCalendarCellState state;
+
+// MARK: - Getting Context Flags for the Cell
 
 /**
  `YES` if the date represented by the cell represents the same day as `[NSDate date]` on the calendar displayed by the calendar view. Otherwise `NO`.

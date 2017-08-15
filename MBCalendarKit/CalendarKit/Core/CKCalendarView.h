@@ -8,7 +8,7 @@
 
 @import UIKit;
 
-#import "CKCalendarViewMode.h"
+#import "CKCalendarViewDisplayMode.h"
 #import "CKCalendarEvent.h"
 #import "CKCalendarDelegate.h"
 #import "CKCalendarDataSource.h"

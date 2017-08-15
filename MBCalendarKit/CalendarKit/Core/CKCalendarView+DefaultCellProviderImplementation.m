@@ -57,18 +57,18 @@
     // STEP 3: Configure the cell
     if (cellRepresentsToday && isThisMonth && isInRange)
     {
-        calendarCell.state = CKCalendarMonthCellStateTodayDeselected;
+        calendarCell.state = CKCalendarCellStateTodayDeselected;
     }
     else if(!isInRange)
     {
         [calendarCell setOutOfRange];
     }
     else if (!isThisMonth) {
-        calendarCell.state = CKCalendarMonthCellStateInactive;
+        calendarCell.state = CKCalendarCellStateOutOfCurrentScope;
     }
     else
     {
-        calendarCell.state = CKCalendarMonthCellStateNormal;
+        calendarCell.state = CKCalendarCellStateDeselected;
     }
     
     /* If a cell represents today, highlight it. */
