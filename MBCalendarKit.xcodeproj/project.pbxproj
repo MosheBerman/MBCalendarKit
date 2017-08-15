@@ -83,6 +83,14 @@
 		467B12FA1F2F5B8A00CABA27 /* MBCalendarKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B12F91F2F5B8A00CABA27 /* MBCalendarKitTests.m */; };
 		467B12FC1F2F5B8A00CABA27 /* MBCalendarKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */; };
 		46895C9A171F5AA60072DBCF /* CKDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46895C99171F5AA60072DBCF /* CKDemoViewController.m */; };
+		468C69371F42C11D00CCD4E4 /* CKCalendarView+CustomCells.h in Headers */ = {isa = PBXBuildFile; fileRef = 468C69351F42C11D00CCD4E4 /* CKCalendarView+CustomCells.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		468C69381F42C11D00CCD4E4 /* CKCalendarView+CustomCells.m in Sources */ = {isa = PBXBuildFile; fileRef = 468C69361F42C11D00CCD4E4 /* CKCalendarView+CustomCells.m */; };
+		468C693A1F42C57300CCD4E4 /* CKCustomCellProviding.h in Headers */ = {isa = PBXBuildFile; fileRef = 468C69391F42C57300CCD4E4 /* CKCustomCellProviding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		468CDDCD1F42CBEC008E628D /* CKCalendarView+DefaultCellProviderImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 468CDDCB1F42CBEC008E628D /* CKCalendarView+DefaultCellProviderImplementation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		468CDDCE1F42CBEC008E628D /* CKCalendarView+DefaultCellProviderImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 468CDDCC1F42CBEC008E628D /* CKCalendarView+DefaultCellProviderImplementation.m */; };
+		468CDDD01F42D081008E628D /* CKCustomCellDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468CDDCF1F42D081008E628D /* CKCustomCellDemoViewController.swift */; };
+		468CDDE01F42DE5B008E628D /* CKCalendarCellContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 468CDDDE1F42DE5B008E628D /* CKCalendarCellContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		468CDDE11F42DE5B008E628D /* CKCalendarCellContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 468CDDDF1F42DE5B008E628D /* CKCalendarCellContext.m */; };
 		469D857E1A3766A100E2B305 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 469D857D1A3766A100E2B305 /* Images.xcassets */; };
 		46A789E91A606CF00096E2BB /* SwiftDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A789E81A606CF00096E2BB /* SwiftDemoViewController.swift */; };
 		46AA20D91F3D24BE00E5F832 /* CKCalendarGridViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 46AA20D81F3D24BE00E5F832 /* CKCalendarGridViewDataSource.h */; };
@@ -232,6 +240,14 @@
 		467B12FB1F2F5B8A00CABA27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		46895C98171F5AA60072DBCF /* CKDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKDemoViewController.h; path = MBCalendarKit/CKDemoViewController.h; sourceTree = "<group>"; };
 		46895C99171F5AA60072DBCF /* CKDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKDemoViewController.m; path = MBCalendarKit/CKDemoViewController.m; sourceTree = "<group>"; };
+		468C69351F42C11D00CCD4E4 /* CKCalendarView+CustomCells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKCalendarView+CustomCells.h"; sourceTree = "<group>"; };
+		468C69361F42C11D00CCD4E4 /* CKCalendarView+CustomCells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKCalendarView+CustomCells.m"; sourceTree = "<group>"; };
+		468C69391F42C57300CCD4E4 /* CKCustomCellProviding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCustomCellProviding.h; sourceTree = "<group>"; };
+		468CDDCB1F42CBEC008E628D /* CKCalendarView+DefaultCellProviderImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKCalendarView+DefaultCellProviderImplementation.h"; sourceTree = "<group>"; };
+		468CDDCC1F42CBEC008E628D /* CKCalendarView+DefaultCellProviderImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKCalendarView+DefaultCellProviderImplementation.m"; sourceTree = "<group>"; };
+		468CDDCF1F42D081008E628D /* CKCustomCellDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CKCustomCellDemoViewController.swift; sourceTree = "<group>"; };
+		468CDDDE1F42DE5B008E628D /* CKCalendarCellContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarCellContext.h; sourceTree = "<group>"; };
+		468CDDDF1F42DE5B008E628D /* CKCalendarCellContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarCellContext.m; sourceTree = "<group>"; };
 		469D857D1A3766A100E2B305 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MBCalendarKit/Images.xcassets; sourceTree = "<group>"; };
 		46A789E71A606CEF0096E2BB /* MBCalendarKit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MBCalendarKit-Bridging-Header.h"; sourceTree = "<group>"; };
 		46A789E81A606CF00096E2BB /* SwiftDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftDemoViewController.swift; path = MBCalendarKit/SwiftDemoViewController.swift; sourceTree = "<group>"; };
@@ -384,6 +400,7 @@
 				46087AD11F3C2CF1004655C6 /* Model */,
 				464A86F2171F174D00E7AB19 /* CKCalendarView.h */,
 				464A86F3171F174D00E7AB19 /* CKCalendarView.m */,
+				468C693B1F42C5BC00CCD4E4 /* Custom Calendar Cells */,
 				46AA211C1F3DF13E00E5F832 /* Showing Events */,
 			);
 			path = Core;
@@ -426,21 +443,13 @@
 		464A874A171F1AAA00E7AB19 /* Demo App */ = {
 			isa = PBXGroup;
 			children = (
-				464A86FE171F174D00E7AB19 /* CKAppDelegate.h */,
-				464A86FF171F174D00E7AB19 /* CKAppDelegate.m */,
-				46363C2A1F393D61002BA215 /* DemoRootTableViewController.swift */,
-				46895C98171F5AA60072DBCF /* CKDemoViewController.h */,
-				46895C99171F5AA60072DBCF /* CKDemoViewController.m */,
-				46A789E81A606CF00096E2BB /* SwiftDemoViewController.swift */,
+				468CDDD61F42D69A008E628D /* App Delegate */,
+				468CDDD51F42D68F008E628D /* View Controllers */,
 				464A8700171F174D00E7AB19 /* Default-568h@2x.png */,
 				464A8701171F174D00E7AB19 /* Default.png */,
 				464A8702171F174D00E7AB19 /* Default@2x.png */,
 				464925391F34F0D7000F220D /* DemoApp.storyboard */,
-				464A8705171F174D00E7AB19 /* InfoPlist.strings */,
-				464A8707171F174D00E7AB19 /* main.m */,
-				464A8708171F174D00E7AB19 /* MBCalendarKit-Info.plist */,
-				464A8709171F174D00E7AB19 /* MBCalendarKit-Prefix.pch */,
-				46A789E71A606CEF0096E2BB /* MBCalendarKit-Bridging-Header.h */,
+				468CDDD71F42D6AE008E628D /* Supporting Files */,
 			);
 			name = "Demo App";
 			sourceTree = "<group>";
@@ -469,6 +478,77 @@
 				467B12FB1F2F5B8A00CABA27 /* Info.plist */,
 			);
 			path = MBCalendarKitTests;
+			sourceTree = "<group>";
+		};
+		468C693B1F42C5BC00CCD4E4 /* Custom Calendar Cells */ = {
+			isa = PBXGroup;
+			children = (
+				468CDDDE1F42DE5B008E628D /* CKCalendarCellContext.h */,
+				468CDDDF1F42DE5B008E628D /* CKCalendarCellContext.m */,
+				468C69391F42C57300CCD4E4 /* CKCustomCellProviding.h */,
+				468C69351F42C11D00CCD4E4 /* CKCalendarView+CustomCells.h */,
+				468C69361F42C11D00CCD4E4 /* CKCalendarView+CustomCells.m */,
+				468CDDCB1F42CBEC008E628D /* CKCalendarView+DefaultCellProviderImplementation.h */,
+				468CDDCC1F42CBEC008E628D /* CKCalendarView+DefaultCellProviderImplementation.m */,
+			);
+			name = "Custom Calendar Cells";
+			sourceTree = "<group>";
+		};
+		468CDDD51F42D68F008E628D /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				46363C2A1F393D61002BA215 /* DemoRootTableViewController.swift */,
+				468CDDD91F42D939008E628D /* Objective-C Demo */,
+				468CDDDA1F42D93F008E628D /* Swift Demo */,
+				468CDDDB1F42D945008E628D /* Custom Cell Demo */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		468CDDD61F42D69A008E628D /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				464A86FE171F174D00E7AB19 /* CKAppDelegate.h */,
+				464A86FF171F174D00E7AB19 /* CKAppDelegate.m */,
+			);
+			name = "App Delegate";
+			sourceTree = "<group>";
+		};
+		468CDDD71F42D6AE008E628D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				464A8705171F174D00E7AB19 /* InfoPlist.strings */,
+				464A8707171F174D00E7AB19 /* main.m */,
+				464A8708171F174D00E7AB19 /* MBCalendarKit-Info.plist */,
+				464A8709171F174D00E7AB19 /* MBCalendarKit-Prefix.pch */,
+				46A789E71A606CEF0096E2BB /* MBCalendarKit-Bridging-Header.h */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		468CDDD91F42D939008E628D /* Objective-C Demo */ = {
+			isa = PBXGroup;
+			children = (
+				46895C98171F5AA60072DBCF /* CKDemoViewController.h */,
+				46895C99171F5AA60072DBCF /* CKDemoViewController.m */,
+			);
+			name = "Objective-C Demo";
+			sourceTree = "<group>";
+		};
+		468CDDDA1F42D93F008E628D /* Swift Demo */ = {
+			isa = PBXGroup;
+			children = (
+				46A789E81A606CF00096E2BB /* SwiftDemoViewController.swift */,
+			);
+			name = "Swift Demo";
+			sourceTree = "<group>";
+		};
+		468CDDDB1F42D945008E628D /* Custom Cell Demo */ = {
+			isa = PBXGroup;
+			children = (
+				468CDDCF1F42D081008E628D /* CKCustomCellDemoViewController.swift */,
+			);
+			name = "Custom Cell Demo";
 			sourceTree = "<group>";
 		};
 		46AA20D61F3D243C00E5F832 /* Header View */ = {
@@ -578,6 +658,7 @@
 				467B12BF1F2F547500CABA27 /* NSDate+Components.h in Headers */,
 				467B12C11F2F547500CABA27 /* NSDate+Description.h in Headers */,
 				467B12C31F2F547500CABA27 /* NSDateComponents+AllComponents.h in Headers */,
+				468CDDE01F42DE5B008E628D /* CKCalendarCellContext.h in Headers */,
 				46AA211F1F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.h in Headers */,
 				467B12C51F2F547500CABA27 /* NSString+Color.h in Headers */,
 				46AA21221F3DF3EF00E5F832 /* CKCalendarGridTransitionDirection.h in Headers */,
@@ -591,10 +672,13 @@
 				46AA210D1F3D58F600E5F832 /* CKCalendarGridViewDelegate.h in Headers */,
 				467B12D31F2F547500CABA27 /* CKCalendarView.h in Headers */,
 				467B12D51F2F547500CABA27 /* CKTableViewCell.h in Headers */,
+				468CDDCD1F42CBEC008E628D /* CKCalendarView+DefaultCellProviderImplementation.h in Headers */,
 				467B12D71F2F547500CABA27 /* MBPolygonView.h in Headers */,
 				467B12D91F2F547500CABA27 /* CKCalendarCellColors.h in Headers */,
+				468C69371F42C11D00CCD4E4 /* CKCalendarView+CustomCells.h in Headers */,
 				467B12DA1F2F547500CABA27 /* CKCalendarHeaderColors.h in Headers */,
 				467B12DB1F2F547500CABA27 /* CKCalendarMonthCellStates.h in Headers */,
+				468C693A1F42C57300CCD4E4 /* CKCustomCellProviding.h in Headers */,
 				46363C351F397501002BA215 /* CKCalendarHeaderViewDataSource.h in Headers */,
 				46AA21241F3E0FA000E5F832 /* CKCalendarGridTransitionAxis.h in Headers */,
 				467B12DC1F2F547500CABA27 /* CKCalendarViewMode.h in Headers */,
@@ -770,16 +854,19 @@
 				467B12C21F2F547500CABA27 /* NSDate+Description.m in Sources */,
 				46087AD91F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m in Sources */,
 				467B12C41F2F547500CABA27 /* NSDateComponents+AllComponents.m in Sources */,
+				468C69381F42C11D00CCD4E4 /* CKCalendarView+CustomCells.m in Sources */,
 				46EF359C1F3C295700095A9E /* CKCalendarModel.m in Sources */,
 				46AA20DD1F3D36C800E5F832 /* CKCalendarModel+HeaderViewSupport.m in Sources */,
 				46363C2E1F394393002BA215 /* README.md in Sources */,
 				467B12C61F2F547500CABA27 /* NSString+Color.m in Sources */,
 				467B12C81F2F547500CABA27 /* UIColor+HexString.m in Sources */,
+				468CDDCE1F42CBEC008E628D /* CKCalendarView+DefaultCellProviderImplementation.m in Sources */,
 				46363C2D1F394393002BA215 /* LICENSE.md in Sources */,
 				467B12CC1F2F547500CABA27 /* UIView+Border.m in Sources */,
 				467B12CE1F2F547500CABA27 /* CKCalendarCell.m in Sources */,
 				467B12D01F2F547500CABA27 /* CKCalendarEvent.m in Sources */,
 				467B12D21F2F547500CABA27 /* CKCalendarHeaderView.m in Sources */,
+				468CDDE11F42DE5B008E628D /* CKCalendarCellContext.m in Sources */,
 				467B12D41F2F547500CABA27 /* CKCalendarView.m in Sources */,
 				467B12D61F2F547500CABA27 /* CKTableViewCell.m in Sources */,
 				467B12D81F2F547500CABA27 /* MBPolygonView.m in Sources */,
@@ -805,6 +892,7 @@
 				464A8734171F174D00E7AB19 /* CKAppDelegate.m in Sources */,
 				464A8740171F174D00E7AB19 /* main.m in Sources */,
 				46363C2B1F393D61002BA215 /* DemoRootTableViewController.swift in Sources */,
+				468CDDD01F42D081008E628D /* CKCustomCellDemoViewController.swift in Sources */,
 				46895C9A171F5AA60072DBCF /* CKDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
