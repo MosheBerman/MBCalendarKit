@@ -582,10 +582,8 @@
 
 - (void)calendarGrid:(CKCalendarGridView *)gridView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date
 {
-    
-    
     BOOL cellRepresentsToday = [self.calendarModel.calendar isDate:date equalToDate:[NSDate date] toUnitGranularity:NSCalendarUnitDay];
-    BOOL isThisMonth = [self.calendar isDate:date equalToDate:[NSDate date] toUnitGranularity:NSCalendarUnitMonth];
+    BOOL isThisMonth = [self.calendar isDate:date equalToDate:self.date toUnitGranularity:NSCalendarUnitMonth];
     BOOL isInRange = [self.calendarModel dateIsBetweenMinimumAndMaximumDates:date];
     isInRange = isInRange || [self.calendarModel.calendar isDate:date equalToDate:self.minimumDate toUnitGranularity:NSCalendarUnitDay];
     isInRange = isInRange || [self.calendarModel.calendar isDate:date equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitDay];
