@@ -10,9 +10,11 @@
 #import "CKCalendarEvent.h"
 #import "NSCalendarCategories.h"
 
+#import "CKTableViewCell.h"
+
 #import "CKCalendarViewController.h"
 
-@interface CKCalendarViewController () <CKCalendarViewDataSource, CKCalendarViewDelegate>
+@interface CKCalendarViewController () <CKCalendarViewDataSource, CKCalendarViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 /**
  The calendar view used in the view controller.
@@ -28,16 +30,63 @@
 /**
  The events to display in the calendar.
  */
-@property (nonatomic, strong) NSMutableArray *events;
+@property (nonatomic, strong) NSArray <CKCalendarEvent *> *events;
 
 @end
 
 @implementation CKCalendarViewController
 
+// MARK: Initializers
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self _commonInitializer];
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
+    if(self)
+    {
+        [self _commonInitializer];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self _commonInitializer];
+    }
+    return self;
+}
+
+// MARK: -
+
+- (void)_commonInitializer
+{
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    
+    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"noDataCell"];
+    
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+}
+
+// MARK: - View Lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view, typically from a nib.
     
     /* iOS 7 hack*/
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
@@ -53,7 +102,8 @@
     
     self.events = [NSMutableArray new];
     
-    [self _configureCalendarView];
+    [self installCalendarView];
+    [self installTableView];
     
     /* Mode Picker */
     
@@ -87,7 +137,7 @@
 
 #pragma mark - Configuring the Calendar View
 
-- (void)_configureCalendarView
+- (void)installCalendarView
 {
     self.calendarView = [[CKCalendarView alloc] init];
     self.calendarView.dataSource = self;
@@ -113,17 +163,66 @@
                                                             constant:0.0];
     
     NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.calendarView
-                                                             attribute:NSLayoutAttributeCenterX
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:self.view
-                                                             attribute:NSLayoutAttributeCenterX
-                                                            multiplier:1.0
-                                                              constant:0.0];
+                                                               attribute:NSLayoutAttributeCenterX
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.view
+                                                               attribute:NSLayoutAttributeCenterX
+                                                              multiplier:1.0
+                                                                constant:0.0];
     
     [self.view addConstraints:@[top, centerX]];
     
 }
 
+
+// MARK: - Install Table View
+
+- (void)installTableView
+{
+    if (![self.view.subviews containsObject:self.tableView])
+    {
+        /* Set up the table */
+        [self.view addSubview:self.tableView];
+        [self.view bringSubviewToFront:self.calendarView];
+        
+        self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.tableView
+                                                                   attribute:NSLayoutAttributeLeading
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.view
+                                                                   attribute:NSLayoutAttributeLeading
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+        
+        NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.tableView
+                                                                    attribute:NSLayoutAttributeTrailing
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:self.view
+                                                                    attribute:NSLayoutAttributeTrailing
+                                                                   multiplier:1.0
+                                                                     constant:0.0];
+        
+        NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.tableView
+                                                               attribute:NSLayoutAttributeTop
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.calendarView
+                                                               attribute:NSLayoutAttributeBottom
+                                                              multiplier:1.0
+                                                                constant:0.0];
+        
+        NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.tableView
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:self.view
+                                                                  attribute:NSLayoutAttributeBottom
+                                                                 multiplier:1.0
+                                                                   constant:0.0];
+        
+        [self.view addConstraints:@[leading, trailing, top, bottom]];
+    }
+    
+}
 
 // MARK: - Allows Users to Install The Shadows
 
@@ -151,12 +250,52 @@
 
 #pragma mark - CKCalendarViewDataSource
 
-- (NSArray *)calendarView:(CKCalendarView *)CalendarView eventsForDate:(NSDate *)date
+- (NSArray *)calendarView:(CKCalendarView *)calendarView eventsForDate:(NSDate *)date
 {
     if ([self.dataSource respondsToSelector:@selector(calendarView:eventsForDate:)]) {
-        return [self.dataSource calendarView:CalendarView eventsForDate:date];
+        return [self.dataSource calendarView:calendarView eventsForDate:date];
     }
     return nil;
+}
+
+// MARK: - Setting the Data Source
+
+
+/**
+ Sets the data source. Setting this also causes the cache to reload, and the table view to reload as well.
+
+ @param dataSource The data source for the calendar view controller.
+ */
+- (void)setDataSource:(id<CKCalendarViewDataSource>)dataSource
+{
+    _dataSource = dataSource;
+    self.calendarView.dataSource = dataSource;
+
+    [self updateCacheWithSortedEvents];
+    [self.tableView reloadData];
+}
+
+
+/**
+ Asks the data source for events for a given date. 
+ Then, sorts the events by date and caches them locally.
+ */
+- (void)updateCacheWithSortedEvents
+{
+    /**
+     *  Sort & cache the events for the current date.
+     */
+    
+    if ([self.dataSource respondsToSelector:@selector(calendarView:eventsForDate:)]) {
+        NSArray *sortedArray = [[self.dataSource calendarView:self.calendarView eventsForDate:self.calendarView.date] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            NSDate *d1 = [obj1 date];
+            NSDate *d2 = [obj2 date];
+            
+            return [d1 compare:d2];
+        }];
+        
+        self.events = sortedArray;
+    }
 }
 
 #pragma mark - CKCalendarViewDelegate
@@ -164,7 +303,8 @@
 // Called before the selected date changes
 - (void)calendarView:(CKCalendarView *)calendarView willSelectDate:(NSDate *)date
 {
-    if ([self isEqual:self.delegate]) {
+    if ([self isEqual:self.delegate])
+    {
         return;
     }
     
@@ -176,7 +316,11 @@
 // Called after the selected date changes
 - (void)calendarView:(CKCalendarView *)calendarView didSelectDate:(NSDate *)date
 {
-    if ([self isEqual:self.delegate]) {
+    [self updateCacheWithSortedEvents];
+    [self.tableView reloadData];
+
+    if ([self isEqual:self.delegate])
+    {
         return;
     }
     
@@ -188,10 +332,6 @@
 //  A row is selected in the events table. (Use to push a detail view or whatever.)
 - (void)calendarView:(CKCalendarView *)calendarView didSelectEvent:(CKCalendarEvent *)event
 {
-    if ([self isEqual:self.delegate]) {
-        return;
-    }
-    
     if ([self.delegate respondsToSelector:@selector(calendarView:didSelectEvent:)]) {
         [self.delegate calendarView:calendarView didSelectEvent:event];
     }
@@ -217,6 +357,79 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     [self.calendarView reloadAnimated:NO];
+}
+
+// MARK: - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSInteger count = self.events.count;
+    
+    if (count == 0) {
+        count = 2;
+    }
+    
+    return count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger count = self.events.count;
+    
+    if (count == 0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"noDataCell"];
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.textColor = [UIColor colorWithWhite:0.2 alpha:0.8];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        if (indexPath.row == 1) {
+            [cell.textLabel setText:NSLocalizedString(@"No Events", @"A label for a table with no events.")];
+        }
+        else
+        {
+            cell.textLabel.text = @"";
+        }
+        return cell;
+    }
+    
+    CKTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    
+    CKCalendarEvent *event = self.events[indexPath.row];
+    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    cell.textLabel.text = event.title;
+    
+    UIView *colorView = [[UIView alloc] initWithFrame:CGRectMake(3, 6, 20, 20)];
+    CALayer *layer = [CALayer layer];
+    layer.backgroundColor = event.color.CGColor;
+    layer.frame = colorView.frame;
+    [colorView.layer insertSublayer:layer atIndex:0];
+    
+    if(nil != event.image)
+    {
+        cell.imageView.image = [UIImage imageWithData:event.image];
+    }
+    else {
+        cell.imageView.image = nil;
+    }
+    
+    [cell addSubview:colorView];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.events.count == 0) {
+        return;
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(calendarView:didSelectEvent:)]) {
+        [self.delegate calendarView:self.calendarView didSelectEvent:self.events[indexPath.row]];
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

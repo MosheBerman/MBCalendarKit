@@ -11,7 +11,7 @@
 #import "CKCalendarDelegate.h"
 #import "CKCalendarDataSource.h"
 
-@interface CKCalendarViewController : UIViewController
+@interface CKCalendarViewController : UIViewController <CKCalendarViewDataSource, CKCalendarViewDelegate>
 
 /**
  The data source provides events to the calendar.
@@ -27,5 +27,10 @@
  The calendar view.
  */
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) CKCalendarView *calendarView;
+
+/**
+ A table view ahowing events.
+ */
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) UITableView *tableView;
 
 @end
