@@ -9,9 +9,7 @@
 @import Foundation;
 @class CKCalendarView;
 
-#import "CKCalendarCellState.h"
-
-
+#import "CKCalendarCellContextIdentifier.h"
 
 NS_SWIFT_NAME(CalendarCellContext)
 /**

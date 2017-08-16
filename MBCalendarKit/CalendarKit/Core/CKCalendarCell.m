@@ -7,7 +7,7 @@
 //
 
 #import "CKCalendarCell.h"
-#import "CKCalendarCellState.h"
+#import "CKCalendarCellContextIdentifier.h"
 #import "CKCalendarCellColors.h"
 
 #import "UIView+Border.h"
@@ -97,7 +97,6 @@
     [self configureLabel];
     [self configureDot];
     [self applyColorsForState:self.state];
-    [self showBorder];
 }
 
 // MARK: - Layout
@@ -271,9 +270,6 @@
     self.label.shadowColor = self.textShadowColor;
     self.label.shadowOffset = CGSizeMake(0, 0.5);
     
-    [self setBorderColor:self.cellBorderColor];
-    [self setBorderWidth:0.5];
-    [self showBorder];
     self.backgroundColor = self.normalBackgroundColor;
     
     //  Today cell, selected
@@ -340,6 +336,12 @@
     //  Make the dot follow the label's style
     self.dot.backgroundColor = self.label.textColor;
     self.dot.alpha = self.label.alpha;
+    
+    //  Set the border color
+    [self setBorderColor:self.cellBorderColor];
+    [self setBorderWidth:0.5];
+    
+    [self showBorder];
 }
 
 // MARK: - Collection View Cell Highlighting
