@@ -48,15 +48,9 @@
 {
     // STEP 1: Access the cell. It's safe to cast to whatever class is in `customCellClass`.
     CKCalendarCell *calendarCell = (CKCalendarCell *)cell;
-    
-    calendarCell.state = context.state;
-    
+
     /* If a cell represents today, highlight it. */
-    
-    if([self.calendarModel.calendar isDate:context.date equalToDate:self.calendarModel.date toUnitGranularity:NSCalendarUnitDay])
-    {
-        [calendarCell setSelected];
-    }
+    calendarCell.state = context.state;
     
     /* Show the day of the month in the cell. */
     

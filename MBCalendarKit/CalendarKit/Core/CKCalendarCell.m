@@ -96,7 +96,8 @@
     [super willMoveToSuperview:newSuperview];
     [self configureLabel];
     [self configureDot];
-    [self applyColors];
+    [self applyColorsForState:self.state];
+    [self showBorder];
 }
 
 // MARK: - Layout
@@ -234,7 +235,8 @@
     
     self.state = CKCalendarCellStateDefault;
     
-    [self applyColors];
+    [self applyColorsForState:self.state];
+    [self showBorder];
 }
 
 // MARK: - Label
@@ -261,12 +263,6 @@
 
 // MARK: - Coloring the Cell
 
-- (void)applyColors
-{
-    [self applyColorsForState:self.state];
-    [self showBorder];
-}
-
 //  TODO: Make the cell states bitwise, so we can use masks and clean this up a bit
 - (void)applyColorsForState:(CKCalendarMonthCellState)state
 {
@@ -277,12 +273,11 @@
     
     [self setBorderColor:self.cellBorderColor];
     [self setBorderWidth:0.5];
+    [self showBorder];
     self.backgroundColor = self.normalBackgroundColor;
     
-    BOOL isHighlightedOrSelected = self.isSelected || self.isHighlighted;
-    
-    //  Today cell
-    if(state == CKCalendarCellStateToday)
+    //  Today cell, selected
+    if(state == CKCalendarCellStateToday && self.selected)
     {
         self.backgroundColor = self.todaySelectedBackgroundColor;
         self.label.shadowColor = self.todayTextShadowColor;
@@ -290,8 +285,8 @@
         [self setBorderColor:self.backgroundColor];
     }
     
-    //  Today cell, selected
-    else if(state == CKCalendarCellStateToday && isHighlightedOrSelected)
+    //  Today cell
+    else if(state == CKCalendarCellStateToday)
     {
         self.backgroundColor = self.todayBackgroundColor;
         self.label.shadowColor = self.todayTextShadowColor;
@@ -301,7 +296,7 @@
     }
     
     //  Selected cells in the active month have a special background color
-    else if(state == CKCalendarCellStateDefault && isHighlightedOrSelected)
+    else if(state == CKCalendarCellStateDefault && self.highlighted)
     {
         self.backgroundColor = self.selectedBackgroundColor;
         [self setBorderColor:self.selectedCellBorderColor];
@@ -309,20 +304,36 @@
         self.label.shadowColor = self.textSelectedShadowColor;
         self.label.shadowOffset = CGSizeMake(0, -0.5);
     }
-    
-    if (state == CKCalendarCellStateOutOfCurrentScope) {
-        self.label.alpha = 0.5;    //  Label alpha needs to be lowered
-        self.label.shadowOffset = CGSizeZero;
+    //  Selected cells in the active month have a special background color
+    else if(state == CKCalendarCellStateDefault && (self.highlighted || self.selected))
+    {
+        self.backgroundColor = self.selectedBackgroundColor;
+        [self setBorderColor:self.selectedCellBorderColor];
+        self.label.textColor = self.textSelectedColor;
+        self.label.shadowColor = self.textSelectedShadowColor;
+        self.label.shadowOffset = CGSizeMake(0, -0.5);
     }
-    else if (state == CKCalendarCellStateOutOfCurrentScope && isHighlightedOrSelected)
+    else if (state == CKCalendarCellStateOutOfCurrentScope && self.highlighted)
     {
         self.label.alpha = 0.5;    //  Label alpha needs to be lowered
         self.label.shadowOffset = CGSizeZero;
         self.backgroundColor = self.inactiveSelectedBackgroundColor;
     }
-    else if(state == CKCalendarCellStateOutOfRange)
+    else if(state == CKCalendarCellStateOutOfRange && self.highlighted)
     {
         self.label.alpha = 0.01;    //  Label alpha needs to be lowered
+        self.label.shadowOffset = CGSizeZero;
+        self.backgroundColor = self.inactiveSelectedBackgroundColor;
+    }
+    else if (state == CKCalendarCellStateOutOfRange)
+    {
+        self.label.alpha = 0.01;    //  Label alpha needs to be lowered
+        self.label.shadowOffset = CGSizeZero;
+        self.backgroundColor = self.inactiveSelectedBackgroundColor;
+    }
+    else if (state == CKCalendarCellStateOutOfCurrentScope)
+    {
+        self.label.alpha = 0.5;    //  Label alpha needs to be lowered
         self.label.shadowOffset = CGSizeZero;
     }
     
@@ -333,18 +344,18 @@
 
 // MARK: - Collection View Cell Highlighting
 
+- (void)setSelected:(BOOL)selected
+{
+    super.selected = selected;
+    
+    [self applyColorsForState:self.state];
+}
+
 - (void)setHighlighted:(BOOL)highlighted
 {
     super.highlighted = highlighted;
     
-    if(highlighted)
-    {
-        [self setSelected];
-    }
-    else
-    {
-        [self setDeselected];
-    }
+    [self applyColorsForState:self.state];
 }
 
 /**
@@ -363,14 +374,14 @@
     [self applyColorsForState:state];
 }
 
-/**
- Marks the cell as selected.
- */
-- (void)setSelected;
-{
-    self.selected = YES;
-    [self applyColors];
-}
+///**
+// Marks the cell as selected.
+// */
+//- (void)setSelected;
+//{
+//    self.selected = YES;
+//    [self applyColorsForState:self.state];
+//}
 
 /**
  Mark the cell as deselected.
@@ -378,7 +389,7 @@
 - (void)setDeselected;
 {
     self.selected = NO;
-    [self applyColors];
+    [self applyColorsForState:self.state];
 }
 
 /**

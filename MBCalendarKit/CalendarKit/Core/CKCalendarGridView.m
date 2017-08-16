@@ -9,7 +9,6 @@
 #import "CKCalendarGridView.h"
 #import "NSCalendarCategories.h"
 
-#import "CKCalendarCellBase.h"
 #import "CKCalendarCell.h"
 
 @interface CKCalendarGridView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -89,12 +88,6 @@
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(self.cellClass) forIndexPath:indexPath];
     
-    if ([self.gridAppearanceDelegate respondsToSelector:@selector(calendarGrid:willDisplayCell:forDate:)])
-    {
-        NSDate *date = [self.gridDataSource dateForIndexPath:indexPath];
-        [self.gridAppearanceDelegate calendarGrid:self willDisplayCell:(id)cell forDate:date];
-    }
-    
     return cell;
 }
 
@@ -102,10 +95,12 @@
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.layer.borderColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.5].CGColor;
-    cell.layer.borderWidth = 0.5;
+    if ([self.gridAppearanceDelegate respondsToSelector:@selector(calendarGrid:willDisplayCell:forDate:)])
+    {
+        NSDate *date = [self.gridDataSource dateForIndexPath:indexPath];
+        [self.gridAppearanceDelegate calendarGrid:self willDisplayCell:(id)cell forDate:date];
+    }
 }
-
 
 // MARK: - UICollectionViewDelegateFlowLayout
 

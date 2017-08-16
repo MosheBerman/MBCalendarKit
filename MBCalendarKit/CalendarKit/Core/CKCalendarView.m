@@ -255,7 +255,6 @@
     return YES;
 }
 
-
 // MARK: - Calendar Scrubbing
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -271,8 +270,8 @@
     
     for (UICollectionViewCell *cell in self.gridView.visibleCells)
     {
-        BOOL highlighted = [cell isEqual:cellFromTouch];
-        [cell setHighlighted:highlighted];
+        BOOL cellIsBeneathFinger = [cell isEqual:cellFromTouch];
+        cell.highlighted = cellIsBeneathFinger;
     }
     
     [super touchesMoved:touches withEvent:event];
@@ -287,9 +286,7 @@
     if(isInGrid)
     {
         NSDate *dateFromTouches = [self dateFromTouches:touches];
-        UICollectionViewCell *cell = [self cellFromTouches:touches];
         
-        cell.selected = YES;
         self.calendarModel.date = dateFromTouches;
     }
     else
@@ -302,7 +299,6 @@
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-
     BOOL touchIsInHeader = [self touch:touches.anyObject isInView:self.headerView];
     if(!touchIsInHeader)
     {
@@ -584,11 +580,14 @@
 
 // MARK: - CKCalendarGridDelegate
 
-- (void)calendarGrid:(CKCalendarGridView *)gridView willDisplayCell:(CKCalendarCellBase *)cell forDate:(NSDate *)date
+/**
+ This implementation ensures that the cell that we're about to display has the appropriate selection, and then call the custom cell provider if one exists.
+ */
+- (void)calendarGrid:(CKCalendarGridView *)gridView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date
 {
-    [cell prepareForReuse];
-    
     CKCalendarCellContext *calendarContext = [[CKCalendarCellContext alloc] initWithDate:date andCalendarView:self];
+    
+    cell.selected = [self.calendar isDate:date equalToDate:self.date toUnitGranularity:NSCalendarUnitDay];
     
     if([self.customCellProvider respondsToSelector:@selector(calendarView:willDisplayCell:inContext:)])
     {
