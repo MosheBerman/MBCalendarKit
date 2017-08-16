@@ -7,7 +7,7 @@
 //
 
 #import "CKCalendarGridView.h"
-#import "CKCalendarCell.h"
+#import "CKCalendarCellDefault.h"
 #import "NSCalendarCategories.h"
 
 @interface CKCalendarGridView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -38,7 +38,7 @@
 
 - (void)_registerDefaultCells
 {
-    self.cellClass = CKCalendarCell.class;
+    self.cellClass = CKCalendarCellDefault.class;
 }
 
 // MARK: - Autolayout

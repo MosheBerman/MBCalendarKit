@@ -24,7 +24,7 @@
 #import "CKCalendarHeaderViewDelegate.h"
 #import "CKCalendarHeaderViewDataSource.h"
 
-#import "CKCalendarCell.h"
+#import "CKCalendarCellDefault.h"
 #import "CKCalendarCellColors.h"
 
 #import "NSCalendarCategories.h"
@@ -590,13 +590,13 @@
     
     CKCalendarCellContext *calendarContext = [[CKCalendarCellContext alloc] initWithDate:date andCalendarView:self];
     
-    if([self.customCellProvider respondsToSelector:@selector(calendarView:willDisplayCell:forDate:withContext:)])
+    if([self.customCellProvider respondsToSelector:@selector(calendarView:willDisplayCell:inContext:)])
     {
-        [self.customCellProvider calendarView:self willDisplayCell:cell forDate:date withContext:calendarContext];
+        [self.customCellProvider calendarView:self willDisplayCell:cell inContext:calendarContext];
     }
     else
     {
-        [self calendarView:self willDisplayCell:cell forDate:date withContext:calendarContext];
+        [self calendarView:self willDisplayCell:cell inContext:calendarContext];
     }
 }
 
