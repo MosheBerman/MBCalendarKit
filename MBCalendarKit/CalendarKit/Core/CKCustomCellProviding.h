@@ -45,9 +45,9 @@ NS_SWIFT_NAME(CustomCellProviding)
  @param calendarView The calendar view instance.
  @param cell The cell that will be used. If you registered a custom subclass, it will be of that class. If not, you will get a `CKCalendarCell` instance.
  @param context Some contextual information about the date represented by the cell.
- @param date The date being used for the calendar cell.
+
  */
-- (void)calendarView:(nonnull CKCalendarView *)calendarView willDisplayCell:(nonnull UICollectionViewCell *)cell forDate:(nonnull NSDate *)date withContext:(nonnull CKCalendarCellContext *)context;
+- (void)calendarView:(nonnull CKCalendarView *)calendarView willDisplayCell:(nonnull UICollectionViewCell *)cell inContext:(nonnull CKCalendarCellContext *)context;
 
 @end
 

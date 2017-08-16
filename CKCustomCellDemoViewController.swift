@@ -47,6 +47,8 @@ class CKCustomCellDemoViewController: CalendarViewController, CustomCellProvidin
             return
         }
         
+        cell.state = context.state
+        
         // Step 1: Set the cell colors.
         self.setCellColors(cell: cell)
         
@@ -55,17 +57,6 @@ class CKCustomCellDemoViewController: CalendarViewController, CustomCellProvidin
         {
             cell.state = .today
         }
-        
-        if !context.isInSameMonthAsToday
-        {
-            cell.textColor = self.color.withAlphaComponent(0.2)
-        }
-        
-        if context.isAfterMaximumDate || context.isBeforeMinimumDate
-        {
-            cell.textColor = self.color.withAlphaComponent(0.1)
-        }
-        
         
         let dayOfMonth = calendarView.calendar.component(.day, from: context.date)
         cell.number = NSNumber(value:dayOfMonth)
@@ -81,11 +72,15 @@ class CKCustomCellDemoViewController: CalendarViewController, CustomCellProvidin
     {
         cell.textColor = self.color
         cell.textSelectedColor = UIColor.white
+        
         cell.todayTextColor = UIColor.white
         
-        cell.selectedBackgroundColor = UIColor.red
+        cell.inactiveSelectedBackgroundColor = UIColor.white
+        
+        cell.selectedBackgroundColor = self.color.withAlphaComponent(0.75)
         cell.normalBackgroundColor = self.color.withAlphaComponent(0.1)
+        
         cell.todayBackgroundColor = UIColor.blue
-        cell.todaySelectedBackgroundColor = UIColor.red
+        cell.todaySelectedBackgroundColor = self.color
     }
 }

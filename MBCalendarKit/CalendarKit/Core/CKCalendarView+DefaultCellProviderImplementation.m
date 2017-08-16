@@ -42,9 +42,9 @@
  
  @param calendarView The calendar view about to do display.
  @param cell The cell to configure for display.
- @param date The date that the cell represents.
+
  */
-- (void)calendarView:(CKCalendarView *)calendarView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date withContext:(nonnull CKCalendarCellContext *)context;
+- (void)calendarView:(CKCalendarView *)calendarView willDisplayCell:(UICollectionViewCell *)cell inContext:(nonnull CKCalendarCellContext *)context;
 {
     // STEP 1: Access the cell. It's safe to cast to whatever class is in `customCellClass`.
     CKCalendarCell *calendarCell = (CKCalendarCell *)cell;
@@ -53,19 +53,19 @@
     
     /* If a cell represents today, highlight it. */
     
-    if([self.calendarModel.calendar isDate:date equalToDate:self.calendarModel.date toUnitGranularity:NSCalendarUnitDay])
+    if([self.calendarModel.calendar isDate:context.date equalToDate:self.calendarModel.date toUnitGranularity:NSCalendarUnitDay])
     {
         [calendarCell setSelected];
     }
     
     /* Show the day of the month in the cell. */
     
-    NSUInteger day = [self.calendar daysInDate:date];
+    NSUInteger day = [self.calendar daysInDate:context.date];
     calendarCell.number = @(day);
     
     if([self.dataSource respondsToSelector:@selector(calendarView:eventsForDate:)])
     {
-        BOOL showDot = ([self.dataSource calendarView:self eventsForDate:date].count > 0);
+        BOOL showDot = ([self.dataSource calendarView:self eventsForDate:context.date].count > 0);
         calendarCell.showDot = showDot;
     }
     else
