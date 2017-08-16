@@ -28,7 +28,9 @@ FOUNDATION_EXPORT const unsigned char MBCalendarKitVersionString[];
 #import <MBCalendarKit/CKCalendarView+DefaultCellProviderImplementation.h>
 
 /* Default Calendar Cell Implementation */
-#import <MBCalendarKit/CKCalendarCellDefault.h>
+
+#import <MBCalendarKit/CKCalendarCell.h>  // Subclass this to modify the default cell.
+#import <MBCalendarKit/CKCalendarCellBase.h> // Subclass this for an empty custom cell.
 #import <MBCalendarKit/CKCalendarCellColors.h>
 
 /* Calendar View Controller */
