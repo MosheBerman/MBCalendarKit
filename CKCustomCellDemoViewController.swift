@@ -75,12 +75,11 @@ class CKCustomCellDemoViewController: CalendarViewController, CustomCellProvidin
         
         cell.todayTextColor = UIColor.white
         
-        cell.inactiveSelectedBackgroundColor = UIColor.white
-        
+        cell.inactiveSelectedBackgroundColor = self.color.withAlphaComponent(0.5)
         cell.selectedBackgroundColor = self.color.withAlphaComponent(0.75)
         cell.normalBackgroundColor = self.color.withAlphaComponent(0.1)
         
-        cell.todayBackgroundColor = UIColor.blue
+        cell.todayBackgroundColor = self.color
         cell.todaySelectedBackgroundColor = self.color
     }
 }
