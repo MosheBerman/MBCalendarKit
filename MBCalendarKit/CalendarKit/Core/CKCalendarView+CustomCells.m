@@ -22,19 +22,20 @@
 
 @implementation CKCalendarView (CustomCells)
 
-// MARK: Registering a Custom Cell Class
+// MARK: Changing the Custom Cell Class at Runtime
 
 /**
- Registers a class as the class to use for the cell then reloads the calendar.
+ Registers a class as the class to use for the cell.
  
- This class must be `UICollectionViewCell` or a subclass of `UICollectionViewCell`.
- Attempting to register a class that is not a subclass of `UICollectionViewCell` will 
- cause this method to throw an exception.
+ Calling this method is only required if you wish to inform the calendar view that the custom cell class has changed at runtime.
  
- @param class A class.
+ Change the class by changing the `customCellClass` property of your custom cell provider.
  */
-- (void)registerCellClass:(nullable Class)cellClass;
+
+- (void)refreshCustomCellClass;
 {
+    Class cellClass = self.customCellProvider.customCellClass;
+    
     if(![cellClass isSubclassOfClass: [UICollectionViewCell class]])
     {
         @throw [NSException exceptionWithName:@"CKCalendarViewCustomCellException" reason:@"The class you choose to use as a custom cell must subclass UICollectionViewCell." userInfo:@{@"CKCalendarView": self}];
