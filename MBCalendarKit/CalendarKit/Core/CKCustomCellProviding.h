@@ -12,6 +12,7 @@
 @import Foundation;
 
 @class CKCalendarView;
+@class CKCalendarCellBase;
 @class CKCalendarCellContext;
 
 /**
@@ -47,7 +48,7 @@ NS_SWIFT_NAME(CustomCellProviding)
  @param context Some contextual information about the date represented by the cell.
 
  */
-- (void)calendarView:(nonnull CKCalendarView *)calendarView willDisplayCell:(nonnull UICollectionViewCell *)cell inContext:(nonnull CKCalendarCellContext *)context;
+- (void)calendarView:(nonnull CKCalendarView *)calendarView willDisplayCell:(nonnull CKCalendarCellBase *)cell inContext:(nonnull CKCalendarCellContext *)context;
 
 @end
 

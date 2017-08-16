@@ -7,8 +7,10 @@
 //
 
 #import "CKCalendarGridView.h"
-#import "CKCalendarCellDefault.h"
 #import "NSCalendarCategories.h"
+
+#import "CKCalendarCellBase.h"
+#import "CKCalendarCell.h"
 
 @interface CKCalendarGridView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -38,7 +40,7 @@
 
 - (void)_registerDefaultCells
 {
-    self.cellClass = CKCalendarCellDefault.class;
+    self.cellClass = CKCalendarCell.class;
 }
 
 // MARK: - Autolayout
@@ -90,7 +92,7 @@
     if ([self.gridAppearanceDelegate respondsToSelector:@selector(calendarGrid:willDisplayCell:forDate:)])
     {
         NSDate *date = [self.gridDataSource dateForIndexPath:indexPath];
-        [self.gridAppearanceDelegate calendarGrid:self willDisplayCell:cell forDate:date];
+        [self.gridAppearanceDelegate calendarGrid:self willDisplayCell:(id)cell forDate:date];
     }
     
     return cell;

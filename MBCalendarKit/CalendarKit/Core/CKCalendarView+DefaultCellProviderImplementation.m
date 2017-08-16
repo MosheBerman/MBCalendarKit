@@ -11,7 +11,6 @@
 
 @interface CKCalendarView ()
 
-
 /**
  The model that the calendar uses internally.
 
@@ -31,7 +30,7 @@
  */
 - (nonnull Class)customCellClass;
 {
-    return CKCalendarCellDefault.class;
+    return CKCalendarCell.class;
 }
 
 
@@ -44,10 +43,10 @@
  @param cell The cell to configure for display.
 
  */
-- (void)calendarView:(CKCalendarView *)calendarView willDisplayCell:(UICollectionViewCell *)cell inContext:(nonnull CKCalendarCellContext *)context;
+- (void)calendarView:(CKCalendarView *)calendarView willDisplayCell:(CKCalendarCellBase *)cell inContext:(nonnull CKCalendarCellContext *)context;
 {
     // STEP 1: Access the cell. It's safe to cast to whatever class is in `customCellClass`.
-    CKCalendarCellDefault *calendarCell = (CKCalendarCellDefault *)cell;
+    CKCalendarCell *calendarCell = (CKCalendarCell *)cell;
     
     calendarCell.state = context.state;
     

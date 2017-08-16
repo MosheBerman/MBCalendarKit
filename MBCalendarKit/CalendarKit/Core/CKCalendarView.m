@@ -24,7 +24,7 @@
 #import "CKCalendarHeaderViewDelegate.h"
 #import "CKCalendarHeaderViewDataSource.h"
 
-#import "CKCalendarCellDefault.h"
+#import "CKCalendarCell.h"
 #import "CKCalendarCellColors.h"
 
 #import "NSCalendarCategories.h"
@@ -584,7 +584,7 @@
 
 // MARK: - CKCalendarGridDelegate
 
-- (void)calendarGrid:(CKCalendarGridView *)gridView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date
+- (void)calendarGrid:(CKCalendarGridView *)gridView willDisplayCell:(CKCalendarCellBase *)cell forDate:(NSDate *)date
 {
     [cell prepareForReuse];
     
