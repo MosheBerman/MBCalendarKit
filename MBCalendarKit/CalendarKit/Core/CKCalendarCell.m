@@ -7,6 +7,7 @@
 //
 
 #import "CKCalendarCell.h"
+#import "CKCalendarCellState.h"
 #import "CKCalendarCellColors.h"
 
 #import "UIView+Border.h"
@@ -29,9 +30,11 @@
 
 - (instancetype)init
 {
-    self = [super init];
+    self = [super initWithFrame:CGRectZero];
     if (self) {
     
+        _state = CKCalendarCellStateDefault;
+        
         //  Normal Cell Colors
         _normalBackgroundColor = kCalendarColorLightGray;
         _selectedBackgroundColor = kCalendarColorBlue;
@@ -201,13 +204,6 @@
 
 // MARK: - Setters
 
-- (void)setState:(CKCalendarMonthCellState)state
-{    
-    super.state = state;
-    
-    [self applyColorsForState:state];
-}
-
 - (void)setNumber:(NSNumber *)number
 {
     _number = number;
@@ -283,8 +279,10 @@
     [self setBorderWidth:0.5];
     self.backgroundColor = self.normalBackgroundColor;
     
+    BOOL isHighlightedOrSelected = self.isSelected || self.isHighlighted;
+    
     //  Today cell
-    if(state == CKCalendarCellStateTodaySelected)
+    if(state == CKCalendarCellStateToday)
     {
         self.backgroundColor = self.todaySelectedBackgroundColor;
         self.label.shadowColor = self.todayTextShadowColor;
@@ -293,7 +291,7 @@
     }
     
     //  Today cell, selected
-    else if(state == CKCalendarCellStateToday)
+    else if(state == CKCalendarCellStateToday && isHighlightedOrSelected)
     {
         self.backgroundColor = self.todayBackgroundColor;
         self.label.shadowColor = self.todayTextShadowColor;
@@ -303,7 +301,7 @@
     }
     
     //  Selected cells in the active month have a special background color
-    else if(state == CKCalendarCellStateSelected)
+    else if(state == CKCalendarCellStateDefault && isHighlightedOrSelected)
     {
         self.backgroundColor = self.selectedBackgroundColor;
         [self setBorderColor:self.selectedCellBorderColor];
@@ -316,7 +314,7 @@
         self.label.alpha = 0.5;    //  Label alpha needs to be lowered
         self.label.shadowOffset = CGSizeZero;
     }
-    else if (state == CKCalendarCellStateOutOfCurrentScopeSelected)
+    else if (state == CKCalendarCellStateOutOfCurrentScope && isHighlightedOrSelected)
     {
         self.label.alpha = 0.5;    //  Label alpha needs to be lowered
         self.label.shadowOffset = CGSizeZero;
@@ -347,6 +345,48 @@
     {
         [self setDeselected];
     }
+}
+
+/**
+ Sets the calendar's contextual state.
+ 
+ @param state A valid `CKCalendarCellState` enum.
+ */
+- (void)setState:(CKCalendarCellState)state
+{
+    if (state > CKCalendarCellStateOutOfRange || state < CKCalendarCellStateToday) {
+        return;
+    }
+    
+    _state = state;
+    
+    [self applyColorsForState:state];
+}
+
+/**
+ Marks the cell as selected.
+ */
+- (void)setSelected;
+{
+    self.selected = YES;
+    [self applyColors];
+}
+
+/**
+ Mark the cell as deselected.
+ */
+- (void)setDeselected;
+{
+    self.selected = NO;
+    [self applyColors];
+}
+
+/**
+ Mark the cell as out of range, useful when the calendar has a minimumDate or maximumDate set.
+ */
+- (void)setOutOfRange;
+{
+    self.state = CKCalendarCellStateOutOfRange;
 }
 
 @end

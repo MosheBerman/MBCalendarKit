@@ -7,7 +7,7 @@
 //
 
 @import UIKit;
-#import "CKCalendarCellBase.h"
+#import "CKCalendarCellState.h"
 
 /**
  The `CKCalendarCell` class manages the display of a single date in the calendar.
@@ -16,7 +16,7 @@
  the event indicator dot.
  */
 NS_SWIFT_NAME(CalendarCell)
-@interface CKCalendarCell : CKCalendarCellBase
+@interface CKCalendarCell : UICollectionViewCell
 
 // MARK: - Initializers
 
@@ -121,30 +121,38 @@ The cell background color for a cells representing dates in months outside the c
  */
 @property (nonatomic, strong, nonnull) UIColor *selectedCellBorderColor UI_APPEARANCE_SELECTOR;
 
-// MARK: - Cell Recycling Behavior
+// MARK: - Cell State and Touch Tracking
 
 /**
- Called before the cell is dequeued by the calendar view.
- Use this to reset colors and opacities to default values.
+ The state of the cell.
  */
--(void)prepareForReuse;
+@property (nonatomic, assign) CKCalendarCellState state;
 
-
-// MARK: - Setting Cell Selection State
+// MARK: - Managing Cell State
 
 /**
- Marks the cell as selected and update on the appearance of the cell.
+ Marks the cell as selected.
+ 
+ In MBCalendarKit 4.x.x and prior, this method would change the state enum from one value to a corresponding selected value.
+ 
+ In 5.0.0 and on, this uses `UICollectionViewCell`'s `isSelected` property instead.
+ 
  */
 - (void)setSelected;
 
 /**
- Mark the cell as deselected and update on the appearance of the cell.
+ Mark the cell as deselected.
+ 
+ In MBCalendarKit 4.x.x and prior, this method would change the state enum from one value to a corresponding selected value.
+ 
+ In 5.0.0 and on, this uses `UICollectionViewCell`'s `isSelected` property instead.
  */
 - (void)setDeselected;
 
 /**
- Mark the cell as representing a date that's out of range, when the calendar has a minimumDate or maximumDate set.
+ Mark the cell as out of range, useful when the calendar has a minimumDate or maximumDate set.
  */
 - (void)setOutOfRange;
+
 
 @end
