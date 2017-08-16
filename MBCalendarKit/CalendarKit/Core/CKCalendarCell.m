@@ -29,11 +29,9 @@
 
 - (instancetype)init
 {
-    self = [super initWithFrame:CGRectZero];
+    self = [super init];
     if (self) {
-        // Initialization code
-        _state = CKCalendarCellStateDefault;
-        
+    
         //  Normal Cell Colors
         _normalBackgroundColor = kCalendarColorLightGray;
         _selectedBackgroundColor = kCalendarColorBlue;
@@ -204,14 +202,10 @@
 // MARK: - Setters
 
 - (void)setState:(CKCalendarMonthCellState)state
-{
-    if (state > CKCalendarCellStateOutOfRange || state < CKCalendarCellStateTodaySelected) {
-        return;
-    }
+{    
+    super.state = state;
     
-    _state = state;
-    
-    [self applyColorsForState:_state];
+    [self applyColorsForState:state];
 }
 
 - (void)setNumber:(NSNumber *)number
@@ -237,13 +231,14 @@
  */
 -(void)prepareForReuse;
 {
+    [super prepareForReuse];
+    
     //  Alpha, by default, is 1.0
     self.label.alpha = 1.0;
     
     self.state = CKCalendarCellStateDefault;
     
     [self applyColors];
-    [super prepareForReuse];
 }
 
 // MARK: - Label
@@ -352,56 +347,6 @@
     {
         [self setDeselected];
     }
-}
-
-// MARK: - Setting the Cell's Selection State
-
-/**
- Marks the cell as selected and invokes an update on the appearance of the cell..
- */
-- (void)setSelected;
-{
-    CKCalendarMonthCellState state = self.state;
-    
-    if (state == CKCalendarCellStateOutOfCurrentScope) {
-        self.state = CKCalendarCellStateOutOfCurrentScopeSelected;
-    }
-    else if(state == CKCalendarCellStateDefault)
-    {
-        self.state = CKCalendarCellStateSelected;
-    }
-    else if(state == CKCalendarCellStateToday)
-    {
-        self.state = CKCalendarCellStateTodaySelected;
-    }
-}
-
-/**
- Mark the cell as deselected and invokes an update on the appearance of the cell..
- */
-- (void)setDeselected;
-{
-    CKCalendarMonthCellState state = self.state;
-    
-    if (state == CKCalendarCellStateOutOfCurrentScopeSelected) {
-        self.state = CKCalendarCellStateOutOfCurrentScope;
-    }
-    else if(state == CKCalendarCellStateSelected)
-    {
-        self.state = CKCalendarCellStateDefault;
-    }
-    else if(state == CKCalendarCellStateTodaySelected)
-    {
-        self.state = CKCalendarCellStateToday;
-    }
-}
-
-/**
- Mark the cell as out of range, when the calendar has a minimumDate or maximumDate set.
- */
-- (void)setOutOfRange;
-{
-    self.state = CKCalendarCellStateOutOfRange;
 }
 
 @end

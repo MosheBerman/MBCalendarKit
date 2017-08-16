@@ -36,6 +36,8 @@
 		464A873E171F174D00E7AB19 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 464A8705171F174D00E7AB19 /* InfoPlist.strings */; };
 		464A8740171F174D00E7AB19 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A8707171F174D00E7AB19 /* main.m */; };
 		464A8744171F174D00E7AB19 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 464A870B171F174D00E7AB19 /* InfoPlist.strings */; };
+		467A1C761F43FAE200021489 /* CKCalendarCellBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 467A1C741F43FAE200021489 /* CKCalendarCellBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		467A1C771F43FAE200021489 /* CKCalendarCellBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 467A1C751F43FAE200021489 /* CKCalendarCellBase.m */; };
 		467B12A91F2F544F00CABA27 /* MBCalendarKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 467B12A71F2F544F00CABA27 /* MBCalendarKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		467B12AC1F2F544F00CABA27 /* MBCalendarKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */; };
 		467B12AD1F2F544F00CABA27 /* MBCalendarKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -231,6 +233,8 @@
 		464A870F171F174D00E7AB19 /* MBCalendarKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCalendarKitTests.m; sourceTree = "<group>"; };
 		464A877F171F2B3B00E7AB19 /* CKCalendarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarDelegate.h; sourceTree = "<group>"; };
 		464A8780171F2D7800E7AB19 /* CKCalendarDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarDataSource.h; sourceTree = "<group>"; };
+		467A1C741F43FAE200021489 /* CKCalendarCellBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarCellBase.h; sourceTree = "<group>"; };
+		467A1C751F43FAE200021489 /* CKCalendarCellBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarCellBase.m; sourceTree = "<group>"; };
 		467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MBCalendarKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		467B12A71F2F544F00CABA27 /* MBCalendarKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MBCalendarKit.h; path = ../MBCalendarKit.h; sourceTree = "<group>"; };
 		467B12A81F2F544F00CABA27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -578,6 +582,8 @@
 		46AA20D71F3D246A00E5F832 /* Grid */ = {
 			isa = PBXGroup;
 			children = (
+				467A1C741F43FAE200021489 /* CKCalendarCellBase.h */,
+				467A1C751F43FAE200021489 /* CKCalendarCellBase.m */,
 				464A86EC171F174D00E7AB19 /* CKCalendarCell.h */,
 				464A86ED171F174D00E7AB19 /* CKCalendarCell.m */,
 				46341C2A1F3A36380090FFAF /* CKCalendarGridView.h */,
@@ -691,6 +697,7 @@
 				467B12DB1F2F547500CABA27 /* CKCalendarCellState.h in Headers */,
 				468C693A1F42C57300CCD4E4 /* CKCustomCellProviding.h in Headers */,
 				46363C351F397501002BA215 /* CKCalendarHeaderViewDataSource.h in Headers */,
+				467A1C761F43FAE200021489 /* CKCalendarCellBase.h in Headers */,
 				46AA21241F3E0FA000E5F832 /* CKCalendarGridTransitionAxis.h in Headers */,
 				467B12DC1F2F547500CABA27 /* CKCalendarViewDisplayMode.h in Headers */,
 				467B12DD1F2F547500CABA27 /* CKCalendarDelegate.h in Headers */,
@@ -865,6 +872,7 @@
 				467B12C21F2F547500CABA27 /* NSDate+Description.m in Sources */,
 				46087AD91F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m in Sources */,
 				467B12C41F2F547500CABA27 /* NSDateComponents+AllComponents.m in Sources */,
+				467A1C771F43FAE200021489 /* CKCalendarCellBase.m in Sources */,
 				468C69381F42C11D00CCD4E4 /* CKCalendarView+CustomCells.m in Sources */,
 				46EF359C1F3C295700095A9E /* CKCalendarModel.m in Sources */,
 				46AA20DD1F3D36C800E5F832 /* CKCalendarModel+HeaderViewSupport.m in Sources */,

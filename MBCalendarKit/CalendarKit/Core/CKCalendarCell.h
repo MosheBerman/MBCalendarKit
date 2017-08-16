@@ -7,8 +7,7 @@
 //
 
 @import UIKit;
-
-#import "CKCalendarCellState.h"
+#import "CKCalendarCellBase.h"
 
 /**
  The `CKCalendarCell` class manages the display of a single date in the calendar.
@@ -17,18 +16,11 @@
  the event indicator dot.
  */
 NS_SWIFT_NAME(CalendarCell)
-@interface CKCalendarCell : UICollectionViewCell
+@interface CKCalendarCell : CKCalendarCellBase
 
 // MARK: - Initializers
 
 - (nonnull instancetype)init NS_DESIGNATED_INITIALIZER;
-
-// MARK: - Tracking Cell State and Touch Tracking
-
-/**
- The state of the cell.
- */
-@property (nonatomic, assign) CKCalendarCellState state;
 
 // MARK: - Controlling Cell Content
 
