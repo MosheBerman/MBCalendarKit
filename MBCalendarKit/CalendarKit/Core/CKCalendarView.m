@@ -244,7 +244,7 @@
     {
         CGFloat cellLength = [self _lengthOfTheSideOfACell];
         height = self.headerView.intrinsicContentSize.height + (cellLength * (CGFloat)self.calendarModel.numberOfRows);
-        width = (cellLength * (CGFloat)self.calendarModel.numberOfColumns);
+        width = CGRectGetWidth(self.superview.bounds);
     }
     
     return CGSizeMake(width, height);
