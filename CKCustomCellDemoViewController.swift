@@ -40,7 +40,7 @@ class CKCustomCellDemoViewController: CalendarViewController, CustomCellProvidin
      @param date The date being used for the calendar cell.
      */
     @available(iOS 6.0, *)
-    func calendarView(_ calendarView: CalendarView, willDisplay cell: UICollectionViewCell, in context: CalendarCellContext) {
+    func calendarView(_ calendarView: CalendarView, willDisplayCell cell: CalendarCellBase, in context: CalendarCellContext) {
         
         guard let cell = cell as? CalendarCell else
         {
