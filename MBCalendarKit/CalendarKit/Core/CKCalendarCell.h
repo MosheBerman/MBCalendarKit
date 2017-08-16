@@ -126,7 +126,7 @@ The cell background color for a cells representing dates in months outside the c
 /**
  The state of the cell.
  */
-@property (nonatomic, assign) CKCalendarCellState state;
+@property (nonatomic, assign) CKCalendarCellContextIdentifier state;
 
 // MARK: - Managing Cell State
 

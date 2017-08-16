@@ -36,19 +36,19 @@
         
         if (_isToday && _isInSameMonthAsToday && !_isBeforeMinimumDate && !_isAfterMaximumDate)
         {
-            _state = CKCalendarCellStateToday;
+            _identifier = CKCalendarCellContextIdentifierToday;
         }
         else if (_isAfterMaximumDate || _isBeforeMinimumDate)
         {
-            _state = CKCalendarCellStateOutOfRange;
+            _identifier = CKCalendarCellContextIdentifierOutOfRange;
         }
         else if(!_isInSameMonthAsToday)
         {
-            _state = CKCalendarCellStateOutOfCurrentScope;
+            _identifier = CKCalendarCellContextIdentifierOutOfCurrentScope;
         }
         else
         {
-            _state = CKCalendarCellStateDefault;
+            _identifier = CKCalendarCellContextIdentifierDefault;
         }
             
     }

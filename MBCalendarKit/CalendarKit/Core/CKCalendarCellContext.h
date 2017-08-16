@@ -26,9 +26,9 @@ NS_SWIFT_NAME(CalendarCellContext)
 // MARK: - The State that the Cell Is In
 
 /**
- The state of the cell based on the flags below.
+ The kind of context, calculated with on the flags below.
  */
-@property (nonatomic, assign, readonly) CKCalendarCellState state;
+@property (nonatomic, assign, readonly) CKCalendarCellContextIdentifier identifier;
 
 // MARK: - Getting Context Flags for the Cell
 

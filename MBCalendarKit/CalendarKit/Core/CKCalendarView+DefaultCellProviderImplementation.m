@@ -50,7 +50,7 @@
     CKCalendarCell *calendarCell = (CKCalendarCell *)cell;
 
     /* If a cell represents today, highlight it. */
-    calendarCell.state = context.state;
+    calendarCell.state = context.identifier;
     
     /* Show the day of the month in the cell. */
     
