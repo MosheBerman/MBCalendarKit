@@ -12,7 +12,6 @@
 @import Foundation;
 
 @class CKCalendarView;
-@class CKCalendarCellBase;
 @class CKCalendarCellContext;
 
 /**
@@ -26,11 +25,11 @@ NS_SWIFT_NAME(CustomCellProviding)
 
 /**
  Returns the class to register with the calendar view as capable of acting as a calendar cell.
- This class must subclass `UICollectionViewCell`. 
+ This class must subclass `UICollectionViewCell`. It is considered a runtime exception to register a class that does not subclass UICollectionViewCell.
  
  The calendar view will call this method when you call reload on it, or when you set the its provider. 
- **Important:** This method does not get called for every cell on every rendering pass. It is called when you assign the calendar view's 
- `customCellProvider` property, or when you call the calendar view's register
+ **Node:** This method does not get called for every cell on every rendering pass. It is called when you assign the calendar view's
+ `customCellProvider` property, or when you call the calendar view's `refreshCustomCellClass` method.
 
  @return The class to use for the cell.
  */
@@ -48,7 +47,7 @@ NS_SWIFT_NAME(CustomCellProviding)
  @param context Some contextual information about the date represented by the cell.
 
  */
-- (void)calendarView:(nonnull CKCalendarView *)calendarView willDisplayCell:(nonnull CKCalendarCellBase *)cell inContext:(nonnull CKCalendarCellContext *)context;
+- (void)calendarView:(nonnull CKCalendarView *)calendarView willDisplayCell:(nonnull UICollectionViewCell *)cell inContext:(nonnull CKCalendarCellContext *)context;
 
 @end
 

@@ -13,6 +13,8 @@
 
 /**
  The model that the calendar uses internally.
+ 
+ This method is necessaery to allow the category to access the property that we know to exist on the base class.
 
  @return The calendar's model.
  */
@@ -21,7 +23,6 @@
 @end
 
 @implementation CKCalendarView (DefaultCellProviderImplementation)
-
 
 /**
  Returns a custom cell class to register.
@@ -43,7 +44,7 @@
  @param cell The cell to configure for display.
 
  */
-- (void)calendarView:(CKCalendarView *)calendarView willDisplayCell:(CKCalendarCellBase *)cell inContext:(nonnull CKCalendarCellContext *)context;
+- (void)calendarView:(CKCalendarView *)calendarView willDisplayCell:(UICollectionViewCell *)cell inContext:(nonnull CKCalendarCellContext *)context;
 {
     // STEP 1: Access the cell. It's safe to cast to whatever class is in `customCellClass`.
     CKCalendarCell *calendarCell = (CKCalendarCell *)cell;
