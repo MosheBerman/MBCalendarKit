@@ -9,26 +9,23 @@
 import UIKit
 import MBCalendarKit
 
-class CKCustomCellDemoViewController: CalendarViewController, CustomCellProviding {
-
-
-
-    internal var color: UIColor = UIColor.blue
+class CKCustomCellDemoViewController: UIViewController, CustomCellProviding {
+    
+    private let calendarView = CalendarView(mode: .month)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.color = self.view.tintColor
-        
-
         self.calendarView.customCellProvider = self
+        
+        self.installCalendar()
     }
 
     // MARK: - CustomCellProviding
     
     var customCellClass: AnyClass
     {
-        return CalendarCell.self
+        return CustomCalendarCell.self
     }
     
     /**
@@ -40,46 +37,43 @@ class CKCustomCellDemoViewController: CalendarViewController, CustomCellProvidin
      @param date The date being used for the calendar cell.
      */
     @available(iOS 6.0, *)
-    func calendarView(_ calendarView: CalendarView, willDisplayCell cell: CalendarCellBase, in context: CalendarCellContext) {
+    func calendarView(_ calendarView: CalendarView, willDisplay cell: UICollectionViewCell, in context: CalendarCellContext) {
         
-        guard let cell = cell as? CalendarCell else
+        guard let cell = cell as? CustomCalendarCell else
         {
             return
         }
         
-        cell.state = context.state
+        cell.contextIdentifier = context.identifier
         
-        // Step 1: Set the cell colors.
-        self.setCellColors(cell: cell)
-        
-        // Step 2: Set the cell context.
-        if context.isToday
-        {
-            cell.state = .today
-        }
+        let isWeekend = calendarView.calendar.isDateInWeekend(context.date)
+        cell.isWeekend = isWeekend
         
         let dayOfMonth = calendarView.calendar.component(.day, from: context.date)
-        cell.number = NSNumber(value:dayOfMonth)
-        
-        if context.isSelected
-        {
-            cell.setSelected()
-        }
-
+        cell.label.text = "\(dayOfMonth)"
     }
     
-    func setCellColors(cell: CalendarCell)
+    // MARK: - Installing the Calendar
+    
+    func installCalendar()
     {
-        cell.textColor = self.color
-        cell.textSelectedColor = UIColor.white
+        self.view.addSubview(self.calendarView)
+        self.calendarView.translatesAutoresizingMaskIntoConstraints = false
         
-        cell.todayTextColor = UIColor.white
+        NSLayoutConstraint(item: self.calendarView,
+                           attribute: .top,
+                           relatedBy: .equal,
+                           toItem: self.topLayoutGuide,
+                           attribute: .bottom,
+                           multiplier: 1.0,
+                           constant: 0.0).isActive = true
         
-        cell.inactiveSelectedBackgroundColor = self.color.withAlphaComponent(0.5)
-        cell.selectedBackgroundColor = self.color.withAlphaComponent(0.75)
-        cell.normalBackgroundColor = self.color.withAlphaComponent(0.1)
-        
-        cell.todayBackgroundColor = self.color
-        cell.todaySelectedBackgroundColor = self.color
+        NSLayoutConstraint(item: self.calendarView,
+                           attribute: .centerX,
+                           relatedBy: .equal,
+                           toItem: self.view,
+                           attribute: .centerX,
+                           multiplier: 1.0,
+                           constant: 0.0).isActive = true
     }
 }
