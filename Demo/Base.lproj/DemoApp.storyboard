@@ -226,7 +226,7 @@
                                 <rect key="frame" x="0.0" y="377" width="375" height="290"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2m-zF-rIf">
-                                        <rect key="frame" x="0.0" y="74" width="375" height="216"/>
+                                        <rect key="frame" x="0.0" y="383" width="375" height="216"/>
                                     </pickerView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
