@@ -215,8 +215,6 @@
 		467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MBCalendarKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		467B12A71F2F544F00CABA27 /* MBCalendarKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MBCalendarKit.h; path = ../MBCalendarKit.h; sourceTree = "<group>"; };
 		467B12A81F2F544F00CABA27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
-		467B12E91F2F5B5600CABA27 /* MBCalendarKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBCalendarKitTests.m; sourceTree = "<group>"; };
-		467B12EB1F2F5B5600CABA27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		467B12F71F2F5B8A00CABA27 /* MBCalendarKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MBCalendarKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		468C69351F42C11D00CCD4E4 /* CKCalendarView+CustomCells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKCalendarView+CustomCells.h"; sourceTree = "<group>"; };
 		468C69361F42C11D00CCD4E4 /* CKCalendarView+CustomCells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKCalendarView+CustomCells.m"; sourceTree = "<group>"; };
@@ -302,7 +300,7 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		464A86CA171F174D00E7AB19 /* CalendarKit */ = {
+		464A86CA171F174D00E7AB19 /* MBCalendarKit */ = {
 			isa = PBXGroup;
 			children = (
 				467B12A81F2F544F00CABA27 /* Info.plist */,
@@ -312,7 +310,7 @@
 				464A86F6171F174D00E7AB19 /* Headers */,
 				464A86FB171F174D00E7AB19 /* View Controller */,
 			);
-			name = CalendarKit;
+			name = MBCalendarKit;
 			path = MBCalendarKit/CalendarKit;
 			sourceTree = "<group>";
 		};
@@ -449,15 +447,6 @@
 			name = "Demo App";
 			sourceTree = "<group>";
 		};
-		467B12E81F2F5B5600CABA27 /* MBCalendarKitTests */ = {
-			isa = PBXGroup;
-			children = (
-				467B12E91F2F5B5600CABA27 /* MBCalendarKitTests.m */,
-				467B12EB1F2F5B5600CABA27 /* Info.plist */,
-			);
-			path = MBCalendarKitTests;
-			sourceTree = "<group>";
-		};
 		468C693B1F42C5BC00CCD4E4 /* Custom Calendar Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -533,10 +522,9 @@
 				46363C251F392295002BA215 /* LICENSE.md */,
 				46363C261F392295002BA215 /* README.md */,
 				46AF0D701F39D4D4005F37EC /* MIGRATIONGUIDE.md */,
-				464A86CA171F174D00E7AB19 /* CalendarKit */,
+				464A86CA171F174D00E7AB19 /* MBCalendarKit */,
 				464A870A171F174D00E7AB19 /* MBCalendarKitTests */,
 				464A874A171F1AAA00E7AB19 /* Demo App */,
-				467B12E81F2F5B5600CABA27 /* MBCalendarKitTests */,
 				46BFBCC01715FB3F00D4733E /* Products */,
 			);
 			sourceTree = "<group>";
