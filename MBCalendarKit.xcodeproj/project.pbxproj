@@ -21,7 +21,6 @@
 		464A8736171F174D00E7AB19 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 464A8700171F174D00E7AB19 /* Default-568h@2x.png */; };
 		464A8738171F174D00E7AB19 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 464A8701171F174D00E7AB19 /* Default.png */; };
 		464A873A171F174D00E7AB19 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 464A8702171F174D00E7AB19 /* Default@2x.png */; };
-		464A873E171F174D00E7AB19 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 464A8705171F174D00E7AB19 /* InfoPlist.strings */; };
 		464A8740171F174D00E7AB19 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A8707171F174D00E7AB19 /* main.m */; };
 		464A8744171F174D00E7AB19 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 464A870B171F174D00E7AB19 /* InfoPlist.strings */; };
 		467B12A91F2F544F00CABA27 /* MBCalendarKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 467B12A71F2F544F00CABA27 /* MBCalendarKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -88,7 +87,6 @@
 		46AA21241F3E0FA000E5F832 /* CKCalendarGridTransitionAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 46AA21231F3E0FA000E5F832 /* CKCalendarGridTransitionAxis.h */; };
 		46AF0D711F39D4D4005F37EC /* MIGRATIONGUIDE.md in Sources */ = {isa = PBXBuildFile; fileRef = 46AF0D701F39D4D4005F37EC /* MIGRATIONGUIDE.md */; };
 		46E67BAF1F46244800E26D09 /* CKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E67B951F46244800E26D09 /* CKAppDelegate.m */; };
-		46E67BB01F46244800E26D09 /* DemoApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46E67B971F46244800E26D09 /* DemoApp.storyboard */; };
 		46E67BB11F46244800E26D09 /* DemoRootTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E67B991F46244800E26D09 /* DemoRootTableViewController.swift */; };
 		46E67BB21F46244800E26D09 /* AlternateCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E67B9C1F46244800E26D09 /* AlternateCalendarViewController.swift */; };
 		46E67BB31F46244800E26D09 /* AlternateCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E67B9D1F46244800E26D09 /* AlternateCalendarViewModel.swift */; };
@@ -98,8 +96,7 @@
 		46E67BB71F46244800E26D09 /* CKDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E67BA41F46244800E26D09 /* CKDemoViewController.m */; };
 		46E67BB81F46244800E26D09 /* RTLDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E67BA61F46244800E26D09 /* RTLDemo.swift */; };
 		46E67BB91F46244800E26D09 /* SwiftDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E67BA81F46244800E26D09 /* SwiftDemoViewController.swift */; };
-		46E67BBA1F46244800E26D09 /* DemoApp.strings in Resources */ = {isa = PBXBuildFile; fileRef = 46E67BAA1F46244800E26D09 /* DemoApp.strings */; };
-		46E67BBB1F46244800E26D09 /* DemoApp.strings in Resources */ = {isa = PBXBuildFile; fileRef = 46E67BAD1F46244800E26D09 /* DemoApp.strings */; };
+		46E67BC11F4626A100E26D09 /* DemoApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46E67BC31F4626A100E26D09 /* DemoApp.storyboard */; };
 		46EF359B1F3C295700095A9E /* CKCalendarModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EF35991F3C295700095A9E /* CKCalendarModel.h */; };
 		46EF359C1F3C295700095A9E /* CKCalendarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF359A1F3C295700095A9E /* CKCalendarModel.m */; };
 /* End PBXBuildFile section */
@@ -161,7 +158,6 @@
 		463690351F4028DB00DFE9D5 /* CKCalendarModel+GridViewAnimationSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKCalendarModel+GridViewAnimationSupport.h"; sourceTree = "<group>"; };
 		463690361F4028DB00DFE9D5 /* CKCalendarModel+GridViewAnimationSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKCalendarModel+GridViewAnimationSupport.m"; sourceTree = "<group>"; };
 		4649253E1F34F3EE000F220D /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4649253F1F34F3EE000F220D /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		464A86CE171F174D00E7AB19 /* NSCalendar+Components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+Components.h"; sourceTree = "<group>"; };
 		464A86CF171F174D00E7AB19 /* NSCalendar+Components.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+Components.m"; sourceTree = "<group>"; };
 		464A86D2171F174D00E7AB19 /* NSCalendar+DateManipulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+DateManipulation.h"; sourceTree = "<group>"; };
@@ -202,7 +198,6 @@
 		464A8700171F174D00E7AB19 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "MBCalendarKit/Default-568h@2x.png"; sourceTree = "<group>"; };
 		464A8701171F174D00E7AB19 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = MBCalendarKit/Default.png; sourceTree = "<group>"; };
 		464A8702171F174D00E7AB19 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "MBCalendarKit/Default@2x.png"; sourceTree = "<group>"; };
-		464A8706171F174D00E7AB19 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		464A8707171F174D00E7AB19 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MBCalendarKit/main.m; sourceTree = "<group>"; };
 		464A8708171F174D00E7AB19 /* MBCalendarKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "MBCalendarKit-Info.plist"; path = "MBCalendarKit/MBCalendarKit-Info.plist"; sourceTree = "<group>"; };
 		464A8709171F174D00E7AB19 /* MBCalendarKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MBCalendarKit-Prefix.pch"; path = "MBCalendarKit/MBCalendarKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -238,8 +233,7 @@
 		46BFBCBF1715FB3F00D4733E /* MBCalendarKit-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MBCalendarKit-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		46E67B941F46244800E26D09 /* CKAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKAppDelegate.h; sourceTree = "<group>"; };
 		46E67B951F46244800E26D09 /* CKAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKAppDelegate.m; sourceTree = "<group>"; };
-		46E67B981F46244800E26D09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = DemoApp.storyboard; sourceTree = "<group>"; };
-		46E67B991F46244800E26D09 /* DemoRootTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoRootTableViewController.swift; path = MBCalendarKit/Demo/DemoRootTableViewController.swift; sourceTree = "<group>"; };
+		46E67B991F46244800E26D09 /* DemoRootTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoRootTableViewController.swift; path = ../DemoRootTableViewController.swift; sourceTree = "<group>"; };
 		46E67B9C1F46244800E26D09 /* AlternateCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternateCalendarViewController.swift; sourceTree = "<group>"; };
 		46E67B9D1F46244800E26D09 /* AlternateCalendarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternateCalendarViewModel.swift; sourceTree = "<group>"; };
 		46E67B9F1F46244800E26D09 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
@@ -249,8 +243,9 @@
 		46E67BA41F46244800E26D09 /* CKDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKDemoViewController.m; sourceTree = "<group>"; };
 		46E67BA61F46244800E26D09 /* RTLDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTLDemo.swift; sourceTree = "<group>"; };
 		46E67BA81F46244800E26D09 /* SwiftDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDemoViewController.swift; sourceTree = "<group>"; };
-		46E67BAB1F46244800E26D09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = DemoApp.strings; sourceTree = "<group>"; };
-		46E67BAE1F46244800E26D09 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = DemoApp.strings; sourceTree = "<group>"; };
+		46E67BC21F4626A100E26D09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DemoApp.storyboard; sourceTree = "<group>"; };
+		46E67BC51F4626A400E26D09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DemoApp.strings; sourceTree = "<group>"; };
+		46E67BC71F4626A900E26D09 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/DemoApp.strings; sourceTree = "<group>"; };
 		46EF35991F3C295700095A9E /* CKCalendarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarModel.h; sourceTree = "<group>"; };
 		46EF359A1F3C295700095A9E /* CKCalendarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarModel.m; sourceTree = "<group>"; };
 		CCDF9503193CF941002266D5 /* CKTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTableViewCell.h; sourceTree = "<group>"; };
@@ -435,10 +430,7 @@
 				469D857D1A3766A100E2B305 /* Images.xcassets */,
 				46E67B931F46244800E26D09 /* App Delegate */,
 				46E67B961F46244800E26D09 /* Base.lproj */,
-				46E67B991F46244800E26D09 /* DemoRootTableViewController.swift */,
 				46E67B9A1F46244800E26D09 /* Demo View Controllers */,
-				46E67BA91F46244800E26D09 /* en.lproj */,
-				46E67BAC1F46244800E26D09 /* he.lproj */,
 				464A8700171F174D00E7AB19 /* Default-568h@2x.png */,
 				464A8701171F174D00E7AB19 /* Default.png */,
 				464A8702171F174D00E7AB19 /* Default@2x.png */,
@@ -465,7 +457,6 @@
 		468CDDD71F42D6AE008E628D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				464A8705171F174D00E7AB19 /* InfoPlist.strings */,
 				464A8707171F174D00E7AB19 /* main.m */,
 				464A8708171F174D00E7AB19 /* MBCalendarKit-Info.plist */,
 				464A8709171F174D00E7AB19 /* MBCalendarKit-Prefix.pch */,
@@ -522,9 +513,9 @@
 				46363C251F392295002BA215 /* LICENSE.md */,
 				46363C261F392295002BA215 /* README.md */,
 				46AF0D701F39D4D4005F37EC /* MIGRATIONGUIDE.md */,
+				464A874A171F1AAA00E7AB19 /* Demo App */,
 				464A86CA171F174D00E7AB19 /* MBCalendarKit */,
 				464A870A171F174D00E7AB19 /* MBCalendarKitTests */,
-				464A874A171F1AAA00E7AB19 /* Demo App */,
 				46BFBCC01715FB3F00D4733E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -552,7 +543,6 @@
 		46E67B961F46244800E26D09 /* Base.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				46E67B971F46244800E26D09 /* DemoApp.storyboard */,
 			);
 			name = Base.lproj;
 			path = MBCalendarKit/Demo/Base.lproj;
@@ -561,6 +551,8 @@
 		46E67B9A1F46244800E26D09 /* Demo View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				46E67BC31F4626A100E26D09 /* DemoApp.storyboard */,
+				46E67B991F46244800E26D09 /* DemoRootTableViewController.swift */,
 				46E67B9B1F46244800E26D09 /* Alternate Calendars */,
 				46E67B9E1F46244800E26D09 /* Custom Cell Provider */,
 				46E67BA21F46244800E26D09 /* Objective-C */,
@@ -613,24 +605,6 @@
 				46E67BA81F46244800E26D09 /* SwiftDemoViewController.swift */,
 			);
 			path = Swift;
-			sourceTree = "<group>";
-		};
-		46E67BA91F46244800E26D09 /* en.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				46E67BAA1F46244800E26D09 /* DemoApp.strings */,
-			);
-			name = en.lproj;
-			path = MBCalendarKit/Demo/en.lproj;
-			sourceTree = "<group>";
-		};
-		46E67BAC1F46244800E26D09 /* he.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				46E67BAD1F46244800E26D09 /* DemoApp.strings */,
-			);
-			name = he.lproj;
-			path = MBCalendarKit/Demo/he.lproj;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -817,11 +791,8 @@
 				469D857E1A3766A100E2B305 /* Images.xcassets in Resources */,
 				464A8738171F174D00E7AB19 /* Default.png in Resources */,
 				464A873A171F174D00E7AB19 /* Default@2x.png in Resources */,
-				464A873E171F174D00E7AB19 /* InfoPlist.strings in Resources */,
 				464A8744171F174D00E7AB19 /* InfoPlist.strings in Resources */,
-				46E67BBB1F46244800E26D09 /* DemoApp.strings in Resources */,
-				46E67BBA1F46244800E26D09 /* DemoApp.strings in Resources */,
-				46E67BB01F46244800E26D09 /* DemoApp.storyboard in Resources */,
+				46E67BC11F4626A100E26D09 /* DemoApp.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -906,16 +877,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		464A8705171F174D00E7AB19 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				464A8706171F174D00E7AB19 /* en */,
-				4649253F1F34F3EE000F220D /* he */,
-			);
-			name = InfoPlist.strings;
-			path = MBCalendarKit;
-			sourceTree = "<group>";
-		};
 		464A870B171F174D00E7AB19 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -925,29 +886,16 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		46E67B971F46244800E26D09 /* DemoApp.storyboard */ = {
+		46E67BC31F4626A100E26D09 /* DemoApp.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				46E67B981F46244800E26D09 /* Base */,
+				46E67BC21F4626A100E26D09 /* Base */,
+				46E67BC51F4626A400E26D09 /* en */,
+				46E67BC71F4626A900E26D09 /* he */,
 			);
 			name = DemoApp.storyboard;
-			sourceTree = "<group>";
-		};
-		46E67BAA1F46244800E26D09 /* DemoApp.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				46E67BAB1F46244800E26D09 /* en */,
-			);
-			name = DemoApp.strings;
-			sourceTree = "<group>";
-		};
-		46E67BAD1F46244800E26D09 /* DemoApp.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				46E67BAE1F46244800E26D09 /* he */,
-			);
-			name = DemoApp.strings;
-			sourceTree = "<group>";
+			path = MBCalendarKit;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXVariantGroup section */
 
