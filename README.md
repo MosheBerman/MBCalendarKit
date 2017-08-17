@@ -7,11 +7,12 @@ MBCalendarKit is a calendar control written in Objective-C with modern best prac
 ## Features
 - Interactive Calendar Control
 - Autolayout Support
-- Calendar Event Display
+- Dynamic Framework for iOS 8+
 - Custom Cell API with Default Implementation
+- Calendar Event Display
 - Custom First Weekday
-- Custom NSLocale for Display
 - Clamp Dates to Minimum and/or Maximum Values
+- Display for Any Locale or Calendar Identifier
 - Display Modes: Month, Week, and Day
 - Localization Support, Including Right-to-Left and Date Formatting
 - Pre-built View Controller inspired by the original iOS Calendar App
