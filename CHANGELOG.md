@@ -1,17 +1,17 @@
 # Changelog
 
 ## 5.0.0
+- Added code level documentation.
+- Added dynamic framework Support.
+- Added support for custom cells with a new API.
 - Adopted Autolayout.
 - Adopted UICollectionView.
-- Dynamic Framework Support.
 - Improved Swift interoperability.
-- Add API for customizating calendar cells.
 - Rendering in Interface Builder as an IBDesignable.
 - Support for localization, including RTL environments. 
-- Updated sample app to showcase features of the framework.
 - Updated changelog history going back to version 1.
-- Migration guide for MBCalendarKit 5.
-- Vastly improved documentation.
+- Updated sample app to showcase features of the framework.
+- Wrote a migration guide for MBCalendarKit 5.
 
 ## 4.0.1
 - Convert demo to Swift 3.
