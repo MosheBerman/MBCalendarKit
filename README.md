@@ -27,29 +27,28 @@ Aside from the framework dependencies described above, you'll want everything in
 Working With Swift:
 ------------------------
 
-Swift supports Objective-C code interoperability with what Apple is calling "[Mix and Match](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html)."
+Swift supports Objective-C code interoperability with what Apple is calling "[Mix and Match](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html)." 
 
-Add the following line to your `*ProjectName*-Bridging-Header.h`:
+To expose MBCalendarKit to Swift, just link against it. Wherever you want to use it, simply `import MBCalendarKit`.
 
-```` objective-c
-@import MBCalendarKit;
-````
+MBCalendarKit 5.0.0 includes a number of Swift enhancements. For specifics, check out the [Migration Guide](./MIGRATIONGUIDE.md).
 
-You should be able to use MBCalendarKit in your Swift classes. There's an example in the demo app. Look at `CKAppDelegate`.
 
 Showing a Calendar
 --------------------------------------
 
-You have two choices for showing a calendar using MBCalendarKit. 
+You have two choices for showing a calendar using MBCalendarKit. For both of them, you'll need to import the library:
 
-1. You can show an instance of `CKCalendarView`. Use this if you want to manually manage your view hierarchy or have a finer control over your calendar view.
+
+
+1. You can show an instance of `CKCalendarView`. Use this if you want to manually manage your view hierarchy or just want a calendar view without the table view or event management.
 
 
 ```` objective-c
 
 /*
 Here's how you'd show a CKCalendarView from within a view controller. 
-It's just four easy steps.
+It's just three easy steps after importing the library.
 */
 		
 // 0. In either case, import CalendarKit:
@@ -58,20 +57,37 @@ It's just four easy steps.
 // 1. Instantiate a CKCalendarView
 CKCalendarView *calendar = [CKCalendarView new];
  		
-// 2. Optionally, set up the datasource and delegates
-[calendar setDelegate:self];
-[calendar setDataSource:self];
- 		
-// 3. Present the calendar 
-[[self view] addSubview:calendar];
-		
+// 2. Present the calendar 
+[self.view addSubview:calendar];
+
+// 3. Add X and Y constraints:
+self.calendarView.translatesAutoresizingMaskIntoConstraints = NO;
+NSLayoutConstraint *top = [NSLayoutConstraint   constraintWithItem:calendarView
+                                                         attribute:NSLayoutAttributeTop
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:self.topLayoutGuide
+                                                         attribute:NSLayoutAttributeBottom
+                                                        multiplier:1.0
+                                                          constant:0.0];
+
+NSLayoutConstraint *centerX = [NSLayoutConstraint   constraintWithItem:calendarView
+                                                             attribute:NSLayoutAttributeCenterX
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.view
+                                                             attribute:NSLayoutAttributeCenterX
+                                                            multiplier:1.0
+                                                             constant:0.0];
+
+[self.view addConstraints:@[top, centerX]];
+
 ````
 
 
-2. Your second option is to create an instance of `CKCalendarViewController`. Using a CKCalendarViewController gives you the added benefit of a "today" button and a segmented control in the toolbar, which allows you to select the display mode. 
+
+2. Your second option is to create an instance of `CKCalendarViewController`. Using a CKCalendarViewController gives you the added benefit of a "today" button and a segmented control in the toolbar, which allows you to select the display mode. In MBCalendarKit 5.0.0 and later, you also use `CKCalendarViewController` if you'd like an events table view.
 
 ---
-***Note:*** In lder versions of MBCalendarKit, `CKCalendarViewController` used to subclass `UINavigationViewController`, so it couldn't be installed inside of another navigation controller. In 5.0.0, this is no longer the case. You must now install your calendar ina navigation controller on your own.
+***Note:*** In older versions of MBCalendarKit, `CKCalendarViewController` used to subclass `UINavigationViewController`, so it couldn't be installed inside of another navigation controller. In 5.0.0, this is no longer the case. If you wish to embed your calendar inside a `UINavigationViewController`, you must now install it on your own. See the Migration Guide for details.
 ---
 
 
@@ -79,27 +95,27 @@ CKCalendarView *calendar = [CKCalendarView new];
 
 /* 
 Here's how you'd show a CKCalendarViewController from 
-within a view controller. It's just four easy steps.
+within a view controller. It's just three easy steps.
 */
 		
-// 0. In either case, import CalendarKit:
+// 1. In either case, import CalendarKit:
 @import MBCalendarKit;
     	
-// 1. Instantiate a CKCalendarViewController
+// 2. Instantiate a CKCalendarViewController
 CKCalendarViewController *calendar = [CKCalendarViewController new];
- 		
-// 2. Optionally, set up the datasource and delegates
-[calendar setCalendarDelegate:self];
-[calendar setDataSource:self];
  		
 // 3. Present the calendar 
 [[self presentViewController:calendar animated:YES completion:nil];
 		
 ````
 
+With both `CKCalenderView` and `CKCalendarViewController`, you can use the `dataSource` and `delegate` properties to display events, and get information about user interation.
+
+In MBCalendarKit 5.0.0, there's a new property on `CKCalendarView` called `CKCustomCellProvider`, which can be used to customize the display of the cells in a really powerful way. Keep reading to learn more about setting up events
+
 ---
 
-**Note: From this point on, both the CKCalendarView class and the CKCalendarViewController classes are interchangeably referred to as the "calendar view", because they have common datasource and delegate APIs.** 
+**Note: From this point on, both the CKCalendarView class and the CKCalendarViewController classes are interchangeably referred to as the "calendar view", because they have common datasource and delegate APIs. Where the two differ, specifically the new `CKCustomCellProvider` API, an explicit class name is used instead.** 
 
 ---
 
@@ -156,7 +172,7 @@ Now, implement the data source:
         return [self data][date];
     }
 
-**Note:** The dates used as keys must match the dates passed into the data source method exactly. One way to ensure this is to use the `dateWithDay:month:year` method defined in the `NSDate+Components.m` category to create the dates you pass to your events.
+**Note:** The dates used as keys must match the dates passed into the data source method exactly. One way to ensure this is to use the `NSCalendar`'s `[calendar isDate:equalToDate:toUnitGranularity:]`, passing in the two dates and `NSCalendarUnitDay` as the third argument, to create the dates you pass to your events.
 
 You can also see this code in `CKDemoViewController.m` in the demo app.
 		
@@ -166,15 +182,85 @@ Handling User Interaction
 These methods, defined in the `CKCalendarViewDelegate` protocol, are called on the delegate when the used selects a date. A date is considered selected when either an arrow in the header is tapped, or when the user lifts their finger from a cell.
 
 ```` objective-c
-- (void)calendarView:(CKCalendarView *)calendarView willSelectDate:(NSDate *)date;
-- (void)calendarView:(CKCalendarView *)calendarView didSelectDate:(NSDate *)date;
+- (void)calendarView:(nonnull CKCalendarView *)calendarView willSelectDate:(nonnull NSDate *)date;
+- (void)calendarView:(nonnull CKCalendarView *)calendarView didSelectDate:(nonnull NSDate *)date;
 ````  
 
 This method is called on the delegate when a row is selected in the events table. You can use to push a detail view, for example.
 
 ```` objective-c
-- (void)calendarView:(CKCalendarView *)CalendarView didSelectEvent:(CKCalendarEvent *)event;
+- (void)calendarView:(nonnull CKCalendarView *)CalendarView didSelectEvent:(nonnull CKCalendarEvent *)event;
 ````   
+
+Customizing Cells
+----------------- 
+
+MBCalendarKit 5.0.0 brings a brand new way to customize cells, so that you can add your own data to the cells, or even do a completely design. By building on top of `UICollectionView`, MBCalendarKit provides a really simple API. First, you need to implement `CKCustomCellProviding` in your code. This is composed of two parts: First, telling MBCalendarKit which UICollectionViewCell subclass to use for the cells, and second, implementing a method callback which will be your opportunity to customize the cell based on its context.
+
+Let's look at an implementation based on the default implementation:
+
+```` objective-c
+
+// Step 1. Formally adopt the `CKCustomCellProviding` protocol
+@interface MyCustomCellProvider: () <CKCustomCellProviding>
+@end
+
+@implementation MyCustomCellProvider 
+
+// Step 2. Inform the framework of your `UICollectionViewCell` subclass, so it knows to use it.
+- (nonnull Class)customCellClass;
+{
+    return CKCalendarCell.class;
+}
+
+// Step 3. Implement the custom cell delegate callback
+- (void)calendarView:(nonnull CKCalendarView *)calendarView willDisplayCell:(nonnull UICollectionViewCell *)cell inContext:(nonnull CKCalendarCellContext *)context;
+{
+    // It's reasonable to cast to whatever class is in `customCellClass`.
+    CKCalendarCell *calendarCell = (CKCalendarCell *)cell;
+
+    // Customize the cell's contents and display here.
+}
+````
+
+Now, simply tell the calendar view that your object is providing custom cells:
+
+```` objective-c
+// 0. Assume an existing calendarView
+
+// 1. Instantiate your custom cell provider.
+id<CKCustomCellProvider> *myCustomCellProvider = [[MyCustomCellProviderClass alloc] init];
+
+// 2. Assign the custom cell provider to the calendar view's customCellProvider.
+calendarView.customCellProvider = myCustomCellProvider;
+
+````
+
+That's it. The demo app and the migration guide have more information. 
+
+---
+***Note:** Prior to MBCalendarKit, customization of the cell's appearance was limited to properties accessible via `UIAppearance.` Those `UIAppearance` methods are still available in MBCalendarKit 5.0.0.*
+
+---
+
+Calendar Cell Contexts:
+----------------------
+
+If you want to know which date the cell represents, or what scope the cell is being displayed in, look at the context object. `CKCalendarCellContext` has a few interesting properties:
+
+To see the date represented by the cell, use the `date` property.:
+
+```` objective-c
+@property (nonatomic, strong, nonnull) NSDate *date;
+````
+
+To see if the cell represents today, is out of the month, or even out of range of the calendar's minimum and maximum dates, use the context's `identifier` property, which is one of several `CKCalendarCellContextIdentifier` values.
+
+```` objective-c
+@property (nonatomic, assign, readonly) CKCalendarCellContextIdentifier identifier;
+````
+
+The context identifier is based on several other flags, also available on `CKCalendarCellContext`. Check out the CocoaDocs generated documentation, or the class header for more.
     
 Calendar Events
 ----------------
