@@ -120,6 +120,26 @@
                                             <segue destination="PJL-rE-PTQ" kind="show" id="NzM-ku-Btl"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="IZV-bu-mtz" style="IBUITableViewCellStyleDefault" id="bNZ-AG-pDo">
+                                        <rect key="frame" x="0.0" y="220" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bNZ-AG-pDo" id="jzG-Us-z0X">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Custom Calendars" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IZV-bu-mtz">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Cec-6W-Nfr" kind="show" id="6dG-fz-Y4M"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -132,12 +152,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aOB-71-0WK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="319" y="863"/>
+            <point key="canvasLocation" x="28" y="1603"/>
         </scene>
         <!--Demo View Controller-->
         <scene sceneID="yUU-QW-W1V">
             <objects>
-                <viewController id="Nq2-Pv-pKB" customClass="CKDemoViewController" sceneMemberID="viewController">
+                <viewController id="Nq2-Pv-pKB" customClass="CKDemoViewController" customModule="MBCalendarKit_Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cbl-eF-SfX"/>
                         <viewControllerLayoutGuide type="bottom" id="2C1-XY-IAX"/>
@@ -184,7 +204,57 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aTL-bA-i7d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-633" y="863"/>
+            <point key="canvasLocation" x="-924" y="1603"/>
+        </scene>
+        <!--Alternate Calendar View Controller-->
+        <scene sceneID="xme-qA-xD8">
+            <objects>
+                <viewController id="Cec-6W-Nfr" customClass="AlternateCalendarViewController" customModule="MBCalendarKit_Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MWs-P8-fOc"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jgu-6Y-gXF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4hK-HX-o8a">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view multipleTouchEnabled="YES" contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="YhW-KG-81g" customClass="CKCalendarView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="309"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8eg-dI-A0q">
+                                <rect key="frame" x="0.0" y="377" width="375" height="290"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2m-zF-rIf">
+                                        <rect key="frame" x="0.0" y="74" width="375" height="216"/>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="q2m-zF-rIf" firstAttribute="leading" secondItem="8eg-dI-A0q" secondAttribute="leading" id="LdM-kE-PbS"/>
+                                    <constraint firstAttribute="bottom" secondItem="q2m-zF-rIf" secondAttribute="bottom" id="fSS-VR-7qy"/>
+                                    <constraint firstAttribute="trailing" secondItem="q2m-zF-rIf" secondAttribute="trailing" id="hBf-ct-1TP"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8eg-dI-A0q" firstAttribute="top" secondItem="YhW-KG-81g" secondAttribute="bottom" constant="4" id="4ri-nL-5MI"/>
+                            <constraint firstItem="Jgu-6Y-gXF" firstAttribute="top" secondItem="8eg-dI-A0q" secondAttribute="bottom" id="8ye-N7-crX"/>
+                            <constraint firstItem="8eg-dI-A0q" firstAttribute="width" secondItem="4hK-HX-o8a" secondAttribute="width" id="9KE-yV-oPe"/>
+                            <constraint firstItem="YhW-KG-81g" firstAttribute="top" secondItem="MWs-P8-fOc" secondAttribute="bottom" id="D3w-Zg-9hi"/>
+                            <constraint firstItem="8eg-dI-A0q" firstAttribute="centerX" secondItem="4hK-HX-o8a" secondAttribute="centerX" id="EZz-h3-VYx"/>
+                            <constraint firstItem="YhW-KG-81g" firstAttribute="centerX" secondItem="4hK-HX-o8a" secondAttribute="centerX" id="Lx4-xd-nyh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="calendarPicker" destination="q2m-zF-rIf" id="pui-Ud-5eJ"/>
+                        <outlet property="calendarView" destination="YhW-KG-81g" id="NpW-O1-1Hg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vgv-L5-Vag" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1521" y="2345"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="omy-Op-OY0">
@@ -248,7 +318,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bw9-uo-TMV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1521" y="1523"/>
+            <point key="canvasLocation" x="1521" y="1603"/>
         </scene>
     </scenes>
 </document>
