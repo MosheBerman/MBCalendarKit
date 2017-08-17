@@ -19,6 +19,9 @@ NS_SWIFT_NAME(CalendarCellContext)
 
 // MARK: - The Date The Cell Represents
 
+/**
+ The date that the cell represents.
+ */
 @property (nonatomic, strong, nonnull) NSDate *date;
 
 // MARK: - The State that the Cell Is In
