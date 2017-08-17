@@ -1,6 +1,6 @@
 //
 //  NSCalendar+Components.h
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/12/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -10,16 +10,17 @@
 
 @interface NSCalendar (Components)
 
-- (NSInteger)weekdayInDate:(NSDate*)date;
-- (NSInteger)secondsInDate:(NSDate*)date;
-- (NSInteger)minutesInDate:(NSDate*)date;
-- (NSInteger)hoursInDate:(NSDate*)date;
-- (NSInteger)daysInDate:(NSDate*)date;
-- (NSInteger)monthsInDate:(NSDate*)date;
-- (NSInteger)yearsInDate:(NSDate*)date;
-- (NSInteger)eraInDate:(NSDate*)date;
+// MARK: - Extracting Components from Dates
 
-- (NSInteger)weekOfMonthInDate:(NSDate*)date;
-- (NSInteger)weekOfYearInDate:(NSDate*)date;
+- (NSInteger)weekdayInDate:(nonnull NSDate *)date;
+- (NSInteger)secondsInDate:(nonnull NSDate *)date;
+- (NSInteger)minutesInDate:(nonnull NSDate *)date;
+- (NSInteger)hoursInDate:(nonnull NSDate *)date;
+- (NSInteger)daysInDate:(nonnull NSDate *)date;
+- (NSInteger)weekOfMonthInDate:(nonnull NSDate *)date;
+- (NSInteger)weekOfYearInDate:(nonnull NSDate *)date;
+- (NSInteger)monthsInDate:(nonnull NSDate *)date;
+- (NSInteger)yearsInDate:(nonnull NSDate *)date;
+- (NSInteger)eraInDate:(nonnull NSDate *)date;
 
 @end

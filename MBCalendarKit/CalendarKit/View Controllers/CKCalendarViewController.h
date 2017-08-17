@@ -1,23 +1,37 @@
 //
-//  CKCalendarViewController.h
+//  CKViewController.h
 //  MBCalendarKit
 //
-//  Created by Moshe Berman on 4/17/13.
+//  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
-#import "CKCalendarDataSource.h"
 #import "CKCalendarDelegate.h"
-#import "CKCalendarEvent.h"
+#import "CKCalendarDataSource.h"
 
-@interface CKCalendarViewController : UINavigationController <CKCalendarViewDelegate, UINavigationControllerDelegate>
+NS_SWIFT_NAME(CalendarViewController)
+@interface CKCalendarViewController : UIViewController  <CKCalendarViewDataSource, CKCalendarViewDelegate>
 
-@property (nonatomic, assign) id<CKCalendarViewDataSource> dataSource;
-@property (nonatomic, assign) id<CKCalendarViewDelegate, UINavigationControllerDelegate> delegate;
+/**
+ The data source provides events to the calendar.
+ */
+@property (nonatomic, weak, nullable) id<CKCalendarViewDataSource> dataSource;
 
-- (CKCalendarView *)calendarView;
+/**
+ The delegate handles interactions with the calendar view controller's calendar view and table view.
+ */
+@property (nonatomic, weak, nullable) id<CKCalendarViewDelegate> delegate;
+
+/**
+ The calendar view.
+ */
+@property (NS_NONATOMIC_IOSONLY, readonly, strong, nonnull) CKCalendarView *calendarView;
+
+/**
+ A table view ahowing events.
+ */
+@property (NS_NONATOMIC_IOSONLY, readonly, strong, nonnull) UITableView *tableView;
 
 @end
-

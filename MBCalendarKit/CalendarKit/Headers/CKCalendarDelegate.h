@@ -12,18 +12,41 @@
 @class CKCalendarView;
 @class CKCalendarEvent;
 
+NS_SWIFT_NAME(CalendarViewDelegate)
 @protocol CKCalendarViewDelegate <NSObject>
 
 @optional
 
-// Called before/after the selected date changes
-- (void)calendarView:(CKCalendarView *)CalendarView willSelectDate:(NSDate *)date;
-- (void)calendarView:(CKCalendarView *)CalendarView didSelectDate:(NSDate *)date;
+// MARK: - Handling Date Selection
 
-//  A row is selected in the events table. (Use to push a detail view or whatever.)
-- (void)calendarView:(CKCalendarView *)CalendarView didSelectEvent:(CKCalendarEvent *)event;
+/**
+ Called immediately before a date is selected in the calendar's table view.
+
+ @param calendarView The calendar view which the user interacted with.
+ @param date The date which the user selected.
+ */
+- (void)calendarView:(nonnull CKCalendarView *)calendarView willSelectDate:(nonnull NSDate *)date;
+
+/**
+ Called immediately after a date is selected in the calendar's table view.
+ 
+ @param calendarView The calendar view which the user interacted with.
+ @param date The date which the user selected.
+ */
+- (void)calendarView:(nonnull CKCalendarView *)calendarView didSelectDate:(nonnull NSDate *)date;
+
+// MARK: - Handling Event Selection
+
+/**
+ Called after an event is selected in the calendar's table view.
+
+ @discussion You can use this to respond to the user selecting an event. For example, you may wish to present a detail view controller.
+ 
+ @param calendarView The calendar view who's table view had an event selected.
+ @param event The event which was selected.
+ */
+- (void)calendarView:(nonnull CKCalendarView *)calendarView didSelectEvent:(nonnull CKCalendarEvent *)event;
 
 @end
-
 
 #endif

@@ -1,6 +1,6 @@
 //
 //  NSCalendar+DateManipulation.h
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -10,24 +10,24 @@
 
 @interface NSCalendar (DateManipulation)
 
-#pragma mark - Add Units
+// MARK: - Add Units
 
-- (NSDate *)dateByAddingSeconds:(NSUInteger)seconds toDate:(NSDate *)date;
-- (NSDate *)dateByAddingMinutes:(NSUInteger)minutes toDate:(NSDate *)date;
-- (NSDate *)dateByAddingHours:(NSUInteger)hours toDate:(NSDate *)date;
-- (NSDate *)dateByAddingDays:(NSUInteger)days toDate:(NSDate *)date;
-- (NSDate *)dateByAddingWeeks:(NSUInteger)weeks toDate:(NSDate *)date;
-- (NSDate *)dateByAddingMonths:(NSUInteger)months toDate:(NSDate *)date;
-- (NSDate *)dateByAddingYears:(NSUInteger)years toDate:(NSDate *)date;
+- (nullable NSDate *)dateByAddingSeconds:(NSUInteger)seconds toDate:(nonnull NSDate *)date;
+- (nullable NSDate *)dateByAddingMinutes:(NSUInteger)minutes toDate:(nonnull NSDate *)date;
+- (nullable NSDate *)dateByAddingHours:(NSUInteger)hours toDate:(nonnull NSDate *)date;
+- (nullable NSDate *)dateByAddingDays:(NSUInteger)days toDate:(nonnull NSDate *)date;
+- (nullable NSDate *)dateByAddingWeeks:(NSUInteger)weeks toDate:(nonnull NSDate *)date;
+- (nullable NSDate *)dateByAddingMonths:(NSUInteger)months toDate:(nonnull NSDate *)date;
+- (nullable NSDate *)dateByAddingYears:(NSUInteger)years toDate:(nonnull NSDate *)date;
 
-#pragma mark - Subtract Units
+// MARK: - Subtract Units
 
-- (NSDate *)dateBySubtractingSeconds:(NSUInteger)seconds fromDate:(NSDate *)date;
-- (NSDate *)dateBySubtractingMinutes:(NSUInteger)minutes fromDate:(NSDate *)date;
-- (NSDate *)dateBySubtractingHours:(NSUInteger)hours fromDate:(NSDate *)date;
-- (NSDate *)dateBySubtractingDays:(NSUInteger)days fromDate:(NSDate *)date;
-- (NSDate *)dateBySubtractingWeeks:(NSUInteger)weeks fromDate:(NSDate *)date;
-- (NSDate *)dateBySubtractingMonths:(NSUInteger)months fromDate:(NSDate *)date;
-- (NSDate *)dateBySubtractingYears:(NSUInteger)years fromDate:(NSDate *)date;
+- (nullable NSDate *)dateBySubtractingSeconds:(NSUInteger)seconds fromDate:(nonnull NSDate *)date;
+- (nullable NSDate *)dateBySubtractingMinutes:(NSUInteger)minutes fromDate:(nonnull NSDate *)date;
+- (nullable NSDate *)dateBySubtractingHours:(NSUInteger)hours fromDate:(nonnull NSDate *)date;
+- (nullable NSDate *)dateBySubtractingDays:(NSUInteger)days fromDate:(nonnull NSDate *)date;
+- (nullable NSDate *)dateBySubtractingWeeks:(NSUInteger)weeks fromDate:(nonnull NSDate *)date;
+- (nullable NSDate *)dateBySubtractingMonths:(NSUInteger)months fromDate:(nonnull NSDate *)date;
+- (nullable NSDate *)dateBySubtractingYears:(NSUInteger)years fromDate:(nonnull NSDate *)date;
 
 @end

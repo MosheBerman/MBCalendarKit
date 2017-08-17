@@ -1,6 +1,6 @@
 //
 //  NSCalendar+Ranges.h
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -12,93 +12,93 @@
 
 #pragma mark - Units Per Minute
 
-- (NSUInteger)secondsPerMinute;
-- (NSUInteger)secondsPerMinuteUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger secondsPerMinute;
+- (NSUInteger)secondsPerMinuteUsingReferenceDate:(nonnull NSDate *)date;
 
 #pragma mark - Units Per Hour
 
-- (NSUInteger)secondsPerHour;
-- (NSUInteger)secondsPerHourUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger secondsPerHour;
+- (NSUInteger)secondsPerHourUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)minutesPerHour;
-- (NSUInteger)minutesPerHourUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger minutesPerHour;
+- (NSUInteger)minutesPerHourUsingReferenceDate:(nonnull NSDate *)date;
 
 #pragma mark - Units Per Day
 
-- (NSUInteger)secondsPerDay;
-- (NSUInteger)secondsPerDayUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger secondsPerDay;
+- (NSUInteger)secondsPerDayUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)minutesPerDay;
-- (NSUInteger)minutesPerDayUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger minutesPerDay;
+- (NSUInteger)minutesPerDayUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)hoursPerDay;
-- (NSUInteger)hoursPerDayUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger hoursPerDay;
+- (NSUInteger)hoursPerDayUsingReferenceDate:(nonnull NSDate *)date;
 
 #pragma mark - Units Per Week
 
-- (NSUInteger)secondsPerWeek;
-- (NSUInteger)secondsPerWeekUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger secondsPerWeek;
+- (NSUInteger)secondsPerWeekUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)minutesPerWeek;
-- (NSUInteger)minutesPerWeekUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger minutesPerWeek;
+- (NSUInteger)minutesPerWeekUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)hoursPerWeek;
-- (NSUInteger)hoursPerWeekUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger hoursPerWeek;
+- (NSUInteger)hoursPerWeekUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)daysPerWeek;
-- (NSUInteger)daysPerWeekUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger daysPerWeek;
+- (NSUInteger)daysPerWeekUsingReferenceDate:(nonnull NSDate *)date;
 
 #pragma mark - Units Per Month
 
-- (NSUInteger)secondsPerMonth;
-- (NSUInteger)secondsPerMonthUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger secondsPerMonth;
+- (NSUInteger)secondsPerMonthUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)minutesPerMonth;
-- (NSUInteger)minutesPerMonthUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger minutesPerMonth;
+- (NSUInteger)minutesPerMonthUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)hoursPerMonth;
-- (NSUInteger)hoursPerMonthUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger hoursPerMonth;
+- (NSUInteger)hoursPerMonthUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)daysPerMonth;
-- (NSUInteger)daysPerMonthUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger daysPerMonth;
+- (NSUInteger)daysPerMonthUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)weeksPerMonth;
-- (NSUInteger)weeksPerMonthUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger weeksPerMonth;
+- (NSUInteger)weeksPerMonthUsingReferenceDate:(nonnull NSDate *)date;
 
 #pragma mark - Units Per Year
 
-- (NSUInteger)secondsPerYear;
-- (NSUInteger)secondsPerYearUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger secondsPerYear;
+- (NSUInteger)secondsPerYearUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)minutesPerYear;
-- (NSUInteger)minutesPerYearUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger minutesPerYear;
+- (NSUInteger)minutesPerYearUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)hoursPerYear;
-- (NSUInteger)hoursPerYearUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger hoursPerYear;
+- (NSUInteger)hoursPerYearUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)daysPerYear;
-- (NSUInteger)daysPerYearUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger daysPerYear;
+- (NSUInteger)daysPerYearUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)weeksPerYear;
-- (NSUInteger)weeksPerYearUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger weeksPerYear;
+- (NSUInteger)weeksPerYearUsingReferenceDate:(nonnull NSDate *)date;
 
-- (NSUInteger)monthsPerYear;
-- (NSUInteger)monthsPerYearUsingReferenceDate:(NSDate *)date;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger monthsPerYear;
+- (NSUInteger)monthsPerYearUsingReferenceDate:(nonnull NSDate *)date;
 
 #pragma mark - Ranges Between Dates
 
 //  Negative values indicate that fromDate is after toDate
-- (NSInteger)secondsFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
-- (NSInteger)minutesFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
-- (NSInteger)hoursFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
-- (NSInteger)daysFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate;
-- (NSInteger)weeksFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate;
-- (NSInteger)monthsFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate;
-- (NSInteger)yearsFromDate:(NSDate*)fromDate toDate:(NSDate *)toDate;
+- (NSInteger)secondsFromDate:(nonnull NSDate *)fromDate toDate:(nonnull NSDate *)toDate;
+- (NSInteger)minutesFromDate:(nonnull NSDate *)fromDate toDate:(nonnull NSDate *)toDate;
+- (NSInteger)hoursFromDate:(nonnull NSDate *)fromDate toDate:(nonnull NSDate *)toDate;
+- (NSInteger)daysFromDate:(nonnull NSDate *)fromDate toDate:(nonnull NSDate *)toDate;
+- (NSInteger)weeksFromDate:(nonnull NSDate *)fromDate toDate:(nonnull NSDate *)toDate;
+- (NSInteger)monthsFromDate:(nonnull NSDate *)fromDate toDate:(nonnull NSDate *)toDate;
+- (NSInteger)yearsFromDate:(nonnull NSDate *)fromDate toDate:(nonnull NSDate *)toDate;
 
-#pragma mark - Date Comparison
+// MARK: - Date Comparison
 
-- (BOOL)date:(NSDate *)firstDate isBeforeDate:(NSDate *)anotherDate;
-- (BOOL)date:(NSDate *)firstDate isAfterDate:(NSDate *)anotherDate;
+- (BOOL)date:(nonnull NSDate *)firstDate isBeforeDate:(nonnull NSDate *)anotherDate;
+- (BOOL)date:(nonnull NSDate *)firstDate isAfterDate:(nonnull NSDate *)anotherDate;
 
 @end

@@ -1,34 +1,39 @@
 //
 //  CKCalendarCalendarCell.m
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
 #import "CKCalendarCell.h"
+#import "CKCalendarCellContextIdentifier.h"
 #import "CKCalendarCellColors.h"
 
 #import "UIView+Border.h"
 
-@interface CKCalendarCell (){
-    CGSize _size;
-}
+@interface CKCalendarCell ()
 
+/**
+ The label that shows a number for the label.
+ */
 @property (nonatomic, strong) UILabel *label;
 
+/**
+ The event indicator view.
+ */
 @property (nonatomic, strong) UIView *dot;
 
 @end
 
 @implementation CKCalendarCell
 
-- (id)init
+- (instancetype)init
 {
-    self = [super init];
+    self = [super initWithFrame:CGRectZero];
     if (self) {
-        // Initialization code
-        _state = CKCalendarMonthCellStateNormal;
+    
+        _state = CKCalendarCellContextIdentifierDefault;
         
         //  Normal Cell Colors
         _normalBackgroundColor = kCalendarColorLightGray;
@@ -60,228 +65,341 @@
         _dot = [UIView new];
         [_dot setHidden:YES];
         _showDot = NO;
+        
+        [self buildViewHierarchy];
     }
     return self;
 }
 
-- (id)initWithSize:(CGSize)size
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [self init];
     if (self) {
-        _size = size;
+        
     }
     return self;
 }
 
-#pragma mark - View Hierarchy
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [self init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+// MARK: -
 
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
-    CGPoint origin = [self frame].origin;
-    [self setFrame:CGRectMake(origin.x, origin.y, _size.width, _size.height)];
-    [self layoutSubviews];
-    [self applyColors];
-}
-
-#pragma mark - Layout
-
-- (void)layoutSubviews
-{
+    [super willMoveToSuperview:newSuperview];
     [self configureLabel];
     [self configureDot];
-    
-    [self addSubview:[self label]];
-    [self addSubview:[self dot]];
+    [self applyColorsForState:self.state];
 }
 
-#pragma mark - Setters
+// MARK: - Layout
 
-- (void)setFrame:(CGRect)frame
+- (void)buildViewHierarchy
 {
-    [super setFrame:frame];
-    
-    self.label.frame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
-}
-
-
-- (void)setState:(CKCalendarMonthCellState)state
-{
-    if (state > CKCalendarMonthCellStateOutOfRange || state < CKCalendarMonthCellStateTodaySelected) {
-        return;
+    if (![self.subviews containsObject:self.label])
+    {
+        [self.contentView addSubview:self.label];
+        [self _constrainLabel];
     }
     
-    _state = state;
-    
-    [self applyColorsForState:_state];
+    if(![self.subviews containsObject:self.dot])
+    {
+        [self.contentView addSubview:self.dot];
+        [self _constrainDot];
+    }
 }
+
+// MARK: - Autolayout
+
++ (BOOL)requiresConstraintBasedLayout
+{
+    return YES;
+}
+
+- (void)_constrainLabel
+{
+    self.label.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.label
+                                                               attribute:NSLayoutAttributeCenterX
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.contentView
+                                                               attribute:NSLayoutAttributeCenterX
+                                                              multiplier:1.0
+                                                                constant:0.0];
+    
+    NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:self.label
+                                                               attribute:NSLayoutAttributeCenterY
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.contentView
+                                                               attribute:NSLayoutAttributeCenterY
+                                                              multiplier:1.0
+                                                                constant:0.0];
+    
+    NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.label
+                                                           attribute:NSLayoutAttributeTop
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:self.contentView
+                                                           attribute:NSLayoutAttributeTop
+                                                          multiplier:1.0
+                                                            constant:0.0];
+    
+    NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.label
+                                                               attribute:NSLayoutAttributeLeading
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.contentView
+                                                               attribute:NSLayoutAttributeLeading
+                                                              multiplier:1.0
+                                                                constant:0.0];
+    
+    [self.contentView addConstraints:@[centerY, centerX, top, leading]];
+    
+}
+
+- (void)_constrainDot
+{
+    self.dot.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.dot
+                                                               attribute:NSLayoutAttributeCenterX
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:self.contentView
+                                                               attribute:NSLayoutAttributeCenterX
+                                                              multiplier:1.0
+                                                                constant:0.0];
+    
+    NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.dot
+                                                              attribute:NSLayoutAttributeBottom
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.contentView
+                                                              attribute:NSLayoutAttributeBottom
+                                                             multiplier:0.8
+                                                               constant:0.0];
+    
+    NSLayoutConstraint *ratio = [NSLayoutConstraint constraintWithItem:self.dot
+                                                             attribute:NSLayoutAttributeHeight
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.dot
+                                                             attribute:NSLayoutAttributeWidth
+                                                            multiplier:1.0
+                                                              constant:0.0];
+    
+    NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.dot
+                                                             attribute:NSLayoutAttributeWidth
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:nil
+                                                             attribute:NSLayoutAttributeNotAnAttribute
+                                                            multiplier:1.0
+                                                              constant:3.0];
+    
+    [self.contentView addConstraints:@[centerX, bottom, ratio, width]];
+    
+}
+
+// MARK: - Setters
 
 - (void)setNumber:(NSNumber *)number
 {
     _number = number;
     
     //  TODO: Locale support?
-    NSString *stringVal = [number stringValue];
-    [[self label] setText:stringVal];
+    NSString *stringVal = number.stringValue;
+    self.label.text = stringVal;
 }
 
 - (void)setShowDot:(BOOL)showDot
 {
     _showDot = showDot;
-    [[self dot] setHidden:!showDot];
+    self.dot.hidden = !showDot;
 }
 
-#pragma mark - Recycling Behavior
+// MARK: - Cell Recycling
 
--(void)prepareForReuse
+/**
+ Called before the cell is dequeued by the calendar view.
+ Use this to reset colors and opacities to their default values.
+ */
+-(void)prepareForReuse;
 {
+    [super prepareForReuse];
+    
     //  Alpha, by default, is 1.0
-    [[self label]setAlpha:1.0];
+    self.label.alpha = 1.0;
     
-    [self setState:CKCalendarMonthCellStateNormal];
+    self.state = CKCalendarCellContextIdentifierDefault;
     
-    [self applyColors];
+    [self applyColorsForState:self.state];
+    [self showBorder];
 }
 
-#pragma mark - Label 
+// MARK: - Label
 
 - (void)configureLabel
 {
-    UILabel *label = [self label];
+    UILabel *label = self.label;
     
-    [label setFont:[UIFont boldSystemFontOfSize:13]];
-    [label setTextAlignment:NSTextAlignmentCenter];
+    label.font = [UIFont boldSystemFontOfSize:13];
+    label.textAlignment = NSTextAlignmentCenter;
     
-    [label setBackgroundColor:[UIColor clearColor]];
-    [label setFrame:CGRectMake(0, 0, [self frame].size.width, [self frame].size.height)];
+    label.backgroundColor = [UIColor clearColor];
 }
 
-#pragma mark - Dot
+// MARK: - Dot
 
 - (void)configureDot
 {
-    UIView *dot = [self dot];
+    CGFloat dotRadius = 3.0;
+    UIView *dot = self.dot;
     
-    CGFloat dotRadius = 3;
-    CGFloat selfHeight = [self frame].size.height;
-    CGFloat selfWidth = [self frame].size.width;
-    
-    [[dot layer] setCornerRadius:dotRadius/2];
-    
-    CGRect dotFrame = CGRectMake(selfWidth/2 - dotRadius/2, (selfHeight - (selfHeight/5)) - dotRadius/2, dotRadius, dotRadius);
-    [[self dot] setFrame:dotFrame];
-    
+    (dot.layer).cornerRadius = dotRadius/2;
 }
 
-#pragma mark - UI Coloring
-
-- (void)applyColors
-{    
-    [self applyColorsForState:[self state]];
-    [self showBorder];
-}
+// MARK: - Coloring the Cell
 
 //  TODO: Make the cell states bitwise, so we can use masks and clean this up a bit
 - (void)applyColorsForState:(CKCalendarMonthCellState)state
 {
     //  Default colors and shadows
-    [[self label] setTextColor:[self textColor]];
-    [[self label] setShadowColor:[self textShadowColor]];
-    [[self label] setShadowOffset:CGSizeMake(0, 0.5)];
+    self.label.textColor = self.textColor;
+    self.label.shadowColor = self.textShadowColor;
+    self.label.shadowOffset = CGSizeMake(0, 0.5);
     
-    [self setBorderColor:[self cellBorderColor]];
-    [self setBorderWidth:0.5];
-    [self setBackgroundColor:[self normalBackgroundColor]];
-    
-    //  Today cell
-    if(state == CKCalendarMonthCellStateTodaySelected)
-    {
-        [self setBackgroundColor:[self todaySelectedBackgroundColor]];
-        [[self label] setShadowColor:[self todayTextShadowColor]];
-        [[self label] setTextColor:[self todayTextColor]];
-        [self setBorderColor:[self backgroundColor]];
-    }
+    self.backgroundColor = self.normalBackgroundColor;
     
     //  Today cell, selected
-    else if(state == CKCalendarMonthCellStateTodayDeselected)
+    if(state == CKCalendarCellContextIdentifierToday && (self.selected || self.highlighted))
     {
-        [self setBackgroundColor:[self todayBackgroundColor]];
-        [[self label] setShadowColor:[self todayTextShadowColor]];
-        [[self label] setTextColor:[self todayTextColor]];
-        [self setBorderColor:[self backgroundColor]];
+        self.backgroundColor = self.todaySelectedBackgroundColor;
+        self.label.shadowColor = self.todayTextShadowColor;
+        self.label.textColor = self.todayTextColor;
+        [self setBorderColor:self.backgroundColor];
+    }
+    
+    //  Today cell
+    else if(state == CKCalendarCellContextIdentifierToday)
+    {
+        self.backgroundColor = self.todayBackgroundColor;
+        self.label.shadowColor = self.todayTextShadowColor;
+        self.label.textColor = self.todayTextColor;
+        [self setBorderColor:self.backgroundColor];
         [self showBorder];
     }
     
     //  Selected cells in the active month have a special background color
-    else if(state == CKCalendarMonthCellStateSelected)
+    else if(state == CKCalendarCellContextIdentifierDefault && self.highlighted)
     {
-        [self setBackgroundColor:[self selectedBackgroundColor]];
-        [self setBorderColor:[self selectedCellBorderColor]];
-        [[self label] setTextColor:[self textSelectedColor]];
-        [[self label] setShadowColor:[self textSelectedShadowColor]];
-        [[self label] setShadowOffset:CGSizeMake(0, -0.5)];
+        self.backgroundColor = self.selectedBackgroundColor;
+        [self setBorderColor:self.selectedCellBorderColor];
+        self.label.textColor = self.textSelectedColor;
+        self.label.shadowColor = self.textSelectedShadowColor;
+        self.label.shadowOffset = CGSizeMake(0, -0.5);
     }
-    
-    if (state == CKCalendarMonthCellStateInactive) {
-        [[self label] setAlpha:0.5];    //  Label alpha needs to be lowered
-        [[self label] setShadowOffset:CGSizeZero];
-    }
-    else if (state == CKCalendarMonthCellStateInactiveSelected)
+    //  Selected cells in the active month have a special background color
+    else if(state == CKCalendarCellContextIdentifierDefault && (self.highlighted || self.selected))
     {
-        [[self label] setAlpha:0.5];    //  Label alpha needs to be lowered
-        [[self label] setShadowOffset:CGSizeZero];
-        [self setBackgroundColor:[self inactiveSelectedBackgroundColor]];
+        self.backgroundColor = self.selectedBackgroundColor;
+        [self setBorderColor:self.selectedCellBorderColor];
+        self.label.textColor = self.textSelectedColor;
+        self.label.shadowColor = self.textSelectedShadowColor;
+        self.label.shadowOffset = CGSizeMake(0, -0.5);
     }
-    else if(state == CKCalendarMonthCellStateOutOfRange)
+    else if (state == CKCalendarCellContextIdentifierOutOfCurrentScope && self.highlighted)
     {
-        [[self label] setAlpha:0.01];    //  Label alpha needs to be lowered
-        [[self label] setShadowOffset:CGSizeZero];
+        self.label.alpha = 0.5;    //  Label alpha needs to be lowered
+        self.label.shadowOffset = CGSizeZero;
+        self.backgroundColor = self.inactiveSelectedBackgroundColor;
+    }
+    else if(state == CKCalendarCellContextIdentifierOutOfRange && self.highlighted)
+    {
+        self.label.alpha = 0.01;    //  Label alpha needs to be lowered
+        self.label.shadowOffset = CGSizeZero;
+        self.backgroundColor = self.inactiveSelectedBackgroundColor;
+    }
+    else if (state == CKCalendarCellContextIdentifierOutOfRange)
+    {
+        self.label.alpha = 0.01;    //  Label alpha needs to be lowered
+        self.label.shadowOffset = CGSizeZero;
+        self.backgroundColor = self.inactiveSelectedBackgroundColor;
+    }
+    else if (state == CKCalendarCellContextIdentifierOutOfCurrentScope)
+    {
+        self.label.alpha = 0.5;    //  Label alpha needs to be lowered
+        self.label.shadowOffset = CGSizeZero;
     }
     
     //  Make the dot follow the label's style
-    [[self dot] setBackgroundColor:[[self label] textColor]];
-    [[self dot] setAlpha:[[self label] alpha]];
+    self.dot.backgroundColor = self.label.textColor;
+    self.dot.alpha = self.label.alpha;
+    
+    //  Set the border color
+    [self setBorderColor:self.cellBorderColor];
+    [self setBorderWidth:0.5];
+    
+    [self showBorder];
 }
 
-#pragma mark - Selection State
+// MARK: - Collection View Cell Highlighting
 
-- (void)setSelected
+- (void)setSelected:(BOOL)selected
 {
+    super.selected = selected;
     
-    CKCalendarMonthCellState state = [self state];
-    
-    if (state == CKCalendarMonthCellStateInactive) {
-        [self setState:CKCalendarMonthCellStateInactiveSelected];
-    }
-    else if(state == CKCalendarMonthCellStateNormal)
-    {
-        [self setState:CKCalendarMonthCellStateSelected];
-    }
-    else if(state == CKCalendarMonthCellStateTodayDeselected)
-    {
-        [self setState:CKCalendarMonthCellStateTodaySelected];
-    }
+    [self applyColorsForState:self.state];
 }
 
-- (void)setDeselected
+- (void)setHighlighted:(BOOL)highlighted
 {
-    CKCalendarMonthCellState state = [self state];
+    super.highlighted = highlighted;
     
-    if (state == CKCalendarMonthCellStateInactiveSelected) {
-        [self setState:CKCalendarMonthCellStateInactive];
-    }
-    else if(state == CKCalendarMonthCellStateSelected)
-    {
-        [self setState:CKCalendarMonthCellStateNormal];
-    }
-    else if(state == CKCalendarMonthCellStateTodaySelected)
-    {
-        [self setState:CKCalendarMonthCellStateTodayDeselected];
-    }
+    [self applyColorsForState:self.state];
 }
 
-- (void)setOutOfRange
+/**
+ Sets the calendar's contextual state.
+ 
+ @param state A valid `CKCalendarCellContextIdentifier` enum.
+ */
+- (void)setState:(CKCalendarCellContextIdentifier)state
 {
-    [self setState:CKCalendarMonthCellStateOutOfRange];
+    if (state > CKCalendarCellContextIdentifierOutOfRange || state < CKCalendarCellContextIdentifierToday) {
+        return;
+    }
+    
+    _state = state;
+    
+    [self applyColorsForState:state];
+}
+
+/**
+ Marks the cell as selected.
+ */
+- (void)setSelected;
+{
+    self.selected = YES;
+    [self applyColorsForState:self.state];
+}
+
+/**
+ Mark the cell as deselected.
+ */
+- (void)setDeselected;
+{
+    self.selected = NO;
+    [self applyColorsForState:self.state];
+}
+
+/**
+ Mark the cell as out of range, useful when the calendar has a minimumDate or maximumDate set.
+ */
+- (void)setOutOfRange;
+{
+    self.state = CKCalendarCellContextIdentifierOutOfRange;
 }
 
 @end

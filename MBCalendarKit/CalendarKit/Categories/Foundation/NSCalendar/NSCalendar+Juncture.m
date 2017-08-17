@@ -1,6 +1,6 @@
 //
 //  NSCalendar+Juncture.m
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -37,7 +37,9 @@
 - (NSDate *)firstDayOfTheWeekUsingReferenceDate:(NSDate *)date andStartDay:(NSInteger)day
 {
     NSInteger weekday = [self weekdayInDate:date]-day;
-    return [self dateBySubtractingDays:weekday fromDate:date];
+    NSDate *newStartDate = [self dateBySubtractingDays:weekday fromDate:date];
+    
+    return newStartDate;
 }
 
 - (NSDate *)lastDayOfTheWeek
@@ -65,7 +67,7 @@
 {
     NSDateComponents *c = [self components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
     
-    [c setDay:1];
+    c.day = 1;
     
     return [self dateFromComponents:c];
 }
@@ -80,7 +82,7 @@
     
     NSDateComponents *c = [self components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:date];
     
-    [c setDay:[self daysPerMonthUsingReferenceDate:date]];
+    c.day = [self daysPerMonthUsingReferenceDate:date];
     
     return [self dateFromComponents:c];
 }

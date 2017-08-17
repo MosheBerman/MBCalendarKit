@@ -1,6 +1,6 @@
 //
 //  NSCalendar+DateManipulation.m
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
@@ -15,49 +15,49 @@
 - (NSDate *)dateByAddingSeconds:(NSUInteger)seconds toDate:(NSDate *)date
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setSecond:seconds];
+    c.second = seconds;
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 
 - (NSDate *)dateByAddingMinutes:(NSUInteger)minutes toDate:(NSDate *)date
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setMinute:minutes];
+    c.minute = minutes;
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 
 - (NSDate *)dateByAddingHours:(NSUInteger)hours toDate:(NSDate *)date
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setHour:hours];
+    c.hour = hours;
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 
 - (NSDate *)dateByAddingDays:(NSUInteger)days toDate:(NSDate *)date
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setDay:days];
+    c.day = days;
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 
 - (NSDate *)dateByAddingWeeks:(NSUInteger)weeks toDate:(NSDate *)date
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setWeekOfYear:weeks];
+    c.weekOfYear = weeks;
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 
 - (NSDate *)dateByAddingMonths:(NSUInteger)months toDate:(NSDate *)date
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setMonth:months];
+    c.month = months;
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 
 - (NSDate *)dateByAddingYears:(NSUInteger)years toDate:(NSDate *)date
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setYear:years];
+    c.year = years;
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 
@@ -67,41 +67,41 @@
 {
  
     NSDateComponents *c = [NSDateComponents new];
-    [c setSecond:-seconds];
+    c.second = -seconds;
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 - (NSDate *)dateBySubtractingMinutes:(NSUInteger)minutes fromDate:(NSDate *)date;
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setMinute:-minutes];
+    c.minute = -minutes;
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 
 - (NSDate *)dateBySubtractingHours:(NSUInteger)hours fromDate:(NSDate *)date
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setHour:-hours];
+    c.hour = -hours;
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 
 - (NSDate *)dateBySubtractingDays:(NSUInteger)days fromDate:(NSDate *)date
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setDay:-days];
+    c.day = -days;
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 
 - (NSDate *)dateBySubtractingWeeks:(NSUInteger)weeks fromDate:(NSDate *)date
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setWeekOfYear:-weeks];
+    c.weekOfYear = -weeks;
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 
 - (NSDate *)dateBySubtractingMonths:(NSUInteger)months fromDate:(NSDate *)date
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setMonth:-months];
+    c.month = -months;
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 
@@ -109,7 +109,7 @@
 - (NSDate *)dateBySubtractingYears:(NSUInteger)years fromDate:(NSDate *)date
 {
     NSDateComponents *c = [NSDateComponents new];
-    [c setYear:-years];
+    c.year = -years;
     return [self dateByAddingComponents:c toDate:date options:0];
 }
 

@@ -1,59 +1,158 @@
 //
 //  CKCalendarCalendarCell.h
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+#import "CKCalendarCellContextIdentifier.h"
 
-#import "CKCalendarMonthCellStates.h"
+/**
+ The `CKCalendarCell` class manages the display of a single date in the calendar.
+ It is responsible for handling its visual state, and its contents. Specifically,
+ the cell class configures the number representing a date, and the visibility of 
+ the event indicator dot.
+ */
+NS_SWIFT_NAME(CalendarCell)
+@interface CKCalendarCell : UICollectionViewCell
 
-@interface CKCalendarCell : UIView
+// MARK: - Initializers
 
-@property (nonatomic, assign) CKCalendarMonthCellState state;
-@property (nonatomic, strong) NSNumber *number;
+- (nonnull instancetype)init NS_DESIGNATED_INITIALIZER;
+
+// MARK: - Controlling Cell Content
+
+/**
+ The day of the month that is shown in the cell.
+ */
+@property (nonatomic, strong, nonnull) NSNumber *number;
+
+/**
+ A property which determines if the cell shows a dot for events.
+ */
 @property (nonatomic, assign) BOOL showDot;
 
-@property (nonatomic, assign) NSUInteger index;
+// MARK: - Cell Background Colors
 
-// Background colors
-@property (nonatomic, strong) UIColor *normalBackgroundColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *selectedBackgroundColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *inactiveSelectedBackgroundColor UI_APPEARANCE_SELECTOR;
+/**
+ The background color for the cell.
+ */
+@property (nonatomic, strong, nonnull) UIColor *normalBackgroundColor UI_APPEARANCE_SELECTOR;
 
-//  Overrides normalBackgroundColor and selectedBackgroundColor for cell representing today
-@property (nonatomic, strong) UIColor *todayBackgroundColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *todaySelectedBackgroundColor UI_APPEARANCE_SELECTOR;
+/**
+ The cell background color for cells displaying a date in the same month as the selected date, when the cell is selected, or when a finger is tracking it.
+ */
+@property (nonatomic, strong, nonnull) UIColor *selectedBackgroundColor UI_APPEARANCE_SELECTOR;
 
-//  Text colors for today override the default text colors
-@property (nonatomic, strong) UIColor *todayTextColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *todayTextShadowColor UI_APPEARANCE_SELECTOR;
+/**
+The cell background color for a cells representing dates in months outside the current month, when a finger is tracking on them.
+ */
+@property (nonatomic, strong, nonnull) UIColor *inactiveSelectedBackgroundColor UI_APPEARANCE_SELECTOR;
 
-// Text color and shadow color
-@property (nonatomic, strong) UIColor *textColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *textShadowColor UI_APPEARANCE_SELECTOR;
+/**
+ The background color for the cell representing today.
+ */
+@property (nonatomic, strong, nonnull) UIColor *todayBackgroundColor UI_APPEARANCE_SELECTOR;
 
-// Selected text color and shadow color
-@property (nonatomic, strong) UIColor *textSelectedColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *textSelectedShadowColor UI_APPEARANCE_SELECTOR;
+/**
+ The background color for the cell representing today, when the cell is selected.
+ */
+@property (nonatomic, strong, nonnull) UIColor *todaySelectedBackgroundColor UI_APPEARANCE_SELECTOR;
 
-// Color for the event dot
-@property (nonatomic, strong) UIColor *dotColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *selectedDotColor UI_APPEARANCE_SELECTOR;
+/**
+ The label's text color for the cell representing today.
+ */
+@property (nonatomic, strong, nonnull) UIColor *todayTextColor UI_APPEARANCE_SELECTOR;
 
-// Border colors
-@property (nonatomic, strong) UIColor *cellBorderColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIColor *selectedCellBorderColor UI_APPEARANCE_SELECTOR;
+/**
+ The label's shadow color for the cell representing today.
+ */
+@property (nonatomic, strong, nonnull) UIColor *todayTextShadowColor UI_APPEARANCE_SELECTOR;
 
 
-- (id)initWithSize:(CGSize)size;
+// MARK: - Date Label Colors
 
--(void)prepareForReuse;
+/**
+ The label's text color.
+ */
+@property (nonatomic, strong, nonnull) UIColor *textColor UI_APPEARANCE_SELECTOR;
 
-- (void)setSelected;    //  Select a given cell
-- (void)setDeselected;  //  Deselect the cell
-- (void)setOutOfRange;  //  Deselect and style to show that the cell isn't selectable
+/**
+ The label's shadow color.
+ */
+@property (nonatomic, strong, nonnull) UIColor *textShadowColor UI_APPEARANCE_SELECTOR;
+
+/**
+ The label's text color for selected cells.
+ */
+@property (nonatomic, strong, nonnull) UIColor *textSelectedColor UI_APPEARANCE_SELECTOR;
+
+/**
+ The label's shadow color for selected cells.
+ */
+@property (nonatomic, strong, nonnull) UIColor *textSelectedShadowColor UI_APPEARANCE_SELECTOR;
+
+
+// MARK: - Event Dot Color
+
+/**
+ The color for event indicator dots in the cells.
+ */
+@property (nonatomic, strong, nonnull) UIColor *dotColor UI_APPEARANCE_SELECTOR;
+
+/**
+ The color for event indicator dots in the cell when it is selected.
+ */
+@property (nonatomic, strong, nonnull) UIColor *selectedDotColor UI_APPEARANCE_SELECTOR;
+
+
+// MARK: - Cell Border Colors
+
+/**
+ The border color for the cell.
+ */
+@property (nonatomic, strong, nonnull) UIColor *cellBorderColor UI_APPEARANCE_SELECTOR;
+
+
+/**
+ The border color for the cell in its deselected state.
+ */
+@property (nonatomic, strong, nonnull) UIColor *selectedCellBorderColor UI_APPEARANCE_SELECTOR;
+
+// MARK: - Cell State and Touch Tracking
+
+/**
+ The state of the cell.
+ */
+@property (nonatomic, assign) CKCalendarCellContextIdentifier state;
+
+// MARK: - Managing Cell State
+
+/**
+ Marks the cell as selected.
+ 
+ In MBCalendarKit 4.x.x and prior, this method would change the state enum from one value to a corresponding selected value.
+ 
+ In 5.0.0 and on, this uses `UICollectionViewCell`'s `isSelected` property instead.
+ 
+ */
+- (void)setSelected;
+
+/**
+ Mark the cell as deselected.
+ 
+ In MBCalendarKit 4.x.x and prior, this method would change the state enum from one value to a corresponding selected value.
+ 
+ In 5.0.0 and on, this uses `UICollectionViewCell`'s `isSelected` property instead.
+ */
+- (void)setDeselected;
+
+/**
+ Mark the cell as out of range, useful when the calendar has a minimumDate or maximumDate set.
+ */
+- (void)setOutOfRange;
+
 
 @end

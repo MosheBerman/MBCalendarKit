@@ -6,8 +6,9 @@
 //  Copyright (c) 2014 Moshe Berman. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
+NS_SWIFT_NAME(CalendarTableViewCell)
 @interface CKTableViewCell : UITableViewCell
 
 @end

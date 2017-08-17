@@ -1,16 +1,18 @@
 //
 //  NSDate+Description.h
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/14/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDate (Description)
 
-- (NSString *)description;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *description;
 
 // Returns a three letter abbreviation of weekday name
 - (NSString *)dayNameOnCalendar:(NSCalendar *)calendar;
@@ -39,3 +41,5 @@
 // Prints out dates such as 12, 2013
 - (NSString *)dayOfMonthAndYearOnCalendar:(NSCalendar *)calendar;
 @end
+
+NS_ASSUME_NONNULL_END

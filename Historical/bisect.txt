@@ -1,0 +1,24 @@
+git bisect start
+# bad: [93d5c18639fcb4742d3396deaa053f383a2b1421] Project state.
+git bisect bad 93d5c18639fcb4742d3396deaa053f383a2b1421
+# good: [24c0635e74e2e0b74bd46148324c6a4b454d26ab] Updated project for latest Swift and cleaned up deprecate iOS 7 calendar unit names.
+git bisect good 24c0635e74e2e0b74bd46148324c6a4b454d26ab
+# good: [24c0635e74e2e0b74bd46148324c6a4b454d26ab] Updated project for latest Swift and cleaned up deprecate iOS 7 calendar unit names.
+git bisect good 24c0635e74e2e0b74bd46148324c6a4b454d26ab
+# good: [1ea3313d5cc65b165b2111d682f36bb789edac9b] More autolayout cleanup (for #118.)
+git bisect good 1ea3313d5cc65b165b2111d682f36bb789edac9b
+# good: [1ea3313d5cc65b165b2111d682f36bb789edac9b] More autolayout cleanup (for #118.)
+git bisect good 1ea3313d5cc65b165b2111d682f36bb789edac9b
+# good: [9b0d860efde8ee3ecd5342604486a708e701357a] Added a migration guide.
+git bisect good 9b0d860efde8ee3ecd5342604486a708e701357a
+# good: [f00a234e7ee4403184ab6991aa98ea29515f9d68] Fixed RTL check in MBPolygon view to work on iOS < 10. Whoops!
+git bisect good f00a234e7ee4403184ab6991aa98ea29515f9d68
+# good: [46131b52a4c98cefd535c0522f39031d722bf4f9] Remove extraneous layoutSubviews from MBPolygonView.
+git bisect good 46131b52a4c98cefd535c0522f39031d722bf4f9
+# bad: [b6677bd448fcb794032bd332c1e540a84b73ca69] Cast integers so they don't break the intrinsic content size of the calendar view.
+git bisect bad b6677bd448fcb794032bd332c1e540a84b73ca69
+# bad: [b1cfeba96c2e73bae91899db27c5eefd8e6acc44] Slim down the demo app delegate.
+git bisect bad b1cfeba96c2e73bae91899db27c5eefd8e6acc44
+# bad: [9563533348c2855f8600c3c63952c82bbf9f8713] Remove `self.calendarView.translatesAutoresizingMaskIntoConstraints = NO;` from CKCalendarviewController because it overrides the property directly to account for this.
+git bisect bad 9563533348c2855f8600c3c63952c82bbf9f8713
+# first bad commit: [9563533348c2855f8600c3c63952c82bbf9f8713] Remove `self.calendarView.translatesAutoresizingMaskIntoConstraints = NO;` from CKCalendarviewController because it overrides the property directly to account for this.

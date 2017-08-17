@@ -6,31 +6,41 @@
 //  Copyright (c) 2012 Moshe Berman. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface MBPolygonView : UIView
 
-// Appearance
+/**
+ The fill color of the polygon.
+ */
 @property (nonatomic, strong) UIColor *fillColor UI_APPEARANCE_SELECTOR;
 
-//
-//
-//
 
+/**
+ A flag for handling cleanup of the rendered polygon.
+ */
 @property (nonatomic) BOOL isDeleted;
 
-//
-//  Designated Initializer
-//
+// MARK: - Initializing a Polygon View
 
-- (id)initWithFrame:(CGRect)frame numberOfSides:(NSInteger)numberOfSides andRotation:(CGFloat)rotation andScale:(CGFloat) scale;
+/**
+ Initialize a Frame
 
-//
-//  Draw a a polygon into a UIImage and returns the image
-//
+ @param frame The frame of the polygon view. In an autolayout world, this property is essentially ignored.
+ @param numberOfSides The number of sides to draw the polygon with.
+ @param rotation A measure, in degrees, specifying how much to rotate the polygon.
+ @param scale An arbitrary scale used to grow or shrink the polygon.
+ @return A polygon view, ready for drawing.
+ */
+- (instancetype)initWithFrame:(CGRect)frame numberOfSides:(NSInteger)numberOfSides andRotation:(CGFloat)rotation andScale:(CGFloat) scale NS_DESIGNATED_INITIALIZER;
 
-- (UIImage *)polyImage;
+// MARK: - Rendering a Polygon
 
+/**
+ Draws a polygon in a graphics context and returns it as a UIImage.
 
+ @return An image containing the polygon.
+ */
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) UIImage *polyImage;
 
 @end

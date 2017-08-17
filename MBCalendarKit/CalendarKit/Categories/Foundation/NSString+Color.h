@@ -1,15 +1,18 @@
 //
 //  NSString+Color.h
-//   MBCalendarKit
+//  MBCalendarKit
 //
 //  Created by Moshe Berman on 4/10/13.
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import UIKit;
 
 @interface NSString (Color)
 
-- (UIColor *)toColor;
+/**
+ <#Description#>
+ */
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) UIColor *toColor;
 
 @end
