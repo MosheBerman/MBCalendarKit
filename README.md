@@ -60,25 +60,10 @@ CKCalendarView *calendar = [CKCalendarView new];
 // 2. Present the calendar 
 [self.view addSubview:calendar];
 
-// 3. Add X and Y constraints:
+// 3. Add positioning constraints:
 self.calendarView.translatesAutoresizingMaskIntoConstraints = NO;
-NSLayoutConstraint *top = [NSLayoutConstraint   constraintWithItem:calendarView
-                                                         attribute:NSLayoutAttributeTop
-                                                         relatedBy:NSLayoutRelationEqual
-                                                            toItem:self.topLayoutGuide
-                                                         attribute:NSLayoutAttributeBottom
-                                                        multiplier:1.0
-                                                          constant:0.0];
-
-NSLayoutConstraint *centerX = [NSLayoutConstraint   constraintWithItem:calendarView
-                                                             attribute:NSLayoutAttributeCenterX
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:self.view
-                                                             attribute:NSLayoutAttributeCenterX
-                                                            multiplier:1.0
-                                                             constant:0.0];
-
-[self.view addConstraints:@[top, centerX]];
+[calendarView.topAnchor constraintEqualTo:self.topLayoutGuide.bottomAnchor].isActive = YES;
+[calendarView.centerXAnchor constraintEqualTo:self.view.centerXAnchor].isActive = YES;
 
 ````
 
@@ -87,7 +72,8 @@ NSLayoutConstraint *centerX = [NSLayoutConstraint   constraintWithItem:calendarV
 2. Your second option is to create an instance of `CKCalendarViewController`. Using a CKCalendarViewController gives you the added benefit of a "today" button and a segmented control in the toolbar, which allows you to select the display mode. In MBCalendarKit 5.0.0 and later, you also use `CKCalendarViewController` if you'd like an events table view.
 
 ---
-***Note:*** In older versions of MBCalendarKit, `CKCalendarViewController` used to subclass `UINavigationViewController`, so it couldn't be installed inside of another navigation controller. In 5.0.0, this is no longer the case. If you wish to embed your calendar inside a `UINavigationViewController`, you must now install it on your own. See the Migration Guide for details.
+***Note:*** In older versions of MBCalendarKit, `CKCalendarViewController` used to subclass `UINavigationViewController`, so it couldn't be installed inside of another navigation controller. In 5.0.0, this is no longer the case. If you wish to embed your calendar inside a `UINavigationViewController`, you must now install it on your own. See the [Migration Guide](./MIGRATIONGUIDE.md) for details.
+
 ---
 
 
