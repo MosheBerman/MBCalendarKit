@@ -132,7 +132,8 @@
         }
         else if (mode == CKCalendarViewDisplayModeDay)
         {
-should = [self.calendar isDate:self.date equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitDay];        }
+            should = [self.calendar isDate:self.date equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitDay];
+        }
     }
     
     return should;
