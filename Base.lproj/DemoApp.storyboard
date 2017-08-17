@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Demos-->
+        <!--Feature-->
         <scene sceneID="wi7-Rg-VQM">
             <objects>
                 <tableViewController id="hUo-Qi-nY8" customClass="DemoRootTableViewController" customModule="MBCalendarKit_Demo" customModuleProvider="target" sceneMemberID="viewController">
@@ -27,7 +27,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Objective-C Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LxB-78-eLn">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="A Calendar Control, in Objective-C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LxB-78-eLn">
                                                     <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -47,7 +47,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Swift Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f43-dC-ZXO">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Swift Support" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f43-dC-ZXO">
                                                     <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -67,7 +67,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Interface Builder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YD0-l6-rBA">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Interface Builder with IBDesignable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YD0-l6-rBA">
                                                     <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -87,7 +87,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Custom Cell API" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="W5d-eE-rug">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="A Custom Cell API" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="W5d-eE-rug">
                                                     <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -107,7 +107,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Right To Left Rendering" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y8L-Ln-BS5">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Localization &amp; RTL Rendering" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y8L-Ln-BS5">
                                                     <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -127,7 +127,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Custom Calendars" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IZV-bu-mtz">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Use Any NSCalendarIdentifier" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IZV-bu-mtz">
                                                     <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -148,7 +148,7 @@
                             <outlet property="delegate" destination="hUo-Qi-nY8" id="PPf-Ei-oAS"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Demos" id="Zmz-Az-KoM"/>
+                    <navigationItem key="navigationItem" title="Feature" id="Zmz-Az-KoM"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aOB-71-0WK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
