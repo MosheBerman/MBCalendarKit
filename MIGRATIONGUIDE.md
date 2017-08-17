@@ -21,21 +21,22 @@ My primary goal with this update was to make MBCalendarKit useful again, as a mo
 I hope that this update and migration guide will go a long way towards these two goals.
 
 
-# Auto Layout ([top](#contents))
-## Summary 
+# Auto Layout ([⬆️](#contents))
+
+### Summary 
 One of the big updates this release is the adoption of autolayout. In fact, CKCalendarView and friends now *require* it. CKCalendarView will stretch horizontally to fill its superview and vertically to fit the appropriate content.  All you really need to do is add the calendar view to some other view, and constrain it's X and Y position. 
 
 The width is based on the superview's width, and the height is based on the content. Simple. If you want to embed the calendar in a portion of your screen, you can embed it in a wrapper view.
 
 This system should work well with auto-sized table view cells as well. (Collection views become a little trickier, because self-sizing cells would rely on the calendar for a width, and the calendar would in turn rely on the cell. Again, an appropriately constrained wrapper would fix this problem.) 
 
-## Before 
+### Before 
 In MBCalendarKit 4.x and earlier, you used manual layout by setting the `CKCalendarView`'s frame.
 
-## After
+### After
 Embed the `CKCalendarView` in a view, and assign vertical and horizontal constraints. (That is, Top/Bottom/CenterY and Leading/Trailing/CenterX constraints.) The view knows how to size itself based on its superview.
 
-## Notes  
+### Notes  
 
 ### How MBCalendarKit Works with Autolayout
 `CKCalendarView` and adopts auto layout by overriding `- intrinsicContentSize` and `+ requiresConstraintsBasedLayout`. 
@@ -58,13 +59,14 @@ As a result, if the calendar tries to compute constraints or dimensions based on
 
 4. Whenever the calendar view lays out a grid of cells, such as when the selected date changes, it will call `invalidateIntrinsicContentSize` and animate to the appropriate height to fit its content. 
 
-### Known Limitations
-With the adoption of autolayout, `CKCalendarView` should be much more flexible with where it can display. For example, 4.x.x didn't support iPad or landscape mode at all. 5.0.0 makes headway in this area, by scaling cells automatically, and using modern layout technologies. With that in mind, if your calendar view is running in landscape mode on an iPhone form-factor, autolayout might do it's job, but `CKCalendarView` proably won't scale 100% correctly yet.
-
 
 # Cell States
 ## Summary 
-In MBCalendarKit 4.x.x and prior, cells had a "state" property defined as an enum type called `CKCalendarMonthCellState`. It was intended to serve as a combination of the context that the cell was in (today, selected date, the same month as the selected date, etc) and the cell's highlighted/selected state. In MBCalendarKit 5.0.0, this has changed. The enum is now called `CKCalendarCellContextIdentifier` and no longer captures cell highlighting or selection semantics. This property might not impact your code directly, but if you work with the new `CKCustomCellAppearance` protocol, be aware of this.
+In MBCalendarKit 4.x.x and prior, cells had a "state" property defined as an enum type called `CKCalendarMonthCellState`. It was intended to serve as a combination of the context that the cell was in (today, selected date, the same month as the selected date, etc) and the cell's highlighted/selected state. 
+
+In MBCalendarKit 5.0.0, this has changed, to be more compatible with `UICollectionView` and `CKCustomCellClass`. The enum is now called `CKCalendarCellContextIdentifier` and no longer captures cell highlighting or selection semantics. This property might not impact your code directly, but if you work with the new `CKCustomCellAppearance` protocol, be aware of this. 
+
+There is a `typealias`, so your existing code will compile, but the old enums are deprecated, and the new code doesn't attempt to map them. Use Xcode's fixit suggestions to migrate.
 
 ## Before
 Use `CKCalendarMonthCellState` to describe how the cell is being used and if it's highlighted or selected.
@@ -160,7 +162,7 @@ If you want to embed the calendar and a table inside of a view, use `CKCalendarV
 To better support Swift interoperability, several changes were made:
 
 1. A full nullability audit has been done. As a result, some of the delegate methods have changed to no longer require force-unwrap operators on their parameters.
-2. The `CKCalendarDisplayMode` enum was renamed to `CKCalendarViewDisplayMode` and the `CKCalendarViewMode...` prefixed enum cases have been deprecated in favor of `CKCalendarViewDisplayMode...` enum cases. This should simplify use of display modes in Swift. A similar change was made to the `CKCalendarMonthCellState` enum. This enum is now called `CKCalendarCellContextIdentifier` in Objective-C and `CalendarCellContextIdentifier` in Swift.
+2. The `CKCalendarDisplayMode` enum was renamed to `CKCalendarViewDisplayMode` and the `CKCalendarViewMode...` prefixed enum cases have been deprecated in favor of `CKCalendarViewDisplayMode...` enum cases. This should simplify use of display modes in Swift. A similar change was made to the `CKCalendarMonthCellState` enum. This enum is now called `CKCalendarCellContextIdentifier` in Objective-C and `CalendarCellContextIdentifier` in Swift. There are `typealias` definitions, so your existing code will compile, but the old enums are deprecated, and the new code doesn't attempt to map them. Use Xcode's fixit suggestions to migrate.
 3. Classes with the `CK` prefix in Objective-C were given `NS_SWIFT_NAME()` annotations. `CKCalendarView` becomes `CalendarView`, `CKCalendarCell` becomes `CalendarCell` etc.   
 
 ## Before
@@ -175,4 +177,4 @@ One way to easily adopt these changes is to link against the new framework and t
 
 # Conclusion
 
-
+There are some cool new changes around cell customization, as well as an awesome new demo app, so check it out!
