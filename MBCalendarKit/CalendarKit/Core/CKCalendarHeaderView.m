@@ -31,7 +31,6 @@
  */
 @property (nonatomic, strong) NSMutableArray <NSString *> *columnTitles;
 
-
 /**
  A cache of labels used to display the titles.
  */
@@ -155,12 +154,13 @@
     /* Query the data source for the number of columns. */
     NSInteger newColumnCount = [self.dataSource numberOfColumnsForHeader:self];
     
+    [self _reloadColumnTitlesFromDataSource];
+    
     if(_columnCount != newColumnCount)
     {
         _columnCount = newColumnCount;
         
         [self _removeLabelsInPreparationForLayout];
-        [self _reloadColumnTitlesFromDataSource];
         [self _createAndInstallColumnLabels];
     }
     
@@ -181,7 +181,6 @@
     }
     
     [self.columnLabels removeAllObjects];
-    [self.columnTitles removeAllObjects];
 }
 
 
@@ -190,7 +189,11 @@
  */
 - (void)_reloadColumnTitlesFromDataSource
 {
-    for (NSUInteger column = 0; column < _columnCount; column++)
+    [self.columnTitles removeAllObjects];
+    
+    NSInteger count = [self.dataSource numberOfColumnsForHeader:self];
+    
+    for (NSUInteger column = 0; column < count; column++)
     {
         NSString *title = [self.dataSource header:self titleForColumnAtIndex:column];
         [self.columnTitles addObject:title];
