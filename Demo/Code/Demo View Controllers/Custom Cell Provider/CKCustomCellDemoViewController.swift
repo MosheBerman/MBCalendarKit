@@ -36,7 +36,6 @@ class CKCustomCellDemoViewController: UIViewController, CustomCellProviding {
      @param context Some contextual information about the date represented by the cell.
      @param date The date being used for the calendar cell.
      */
-    @available(iOS 6.0, *)
     func calendarView(_ calendarView: CalendarView, willDisplay cell: UICollectionViewCell, in context: CalendarCellContext) {
         
         guard let cell = cell as? CustomCalendarCell else
