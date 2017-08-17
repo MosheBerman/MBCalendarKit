@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		46087AD81F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 46087AD61F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.h */; };
 		46087AD91F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 46087AD71F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m */; };
-		461C704B1F46291100E305E3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 461C704A1F46291100E305E3 /* Info.plist */; };
 		461C706D1F46292000E305E3 /* DemoApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 461C704D1F46292000E305E3 /* DemoApp.storyboard */; };
 		461C706E1F46292000E305E3 /* CKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 461C70521F46292000E305E3 /* CKAppDelegate.m */; };
 		461C706F1F46292000E305E3 /* AlternateCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C70551F46292000E305E3 /* AlternateCalendarViewController.swift */; };
@@ -27,7 +26,6 @@
 		461C707B1F46292000E305E3 /* DemoApp.strings in Resources */ = {isa = PBXBuildFile; fileRef = 461C70661F46292000E305E3 /* DemoApp.strings */; };
 		461C707C1F46292000E305E3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 461C70691F46292000E305E3 /* Images.xcassets */; };
 		461C707D1F46292000E305E3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 461C706A1F46292000E305E3 /* main.m */; };
-		461C707E1F46292000E305E3 /* MBCalendarKit-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 461C706B1F46292000E305E3 /* MBCalendarKit-Info.plist */; };
 		46341C2C1F3A36380090FFAF /* CKCalendarGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = 46341C2A1F3A36380090FFAF /* CKCalendarGridView.h */; };
 		46341C2D1F3A36380090FFAF /* CKCalendarGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46341C2B1F3A36380090FFAF /* CKCalendarGridView.m */; };
 		46363C2C1F394393002BA215 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 46363C241F392295002BA215 /* CHANGELOG.md */; };
@@ -769,7 +767,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				461C704B1F46291100E305E3 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -788,7 +785,6 @@
 				461C706D1F46292000E305E3 /* DemoApp.storyboard in Resources */,
 				461C707C1F46292000E305E3 /* Images.xcassets in Resources */,
 				461C707A1F46292000E305E3 /* Default@2x.png in Resources */,
-				461C707E1F46292000E305E3 /* MBCalendarKit-Info.plist in Resources */,
 				461C70781F46292000E305E3 /* Default-568h@2x.png in Resources */,
 				461C70791F46292000E305E3 /* Default.png in Resources */,
 				461C707B1F46292000E305E3 /* DemoApp.strings in Resources */,
