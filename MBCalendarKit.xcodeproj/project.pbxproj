@@ -227,6 +227,7 @@
 		464A870F171F174D00E7AB19 /* MBCalendarKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCalendarKitTests.m; sourceTree = "<group>"; };
 		464A877F171F2B3B00E7AB19 /* CKCalendarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarDelegate.h; sourceTree = "<group>"; };
 		464A8780171F2D7800E7AB19 /* CKCalendarDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarDataSource.h; sourceTree = "<group>"; };
+		466B83691F462E0C00F6BB7C /* MBCalendarKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MBCalendarKit.podspec; sourceTree = "<group>"; };
 		467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MBCalendarKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		467B12A71F2F544F00CABA27 /* MBCalendarKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MBCalendarKit.h; path = ../MBCalendarKit.h; sourceTree = "<group>"; };
 		467B12F71F2F5B8A00CABA27 /* MBCalendarKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MBCalendarKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -581,6 +582,7 @@
 				46363C241F392295002BA215 /* CHANGELOG.md */,
 				46363C251F392295002BA215 /* LICENSE.md */,
 				46363C261F392295002BA215 /* README.md */,
+				466B83691F462E0C00F6BB7C /* MBCalendarKit.podspec */,
 				46AF0D701F39D4D4005F37EC /* MIGRATIONGUIDE.md */,
 				461C704C1F46292000E305E3 /* Demo App */,
 				464A86CA171F174D00E7AB19 /* MBCalendarKit */,
