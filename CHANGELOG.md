@@ -6,7 +6,9 @@
 - Added support for custom cells with a new API.
 - Adopted Autolayout.
 - Adopted UICollectionView.
+- Archived historical files that were cluttering the file system.
 - Improved Swift interoperability.
+- Reorganized files on disk and project structure to match.
 - Rendering in Interface Builder as an IBDesignable.
 - Support for localization, including RTL environments. 
 - Updated changelog history going back to version 1.
