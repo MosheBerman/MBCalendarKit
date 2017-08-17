@@ -270,7 +270,12 @@ float degToRad(float deg)
     NSLocaleLanguageDirection languageDirection = [NSLocale characterDirectionForLanguage:languageCode];
     
     BOOL isNaturallyRTL = languageDirection == NSLocaleLanguageDirectionRightToLeft;
-    BOOL isSemanticallyRTL = self.semanticContentAttribute == UISemanticContentAttributeForceRightToLeft;
+    
+    BOOL isSemanticallyRTL = NO;
+    if ([self respondsToSelector:@selector(semanticContentAttribute)])
+    {
+        isSemanticallyRTL = self.semanticContentAttribute == UISemanticContentAttributeForceRightToLeft;
+    }
     
     BOOL shouldRenderFlipped = isNaturallyRTL || isSemanticallyRTL;
     
