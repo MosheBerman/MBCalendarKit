@@ -53,12 +53,9 @@ import MBCalendarKit
 
 ```` swift
 
-/*
-Here's how you'd show a CalendarView from within a view controller. 
-It's just three easy steps after importing the library.
-*/
-		
-// 0. In either case, import CalendarKit:
+/// Here's how you'd show a CalendarView from within a view controller.
+/// Import the framework, then it's just three easy steps.
+
 import MBCalendarKit
     	
 // 1. Instantiate a CKCalendarView
