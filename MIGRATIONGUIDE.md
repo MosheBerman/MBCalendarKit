@@ -20,7 +20,7 @@ My primary goal with this update was to make MBCalendarKit useful again, as a mo
 
 I hope that this update and migration guide will go a long way towards these two goals.
 
-([⬆️ <sub>Back To Top</sub> ](#contents))
+[⬆️ <sub>Back To Top</sub>](#contents)
 
 
 # Auto Layout 
@@ -67,7 +67,7 @@ As a result, if the calendar tries to compute constraints or dimensions based on
 
 3. Whenever the calendar view lays out a grid of cells, such as when the selected date changes, it will call `invalidateIntrinsicContentSize` and animate to the appropriate height to fit its content. 
 
-([⬆️ <sub>Back To Top</sub> ](#contents))
+[⬆️ <sub>Back To Top</sub>](#contents)
 
 
 # Cell States 
@@ -83,7 +83,7 @@ Use `CKCalendarMonthCellState` to describe how the cell is being used and if it'
 
 ### After
 Use `CKCalendarContextIdentifier` and `UICollectionViewCell`'s `isHighlighted` and `isSelected` properties to get the information you want.
-([⬆️ <sub>Back To Top</sub> ](#contents))
+[⬆️ <sub>Back To Top</sub>](#contents)
 
 
 # CKCalendarViewController and UINavigationController 
@@ -111,7 +111,7 @@ Here's the same code in Swift:
 
 Notice that there's only one extra line of code. Really easy, but this small change simplifies the framework and adds enough flexibility to justify the change.
 
-([⬆️ <sub>Back To Top</sub> ](#contents))
+[⬆️ <sub>Back To Top</sub>](#contents)
 
 
 # Customizing Calendar Cell Appearance and Contents 
@@ -124,7 +124,7 @@ Use `UIAppearance` on the `CKCalendarHeaderView` and `CKCalendarCell` classes to
 ### After
 Use `UIAppearance` or `CKCustomCellProviding` to customize cells. Customizing the header view still requires `UIAppearance` in 5.0.0.
 
-([⬆️ <sub>Back To Top</sub> ](#contents))
+[⬆️ <sub>Back To Top</sub>](#contents)
 
 
 # Dropping the Drop Shadow 
@@ -142,7 +142,7 @@ The drop shadow is only added by `CKCalendarViewController`.If you want the same
 (calendarView.layer).shadowOffset = CGSizeMake(0, 3);
 (calendarView.layer).shadowOpacity = 1.0;
 
-([⬆️ <sub>Back To Top</sub> ](#contents))
+[⬆️ <sub>Back To Top</sub>](#contents)
 
 
 # Integrating with Your App as a Dynamic Framework 
@@ -155,7 +155,7 @@ Use Cocoapods or drag in some flat files.
 ### After 
 Use Cocoapods, or, drag the MBCalendarKit Xcode project into your own and then add `MBCalendarKit.framework` as a dependency. 
 
-([⬆️ <sub>Back To Top</sub> ](#contents))
+[⬆️ <sub>Back To Top</sub>](#contents)
 
 
 # Who Owns the Events Table
@@ -175,7 +175,7 @@ If you want to embed the calendar and a table inside of a view, use `CKCalendarV
 ### Notes
 `CKCalendarView` still cares about the data source, because it shows dots in cells representing dates that have corresponding events.
 
-([⬆️ <sub>Back To Top</sub> ](#contents))
+[⬆️ <sub>Back To Top</sub>](#contents)
 
 
 # Swift Interoperability 
@@ -195,11 +195,11 @@ Adjust to use the new enum names and updated method signatures.
 ### Notes
 One way to easily adopt these changes is to link against the new framework and then try to build. The Swift compiler should fail at all of the important parts. Just re-type the data source and delegate method headers and verify enum names wherever you use them. (Let Xcode's 'autocomplete help out with this.)
 
-([⬆️ <sub>Back To Top</sub> ](#contents))
+[⬆️ <sub>Back To Top</sub>](#contents)
 
 
 # Conclusion
 
 I hope this was helpful. There are some cool new changes around cell customization, as well as an awesome new demo app, so check it out!
 
-([⬆️ <sub>Back To Top</sub> ](#contents))
+[⬆️ <sub>Back To Top</sub>](#contents)
