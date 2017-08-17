@@ -191,10 +191,10 @@ class CustomCalendarCell: UICollectionViewCell {
         NSLayoutConstraint(item: circle,
                            attribute: .height,
                            relatedBy: .equal,
-                           toItem: self.contentView,
-                           attribute: .height,
+                           toItem: nil,
+                           attribute: .notAnAttribute,
                            multiplier: 1.0,
-                           constant: -20.0).isActive = true
+                           constant: 34.0).isActive = true
         
         NSLayoutConstraint(item: circle,
                            attribute: .width,
