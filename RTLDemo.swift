@@ -24,6 +24,7 @@ class RTLDemo: CalendarViewController {
     {
         if #available(iOS 9.0, *) {
             self.calendarView.semanticContentAttribute = .forceRightToLeft
+            self.calendarView.locale = Locale(identifier: "he")
         } else {
             self.informUserAboutDemoRequirement()
         }
