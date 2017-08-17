@@ -8,6 +8,9 @@
 
 #import "CKCalendarView+DefaultCellProviderImplementation.h"
 #import "CKCalendarModel.h"
+#import "CKCalendarCell.h"
+#import "CKCalendarCellContext.h"
+#import "NSCalendarCategories.h"
 
 @interface CKCalendarView ()
 
