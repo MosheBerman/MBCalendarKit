@@ -434,10 +434,11 @@
 		464A874A171F1AAA00E7AB19 /* Demo App */ = {
 			isa = PBXGroup;
 			children = (
+				469D857D1A3766A100E2B305 /* Images.xcassets */,
 				46E67B931F46244800E26D09 /* App Delegate */,
 				46E67B961F46244800E26D09 /* Base.lproj */,
 				46E67B991F46244800E26D09 /* DemoRootTableViewController.swift */,
-				46E67B9A1F46244800E26D09 /* Demos */,
+				46E67B9A1F46244800E26D09 /* Demo View Controllers */,
 				46E67BA91F46244800E26D09 /* en.lproj */,
 				46E67BAC1F46244800E26D09 /* he.lproj */,
 				464A8700171F174D00E7AB19 /* Default-568h@2x.png */,
@@ -532,7 +533,6 @@
 				46363C251F392295002BA215 /* LICENSE.md */,
 				46363C261F392295002BA215 /* README.md */,
 				46AF0D701F39D4D4005F37EC /* MIGRATIONGUIDE.md */,
-				469D857D1A3766A100E2B305 /* Images.xcassets */,
 				464A86CA171F174D00E7AB19 /* CalendarKit */,
 				464A870A171F174D00E7AB19 /* MBCalendarKitTests */,
 				464A874A171F1AAA00E7AB19 /* Demo App */,
@@ -570,7 +570,7 @@
 			path = MBCalendarKit/Demo/Base.lproj;
 			sourceTree = "<group>";
 		};
-		46E67B9A1F46244800E26D09 /* Demos */ = {
+		46E67B9A1F46244800E26D09 /* Demo View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				46E67B9B1F46244800E26D09 /* Alternate Calendars */,
@@ -579,7 +579,7 @@
 				46E67BA51F46244800E26D09 /* Right To Left */,
 				46E67BA71F46244800E26D09 /* Swift */,
 			);
-			name = Demos;
+			name = "Demo View Controllers";
 			path = MBCalendarKit/Demo/Demos;
 			sourceTree = "<group>";
 		};
