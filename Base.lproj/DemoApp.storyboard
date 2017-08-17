@@ -157,7 +157,7 @@
         <!--Demo View Controller-->
         <scene sceneID="yUU-QW-W1V">
             <objects>
-                <viewController id="Nq2-Pv-pKB" customClass="CKDemoViewController" customModule="MBCalendarKit_Demo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Nq2-Pv-pKB" customClass="CKDemoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cbl-eF-SfX"/>
                         <viewControllerLayoutGuide type="bottom" id="2C1-XY-IAX"/>
