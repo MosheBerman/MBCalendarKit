@@ -1,24 +1,27 @@
 # MBCalendarKit 5.0.0 Migration Guide
 
-## Contents
-
-- Introduction
-- Auto Layout
-- CKCalendarViewController and UINavigationController
-- Dropping the Drop Shadow
-- Integrating with Your App as a Dynamic Framework
-- Who Owns the Events Table
-- Swift Interoperability
-- Conclusion
-
+# Contents
+- [Contents (You Are Here)](#contents)
+- [Introduction](#introduction)
+- [Auto Layout](#auto-layout)
+- [Cell States](#cell-states)
+- [CKCalendarViewController and UINavigationController](#ckcalendarviewcontroller-and-uinavigationcontroller)
+- [Customizing Calendar Cell Appearance and Contents](#customizing-calendar-cell-appearance-and-contents)
+- [Dropping the Drop Shadow](#dropping-the-drop-shadow)
+- [Integrating with Your App as a Dynamic Framework](#integrating-with-your-appa-as-a-dynamic-framework)
+- [Who Owns the Events Table](#who-owns-the-events-table)
+- [Swift Interoperability](#swift-interoperability)
+- [Conclusion](#conclusion)
 
 # Introduction
 If you're using MBCalendarKit 4.0.0 or earlier in an app, wow. (Thank you, and please email me to let me know which app.) MBCalendarKit 5.0.0 is the largest update to the framework since it's initial release, so I'm documenting the breaking changes here, to ensure as smooth a transition as possible. Each change has a three parts to make it easy to migrate: Summary, Before, and After. 
 
-If you have any questions, please feel free to open an issue on GitHub. If you are new to `MBCalendarKit`, then you can read this to get a better understanding of the context surrounding how some of the framework behaves.
+My primary goal with this update was to make MBCalendarKit useful again, as a modern, performant calendar library. My secondary goal was to maintain as much backwards compatibility made sense. There are certainly changes to be made in terms of building out new features, but I'm proud of this update and can't wait to see what you do with it. 
+
+I hope that this update and migration guide will go a long way towards these two goals.
 
 
-# Auto Layout
+# Auto Layout ([top](#contents))
 ## Summary 
 One of the big updates this release is the adoption of autolayout. In fact, CKCalendarView and friends now *require* it. CKCalendarView will stretch horizontally to fill its superview and vertically to fit the appropriate content.  All you really need to do is add the calendar view to some other view, and constrain it's X and Y position. 
 
@@ -33,6 +36,8 @@ In MBCalendarKit 4.x and earlier, you used manual layout by setting the `CKCalen
 Embed the `CKCalendarView` in a view, and assign vertical and horizontal constraints. (That is, Top/Bottom/CenterY and Leading/Trailing/CenterX constraints.) The view knows how to size itself based on its superview.
 
 ## Notes  
+
+### How MBCalendarKit Works with Autolayout
 `CKCalendarView` and adopts auto layout by overriding `- intrinsicContentSize` and `+ requiresConstraintsBasedLayout`. 
 
 Here's how `CKCalendarView` lays itself out:
@@ -52,6 +57,20 @@ There are very few Google/Stack Overflow results for this message, but this answ
 As a result, if the calendar tries to compute constraints or dimensions based on a nonexistent superview, we just short-circuit the entire method. The short answer here is don't do this. If you want the calendar view to be the root view, use a `CKCalendarViewController` instead.
 
 4. Whenever the calendar view lays out a grid of cells, such as when the selected date changes, it will call `invalidateIntrinsicContentSize` and animate to the appropriate height to fit its content. 
+
+### Known Limitations
+With the adoption of autolayout, `CKCalendarView` should be much more flexible with where it can display. For example, 4.x.x didn't support iPad or landscape mode at all. 5.0.0 makes headway in this area, by scaling cells automatically, and using modern layout technologies. With that in mind, if your calendar view is running in landscape mode on an iPhone form-factor, autolayout might do it's job, but `CKCalendarView` proably won't scale 100% correctly yet.
+
+
+# Cell States
+## Summary 
+In MBCalendarKit 4.x.x and prior, cells had a "state" property defined as an enum type called `CKCalendarMonthCellState`. It was intended to serve as a combination of the context that the cell was in (today, selected date, the same month as the selected date, etc) and the cell's highlighted/selected state. In MBCalendarKit 5.0.0, this has changed. The enum is now called `CKCalendarCellContextIdentifier` and no longer captures cell highlighting or selection semantics. This property might not impact your code directly, but if you work with the new `CKCustomCellAppearance` protocol, be aware of this.
+
+## Before
+Use `CKCalendarMonthCellState` to describe how the cell is being used and if it's highlighted or selected.
+
+## After
+Use `CKCalendarContextIdentifier` and `UICollectionViewCell`'s `isHighlighted` and `isSelected` properties to get the information you want.
 
 
 # CKCalendarViewController and UINavigationController
@@ -80,15 +99,26 @@ Here's the same code in Swift:
 Notice that there's only one extra line of code. Really easy, but this small change simplifies the framework and adds enough flexibility to justify the change.
 
 
+# Customizing Calendar Cell Appearance and Contents
+## Summary
+A brand new API was added, to allow for complete customization of calendar cells. Previously, you had to use `UIAppearance` to customize select properties of `CKCalendarCell`. While this option is still available to you, you can also provide your own cell classes by adopting the  `CKCustomCellProvider` protocol and setting the calendar view's `customCellProvider` property.
+
+## Before
+Use `UIAppearance` on the `CKCalendarHeaderView` and `CKCalendarCell` classes to customize calendar appearance.
+
+## After
+Use `UIAppearance` or `CKCustomCellProviding` to customize cells. Customizing the header view still requires `UIAppearance` in 5.0.0.
+
+
 # Dropping the Drop Shadow
 ## Summary 
 The original iPhone calendar had a nice and heavy drop shadow on it, to give a sense of depth. MBCalendarKit versions prior to 5.0.0 included this drop shadow. However, as the library moves towards the modern design standards, this is no longer enabled on `CKCalendarView` by default. You still do get this behavior on `CKCalendarViewController`, which has taken over the responsibility of displaying the table view. 
 
 ## Before 
-`CKCalendarView` included the drop shadow automatically.
+`CKCalendarViewController` and standalone `CKCalendarView` both included the drop shadow automatically.
 
 ## After
-If you want the same drop shadow on a calendar view, you can add it yourself with this code:
+The drop shadow is only added by `CKCalendarViewController`.If you want the same drop shadow on a calendar view, you can add it yourself with this code:
 
 
 (calendarView.layer).shadowColor = [UIColor darkGrayColor].CGColor;
@@ -129,11 +159,12 @@ If you want to embed the calendar and a table inside of a view, use `CKCalendarV
 ## Summary
 To better support Swift interoperability, several changes were made:
 
-1. A full nullability audit has been done. As a result, of the delegate methods have changed to no longer require force-unwrap operators on their parameters.
-2. The `CKCalendarDisplayMode` enum was renamed to `CKCalendarViewDisplayMode` and the `CKCalendarViewMode...` prefixed enum cases have been deprecated in favor of `CKCalendarViewDisplayMode...` enum cases. This should simplify use of display modes in Swift.
+1. A full nullability audit has been done. As a result, some of the delegate methods have changed to no longer require force-unwrap operators on their parameters.
+2. The `CKCalendarDisplayMode` enum was renamed to `CKCalendarViewDisplayMode` and the `CKCalendarViewMode...` prefixed enum cases have been deprecated in favor of `CKCalendarViewDisplayMode...` enum cases. This should simplify use of display modes in Swift. A similar change was made to the `CKCalendarMonthCellState` enum. This enum is now called `CKCalendarCellContextIdentifier` in Objective-C and `CalendarCellContextIdentifier` in Swift.
+3. Classes with the `CK` prefix in Objective-C were given `NS_SWIFT_NAME()` annotations. `CKCalendarView` becomes `CalendarView`, `CKCalendarCell` becomes `CalendarCell` etc.   
 
 ## Before
-You may have noticed some enum names that weren't quite right or force unwraps in the data source and delegate methods. 
+You may have noticed some enum names that weren't semantically quite right, or force unwraps in the data source and delegate methods. 
 
 ## After 
 Adjust to use the new enum names and updated method signatures.
@@ -144,4 +175,4 @@ One way to easily adopt these changes is to link against the new framework and t
 
 # Conclusion
 
-My goal with this update was to make MBCalendarKit modern, performant, and more useful to more people, while maintain as much backwards compatibility made sense. I hope that this update and migration guide will go a long way towards those goals.
+
