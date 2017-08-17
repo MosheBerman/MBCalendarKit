@@ -6,7 +6,7 @@
 //  Copyright © 2017 Moshe Berman. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class AlternateCalendarViewModel: NSObject {
     
@@ -32,23 +32,22 @@ class AlternateCalendarViewModel: NSObject {
         .islamicUmmAlQura
     ]
     
-    
-    
     // MARK: -
     
     func title(for row: NSInteger) -> String
     {
-        var title = ""
-        
         let identifier = self.identifiers[row]
+        var title = "\(identifier)"
         
-        if let t = self.locale.localizedString(for: identifier)
-        {
-            title = t
-        }
-        else
-        {
-            title = "\(identifier)"
+        if #available(iOS 10.0, *) {
+            if let t = self.locale.localizedString(for: identifier)
+            {
+                title = t
+            }
+            else
+            {
+                title = "\(identifier)"
+            }
         }
         
         return title
