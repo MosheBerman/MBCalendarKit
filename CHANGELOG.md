@@ -5,9 +5,9 @@
 - Added dynamic framework Support.
 - Added support for custom cells with a new API.
 - Adopted Autolayout.
-- Adopted UICollectionView.
+- Adopted UICollectionView to render the calendar.
 - Archived historical files that were cluttering the file system.
-- Improved Swift interoperability.
+- Improved Swift interoperability with nullability and `NS_SWIFT_NAME()`.
 - Reorganized files on disk and project structure to match.
 - Rendering in Interface Builder as an IBDesignable.
 - Support for localization, including RTL environments. 
