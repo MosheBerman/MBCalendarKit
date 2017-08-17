@@ -228,6 +228,8 @@
 		464A877F171F2B3B00E7AB19 /* CKCalendarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarDelegate.h; sourceTree = "<group>"; };
 		464A8780171F2D7800E7AB19 /* CKCalendarDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarDataSource.h; sourceTree = "<group>"; };
 		466B83691F462E0C00F6BB7C /* MBCalendarKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MBCalendarKit.podspec; sourceTree = "<group>"; };
+		466B836D1F463E6A00F6BB7C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DemoApp.strings; sourceTree = "<group>"; };
+		466B836E1F463E6E00F6BB7C /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/DemoApp.strings; sourceTree = "<group>"; };
 		467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MBCalendarKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		467B12A71F2F544F00CABA27 /* MBCalendarKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MBCalendarKit.h; path = ../MBCalendarKit.h; sourceTree = "<group>"; };
 		467B12F71F2F5B8A00CABA27 /* MBCalendarKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MBCalendarKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -878,6 +880,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				461C704E1F46292000E305E3 /* Base */,
+				466B836D1F463E6A00F6BB7C /* en */,
+				466B836E1F463E6E00F6BB7C /* he */,
 			);
 			name = DemoApp.storyboard;
 			sourceTree = "<group>";
