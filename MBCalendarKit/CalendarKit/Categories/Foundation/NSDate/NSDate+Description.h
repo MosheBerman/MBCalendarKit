@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 Moshe Berman. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDate (Description)
 
@@ -39,3 +41,5 @@
 // Prints out dates such as 12, 2013
 - (NSString *)dayOfMonthAndYearOnCalendar:(NSCalendar *)calendar;
 @end
+
+NS_ASSUME_NONNULL_END

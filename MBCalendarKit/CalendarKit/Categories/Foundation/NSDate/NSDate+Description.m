@@ -22,7 +22,8 @@
 {
     NSDateFormatter *f = [NSDateFormatter new];
     f.calendar = calendar;
-    f.dateFormat = @"ccc";
+    f.locale = calendar.locale;
+    [f  setLocalizedDateFormatFromTemplate: @"ccc"];
     return [f stringFromDate:self];
 }
 
@@ -30,7 +31,8 @@
 {
     NSDateFormatter *f = [NSDateFormatter new];
     f.calendar = calendar;
-    f.dateFormat = @"MMMM";
+    f.locale = calendar.locale;
+    [f  setLocalizedDateFormatFromTemplate:@"MMMM"];
     return [f stringFromDate:self];
 }
 
@@ -38,7 +40,8 @@
 {
     NSDateFormatter *f = [NSDateFormatter new];
     f.calendar = calendar;
-    f.dateFormat = @"MMMM yyyy";
+    f.locale = calendar.locale;
+    [f  setLocalizedDateFormatFromTemplate:@"MMMM yyyy"];
     return [f stringFromDate:self];
 }
 
@@ -46,7 +49,8 @@
 {
     NSDateFormatter *f = [NSDateFormatter new];
     f.calendar = calendar;
-    f.dateFormat = @"MMM yyyy";
+    f.locale = calendar.locale;
+    [f  setLocalizedDateFormatFromTemplate:@"MMM yyyy"];
     return [f stringFromDate:self];
 }
 
@@ -55,7 +59,8 @@
 {
     NSDateFormatter *f = [NSDateFormatter new];
     f.calendar = calendar;
-    f.dateFormat = @"MMM";
+    f.locale = calendar.locale;
+    [f  setLocalizedDateFormatFromTemplate:@"MMM"];
     return [f stringFromDate:self];
 }
 
@@ -63,7 +68,8 @@
 {
     NSDateFormatter *f = [NSDateFormatter new];
     f.calendar = calendar;
-    f.dateFormat = @"MMM d";
+    f.locale = calendar.locale;
+    [f  setLocalizedDateFormatFromTemplate:@"MMM d"];
     return [f stringFromDate:self];
 }
 
@@ -71,7 +77,8 @@
 {
     NSDateFormatter *f = [NSDateFormatter new];
     f.calendar = calendar;
-    f.dateFormat = @"d";
+    f.locale = calendar.locale;
+    [f  setLocalizedDateFormatFromTemplate:@"d"];
     return [f stringFromDate:self];
 }
 
@@ -79,7 +86,8 @@
 {
     NSDateFormatter *f = [NSDateFormatter new];
     f.calendar = calendar;
-    f.dateFormat = @"MMM d yyyy";
+    f.locale = calendar.locale;
+    [f  setLocalizedDateFormatFromTemplate:@"MMM d yyyy"];
     return [f stringFromDate:self];
 }
 
@@ -88,7 +96,8 @@
 {
     NSDateFormatter *f = [NSDateFormatter new];
     f.calendar = calendar;
-    f.dateFormat = @"d yyyy";
+    f.locale = calendar.locale;
+    [f  setLocalizedDateFormatFromTemplate:@"d yyyy"];
     return [f stringFromDate:self];
 }
 
