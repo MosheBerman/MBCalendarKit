@@ -267,6 +267,10 @@ Version 2.2.0 adds support for the `firstWeekday` property of NSCalendar. If the
 **About the firstWeekDay property:** Use integers 1-7 to set a weekday from Sunday through Saturday. Using other numbers is not documented in the `NSCalendar` documentation.
   
 
+Animating Week Transitions
+---
+As of MBCalendarKit 5.0.0, `CKCalendarView` has a `animatesWeekTransitions` property which can be turned on to enable animated transitions in week mode.
+
 License:
 ========
 
