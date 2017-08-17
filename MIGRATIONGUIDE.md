@@ -1,8 +1,6 @@
 # MBCalendarKit 5.0.0 Migration Guide
-([⬆️](#contents))
 
-
-#Contents
+# Contents
 - [Contents (You Are Here)](#contents)
 - [Introduction](#introduction)
 - [Auto Layout](#auto-layout)
@@ -14,10 +12,8 @@
 - [Who Owns the Events Table](#who-owns-the-events-table)
 - [Swift Interoperability](#swift-interoperability)
 - [Conclusion](#conclusion)
-([⬆️](#contents))
 
-
-#Introduction
+# Introduction
 If you're using MBCalendarKit 4.0.0 or earlier in an app, wow. (Thank you, and please email me to let me know which app.) MBCalendarKit 5.0.0 is the largest update to the framework since it's initial release, so I'm documenting the breaking changes here, to ensure as smooth a transition as possible. Each change has a three parts to make it easy to migrate: Summary, Before, and After. 
 
 My primary goal with this update was to make MBCalendarKit useful again, as a modern, performant calendar library. My secondary goal was to maintain as much backwards compatibility made sense. There are certainly changes to be made in terms of building out new features, but I'm proud of this update and can't wait to see what you do with it. 
@@ -27,7 +23,7 @@ I hope that this update and migration guide will go a long way towards these two
 ([⬆️](#contents))
 
 
-#Auto Layout 
+# Auto Layout 
 
 ### Summary 
 One of the big updates this release is the adoption of autolayout. In fact, CKCalendarView and friends now *require* it. CKCalendarView will stretch horizontally to fill its superview and vertically to fit the appropriate content.  All you really need to do is add the calendar view to some other view, and constrain it's X and Y position. 
@@ -74,7 +70,7 @@ As a result, if the calendar tries to compute constraints or dimensions based on
 ([⬆️](#contents))
 
 
-#Cell States 
+# Cell States 
 ### Summary 
 In MBCalendarKit 4.x.x and prior, cells had a "state" property defined as an enum type called `CKCalendarMonthCellState`. It was intended to serve as a combination of the context that the cell was in (today, selected date, the same month as the selected date, etc) and the cell's highlighted/selected state. 
 
@@ -87,11 +83,10 @@ Use `CKCalendarMonthCellState` to describe how the cell is being used and if it'
 
 ### After
 Use `CKCalendarContextIdentifier` and `UICollectionViewCell`'s `isHighlighted` and `isSelected` properties to get the information you want.
-
 ([⬆️](#contents))
 
 
-#CKCalendarViewController and UINavigationController 
+# CKCalendarViewController and UINavigationController 
 ### Summary
 Prior MBCalendarKit 5.0.0, `CKCalendarViewController` subclassed `UINavigationController` and used an internal view controller to present its content. The tradeoff was that in exchange for a ready-to-go calendar view controller in a navigation controller, you couldn't present it inside another navigation controller.
 
@@ -119,7 +114,7 @@ Notice that there's only one extra line of code. Really easy, but this small cha
 ([⬆️](#contents))
 
 
-#Customizing Calendar Cell Appearance and Contents 
+# Customizing Calendar Cell Appearance and Contents 
 ### Summary
 A brand new API was added, to allow for complete customization of calendar cells. Previously, you had to use `UIAppearance` to customize select properties of `CKCalendarCell`. While this option is still available to you, you can also provide your own cell classes by adopting the  `CKCustomCellProvider` protocol and setting the calendar view's `customCellProvider` property.
 
@@ -132,7 +127,7 @@ Use `UIAppearance` or `CKCustomCellProviding` to customize cells. Customizing th
 ([⬆️](#contents))
 
 
-#Dropping the Drop Shadow 
+# Dropping the Drop Shadow 
 ### Summary 
 The original iPhone calendar had a nice and heavy drop shadow on it, to give a sense of depth. MBCalendarKit versions prior to 5.0.0 included this drop shadow. However, as the library moves towards the modern design standards, this is no longer enabled on `CKCalendarView` by default. You still do get this behavior on `CKCalendarViewController`, which has taken over the responsibility of displaying the table view. 
 
@@ -150,7 +145,7 @@ The drop shadow is only added by `CKCalendarViewController`.If you want the same
 ([⬆️](#contents))
 
 
-#Integrating with Your App as a Dynamic Framework 
+# Integrating with Your App as a Dynamic Framework 
 ### Summary
 Prior to 5.0.0, the correct way to use MBCalendarKit was either by dragging a bunch of files into your Xcode project, or by using Cocoapods. With 5.0.0, Cocoapods is still expected to work. The big change here is that MBCalendarKit is now a framework. As a result, you can drag the entire Xcode project into your own and build the framework as a dependency.
 
@@ -163,7 +158,7 @@ Use Cocoapods, or, drag the MBCalendarKit Xcode project into your own and then a
 ([⬆️](#contents))
 
 
-#Who Owns the Events Table
+# Who Owns the Events Table
 ### Summary
 Prior to MBCalendarKit 5.0.0, the `CKCalendarView` owned an events table, which embed it into whatever its superview was. In MBCalendarKit 5.0.0, this changes. You still use the same data source and delegate protocols, but now if you want the table, you need to use `CKCalendarViewController` instead of `CKCalendarView`.
 
@@ -183,7 +178,7 @@ If you want to embed the calendar and a table inside of a view, use `CKCalendarV
 ([⬆️](#contents))
 
 
-#Swift Interoperability 
+# Swift Interoperability 
 ### Summary
 To better support Swift interoperability, several changes were made:
 
@@ -203,6 +198,6 @@ One way to easily adopt these changes is to link against the new framework and t
 ([⬆️](#contents))
 
 
-#Conclusion
+# Conclusion
 
 I hope this was helpful. There are some cool new changes around cell customization, as well as an awesome new demo app, so check it out!
