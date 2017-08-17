@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4604E1471F4658CB00F1F50B /* MBCalendarKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A870F171F174D00E7AB19 /* MBCalendarKitTests.m */; };
 		46087AD81F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 46087AD61F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.h */; };
 		46087AD91F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 46087AD71F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m */; };
 		461C706D1F46292000E305E3 /* DemoApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 461C704D1F46292000E305E3 /* DemoApp.storyboard */; };
@@ -835,6 +836,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4604E1471F4658CB00F1F50B /* MBCalendarKitTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
