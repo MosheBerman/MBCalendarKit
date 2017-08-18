@@ -131,6 +131,13 @@
 			remoteGlobalIDString = 467B12A41F2F544F00CABA27;
 			remoteInfo = MBCalendarKit;
 		};
+		468726FE1F47844000C50A36 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46BFBCB71715FB3F00D4733E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 46BFBCBE1715FB3F00D4733E;
+			remoteInfo = "MBCalendarKit-Demo";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -688,6 +695,7 @@
 			);
 			dependencies = (
 				467B12FE1F2F5B8A00CABA27 /* PBXTargetDependency */,
+				468726FF1F47844000C50A36 /* PBXTargetDependency */,
 			);
 			name = MBCalendarKitTests;
 			productName = MBCalendarKitTests;
@@ -734,6 +742,7 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = HK64RUWW3P;
 						ProvisioningStyle = Automatic;
+						TestTargetID = 46BFBCBE1715FB3F00D4733E;
 					};
 					46BFBCBE1715FB3F00D4733E = {
 						DevelopmentTeam = HK64RUWW3P;
@@ -870,6 +879,11 @@
 			isa = PBXTargetDependency;
 			target = 467B12A41F2F544F00CABA27 /* MBCalendarKit */;
 			targetProxy = 467B12FD1F2F5B8A00CABA27 /* PBXContainerItemProxy */;
+		};
+		468726FF1F47844000C50A36 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 46BFBCBE1715FB3F00D4733E /* MBCalendarKit-Demo */;
+			targetProxy = 468726FE1F47844000C50A36 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1044,6 +1058,7 @@
 		467B13001F2F5B8A00CABA27 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
@@ -1060,12 +1075,14 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosheberman.MBCalendarKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MBCalendarKit-Demo.app/MBCalendarKit-Demo";
 			};
 			name = Debug;
 		};
 		467B13011F2F5B8A00CABA27 /* Ad Hoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
@@ -1084,12 +1101,14 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosheberman.MBCalendarKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MBCalendarKit-Demo.app/MBCalendarKit-Demo";
 			};
 			name = "Ad Hoc";
 		};
 		467B13021F2F5B8A00CABA27 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
@@ -1108,6 +1127,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosheberman.MBCalendarKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MBCalendarKit-Demo.app/MBCalendarKit-Demo";
 			};
 			name = Release;
 		};
