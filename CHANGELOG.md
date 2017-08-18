@@ -1,8 +1,12 @@
 # Changelog
 
+## 5.0.1 
+- Minor updates to readme.
+
 ## 5.0.0
 - Added code level documentation.
 - Added dynamic framework Support.
+- Added flag for animating week view properties.
 - Added support for custom cells with a new API.
 - Adopted Autolayout.
 - Adopted UICollectionView to render the calendar.
