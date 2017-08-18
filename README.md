@@ -4,7 +4,7 @@
 
 MBCalendarKit is a calendar control written in Objective-C with modern best practices and Swift interoperability in mind. 
 
-It offers a flexible calendar control, with support for  any valid `NSLocale` or `NSCalendar`, and offers an API to customize the calendar cells. It also ships with a prebuilt view controller, inspired by the original iOS calendar. 
+It offers a flexible calendar control, with support for displaying any calendar system supported by `NSCalendar`. It also includes an API to  customize the calendar cells. It also ships with a prebuilt view controller, inspired by the original iOS calendar. 
 
 ## Features
 - Interactive Calendar Control
@@ -167,7 +167,7 @@ Class MyCustomCellProvider: NSObject, CustomCellProviding {
     // Step 2. Inform the framework of your `UICollectionViewCell` subclass, so it knows to use it.
     var customCellClass: AnyClass
     {
-        return CKCalendarCell.self;
+        return CKCalendarCell.self
     }
 
     // Step 3. Implement the custom cell delegate callback
