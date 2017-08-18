@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.0.2
+- Corrected test target configuration so test target knows about the host app.
+
 ## 5.0.1 
 - Minor updates to readme.
 
