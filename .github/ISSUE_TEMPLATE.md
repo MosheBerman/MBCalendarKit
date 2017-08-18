@@ -4,12 +4,12 @@ _{{ Delete this, and leave a summary of the problem here. i.e. I tried to integr
 
 ## Steps To Reproduce
 
-_{{
+```
 1. Create a new Xcode project.
 2. Integrate MBCalendarKit with CocoaPods
 3. Create a `CalanderView`
 4. Ask the calendar view to butter toast.
-}}_
+```
 
 ## Expected Results
 
@@ -21,6 +21,6 @@ _{{ `CalendarView`'s `.butterToast()` method doesn't take an amount parameter. T
 
 ## Notes
 
-_I did with Xcode version Foo on an iPhone Bar. Also, no luck in the simulator. I also tried implementing this myself, but I couldn't find the butterknife._ 
+_{{I did with Xcode version Foo on an iPhone Bar. Also, no luck in the simulator. I also tried implementing this myself, but I couldn't find the butterknife.}}_ 
 
 

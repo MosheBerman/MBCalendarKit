@@ -19,15 +19,15 @@ This is a hobby project, not my main job, so I can't guarantee a timely response
 
 
 ## Suggesting New Features
-If you have an idea for a feature, I'd love to hear it! MBCalendarKit has had half-a-dozen contributors, and I'd be really happy to increase that number.
+If you have an idea for a feature, I'd love to hear it! MBCalendarKit has had half-a-dozen contributors, and I'd be really happy to increase that number. Open an issue using the template and fill out as much as you can.
 
 
 ## Contributing
 If you want to contribute, please take a look at the issues list for an issue tagged [`help-wanted`](https://github.com/MosheBerman/MBCalendarKit/issues?q=is%3Aissue+is%3Aopen+label%3Ahelp-wanted). These are the things I care about when it comes to contributing:
 
 - **Language:** The core library is pure Objective-C, to avoid requiring bundling Swift runtime along with it, so please work in Obj-C.
-- **Style:** I'm not huge on style guide debates, but for consistency within the codebase, use dot syntax and modern Objective-C best practices where you can. Also braces on their line.
-- **Issue Tracking & Discussion** Please make sure there's a corresponding issue for your work, even if it's an enhancement.
+- **Style:** I'm not huge on style guide debates, but for consistency within the codebase, use dot syntax and modern Objective-C best practices where you can. Also braces on their line. (The README breaks this rule because there's enough to scroll through as it is.)
+- **Issue Tracking & Discussion:** Please make sure there's a corresponding issue for your work, even if it's an enhancement.
 - **Unit Tests:** The project has a test target and is set up to work with BuddyBuild. There aren't enough tests at the moment, but please do your best to test new changes.
 
 Thank you!

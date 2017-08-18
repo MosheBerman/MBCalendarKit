@@ -2,7 +2,9 @@
 
 # About
 
-MBCalendarKit is a calendar control written in Objective-C with modern best practices and Swift interoperability in mind. It offers a flexible calendar control, with support for  any valid `NSLocale` or `NSCalendar`, and offers an API to  customize the calendar cells. It also ships with a prebuilt view controller, inspired by the original iOS calendar. 
+MBCalendarKit is a calendar control written in Objective-C with modern best practices and Swift interoperability in mind. 
+
+It offers a flexible calendar control, with support for  any valid `NSLocale` or `NSCalendar`, and offers an API to customize the calendar cells. It also ships with a prebuilt view controller, inspired by the original iOS calendar. 
 
 ## Features
 - Interactive Calendar Control
@@ -16,6 +18,7 @@ MBCalendarKit is a calendar control written in Objective-C with modern best prac
 - Display Modes: Month, Week, and Day
 - Localization Support, Including Right-to-Left and Date Formatting
 - Pre-built View Controller inspired by the original iOS Calendar App
+- Sample App With Various Demo Implementations
 
 
 # Getting Started:
@@ -42,11 +45,7 @@ For specifics, check out the [Migration Guide](./MIGRATIONGUIDE.md).
 
 # Features 
 ## Presenting a Calendar
-You have two choices for showing a calendar using MBCalendarKit. For both of them, you'll need to import the library:
-
-```` swift
-import MBCalendarKit 
-````
+You have two choices for showing a calendar using MBCalendarKit. 
 
 1. You can show an instance of `CKCalendarView`. Use this if you want to manually manage your view hierarchy or just want a calendar view without the events table view.
 
@@ -76,12 +75,10 @@ calendarView.centerXAnchor.constraint(equalTo:self.view.centerXAnchor).isActive 
 
 ```` swift
 
-/* 
-Here's how you'd show a CalendarViewController from 
-within a view controller. It's just three easy steps.
-*/
+/// Here's how you'd show a CalendarViewController from 
+/// within a view controller. It's just three easy steps, including the framework import.
 		
-// 1. In either case, import CalendarKit:
+// 1. Import MBCalendarKit:
 import MBCalendarKit
     	
 // 2. Instantiate a CalendarViewController
@@ -239,13 +236,13 @@ As of MBCalendarKit 2.1.0, there's a `color` property as well. Setting it will c
 ## Customizing the First Day of the Week:
 Version 2.2.0 adds support for the `firstWeekday` property of NSCalendar. If the `currentCalendar` (or whichever you set) has some day other than Sunday set as the first day of the week, the calendar view will respect that.
 
-	//	0. Instantiate a calendarViewController. (You can use a calendarView directly.)
-    CKCalendarViewController *calendarViewController = [CKCalendarViewController new];
+	/// Instantiate a CalendarViewController or CalendarView.
+    let calendarViewController = CKCalendarViewController()
 
-	//	1. Set the first day of the week to Monday.
-    calendarViewController.calendarView.firstWeekDay = 2;
+	/// Set the first day of the week to Monday.
+    calendarViewController.calendarView.firstWeekDay = 2
     
-**About the firstWeekDay property:** Use integers 1-7 to set a weekday from Sunday through Saturday. Using other numbers is not documented in the `NSCalendar` documentation.
+**About the firstWeekDay property:** Use integers 1-7 to set a weekday from Sunday through Saturday. `NSCalendar` doesn't say what happens if you use another number, so you're on your own if you do that.
   
 
 
@@ -254,18 +251,24 @@ As of MBCalendarKit 5.0.0, `CalendarView` has a `animatesWeekTransitions` proper
 
 ---
 
+# Addendum
 
-# License
+
+## Thanks
+Dave DeLong, for being an invaluable reference. Thanks to the folks on the iOS Folks Slack team for guidance on nullability and input on working around floating point division precision.
+
+Thank you to the various [contributors]() for patches and reporting issues.
+
+## Want to Contribute?
+Learn more about contributing [by clicking here](https://github.com/MosheBerman/MBCalendarKit/blob/master/.github/CONTRIBUTING.md).
+
+## Code Of Conduct
+MBCalendarKit adopts the Contributor Covenant Code of Conduct. [Read it here.](https://github.com/MosheBerman/MBCalendarKit/blob/master/.github/CODE_OF_CONDUCT.md)
+
+## License
 MBCalendarKit is hereby released under the MIT License. See [LICENSE](/LICENSE) for details.
 
-
-# Thanks
-Dave DeLong, for being an invaluable reference.
-
-Various contributors for patches and reporting issues.
-
-
-# Like This?
+## Like This?
 If you like MBCalendarKit, check out some of my other projects:
 
 - [MBPlacePickerController](https://github.com/MosheBerman/MBPlacePickerController), a one stop shop for all of your CoreLocation needs, including a fallback UI for offline location setup.
