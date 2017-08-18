@@ -22,18 +22,14 @@ It offers a flexible calendar control, with support for  any valid `NSLocale` or
 
 
 # Getting Started:
-You'll need to set up the dependencies, described below. Alternatively, MBCalendarKit is now a registered CocoaPod. I don't use CocoaPods, but I did run a quick test on using the following line in my Podfile:
 
-`pod 'MBCalendarKit', '~> 5.0.0'`
+You'll need to target iOS 8+. There are three ways to integrate MBCalendarKit:
 
-If there are any problems, please head over to issue #48 and leave a comment.
+1. Cocoapods: `pod 'MBCalendarKit', '~> 5.0.0'`
+2. Drag this Xcode project in to your own, and add the framework as a dependency.
+3. If you really want to drag the raw source in, the framework code is in `MBCalendarKit/CalendarKit`.
 
-
-## Dependencies
-You'll need the iOS 8 SDK or newer. 
-
-## Relevant Files
-Aside from the framework dependencies described above, you'll want everything in the CalendarKit folder.
+If there are any problems, please head over to issue #48 and leave a comment. 
 
 ## Swift & Objective-C
 MBCalendarKit is written in Objective-C. To use MBCalendarKit with Swift, just link against and use `import MBCalendarKit`.  MBCalendarKit 5.0.0 includes a number of Swift enhancements. 
