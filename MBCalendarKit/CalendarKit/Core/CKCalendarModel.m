@@ -164,9 +164,23 @@
     
     _minimumDate = minimumDate;
     
-    if (minimumDate && [self _dateIsBeforeMinimumDate:self.date])
+    if (minimumDate)
     {
-        self.date = minimumDate;
+        if([self _dateIsBeforeMinimumDate:self.visibleDate])
+        {
+            self.visibleDate = minimumDate;
+        }
+        
+        // If the previous check didn't update the selected date, because
+        // updatesSelectedDateBasedOnVisibleDate is `NO`, we need to change it here too.
+        if (!self.updatesSelectedDateBasedOnVisibleDate)
+        {
+            if([self _dateIsBeforeMinimumDate:self.date])
+            {
+                self.date = minimumDate;
+            }
+        }
+        
         // This will also invalidate, so we don't need to call the observer again here.
     }
     else
@@ -185,9 +199,23 @@
     
     _maximumDate = maximumDate;
     
-    if(maximumDate && [self _dateIsAfterMaximumDate:self.date])
+    if(maximumDate)
     {
-        self.date = maximumDate;
+        if ([self _dateIsAfterMaximumDate:self.visibleDate])
+        {
+            self.visibleDate = maximumDate;
+        }
+        
+        // If the previous check didn't update the selected date, because
+        // updatesSelectedDateBasedOnVisibleDate is `NO`, we need to change it here too.
+        if (!self.updatesSelectedDateBasedOnVisibleDate)
+        {
+            if ([self _dateIsAfterMaximumDate:self.date])
+            {
+                self.date = maximumDate;
+            }
+        }
+        
         // This will also invalidate, so we don't need to call the observer again here.
     }
     else
