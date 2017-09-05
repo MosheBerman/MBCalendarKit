@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4601E8901F5F3D5100ABA4F5 /* VisibleDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4601E88F1F5F3D5100ABA4F5 /* VisibleDateViewController.swift */; };
 		4604E1471F4658CB00F1F50B /* MBCalendarKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A870F171F174D00E7AB19 /* MBCalendarKitTests.m */; };
 		46087AD81F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 46087AD61F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.h */; };
 		46087AD91F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 46087AD71F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m */; };
@@ -155,6 +156,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4601E88F1F5F3D5100ABA4F5 /* VisibleDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VisibleDateViewController.swift; path = VisibleDate/VisibleDateViewController.swift; sourceTree = "<group>"; };
 		46087AD61F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CKCalendarModel+GridViewSupport.h"; path = "Model/CKCalendarModel+GridViewSupport.h"; sourceTree = "<group>"; };
 		46087AD71F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CKCalendarModel+GridViewSupport.m"; path = "Model/CKCalendarModel+GridViewSupport.m"; sourceTree = "<group>"; };
 		461C704A1F46291100E305E3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MBCalendarKit/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -290,6 +292,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4601E8911F5F3D5500ABA4F5 /* Visible Date */ = {
+			isa = PBXGroup;
+			children = (
+				4601E88F1F5F3D5100ABA4F5 /* VisibleDateViewController.swift */,
+			);
+			name = "Visible Date";
+			sourceTree = "<group>";
+		};
 		46087AD11F3C2CF1004655C6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,6 +361,7 @@
 				461C705B1F46292000E305E3 /* Objective-C */,
 				461C705E1F46292000E305E3 /* Right To Left */,
 				461C70601F46292000E305E3 /* Swift */,
+				4601E8911F5F3D5500ABA4F5 /* Visible Date */,
 			);
 			path = "Demo View Controllers";
 			sourceTree = "<group>";
@@ -858,6 +869,7 @@
 				461C706E1F46292000E305E3 /* CKAppDelegate.m in Sources */,
 				461C706F1F46292000E305E3 /* AlternateCalendarViewController.swift in Sources */,
 				461C70771F46292000E305E3 /* DemoRootTableViewController.swift in Sources */,
+				4601E8901F5F3D5100ABA4F5 /* VisibleDateViewController.swift in Sources */,
 				461C70721F46292000E305E3 /* CKCustomCellDemoViewController.swift in Sources */,
 				461C70761F46292000E305E3 /* SwiftDemoViewController.swift in Sources */,
 				461C70731F46292000E305E3 /* CustomCalendarCell.swift in Sources */,

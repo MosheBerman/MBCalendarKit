@@ -140,6 +140,26 @@
                                             <segue destination="Cec-6W-Nfr" kind="show" id="6dG-fz-Y4M"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="eSC-Dt-CJu" style="IBUITableViewCellStyleDefault" id="yCV-7i-Wlo">
+                                        <rect key="frame" x="0.0" y="264" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yCV-7i-Wlo" id="97M-U0-KXb">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Traverse Calendar w/o Invoking Selection " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eSC-Dt-CJu">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="I4i-Uu-HjH" kind="show" id="S1t-8v-HMA"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -205,6 +225,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aTL-bA-i7d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-924" y="1603"/>
+        </scene>
+        <!--Visible Date View Controller-->
+        <scene sceneID="mWg-ig-Anl">
+            <objects>
+                <viewController id="I4i-Uu-HjH" customClass="VisibleDateViewController" customModule="MBCalendarKit_Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3Kz-xi-1GK"/>
+                        <viewControllerLayoutGuide type="bottom" id="ck3-2K-441"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tC9-gf-oG4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0oR-qK-JRH" customClass="CKCalendarView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="309"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0oR-qK-JRH" firstAttribute="centerX" secondItem="tC9-gf-oG4" secondAttribute="centerX" id="1Bn-FB-Qgn"/>
+                            <constraint firstItem="0oR-qK-JRH" firstAttribute="top" secondItem="3Kz-xi-1GK" secondAttribute="bottom" id="eXV-9J-feo"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="calendarView" destination="0oR-qK-JRH" id="Za8-xg-uXa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HzT-Bq-qSE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="574" y="2535"/>
         </scene>
         <!--Alternate Calendar View Controller-->
         <scene sceneID="xme-qA-xD8">
