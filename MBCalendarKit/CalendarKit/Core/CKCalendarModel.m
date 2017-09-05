@@ -104,7 +104,7 @@
 - (nonnull NSDate *)firstVisibleDate;
 {
     CKCalendarViewDisplayMode displayMode = self.displayMode;
-    NSDate *firstVisibleDate = self.visibleDate; /* Default to self.date */
+    NSDate *firstVisibleDate = self.visibleDate; /* Default to self.visibleDate */
     
     // for the day mode, just return today
     if (displayMode == CKCalendarViewDisplayModeDay)
@@ -133,7 +133,7 @@
 - (nonnull NSDate *)lastVisibleDate;
 {
     CKCalendarViewDisplayMode displayMode = self.displayMode;
-    NSDate *lastVisibleDate = self.visibleDate; /* Default to self.date */
+    NSDate *lastVisibleDate = self.visibleDate; /* Default to self.visibleDate */
     
     // for the day mode, just return today
     if (displayMode == CKCalendarViewDisplayModeDay) {
@@ -263,6 +263,13 @@
     return [self.calendar date:date isAfterDate:self.minimumDate] && [self.calendar date:date isBeforeDate:self.maximumDate];
 }
 
+
+/**
+ Returns the date, clamped to be after the minimum date and before the maximum date.
+
+ @param date The date to clamp.
+ @return If the date is before `self.minimumDate`, returns the minimum date. If it's after `self.maximumDate`, returns the maximum date. Otherwise, returns `date`.
+ */
 - (nonnull NSDate *)dateClampedToMinimumAndMaximumDatesWithDate:(nonnull NSDate *)date
 {
     NSDate *output = date;
