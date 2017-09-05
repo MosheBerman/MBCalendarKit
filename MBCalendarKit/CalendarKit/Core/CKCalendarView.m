@@ -260,7 +260,7 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     self.temporaryDate = self.calendarModel.date;
-
+    
     [super touchesBegan:touches withEvent:event];
 }
 
@@ -700,6 +700,17 @@
     self.calendarModel.date = date;
 }
 
+// MARK: - Decoupling Visible & Selected Date
+
+- (BOOL)updatesSelectedDateBasedOnVisibleDate
+{
+    return self.calendarModel.updatesSelectedDateBasedOnVisibleDate;
+}
+
+- (void)setUpdatesSelectedDateBasedOnVisibleDate:(BOOL)updatesSelectedDateBasedOnVisibleDate
+{
+    self.calendarModel.updatesSelectedDateBasedOnVisibleDate = updatesSelectedDateBasedOnVisibleDate;
+}
 
 // MARK: - Clamping the Minimum Date
 

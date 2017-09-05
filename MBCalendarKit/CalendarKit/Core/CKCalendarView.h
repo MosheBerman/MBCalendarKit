@@ -113,8 +113,10 @@ IB_DESIGNABLE @interface CKCalendarView : UIView
 
 /**
  The currently selected date on the calendar.
+ 
+ The default value is `[NSDate date]`. As of 5.1.0, setting to `nil` will reset.
  */
-@property (nonatomic, strong, nonnull) NSDate *date;
+@property (nonatomic, strong, null_resettable) NSDate *date;
 
 /**
  Set the selected `date` property on the calendar vies.
@@ -125,6 +127,19 @@ IB_DESIGNABLE @interface CKCalendarView : UIView
  @param animated Determines if the layout pass that this triggers should animate.
  */
 - (void)setDate:(nonnull NSDate *)date animated:(BOOL)animated;
+
+// MARK: - Allowing Traversal Without Impacting Selected Date
+
+/**
+ Determines if traversing the calendar also changes the selected. 
+ 
+ If this is disabled, the selected date won't change when the user
+ scrubs or uses the arrow buttons. In that case, only tapping on a 
+ cell will update the selected date.
+ 
+ The default value is `YES`, which enables the old behavior.
+ */
+@property (nonatomic, assign) BOOL updatesSelectedDateBasedOnVisibleDate;
 
 
 // MARK: - Clamping the Minimum Date
