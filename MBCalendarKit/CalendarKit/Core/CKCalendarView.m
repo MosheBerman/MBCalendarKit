@@ -69,6 +69,14 @@
  */
 @property (nonatomic, strong, nullable) NSDate *temporaryDate;
 
+
+/**
+ This property is NO by default, and is set as part of a scrub interaction.
+ We use this to determine which date property to update when the user
+ taps the calendar, instead of scrubbing the calendar.
+ */
+@property (nonatomic, assign) BOOL isScrubbingInsteadOfTapping;
+
 @end
 
 @implementation CKCalendarView
@@ -146,6 +154,8 @@
     
     _calendarModel.observer = self;
     
+    _isScrubbingInsteadOfTapping = NO;
+    
     [self _installHeader];
     [self _installGridView];
     [self reload];
@@ -188,7 +198,7 @@
 
 - (void)reloadAnimated:(BOOL)animated
 {
-    [self reloadAnimated:animated transitioningFromDate:self.date toDate:self.date];
+    [self reloadAnimated:animated transitioningFromDate:self.calendarModel.visibleDate toDate:self.calendarModel.visibleDate];
 }
 
 - (void)reloadAnimated:(BOOL)animated transitioningFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
@@ -259,13 +269,15 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    self.temporaryDate = self.calendarModel.date;
+    self.temporaryDate = self.calendarModel.visibleDate;
     
     [super touchesBegan:touches withEvent:event];
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
+    self.isScrubbingInsteadOfTapping = YES;
+    
     UICollectionViewCell *cellFromTouch = [self cellFromTouches:touches];
     
     for (UICollectionViewCell *cell in self.gridView.visibleCells)
@@ -287,12 +299,22 @@
     {
         NSDate *dateFromTouches = [self dateFromTouches:touches];
         
-        self.calendarModel.date = dateFromTouches;
+        if(self.isScrubbingInsteadOfTapping)
+        {
+            self.calendarModel.visibleDate = dateFromTouches;
+        }
+        else
+        {
+            self.calendarModel.date = dateFromTouches;
+        }
     }
     else
     {
         [self restoreDateFromBeforeInteraction];
     }
+    
+    self.isScrubbingInsteadOfTapping = NO;
+    
     [super touchesEnded:touches withEvent:event];
     
 }
@@ -304,6 +326,8 @@
     {
         [self restoreDateFromBeforeInteraction];
     }
+    
+    self.isScrubbingInsteadOfTapping = NO;
     
     [super touchesCancelled:touches withEvent:event];
 }
@@ -317,7 +341,7 @@
 {
     if(self.temporaryDate)
     {
-        self.calendarModel.date = self.temporaryDate;
+        self.calendarModel.visibleDate = self.temporaryDate;
         self.temporaryDate = nil;
     }
 }
