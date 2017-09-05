@@ -213,11 +213,21 @@
 
 - (BOOL)_dateIsBeforeMinimumDate:(NSDate *)date
 {
+    if (!self.minimumDate)
+    {
+        return NO;
+    }
+    
     return [self.calendar date:date isBeforeDate:self.minimumDate];
 }
 
 - (BOOL)_dateIsAfterMaximumDate:(NSDate *)date
 {
+    if (!self.maximumDate)
+    {
+        return NO;
+    }
+    
     return [self.calendar date:date isAfterDate:self.maximumDate];
 }
 
