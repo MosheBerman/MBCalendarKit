@@ -30,13 +30,16 @@
         _calendar = [NSCalendar autoupdatingCurrentCalendar];
         _displayMode = CKCalendarViewDisplayModeMonth;
         _date = [NSDate date];
+        _visibleDate = _date;
+        _updatesSelectedDateBasedOnVisibleDate = YES;
+    
     }
     return self;
 }
 
-// MARK: - Settings the Date
+// MARK: - Settings the Selected Date
 
-- (void)setDate:(NSDate *)date
+- (void)setDate:(nullable NSDate *)date
 {
     if (!date) {
         date = [NSDate date];
@@ -44,19 +47,7 @@
     
     NSDateComponents *components = [self.calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
     date = [self.calendar dateFromComponents:components];
-    
-    BOOL minimumIsBeforeMaximum = [self _minimumDateIsBeforeMaximumDate];
-    
-    if (minimumIsBeforeMaximum) {
-        
-        if ([self _dateIsBeforeMinimumDate:date]) {
-            date = self.minimumDate;
-        }
-        else if([self _dateIsAfterMaximumDate:date])
-        {
-            date = self.maximumDate;
-        }
-    }
+    date = [self dateClampedToMinimumAndMaximumDatesWithDate:date];
     
     if ([self.observer respondsToSelector:@selector(calendarModel:willChangeFromDate:toNewDate:)])
     {
@@ -65,10 +56,34 @@
     
     _previousDate = self.date;
     _date = date;
+    _visibleDate = date;
     
     if([self.observer respondsToSelector:@selector(calendarModel:didChangeFromDate:toNewDate:)])
     {
         [self.observer calendarModel:self didChangeFromDate:self.previousDate toNewDate:self.date];
+    }
+}
+
+- (void)setVisibleDate:(nullable NSDate *)visibleDate
+{
+    if (!visibleDate)
+    {
+        visibleDate = [NSDate date];
+    }
+    
+    NSDateComponents *components = [self.calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:visibleDate];
+    visibleDate = [self.calendar dateFromComponents:components];
+    visibleDate = [self dateClampedToMinimumAndMaximumDatesWithDate:visibleDate];
+    
+    _visibleDate = visibleDate;
+    
+    if (_updatesSelectedDateBasedOnVisibleDate)
+    {
+        [self setDate:visibleDate];
+    }
+    else
+    {
+        [self informObserverOfInvalidatedState];
     }
 }
 
@@ -89,7 +104,7 @@
 - (nonnull NSDate *)firstVisibleDate;
 {
     CKCalendarViewDisplayMode displayMode = self.displayMode;
-    NSDate *firstVisibleDate = self.date; /* Default to self.date */
+    NSDate *firstVisibleDate = self.visibleDate; /* Default to self.date */
     
     // for the day mode, just return today
     if (displayMode == CKCalendarViewDisplayModeDay)
@@ -98,11 +113,11 @@
     }
     else if(displayMode == CKCalendarViewDisplayModeWeek)
     {
-        firstVisibleDate = [self.calendar firstDayOfTheWeekUsingReferenceDate:self.date andStartDay:self.calendar.firstWeekday];
+        firstVisibleDate = [self.calendar firstDayOfTheWeekUsingReferenceDate:self.visibleDate andStartDay:self.calendar.firstWeekday];
     }
     else if(displayMode == CKCalendarViewDisplayModeMonth)
     {
-        NSDate *firstOfTheMonth = [self.calendar firstDayOfTheMonthUsingReferenceDate:self.date];
+        NSDate *firstOfTheMonth = [self.calendar firstDayOfTheMonthUsingReferenceDate:self.visibleDate];
         
         firstVisibleDate = [self.calendar firstDayOfTheWeekUsingReferenceDate:firstOfTheMonth andStartDay:self.calendar.firstWeekday];
     }
@@ -118,7 +133,7 @@
 - (nonnull NSDate *)lastVisibleDate;
 {
     CKCalendarViewDisplayMode displayMode = self.displayMode;
-    NSDate *lastVisibleDate = self.date; /* Default to self.date */
+    NSDate *lastVisibleDate = self.visibleDate; /* Default to self.date */
     
     // for the day mode, just return today
     if (displayMode == CKCalendarViewDisplayModeDay) {
@@ -126,11 +141,11 @@
     }
     else if(displayMode == CKCalendarViewDisplayModeWeek)
     {
-        lastVisibleDate = [self.calendar lastDayOfTheWeekUsingReferenceDate:self.date];
+        lastVisibleDate = [self.calendar lastDayOfTheWeekUsingReferenceDate:self.visibleDate];
     }
     else if(displayMode == CKCalendarViewDisplayModeMonth)
     {
-        NSDate *lastOfTheMonth = [self.calendar lastDayOfTheMonthUsingReferenceDate:self.date];
+        NSDate *lastOfTheMonth = [self.calendar lastDayOfTheMonthUsingReferenceDate:self.visibleDate];
         lastVisibleDate = [self.calendar lastDayOfTheWeekUsingReferenceDate:lastOfTheMonth];
     }
     
@@ -236,6 +251,26 @@
     }
     
     return [self.calendar date:date isAfterDate:self.minimumDate] && [self.calendar date:date isBeforeDate:self.maximumDate];
+}
+
+- (nonnull NSDate *)dateClampedToMinimumAndMaximumDatesWithDate:(nonnull NSDate *)date
+{
+    NSDate *output = date;
+    
+    BOOL minimumIsBeforeMaximum = [self _minimumDateIsBeforeMaximumDate];
+    
+    if (minimumIsBeforeMaximum) {
+        
+        if ([self _dateIsBeforeMinimumDate:date]) {
+            output = self.minimumDate;
+        }
+        else if([self _dateIsAfterMaximumDate:date])
+        {
+            output = self.maximumDate;
+        }
+    }
+    
+    return output;
 }
 
 // MARK: - Inform Observer of Invalidated State

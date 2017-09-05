@@ -31,9 +31,21 @@ NS_SWIFT_NAME(CalendarModel)
 // MARK: - Date Selection
 
 /**
- The date being displayed by the calendar view.
+ The date selected by the calendar view.
  */
-@property (nonatomic, strong, nonnull) NSDate *date;
+@property (nonatomic, strong, null_resettable) NSDate *date;
+
+/**
+ The "cursor" date for which month is visible.
+ */
+@property (nonatomic, strong, null_resettable) NSDate *visibleDate;
+
+/**
+ Determines if changing the visible date also changes the selected date.
+ 
+ The default value is `YES`.
+ */
+@property (nonatomic, assign) BOOL updatesSelectedDateBasedOnVisibleDate;
 
 // MARK: - Clamping Date with Minimum and Maximum
 
@@ -80,4 +92,5 @@ NS_SWIFT_NAME(CalendarModel)
  */
 @property (nonnull, nonatomic, readonly) NSDate *lastVisibleDate;
 
+// MARK: - Updates 
 @end
