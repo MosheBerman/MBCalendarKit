@@ -27,7 +27,7 @@
     NSDate *correspondingDate = nil;
     
     NSDate *firstVisible = self.firstVisibleDate;
-    NSInteger daysToAdd = (indexPath.section * [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length) + indexPath.item;
+    NSInteger daysToAdd = (indexPath.section * [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.visibleDate].length) + indexPath.item;
     
     correspondingDate = [self.calendar dateByAddingUnit:NSCalendarUnitDay value:daysToAdd toDate:firstVisible options:0];
     
@@ -62,7 +62,7 @@
  */
 - (NSUInteger)numberOfColumns;
 {
-    return [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length;
+    return [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.visibleDate].length;
 }
 
 /**
@@ -70,7 +70,7 @@
  */
 - (NSUInteger)numberOfRows;
 {
-    return [self numberOfRowsForDate:self.date];
+    return [self numberOfRowsForDate:self.visibleDate];
 }
 
 

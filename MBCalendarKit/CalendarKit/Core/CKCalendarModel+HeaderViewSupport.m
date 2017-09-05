@@ -20,7 +20,7 @@
     
     if(mode == CKCalendarViewDisplayModeMonth)
     {
-        return [self.date monthAndYearOnCalendar:self.calendar];
+        return [self.visibleDate monthAndYearOnCalendar:self.calendar];
     }
     
     else if (mode == CKCalendarViewDisplayModeWeek)
@@ -46,12 +46,12 @@
     }
     
     //Otherwise, return today's date as a string
-    return [self.date monthAndDayAndYearOnCalendar:self.calendar];
+    return [self.visibleDate monthAndDayAndYearOnCalendar:self.calendar];
 }
 
 - (NSUInteger)numberOfColumnsForHeader:(CKCalendarHeaderView *)header
 {
-    NSInteger numberOfColumns = [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length;
+    NSInteger numberOfColumns = [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.visibleDate].length;
     
     if (self.displayMode == CKCalendarViewDisplayModeDay)
     {
@@ -81,7 +81,7 @@
     
     if (mode == CKCalendarViewDisplayModeDay)
     {
-        return [self.calendar isDate:[NSDate date] equalToDate:self.date toUnitGranularity:NSCalendarUnitDay];
+        return [self.calendar isDate:[NSDate date] equalToDate:self.visibleDate toUnitGranularity:NSCalendarUnitDay];
     }
     
     return NO;
@@ -98,15 +98,15 @@
         
         if (mode == CKCalendarViewDisplayModeMonth)
         {
-            should = [self.calendar isDate:self.date equalToDate:self.minimumDate toUnitGranularity:NSCalendarUnitMonth];
+            should = [self.calendar isDate:self.visibleDate equalToDate:self.minimumDate toUnitGranularity:NSCalendarUnitMonth];
         }
         else if(mode == CKCalendarViewDisplayModeWeek)
         {
-            should = [self.calendar isDate:self.date equalToDate:self.minimumDate toUnitGranularity:NSCalendarUnitWeekOfYear];
+            should = [self.calendar isDate:self.visibleDate equalToDate:self.minimumDate toUnitGranularity:NSCalendarUnitWeekOfYear];
         }
         else if(mode == CKCalendarViewDisplayModeDay)
         {
-            should = [self.calendar isDate:self.date equalToDate:self.minimumDate toUnitGranularity:NSCalendarUnitDay];
+            should = [self.calendar isDate:self.visibleDate equalToDate:self.minimumDate toUnitGranularity:NSCalendarUnitDay];
         }
     }
     
@@ -124,15 +124,15 @@
         
         if (mode == CKCalendarViewDisplayModeMonth)
         {
-            should = [self.calendar isDate:self.date equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitMonth];
+            should = [self.calendar isDate:self.visibleDate equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitMonth];
         }
         else if(mode == CKCalendarViewDisplayModeWeek)
         {
-            should = [self.calendar isDate:self.date equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitWeekOfYear];
+            should = [self.calendar isDate:self.visibleDate equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitWeekOfYear];
         }
         else if (mode == CKCalendarViewDisplayModeDay)
         {
-            should = [self.calendar isDate:self.date equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitDay];
+            should = [self.calendar isDate:self.visibleDate equalToDate:self.maximumDate toUnitGranularity:NSCalendarUnitDay];
         }
     }
     
@@ -143,7 +143,7 @@
 
 - (void)forwardTapped
 {
-    NSDate *date = self.date;
+    NSDate *date = self.visibleDate;
     NSDate *today = [NSDate date];
     
     /*
@@ -217,13 +217,13 @@
         date = [self.calendar dateByAddingDays:1 toDate:date];
     }
     
-    self.date = date;
+    self.visibleDate = date;
 }
 
 - (void)backwardTapped
 {
     
-    NSDate *date = self.date;
+    NSDate *date = self.visibleDate;
     NSDate *today = [NSDate date];
     
     /*
@@ -282,7 +282,7 @@
         date = [self.calendar dateBySubtractingDays:1 fromDate:date];
     }
     
-    self.date = date;
+    self.visibleDate = date;
 }
 
 @end
