@@ -139,8 +139,9 @@
 ### Added
 Initial release.
 
-[unreleased]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.3...HEAD
-[5.0.3]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.0...5.0.3
+[unreleased]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.4...HEAD
+[5.0.3]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.3...5.0.4
+[5.0.3]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.2...5.0.3
 [5.0.2]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.1...5.0.2
 [5.0.1]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/mosheberman/MBCalendarKit/compare/4.0.1...5.0.0
