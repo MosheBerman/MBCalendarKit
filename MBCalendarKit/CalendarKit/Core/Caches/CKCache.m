@@ -82,16 +82,5 @@
     return _dateFormatter;
 }
 
-// MARK: - CKCalendarCellContext Caching
-
-- (CKContextCache *)cellContexts
-{
-    if(!_cellContexts)
-    {
-        _cellContexts = [[CKContextCache alloc] init];
-    }
-    
-    return _cellContexts;
-}
 
 @end

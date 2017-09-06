@@ -27,11 +27,4 @@
  */
 @property (nonatomic, strong, nonnull, readonly) NSDateFormatter *dateFormatter;
 
-// MARK: - Calendar Cell Context Cache
-
-/**
- A cache for the cell contexts.
- */
-@property (nonatomic, strong, nonnull, readonly) CKContextCache *cellContexts;
-
 @end

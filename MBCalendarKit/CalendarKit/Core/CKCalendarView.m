@@ -30,6 +30,8 @@
 #import "NSCalendarCategories.h"
 #import "NSDate+Description.h"
 
+#import "CKCache.h"
+
 @interface CKCalendarView () <CKCalendarGridViewDelegate, CKCalendarModelObserver> {
     NSUInteger _firstWeekDay;
 }
@@ -68,6 +70,14 @@
  It may be `nil`, or stale.
  */
 @property (nonatomic, strong, nullable) NSDate *temporaryDate;
+
+
+// MARK: - Caching Cell Context
+
+/**
+ A cache which maintains the cell contexts and responds to date, calendar, and other changes.
+ */
+@property (nonnull, nonatomic, strong) CKContextCache *cellContextCache;
 
 @end
 
@@ -131,6 +141,7 @@
  */
 - (void)commonInitializer
 {
+    _cellContextCache = [[CKContextCache alloc] init];
     _calendarModel = [[CKCalendarModel alloc] init];
     _headerView = [CKCalendarHeaderView new];
     
@@ -562,6 +573,7 @@
  */
 - (void)_adjustToFitCells:(BOOL)animated
 {
+    NSTimeInterval duration = 0.0;
     
     if(animated)
     {
@@ -587,9 +599,9 @@
  */
 - (void)calendarGrid:(CKCalendarGridView *)gridView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date
 {
-    CKCalendarCellContext *calendarContext = [[CKCalendarCellContext alloc] initWithDate:date andCalendarView:self];
+    CKCalendarCellContext *calendarContext = [self.cellContextCache contextForDate:date];
     
-    cell.selected = [self.calendar isDate:date equalToDate:self.date toUnitGranularity:NSCalendarUnitDay];
+    cell.selected = calendarContext.isSelected;
     
     if([self.customCellProvider respondsToSelector:@selector(calendarView:willDisplayCell:inContext:)])
     {
@@ -626,6 +638,8 @@
     self.calendarModel.calendar = calendar;
     self.calendarModel.calendar.locale = locale;
     self.calendarModel.calendar.firstWeekday = firstWeekday;
+    
+    CKCache.sharedCache.cellContexts.calendar = calendar;
     
     [self reloadAnimated:animated];
 }
