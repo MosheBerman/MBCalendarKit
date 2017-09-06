@@ -204,13 +204,16 @@
 
 // MARK: - Setters
 
-- (void)setNumber:(NSNumber *)number
+- (void)setNumber:(NSUInteger)number
 {
     _number = number;
     
-    //  TODO: Locale support?
-    NSString *stringVal = number.stringValue;
-    self.label.text = stringVal;
+    // Using a buffer is slightly faster than stringWithFormat,
+    // although we get variable time, based on the size of the integer.
+    char *buffer;
+    asprintf(&buffer, "%li", (unsigned long)number);
+    self.label.text = [[NSString alloc] initWithCString:buffer encoding:NSUTF8StringEncoding];
+    free(buffer);
 }
 
 - (void)setShowDot:(BOOL)showDot
