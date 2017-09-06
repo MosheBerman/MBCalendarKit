@@ -10,8 +10,6 @@
 #import "CKCalendarCellContextIdentifier.h"
 #import "CKCalendarCellColors.h"
 
-#import "UIView+Border.h"
-
 @interface CKCalendarCell ()
 
 /**
@@ -23,6 +21,7 @@
  The event indicator view.
  */
 @property (nonatomic, strong) UIView *dot;
+
 
 @end
 
@@ -232,10 +231,11 @@
     //  Alpha, by default, is 1.0
     self.label.alpha = 1.0;
     
-    self.state = CKCalendarCellContextIdentifierDefault;
-    
-    [self applyColorsForState:self.state];
-    [self showBorder];
+    if(self.state != CKCalendarCellContextIdentifierDefault)
+    {
+        self.state = CKCalendarCellContextIdentifierDefault;
+        [self applyColorsForState:self.state];
+    }
 }
 
 // MARK: - Label
@@ -272,13 +272,16 @@
     
     self.backgroundColor = self.normalBackgroundColor;
     
+    UIColor *borderColor = self.cellBorderColor;
+    
     //  Today cell, selected
     if(state == CKCalendarCellContextIdentifierToday && (self.selected || self.highlighted))
     {
         self.backgroundColor = self.todaySelectedBackgroundColor;
         self.label.shadowColor = self.todayTextShadowColor;
         self.label.textColor = self.todayTextColor;
-        [self setBorderColor:self.backgroundColor];
+        self.layer.borderColor = self.backgroundColor.CGColor;
+        borderColor = self.backgroundColor;
     }
     
     //  Today cell
@@ -287,15 +290,14 @@
         self.backgroundColor = self.todayBackgroundColor;
         self.label.shadowColor = self.todayTextShadowColor;
         self.label.textColor = self.todayTextColor;
-        [self setBorderColor:self.backgroundColor];
-        [self showBorder];
+        borderColor = self.backgroundColor;
     }
     
     //  Selected cells in the active month have a special background color
     else if(state == CKCalendarCellContextIdentifierDefault && self.highlighted)
     {
         self.backgroundColor = self.selectedBackgroundColor;
-        [self setBorderColor:self.selectedCellBorderColor];
+        borderColor = self.selectedCellBorderColor;
         self.label.textColor = self.textSelectedColor;
         self.label.shadowColor = self.textSelectedShadowColor;
         self.label.shadowOffset = CGSizeMake(0, -0.5);
@@ -304,7 +306,7 @@
     else if(state == CKCalendarCellContextIdentifierDefault && (self.highlighted || self.selected))
     {
         self.backgroundColor = self.selectedBackgroundColor;
-        [self setBorderColor:self.selectedCellBorderColor];
+        borderColor = self.selectedCellBorderColor;
         self.label.textColor = self.textSelectedColor;
         self.label.shadowColor = self.textSelectedShadowColor;
         self.label.shadowOffset = CGSizeMake(0, -0.5);
@@ -338,16 +340,19 @@
     self.dot.alpha = self.label.alpha;
     
     //  Set the border color
-    [self setBorderColor:self.cellBorderColor];
-    [self setBorderWidth:0.5];
-    
-    [self showBorder];
+    self.layer.borderColor = borderColor.CGColor;
+    self.layer.borderWidth = 0.5;
 }
 
 // MARK: - Collection View Cell Highlighting
 
 - (void)setSelected:(BOOL)selected
 {
+    if (selected == super.selected)
+    {
+        return;
+    }
+    
     super.selected = selected;
     
     [self applyColorsForState:self.state];
@@ -355,6 +360,11 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+    if (highlighted == super.highlighted)
+    {
+        return;
+    }
+    
     super.highlighted = highlighted;
     
     [self applyColorsForState:self.state];
@@ -371,6 +381,11 @@
         return;
     }
     
+    if (_state == state)
+    {
+        return;
+    }
+    
     _state = state;
     
     [self applyColorsForState:state];
@@ -381,6 +396,11 @@
  */
 - (void)setSelected;
 {
+    if (self.selected)
+    {
+        return;
+    }
+    
     self.selected = YES;
     [self applyColorsForState:self.state];
 }
@@ -390,6 +410,11 @@
  */
 - (void)setDeselected;
 {
+    if(!self.selected)
+    {
+        return;
+    }
+    
     self.selected = NO;
     [self applyColorsForState:self.state];
 }
