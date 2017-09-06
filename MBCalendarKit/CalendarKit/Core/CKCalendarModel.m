@@ -42,6 +42,11 @@
         date = [NSDate date];
     }
     
+    if (date.timeIntervalSinceReferenceDate == _date.timeIntervalSinceReferenceDate)
+    {
+        return;
+    }
+    
     NSDateComponents *components = [self.calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:date];
     date = [self.calendar dateFromComponents:components];
     
