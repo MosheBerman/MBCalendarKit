@@ -18,10 +18,14 @@
  */
 @property (nonatomic, assign) CKCalendarTransitionDirection transitionDirection;
 
-
 /**
  Determines along which axis to animate along. (i.e. Do we slide in from the bottom/top or left/right?)
  */
 @property (nonatomic, assign) CKCalendarGridTransitionAxis transitionAxis;
+
+/**
+ The animation offsets along the X and Y axes.
+ */
+@property (nonatomic, assign) CGPoint initialOffset;
 
 @end
