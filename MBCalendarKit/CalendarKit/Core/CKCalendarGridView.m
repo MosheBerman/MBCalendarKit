@@ -13,6 +13,8 @@
 
 @interface CKCalendarGridView () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
+@property (nonnull, copy, nonatomic) NSString *reuseIdentifier;
+
 @end
 
 @implementation CKCalendarGridView
@@ -64,7 +66,8 @@
         return;
     }
     
-    [self registerClass:cellClass forCellWithReuseIdentifier:NSStringFromClass(cellClass)];
+    self.reuseIdentifier = NSStringFromClass(cellClass);
+    [self registerClass:cellClass forCellWithReuseIdentifier:self.reuseIdentifier];
     _cellClass = cellClass;
 }
 
@@ -86,7 +89,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(self.cellClass) forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.reuseIdentifier forIndexPath:indexPath];
     
     return cell;
 }
