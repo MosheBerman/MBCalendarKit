@@ -7,6 +7,7 @@
 //
 
 @import Foundation;
+#import "CKContextCache.h"
 
 @interface CKCache : NSObject
 
@@ -24,6 +25,13 @@
 /**
  A date formatter.
  */
-@property (strong, nonatomic, nonnull, readonly) NSDateFormatter *dateFormatter;
+@property (nonatomic, strong, nonnull, readonly) NSDateFormatter *dateFormatter;
+
+// MARK: - Calendar Cell Context Cache
+
+/**
+ A cache for the cell contexts.
+ */
+@property (nonatomic, strong, nonnull, readonly) CKContextCache *cellContexts;
 
 @end

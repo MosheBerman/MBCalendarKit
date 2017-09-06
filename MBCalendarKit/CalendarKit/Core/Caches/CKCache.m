@@ -15,7 +15,12 @@
 /**
  The date formatter is actually nullable.
  */
-@property (strong, nonatomic, nullable) NSDateFormatter *dateFormatter;
+@property (nonatomic, strong, nullable) NSDateFormatter *dateFormatter;
+
+/**
+ A cache for the cell contexts.
+ */
+@property (nonatomic, strong, nonnull) CKContextCache *cellContexts;
 
 @end
 
@@ -47,7 +52,7 @@
 {
     self = [super init];
     if (self) {
-
+        
     }
     return self;
 }
@@ -57,6 +62,7 @@
 - (void)purge
 {
     _dateFormatter = nil;
+    [self.cellContexts purge];
 }
 
 // MARK: - NSDateFormatter Caching
@@ -74,6 +80,18 @@
     }
     
     return _dateFormatter;
+}
+
+// MARK: - CKCalendarCellContext Caching
+
+- (CKContextCache *)cellContexts
+{
+    if(!_cellContexts)
+    {
+        _cellContexts = [[CKContextCache alloc] init];
+    }
+    
+    return _cellContexts;
 }
 
 @end
