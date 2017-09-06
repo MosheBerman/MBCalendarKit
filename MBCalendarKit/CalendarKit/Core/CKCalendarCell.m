@@ -385,12 +385,12 @@
  */
 - (void)setState:(CKCalendarCellContextIdentifier)state
 {
-    if (state > CKCalendarCellContextIdentifierOutOfRange || state < CKCalendarCellContextIdentifierToday) {
+    if (_state == state)
+    {
         return;
     }
     
-    if (_state == state)
-    {
+    if (state > CKCalendarCellContextIdentifierOutOfRange || state < CKCalendarCellContextIdentifierToday) {
         return;
     }
     
