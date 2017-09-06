@@ -111,4 +111,38 @@ const void *kAnimatesWeekTransitionsKey = "com.mosheberman.calendarkit.animates-
     return numberOfRows;
 }
 
+// MARK: - Calculating Animation Offset
+
+/**
+ Computes and returns the offset we want to start cells at.
+ We pass X and Y back to allow us to avoid checking the axis
+ in the flow layout.
+
+ @param date The final date being displayed at the end of the animation.
+ @param direction Are we moving forward or backward in time?
+ @param contentSize The size of the display.
+ @return The offset from the final position to use for cell animation.
+ */
+- (CGPoint)initialOffsetForTargetDate:(NSDate *)date forDirection:(CKCalendarTransitionDirection)direction inContentSize:(CGSize)contentSize;
+{
+    CGPoint computedSize = CGPointZero;
+    
+    if (self.transitionAxis == CKCalendarGridTransitionAxisVertical)
+    {
+        computedSize.y = contentSize.height;
+    }
+    else /* Horizontal */
+    {
+        computedSize.x = contentSize.width;
+    }
+    
+    if (direction == CKCalendarTransitionDirectionForward)
+    {
+        computedSize.x = -computedSize.x;
+        computedSize.y = -computedSize.y;
+    }
+    
+    return computedSize;
+}
+
 @end
