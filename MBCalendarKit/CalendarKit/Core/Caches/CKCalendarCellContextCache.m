@@ -11,6 +11,8 @@
 #import "CKCalendarCellContext+Private.h"
 #import "CKCache.h"
 
+#import "CKCalendarView.h"
+
 @import UIKit;
 
 @interface CKCalendarCellContextCache ()
@@ -52,6 +54,7 @@
     if(self)
     {
         _calendarView = calendarView;
+        _cache = [[NSMutableDictionary alloc] init];
         [self observeLowMemoryNotification];
         [self observeSignificantTimeChanges];
     }
@@ -86,8 +89,15 @@
 
 - (nullable NSString *)keyForDate:(nonnull NSDate *)date
 {
-    [CKCache.sharedCache.dateFormatter setDateFormat:@"YYYY-MM-dd"];
-    NSString *key = [CKCache.sharedCache.dateFormatter stringFromDate:date];
+//    [CKCache.sharedCache.dateFormatter setDateFormat:@"YYYY-MM-dd"];
+
+    NSCalendarUnit units = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    NSDateComponents *components = [self.calendarView.calendar components:units fromDate:date];
+    
+    char *buffer;
+    asprintf(&buffer, "%li-%li-%li", (long)components.year, (long)components.month, (long)components.day);
+    NSString *key = [[NSString alloc] initWithCString:buffer encoding:NSUTF8StringEncoding];
+    free(buffer);
     
     return key;
 }
