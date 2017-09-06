@@ -61,15 +61,6 @@ NS_SWIFT_NAME(CalendarCellContext)
 
 // MARK: - Creating a Context Object
 
-/**
- Create a context object. The `calendarView` is not retained.
-
- @param date The date that we are contextualizing relative to the calendar view's current state.
- @param calendarView The calendar view to use to calculate the context.
- @return The context object based on the current date and the configuration of the calendar view.
- */
-- (nonnull instancetype)initWithDate:(nonnull NSDate *)date andCalendarView:(nonnull CKCalendarView *)calendarView NS_DESIGNATED_INITIALIZER;
-
 // Mark `init` as unavailable.
 - (nonnull instancetype)init NS_UNAVAILABLE;
 

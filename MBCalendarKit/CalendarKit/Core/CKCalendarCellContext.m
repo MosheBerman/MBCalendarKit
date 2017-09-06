@@ -44,7 +44,7 @@
 
 /**
  Updates the `isInSameMonthAsToday` flag.
-
+ 
  @param date The date to compare to the calendar view.
  @param calendarView The calendar view to use to put the date in context.
  */
@@ -55,7 +55,7 @@
 
 /**
  Updates the minimum/maximum properties.
-
+ 
  @param date The date to compare to the calendar view.
  @param calendarView The calendar view to use to put the date in context.
  */
@@ -92,5 +92,6 @@
         _identifier = CKCalendarCellContextIdentifierDefault;
     }
 }
+
 
 @end
