@@ -518,20 +518,18 @@
         NSInteger numberOfSectionsBefore = [self.calendarModel numberOfRowsForDate:fromDate];
         NSInteger numberOfSectionsAfter = [self.calendarModel numberOfRowsForDate:toDate];
         
-        if ([self.calendarModel.calendar date:toDate isAfterDate:fromDate])
+        CKCalendarTransitionDirection direction = CKCalendarTransitionDirectionForward;
+        
+        if ([self.calendarModel.calendar date:fromDate isAfterDate:toDate])
         {
-            self.layout.transitionDirection = CKCalendarTransitionDirectionForward;
+            direction = CKCalendarTransitionDirectionBackward;
         }
-        else
-        {
-            self.layout.transitionDirection = CKCalendarTransitionDirectionBackward;
-        }
+        
+        CGPoint offset = [self.calendarModel initialOffsetForTargetDate:toDate forDirection:direction inContentSize:self.gridView.contentSize];
         
         self.layout.transitionAxis = self.calendarModel.transitionAxis;
-        
-        NSIndexSet *indexSetBefore = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, numberOfSectionsBefore)];
-        NSIndexSet *indexSetAfter = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, numberOfSectionsAfter)];
-        
+        self.layout.transitionDirection = direction;
+        self.layout.initialOffset = offset;
         
         CKCalendarGridView *gridView = self.gridView;
         
@@ -539,15 +537,16 @@
             
             if (numberOfSectionsBefore > 0)
             {
-                [gridView deleteSections:indexSetBefore];
+                NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, numberOfSectionsBefore)];
+                [gridView deleteSections:indexSet];
             }
             if (numberOfSectionsAfter > 0)
             {
-                [gridView insertSections:indexSetAfter];
+                NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, numberOfSectionsAfter)];
+                [gridView insertSections:indexSet];
             }
             
-        } completion:^(BOOL finished) {
-        }];
+        } completion:nil];
     }
     else
     {
