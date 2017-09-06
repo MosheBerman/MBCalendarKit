@@ -93,8 +93,7 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     [super willMoveToSuperview:newSuperview];
-    [self configureLabel];
-    [self configureDot];
+    
     [self applyColorsForState:self.state];
 }
 
@@ -106,12 +105,14 @@
     {
         [self.contentView addSubview:self.label];
         [self _constrainLabel];
+        [self configureLabel];
     }
     
     if(![self.subviews containsObject:self.dot])
     {
         [self.contentView addSubview:self.dot];
         [self _constrainDot];
+        [self configureDot];
     }
 }
 
