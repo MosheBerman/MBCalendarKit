@@ -17,10 +17,6 @@
  */
 @property (nonatomic, strong, nullable) NSDateFormatter *dateFormatter;
 
-/**
- A cache for the cell contexts.
- */
-@property (nonatomic, strong, nonnull) CKContextCache *cellContexts;
 
 @end
 

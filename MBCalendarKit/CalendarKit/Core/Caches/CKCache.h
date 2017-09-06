@@ -7,7 +7,6 @@
 //
 
 @import Foundation;
-#import "CKContextCache.h"
 
 @interface CKCache : NSObject
 
