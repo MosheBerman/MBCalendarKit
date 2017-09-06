@@ -58,7 +58,6 @@
 - (void)purge
 {
     _dateFormatter = nil;
-    [self.cellContexts purge];
 }
 
 // MARK: - NSDateFormatter Caching
