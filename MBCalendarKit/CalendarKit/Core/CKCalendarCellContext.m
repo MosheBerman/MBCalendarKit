@@ -30,30 +30,67 @@
         _date = date;
         _isToday = [calendarView.calendar isDate:date equalToDate:NSDate.date toUnitGranularity:NSCalendarUnitDay];
         _isSelected = [calendarView.calendar isDate:date equalToDate:calendarView.date toUnitGranularity:NSCalendarUnitDay];
-        _isInSameMonthAsToday = [calendarView.calendar isDate:date equalToDate:calendarView.date toUnitGranularity:NSCalendarUnitMonth];
-        _isBeforeMinimumDate = [calendarView.calendar date:date isBeforeDate:calendarView.minimumDate];
-        _isAfterMaximumDate = [calendarView.calendar date:calendarView.maximumDate isBeforeDate:date];
         
-        if (_isToday && _isInSameMonthAsToday && !_isBeforeMinimumDate && !_isAfterMaximumDate)
-        {
-            _identifier = CKCalendarCellContextIdentifierToday;
-        }
-        else if (_isAfterMaximumDate || _isBeforeMinimumDate)
-        {
-            _identifier = CKCalendarCellContextIdentifierOutOfRange;
-        }
-        else if(!_isInSameMonthAsToday)
-        {
-            _identifier = CKCalendarCellContextIdentifierOutOfCurrentScope;
-        }
-        else
-        {
-            _identifier = CKCalendarCellContextIdentifierDefault;
-        }
-            
+        [self _updateContextForMonthEqualityWithDate:date andCalendarView:calendarView];
+        [self _updateContextForClampingWithDate:date andCalendarView:calendarView];
+        
+        [self _updateIdentifierBasedOnFlags];
     }
     
     return self;
+}
+
+// MARK: - Updating Contexts In Response To Changes
+
+/**
+ Updates the `isInSameMonthAsToday` flag.
+
+ @param date The date to compare to the calendar view.
+ @param calendarView The calendar view to use to put the date in context.
+ */
+- (void)_updateContextForMonthEqualityWithDate:(NSDate *)date andCalendarView:(nonnull CKCalendarView *)calendarView
+{
+    _isInSameMonthAsToday = [calendarView.calendar isDate:date equalToDate:calendarView.date toUnitGranularity:NSCalendarUnitMonth];
+}
+
+/**
+ Updates the minimum/maximum properties.
+
+ @param date The date to compare to the calendar view.
+ @param calendarView The calendar view to use to put the date in context.
+ */
+- (void)_updateContextForClampingWithDate:(nonnull NSDate *)date andCalendarView:(nonnull CKCalendarView *)calendarView
+{
+    NSDate *minimumDate = calendarView.minimumDate;
+    NSDate *maximumDate = calendarView.maximumDate;
+    
+    _isBeforeMinimumDate = minimumDate == nil? NO : [calendarView.calendar date:date isBeforeDate:minimumDate];
+    _isAfterMaximumDate = maximumDate == nil ? NO : [calendarView.calendar date:maximumDate isBeforeDate:date];
+}
+
+// MARK: - Calculating the Identifier
+
+/**
+ Recomputes the context identifier based on the flags we've set.
+ */
+- (void)_updateIdentifierBasedOnFlags
+{
+    if (_isToday && _isInSameMonthAsToday && !_isBeforeMinimumDate && !_isAfterMaximumDate)
+    {
+        _identifier = CKCalendarCellContextIdentifierToday;
+    }
+    else if (_isAfterMaximumDate || _isBeforeMinimumDate)
+    {
+        _identifier = CKCalendarCellContextIdentifierOutOfRange;
+    }
+    else if(!_isInSameMonthAsToday)
+    {
+        _identifier = CKCalendarCellContextIdentifierOutOfCurrentScope;
+    }
+    else
+    {
+        _identifier = CKCalendarCellContextIdentifierDefault;
+    }
 }
 
 @end
