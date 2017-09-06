@@ -57,12 +57,6 @@
 		467B12C21F2F547500CABA27 /* NSDate+Description.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A86DD171F174D00E7AB19 /* NSDate+Description.m */; };
 		467B12C31F2F547500CABA27 /* NSDateComponents+AllComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86DE171F174D00E7AB19 /* NSDateComponents+AllComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		467B12C41F2F547500CABA27 /* NSDateComponents+AllComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A86DF171F174D00E7AB19 /* NSDateComponents+AllComponents.m */; };
-		467B12C51F2F547500CABA27 /* NSString+Color.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86E0171F174D00E7AB19 /* NSString+Color.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		467B12C61F2F547500CABA27 /* NSString+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A86E1171F174D00E7AB19 /* NSString+Color.m */; };
-		467B12C71F2F547500CABA27 /* UIColor+HexString.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86E3171F174D00E7AB19 /* UIColor+HexString.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		467B12C81F2F547500CABA27 /* UIColor+HexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A86E4171F174D00E7AB19 /* UIColor+HexString.m */; };
-		467B12CB1F2F547500CABA27 /* UIView+Border.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86E8171F174D00E7AB19 /* UIView+Border.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		467B12CC1F2F547500CABA27 /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A86E9171F174D00E7AB19 /* UIView+Border.m */; };
 		467B12CD1F2F547500CABA27 /* CKCalendarCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86EC171F174D00E7AB19 /* CKCalendarCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		467B12CE1F2F547500CABA27 /* CKCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A86ED171F174D00E7AB19 /* CKCalendarCell.m */; };
 		467B12CF1F2F547500CABA27 /* CKCalendarEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86EE171F174D00E7AB19 /* CKCalendarEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -209,12 +203,6 @@
 		464A86DD171F174D00E7AB19 /* NSDate+Description.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Description.m"; sourceTree = "<group>"; };
 		464A86DE171F174D00E7AB19 /* NSDateComponents+AllComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateComponents+AllComponents.h"; sourceTree = "<group>"; };
 		464A86DF171F174D00E7AB19 /* NSDateComponents+AllComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateComponents+AllComponents.m"; sourceTree = "<group>"; };
-		464A86E0171F174D00E7AB19 /* NSString+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Color.h"; sourceTree = "<group>"; };
-		464A86E1171F174D00E7AB19 /* NSString+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Color.m"; sourceTree = "<group>"; };
-		464A86E3171F174D00E7AB19 /* UIColor+HexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexString.h"; sourceTree = "<group>"; };
-		464A86E4171F174D00E7AB19 /* UIColor+HexString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexString.m"; sourceTree = "<group>"; };
-		464A86E8171F174D00E7AB19 /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
-		464A86E9171F174D00E7AB19 /* UIView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Border.m"; sourceTree = "<group>"; };
 		464A86EC171F174D00E7AB19 /* CKCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarCell.h; sourceTree = "<group>"; };
 		464A86ED171F174D00E7AB19 /* CKCalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarCell.m; sourceTree = "<group>"; };
 		464A86EE171F174D00E7AB19 /* CKCalendarEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarEvent.h; sourceTree = "<group>"; };
@@ -429,8 +417,8 @@
 		464A86CB171F174D00E7AB19 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				46C9172B1F5FB48C00C724CB /* UIKit */,
 				464A86CC171F174D00E7AB19 /* Foundation */,
-				464A86E2171F174D00E7AB19 /* UIKit */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -443,8 +431,6 @@
 				464A86D9171F174D00E7AB19 /* NSDate */,
 				464A86DE171F174D00E7AB19 /* NSDateComponents+AllComponents.h */,
 				464A86DF171F174D00E7AB19 /* NSDateComponents+AllComponents.m */,
-				464A86E0171F174D00E7AB19 /* NSString+Color.h */,
-				464A86E1171F174D00E7AB19 /* NSString+Color.m */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -473,25 +459,6 @@
 				464A86DD171F174D00E7AB19 /* NSDate+Description.m */,
 			);
 			path = NSDate;
-			sourceTree = "<group>";
-		};
-		464A86E2171F174D00E7AB19 /* UIKit */ = {
-			isa = PBXGroup;
-			children = (
-				464A86E3171F174D00E7AB19 /* UIColor+HexString.h */,
-				464A86E4171F174D00E7AB19 /* UIColor+HexString.m */,
-				464A86E5171F174D00E7AB19 /* UIView */,
-			);
-			path = UIKit;
-			sourceTree = "<group>";
-		};
-		464A86E5171F174D00E7AB19 /* UIView */ = {
-			isa = PBXGroup;
-			children = (
-				464A86E8171F174D00E7AB19 /* UIView+Border.h */,
-				464A86E9171F174D00E7AB19 /* UIView+Border.m */,
-			);
-			path = UIView;
 			sourceTree = "<group>";
 		};
 		464A86EB171F174D00E7AB19 /* Core */ = {
@@ -623,6 +590,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		46C9172B1F5FB48C00C724CB /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -647,12 +621,9 @@
 				467B12C31F2F547500CABA27 /* NSDateComponents+AllComponents.h in Headers */,
 				468CDDE01F42DE5B008E628D /* CKCalendarCellContext.h in Headers */,
 				46AA211F1F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.h in Headers */,
-				467B12C51F2F547500CABA27 /* NSString+Color.h in Headers */,
 				46AA21221F3DF3EF00E5F832 /* CKCalendarGridTransitionDirection.h in Headers */,
 				463690371F4028DB00DFE9D5 /* CKCalendarModel+GridViewAnimationSupport.h in Headers */,
-				467B12C71F2F547500CABA27 /* UIColor+HexString.h in Headers */,
 				46341C2C1F3A36380090FFAF /* CKCalendarGridView.h in Headers */,
-				467B12CB1F2F547500CABA27 /* UIView+Border.h in Headers */,
 				467B12CD1F2F547500CABA27 /* CKCalendarCell.h in Headers */,
 				467B12CF1F2F547500CABA27 /* CKCalendarEvent.h in Headers */,
 				467B12D11F2F547500CABA27 /* CKCalendarHeaderView.h in Headers */,
@@ -839,11 +810,8 @@
 				46EF359C1F3C295700095A9E /* CKCalendarModel.m in Sources */,
 				46AA20DD1F3D36C800E5F832 /* CKCalendarModel+HeaderViewSupport.m in Sources */,
 				46363C2E1F394393002BA215 /* README.md in Sources */,
-				467B12C61F2F547500CABA27 /* NSString+Color.m in Sources */,
-				467B12C81F2F547500CABA27 /* UIColor+HexString.m in Sources */,
 				468CDDCE1F42CBEC008E628D /* CKCalendarView+DefaultCellProviderImplementation.m in Sources */,
 				46363C2D1F394393002BA215 /* LICENSE.md in Sources */,
-				467B12CC1F2F547500CABA27 /* UIView+Border.m in Sources */,
 				467B12CE1F2F547500CABA27 /* CKCalendarCell.m in Sources */,
 				467B12D01F2F547500CABA27 /* CKCalendarEvent.m in Sources */,
 				467B12D21F2F547500CABA27 /* CKCalendarHeaderView.m in Sources */,
