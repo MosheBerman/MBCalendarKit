@@ -72,7 +72,7 @@
         _headerGradient = kCalendarColorHeaderGradientDark;
         _headerTitleHighlightedTextColor = kCalendarColorHeaderTitleHighlightedBlue;
         
-        _titleLabel = [UILabel new];
+        _titleLabel = [[UILabel alloc] init];
         _titleLabel.textColor = _headerMonthTextColor;
         _titleLabel.shadowColor = _headerMonthTextShadow;
         _titleLabel.shadowOffset = CGSizeMake(0, 1);
@@ -80,8 +80,8 @@
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.font = _headerMonthTextFont;
         
-        _columnTitles = [NSMutableArray new];
-        _columnLabels = [NSMutableArray new];
+        _columnTitles = [[NSMutableArray alloc] init];
+        _columnLabels = [[NSMutableArray alloc] init];
         
         _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
         _tapGesture.cancelsTouchesInView = YES;
@@ -306,6 +306,8 @@
                                                                constant:0.0];
     
     
+    NSMutableArray<NSLayoutConstraint *> *constraints = [[NSMutableArray alloc] initWithObjects:leading, bottom, nil];
+    
     if(!first)
     {
         NSLayoutConstraint *equalWidth = [NSLayoutConstraint constraintWithItem:label
@@ -315,7 +317,7 @@
                                                                       attribute:NSLayoutAttributeWidth
                                                                      multiplier:1.0
                                                                        constant:0.0];
-        [self addConstraint:equalWidth];
+        [constraints addObject:equalWidth];
     }
     
     if(last)
@@ -327,10 +329,10 @@
                                                                     attribute:NSLayoutAttributeTrailing
                                                                    multiplier:1.0
                                                                      constant:0.0];
-        [self addConstraint:trailing];
+        [constraints addObject:trailing];
     }
     
-    [self addConstraints:@[leading, bottom]];
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 
@@ -377,7 +379,7 @@
         
         self.titleLabelBottomPaddingConstraint = bottom;
         
-        [self addConstraints:@[centerX, leading, top, bottom]];
+        [NSLayoutConstraint activateConstraints:@[centerX, leading, top, bottom]];
     }
 }
 
@@ -517,7 +519,7 @@
     anchor.identifier = @"Anchor Constraint";
     
     [self addSubview:polygonView];
-    [self addConstraints:@[width, centerY, anchor, height]];
+    [NSLayoutConstraint activateConstraints:@[width, centerY, anchor, height]];
     
     return polygonView;
 }
