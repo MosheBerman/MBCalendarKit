@@ -10,7 +10,9 @@
 
 #import "CKCalendarView.h"
 #import "CKCalendarView+DefaultCellProviderImplementation.h"
+
 #import "CKCalendarCellContext.h"
+#import "CKCalendarCellContextCache.h"
 
 #import "CKCalendarModel.h"
 #import "CKCalendarModel+GridViewSupport.h"
@@ -77,7 +79,7 @@
 /**
  A cache which maintains the cell contexts and responds to date, calendar, and other changes.
  */
-@property (nonnull, nonatomic, strong) CKContextCache *cellContextCache;
+@property (nonnull, nonatomic, strong) CKCalendarCellContextCache *cellContextCache;
 
 @end
 
@@ -141,7 +143,7 @@
  */
 - (void)commonInitializer
 {
-    _cellContextCache = [[CKContextCache alloc] init];
+    _cellContextCache = [[CKCalendarCellContextCache alloc] initWithCalendarView:self];
     _calendarModel = [[CKCalendarModel alloc] init];
     _headerView = [CKCalendarHeaderView new];
     
@@ -578,18 +580,17 @@
     if(animated)
     {
         [self.superview setNeedsLayout];
-        [UIView animateWithDuration:0.3 animations:^{
-            [self invalidateIntrinsicContentSize];
-            [self.superview setNeedsLayout];
-            [self.superview layoutIfNeeded];
-        }];
+        duration = 0.3;
     }
-    else
-    {
-        [self invalidateIntrinsicContentSize];
-        [self.superview setNeedsLayout];
-        [self.superview layoutIfNeeded];
-    }
+    
+    __weak CKCalendarView *weakSelf = self;
+    
+    [UIView animateWithDuration:duration animations:^{
+        [weakSelf invalidateIntrinsicContentSize];
+        [weakSelf.superview setNeedsLayout];
+        [weakSelf.superview layoutIfNeeded];
+    }];
+    
 }
 
 // MARK: - CKCalendarGridDelegate
@@ -638,8 +639,6 @@
     self.calendarModel.calendar = calendar;
     self.calendarModel.calendar.locale = locale;
     self.calendarModel.calendar.firstWeekday = firstWeekday;
-    
-    CKCache.sharedCache.cellContexts.calendar = calendar;
     
     [self reloadAnimated:animated];
 }
