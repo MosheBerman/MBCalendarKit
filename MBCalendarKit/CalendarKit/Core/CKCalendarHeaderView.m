@@ -13,7 +13,6 @@
 #import "CKCalendarHeaderViewDelegate.h"
 
 #import "MBPolygonView.h"
-#import "UIView+Border.h"
 
 @interface CKCalendarHeaderView ()
 {
