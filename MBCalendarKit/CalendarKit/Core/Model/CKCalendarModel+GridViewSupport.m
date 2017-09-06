@@ -8,6 +8,7 @@
 
 #import "CKCalendarModel+GridViewSupport.h"
 #import "CKCalendarModel+GridViewAnimationSupport.h"
+#import "CKCalendarModel+DaysPerWeek.h"
 
 @import UIKit;
 
@@ -27,7 +28,7 @@
     NSDate *correspondingDate = nil;
     
     NSDate *firstVisible = self.firstVisibleDate;
-    NSInteger daysToAdd = (indexPath.section * [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length) + indexPath.item;
+    NSInteger daysToAdd = (indexPath.section * self.daysPerWeek) + indexPath.item;
     
     correspondingDate = [self.calendar dateByAddingUnit:NSCalendarUnitDay value:daysToAdd toDate:firstVisible options:0];
     
@@ -48,7 +49,7 @@
     NSDate *firstDate = self.firstVisibleDate;
     NSInteger weeks = [self.calendar components:NSCalendarUnitWeekOfYear fromDate:firstDate toDate:date options:0].weekOfYear;
     NSInteger days = [self.calendar components:NSCalendarUnitDay fromDate:firstDate toDate:date options:0].day;
-    NSInteger daysPerWeek = [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:date].length;
+    NSInteger daysPerWeek = self.daysPerWeek;
     
     indexPath = [NSIndexPath indexPathForRow:days % daysPerWeek inSection:weeks];
     
@@ -62,7 +63,7 @@
  */
 - (NSUInteger)numberOfColumns;
 {
-    return [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length;
+    return self.daysPerWeek;
 }
 
 /**
@@ -72,8 +73,6 @@
 {
     return [self numberOfRowsForDate:self.date];
 }
-
-
 
 
 @end

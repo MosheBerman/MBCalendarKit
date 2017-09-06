@@ -7,6 +7,7 @@
 //
 
 #import "CKCalendarModel+HeaderViewSupport.h"
+#import "CKCalendarModel+DaysPerWeek.h"
 #import "NSCalendarCategories.h"
 #import "NSDate+Description.h"
 
@@ -51,7 +52,7 @@
 
 - (NSUInteger)numberOfColumnsForHeader:(CKCalendarHeaderView *)header
 {
-    NSInteger numberOfColumns = [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length;
+    NSInteger numberOfColumns = self.daysPerWeek;
     
     if (self.displayMode == CKCalendarViewDisplayModeDay)
     {

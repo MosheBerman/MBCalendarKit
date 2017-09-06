@@ -29,6 +29,8 @@
 		461C707B1F46292000E305E3 /* DemoApp.strings in Resources */ = {isa = PBXBuildFile; fileRef = 461C70661F46292000E305E3 /* DemoApp.strings */; };
 		461C707C1F46292000E305E3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 461C70691F46292000E305E3 /* Images.xcassets */; };
 		461C707D1F46292000E305E3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 461C706A1F46292000E305E3 /* main.m */; };
+		461D49411F604E9900379937 /* CKCalendarModel+DaysPerWeek.h in Headers */ = {isa = PBXBuildFile; fileRef = 461D493F1F604E9900379937 /* CKCalendarModel+DaysPerWeek.h */; };
+		461D49421F604E9900379937 /* CKCalendarModel+DaysPerWeek.m in Sources */ = {isa = PBXBuildFile; fileRef = 461D49401F604E9900379937 /* CKCalendarModel+DaysPerWeek.m */; };
 		46341C2C1F3A36380090FFAF /* CKCalendarGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = 46341C2A1F3A36380090FFAF /* CKCalendarGridView.h */; };
 		46341C2D1F3A36380090FFAF /* CKCalendarGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46341C2B1F3A36380090FFAF /* CKCalendarGridView.m */; };
 		46363C2C1F394393002BA215 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 46363C241F392295002BA215 /* CHANGELOG.md */; };
@@ -178,6 +180,8 @@
 		461C706A1F46292000E305E3 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		461C706B1F46292000E305E3 /* MBCalendarKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MBCalendarKit-Info.plist"; sourceTree = "<group>"; };
 		461C706C1F46292000E305E3 /* MBCalendarKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBCalendarKit-Prefix.pch"; sourceTree = "<group>"; };
+		461D493F1F604E9900379937 /* CKCalendarModel+DaysPerWeek.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKCalendarModel+DaysPerWeek.h"; sourceTree = "<group>"; };
+		461D49401F604E9900379937 /* CKCalendarModel+DaysPerWeek.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKCalendarModel+DaysPerWeek.m"; sourceTree = "<group>"; };
 		46341C2A1F3A36380090FFAF /* CKCalendarGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarGridView.h; sourceTree = "<group>"; };
 		46341C2B1F3A36380090FFAF /* CKCalendarGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarGridView.m; sourceTree = "<group>"; };
 		46363C241F392295002BA215 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
@@ -294,6 +298,8 @@
 				463690361F4028DB00DFE9D5 /* CKCalendarModel+GridViewAnimationSupport.m */,
 				46AA20DA1F3D36C800E5F832 /* CKCalendarModel+HeaderViewSupport.h */,
 				46AA20DB1F3D36C800E5F832 /* CKCalendarModel+HeaderViewSupport.m */,
+				461D493F1F604E9900379937 /* CKCalendarModel+DaysPerWeek.h */,
+				461D49401F604E9900379937 /* CKCalendarModel+DaysPerWeek.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -604,6 +610,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				461D49411F604E9900379937 /* CKCalendarModel+DaysPerWeek.h in Headers */,
 				46EF359B1F3C295700095A9E /* CKCalendarModel.h in Headers */,
 				460BD68C1F5FA5E7001CBD75 /* CKCache.h in Headers */,
 				46AA20DC1F3D36C800E5F832 /* CKCalendarModel+HeaderViewSupport.h in Headers */,
@@ -821,6 +828,7 @@
 				467B12D81F2F547500CABA27 /* MBPolygonView.m in Sources */,
 				46AF0D711F39D4D4005F37EC /* MIGRATIONGUIDE.md in Sources */,
 				46363C2C1F394393002BA215 /* CHANGELOG.md in Sources */,
+				461D49421F604E9900379937 /* CKCalendarModel+DaysPerWeek.m in Sources */,
 				467B12E21F2F547500CABA27 /* CKCalendarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
