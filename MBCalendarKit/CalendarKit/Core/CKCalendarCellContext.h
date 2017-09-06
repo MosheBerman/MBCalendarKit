@@ -48,7 +48,6 @@ NS_SWIFT_NAME(CalendarCellContext)
  */
 @property (nonatomic, assign, readonly) BOOL isInSameMonthAsToday;
 
-
 /**
  `YES` if the date represented by the cell represents a date earlier than the date represented by the calendar view's `minimumDate` property.
  */
@@ -71,7 +70,7 @@ NS_SWIFT_NAME(CalendarCellContext)
  */
 - (nonnull instancetype)initWithDate:(nonnull NSDate *)date andCalendarView:(nonnull CKCalendarView *)calendarView NS_DESIGNATED_INITIALIZER;
 
-
+// Mark `init` as unavailable.
 - (nonnull instancetype)init NS_UNAVAILABLE;
 
 @end
