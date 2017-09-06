@@ -2,6 +2,20 @@
 
 ## [Unreleased]
 
+
+## [5.0.4] 2017-09-05
+### Added
+- Added an in-memory cache for date formatters.
+
+### Changed
+- Performance gains of about 60-75% when scrubbing 
+- Audited `CKCalendarCell` for performance, including aggressive checking for changes before assigning new states, and reduced number of styling passes.
+- Cache a string representation of the custom cell reuse identifier when we change the cell class instead of computing it at each call to `dequeue...`
+
+### Removed
+- Removed UIView(Borders), UIColor(HexString) and NSString(ToColor) categories for colors and borders.
+
+
 ## [5.0.3] 2017-08-21
 - Made some more adjustments to Xcode schemes for tests.
 - Reformatted changelog to match keepachangelog.com
