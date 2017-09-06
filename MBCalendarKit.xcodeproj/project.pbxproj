@@ -10,6 +10,8 @@
 		4604E1471F4658CB00F1F50B /* MBCalendarKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A870F171F174D00E7AB19 /* MBCalendarKitTests.m */; };
 		46087AD81F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 46087AD61F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.h */; };
 		46087AD91F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 46087AD71F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m */; };
+		460BD68C1F5FA5E7001CBD75 /* CKCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 460BD68A1F5FA5E7001CBD75 /* CKCache.h */; };
+		460BD68D1F5FA5E7001CBD75 /* CKCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 460BD68B1F5FA5E7001CBD75 /* CKCache.m */; };
 		461C706D1F46292000E305E3 /* DemoApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 461C704D1F46292000E305E3 /* DemoApp.storyboard */; };
 		461C706E1F46292000E305E3 /* CKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 461C70521F46292000E305E3 /* CKAppDelegate.m */; };
 		461C706F1F46292000E305E3 /* AlternateCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C70551F46292000E305E3 /* AlternateCalendarViewController.swift */; };
@@ -157,6 +159,8 @@
 /* Begin PBXFileReference section */
 		46087AD61F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CKCalendarModel+GridViewSupport.h"; path = "Model/CKCalendarModel+GridViewSupport.h"; sourceTree = "<group>"; };
 		46087AD71F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CKCalendarModel+GridViewSupport.m"; path = "Model/CKCalendarModel+GridViewSupport.m"; sourceTree = "<group>"; };
+		460BD68A1F5FA5E7001CBD75 /* CKCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKCache.h; path = Caches/CKCache.h; sourceTree = "<group>"; };
+		460BD68B1F5FA5E7001CBD75 /* CKCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKCache.m; path = Caches/CKCache.m; sourceTree = "<group>"; };
 		461C704A1F46291100E305E3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MBCalendarKit/Info.plist; sourceTree = SOURCE_ROOT; };
 		461C704E1F46292000E305E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DemoApp.storyboard; sourceTree = "<group>"; };
 		461C70511F46292000E305E3 /* CKAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKAppDelegate.h; sourceTree = "<group>"; };
@@ -304,6 +308,15 @@
 				46AA20DB1F3D36C800E5F832 /* CKCalendarModel+HeaderViewSupport.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		460BD6851F5FA4C4001CBD75 /* Caches */ = {
+			isa = PBXGroup;
+			children = (
+				460BD68A1F5FA5E7001CBD75 /* CKCache.h */,
+				460BD68B1F5FA5E7001CBD75 /* CKCache.m */,
+			);
+			name = Caches;
 			sourceTree = "<group>";
 		};
 		461C704C1F46292000E305E3 /* Demo App */ = {
@@ -491,6 +504,7 @@
 				464A86F3171F174D00E7AB19 /* CKCalendarView.m */,
 				468C693B1F42C5BC00CCD4E4 /* Custom Calendar Cells */,
 				46AA211C1F3DF13E00E5F832 /* Showing Events */,
+				460BD6851F5FA4C4001CBD75 /* Caches */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -617,6 +631,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46EF359B1F3C295700095A9E /* CKCalendarModel.h in Headers */,
+				460BD68C1F5FA5E7001CBD75 /* CKCache.h in Headers */,
 				46AA20DC1F3D36C800E5F832 /* CKCalendarModel+HeaderViewSupport.h in Headers */,
 				467B12E11F2F547500CABA27 /* CKCalendarViewController.h in Headers */,
 				467B12A91F2F544F00CABA27 /* MBCalendarKit.h in Headers */,
@@ -811,6 +826,7 @@
 				46AA21201F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.m in Sources */,
 				467B12B51F2F547500CABA27 /* NSCalendar+Components.m in Sources */,
 				463690381F4028DB00DFE9D5 /* CKCalendarModel+GridViewAnimationSupport.m in Sources */,
+				460BD68D1F5FA5E7001CBD75 /* CKCache.m in Sources */,
 				467B12B91F2F547500CABA27 /* NSCalendar+DateManipulation.m in Sources */,
 				467B12BB1F2F547500CABA27 /* NSCalendar+Juncture.m in Sources */,
 				467B12BD1F2F547500CABA27 /* NSCalendar+Ranges.m in Sources */,

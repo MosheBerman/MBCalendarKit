@@ -7,12 +7,13 @@
 //
 
 #import "NSDate+Description.h"
+#import "CKCache.h"
 
 @implementation NSDate (Description)
 
 - (NSString *)description
 {
-    NSDateFormatter *formatter = [NSDateFormatter new];
+    NSDateFormatter *formatter = CKCache.sharedCache.dateFormatter;
     formatter.timeStyle = NSDateFormatterNoStyle;
     formatter.dateStyle = NSDateFormatterLongStyle;
     return [formatter stringFromDate:self];
@@ -20,7 +21,7 @@
 
 - (NSString *)dayNameOnCalendar:(NSCalendar *)calendar
 {
-    NSDateFormatter *f = [NSDateFormatter new];
+    NSDateFormatter *f = CKCache.sharedCache.dateFormatter;
     f.calendar = calendar;
     f.locale = calendar.locale;
     [f  setLocalizedDateFormatFromTemplate: @"ccc"];
@@ -29,7 +30,7 @@
 
 - (NSString *)monthNameOnCalendar:(NSCalendar *)calendar
 {
-    NSDateFormatter *f = [NSDateFormatter new];
+    NSDateFormatter *f = CKCache.sharedCache.dateFormatter;
     f.calendar = calendar;
     f.locale = calendar.locale;
     [f  setLocalizedDateFormatFromTemplate:@"MMMM"];
@@ -38,7 +39,7 @@
 
 - (NSString *)monthAndYearOnCalendar:(NSCalendar *)calendar
 {
-    NSDateFormatter *f = [NSDateFormatter new];
+    NSDateFormatter *f = CKCache.sharedCache.dateFormatter;
     f.calendar = calendar;
     f.locale = calendar.locale;
     [f  setLocalizedDateFormatFromTemplate:@"MMMM yyyy"];
@@ -47,7 +48,7 @@
 
 - (NSString *)monthAbbreviationAndYearOnCalendar:(NSCalendar *)calendar
 {
-    NSDateFormatter *f = [NSDateFormatter new];
+    NSDateFormatter *f = CKCache.sharedCache.dateFormatter;
     f.calendar = calendar;
     f.locale = calendar.locale;
     [f  setLocalizedDateFormatFromTemplate:@"MMM yyyy"];
@@ -57,7 +58,7 @@
 
 - (NSString *)monthAbbreviationOnCalendar:(NSCalendar *)calendar
 {
-    NSDateFormatter *f = [NSDateFormatter new];
+    NSDateFormatter *f = CKCache.sharedCache.dateFormatter;
     f.calendar = calendar;
     f.locale = calendar.locale;
     [f  setLocalizedDateFormatFromTemplate:@"MMM"];
@@ -66,7 +67,7 @@
 
 - (NSString *)monthAndDayOnCalendar:(NSCalendar *)calendar
 {
-    NSDateFormatter *f = [NSDateFormatter new];
+    NSDateFormatter *f = CKCache.sharedCache.dateFormatter;
     f.calendar = calendar;
     f.locale = calendar.locale;
     [f  setLocalizedDateFormatFromTemplate:@"MMM d"];
@@ -75,7 +76,7 @@
 
 - (NSString *)dayOfMonthOnCalendar:(NSCalendar *)calendar
 {
-    NSDateFormatter *f = [NSDateFormatter new];
+    NSDateFormatter *f = CKCache.sharedCache.dateFormatter;
     f.calendar = calendar;
     f.locale = calendar.locale;
     [f  setLocalizedDateFormatFromTemplate:@"d"];
@@ -84,7 +85,7 @@
 
 - (NSString *)monthAndDayAndYearOnCalendar:(NSCalendar *)calendar
 {
-    NSDateFormatter *f = [NSDateFormatter new];
+    NSDateFormatter *f = CKCache.sharedCache.dateFormatter;
     f.calendar = calendar;
     f.locale = calendar.locale;
     [f  setLocalizedDateFormatFromTemplate:@"MMM d yyyy"];
@@ -94,7 +95,7 @@
 
 - (NSString *)dayOfMonthAndYearOnCalendar:(NSCalendar *)calendar
 {
-    NSDateFormatter *f = [NSDateFormatter new];
+    NSDateFormatter *f = CKCache.sharedCache.dateFormatter;
     f.calendar = calendar;
     f.locale = calendar.locale;
     [f  setLocalizedDateFormatFromTemplate:@"d yyyy"];
