@@ -8,6 +8,7 @@
 
 #import "CKCalendarCellContextCache.h"
 #import "CKCalendarCellContext.h"
+#import "CKCalendarCellContext+Private.h"
 #import "CKCache.h"
 
 @import UIKit;
@@ -29,6 +30,11 @@
 @property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, CKCalendarCellContext *> *cache;
 
 // MARK: - Caching Today and Selection
+
+/**
+ Cache the today object.
+ */
+@property (nonatomic, weak, nullable) CKCalendarCellContext *today;
 
 @end
 
@@ -86,8 +92,6 @@
     return key;
 }
 
-// MARK: - Handle
-
 // MARK: - Handle Changes to NSDate.date
 
 /**
@@ -97,6 +101,8 @@
 {
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(handleSignificantTimeChange) name:UIApplicationSignificantTimeChangeNotification object:nil];
 }
+
+// MARK: - Handling Significant Time Changes
 
 /**
  When there's a significant time change, we want to handle it.
@@ -108,7 +114,7 @@
     [self purge];
 }
 
-// MARK: - Handle Low Memory Conditions
+// MARK: - Handling Low Memory Conditions
 
 - (void)observeLowMemoryNotification
 {
