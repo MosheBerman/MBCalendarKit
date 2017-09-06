@@ -267,74 +267,81 @@
 - (void)applyColorsForState:(CKCalendarMonthCellState)state
 {
     //  Default colors and shadows
-    self.label.textColor = self.textColor;
-    self.label.shadowColor = self.textShadowColor;
-    self.label.shadowOffset = CGSizeMake(0, 0.5);
-    
-    self.backgroundColor = self.normalBackgroundColor;
-    
+    UIColor *textColor = self.textColor;
+    UIColor *backgroundColor = self.normalBackgroundColor;
     UIColor *borderColor = self.cellBorderColor;
+    
+    UIColor *shadowColor = self.textShadowColor;
+    CGSize shadowOffset = CGSizeMake(0, 0.5);
+    
+    CGFloat alpha = 1.0;
     
     //  Today cell, selected
     if(state == CKCalendarCellContextIdentifierToday && (self.selected || self.highlighted))
     {
-        self.backgroundColor = self.todaySelectedBackgroundColor;
-        self.label.shadowColor = self.todayTextShadowColor;
-        self.label.textColor = self.todayTextColor;
-        self.layer.borderColor = self.backgroundColor.CGColor;
+        backgroundColor = self.todaySelectedBackgroundColor;
+        shadowColor = self.todayTextShadowColor;
+        textColor = self.todayTextColor;
         borderColor = self.backgroundColor;
     }
     
     //  Today cell
     else if(state == CKCalendarCellContextIdentifierToday)
     {
-        self.backgroundColor = self.todayBackgroundColor;
-        self.label.shadowColor = self.todayTextShadowColor;
-        self.label.textColor = self.todayTextColor;
+        backgroundColor = self.todayBackgroundColor;
+        shadowColor = self.todayTextShadowColor;
+        textColor = self.todayTextColor;
         borderColor = self.backgroundColor;
     }
     
     //  Selected cells in the active month have a special background color
     else if(state == CKCalendarCellContextIdentifierDefault && self.highlighted)
     {
-        self.backgroundColor = self.selectedBackgroundColor;
+        backgroundColor = self.selectedBackgroundColor;
         borderColor = self.selectedCellBorderColor;
-        self.label.textColor = self.textSelectedColor;
-        self.label.shadowColor = self.textSelectedShadowColor;
-        self.label.shadowOffset = CGSizeMake(0, -0.5);
+        textColor = self.textSelectedColor;
+        shadowColor = self.textSelectedShadowColor;
+        shadowOffset = CGSizeMake(0, -0.5);
     }
     //  Selected cells in the active month have a special background color
     else if(state == CKCalendarCellContextIdentifierDefault && (self.highlighted || self.selected))
     {
-        self.backgroundColor = self.selectedBackgroundColor;
+        backgroundColor = self.selectedBackgroundColor;
         borderColor = self.selectedCellBorderColor;
-        self.label.textColor = self.textSelectedColor;
-        self.label.shadowColor = self.textSelectedShadowColor;
-        self.label.shadowOffset = CGSizeMake(0, -0.5);
+        textColor = self.textSelectedColor;
+        shadowColor = self.textSelectedShadowColor;
+        shadowOffset = CGSizeMake(0, -0.5);
     }
     else if (state == CKCalendarCellContextIdentifierOutOfCurrentScope && self.highlighted)
     {
-        self.label.alpha = 0.5;    //  Label alpha needs to be lowered
-        self.label.shadowOffset = CGSizeZero;
-        self.backgroundColor = self.inactiveSelectedBackgroundColor;
+        alpha = 0.5;    //  Label alpha needs to be lowered
+        shadowOffset = CGSizeZero;
+        backgroundColor = self.inactiveSelectedBackgroundColor;
     }
     else if(state == CKCalendarCellContextIdentifierOutOfRange && self.highlighted)
     {
-        self.label.alpha = 0.01;    //  Label alpha needs to be lowered
-        self.label.shadowOffset = CGSizeZero;
-        self.backgroundColor = self.inactiveSelectedBackgroundColor;
+        alpha = 0.01;    //  Label alpha needs to be lowered
+        shadowOffset = CGSizeZero;
+        backgroundColor = self.inactiveSelectedBackgroundColor;
     }
     else if (state == CKCalendarCellContextIdentifierOutOfRange)
     {
-        self.label.alpha = 0.01;    //  Label alpha needs to be lowered
-        self.label.shadowOffset = CGSizeZero;
-        self.backgroundColor = self.inactiveSelectedBackgroundColor;
+        alpha = 0.01;    //  Label alpha needs to be lowered
+        shadowOffset = CGSizeZero;
+        backgroundColor = self.inactiveSelectedBackgroundColor;
     }
     else if (state == CKCalendarCellContextIdentifierOutOfCurrentScope)
     {
-        self.label.alpha = 0.5;    //  Label alpha needs to be lowered
-        self.label.shadowOffset = CGSizeZero;
+        alpha = 0.5;    //  Label alpha needs to be lowered
+        shadowOffset = CGSizeZero;
     }
+    
+    self.label.textColor = textColor;
+    self.label.shadowColor = shadowColor;
+    self.label.shadowOffset = shadowOffset;
+    self.label.alpha = alpha;
+    
+    self.backgroundColor = backgroundColor;
     
     //  Make the dot follow the label's style
     self.dot.backgroundColor = self.label.textColor;
