@@ -54,6 +54,3 @@ FOUNDATION_EXPORT const unsigned char MBCalendarKitVersionString[];
 #import <MBCalendarKit/NSDate+Components.h>
 #import <MBCalendarKit/NSDate+Description.h>
 #import <MBCalendarKit/NSDateComponents+AllComponents.h>
-
-#import <MBCalendarKit/UIColor+HexString.h>
-#import <MBCalendarKit/UIView+Border.h>

@@ -10,8 +10,6 @@
 #import "CKCalendarCellContextIdentifier.h"
 #import "CKCalendarCellColors.h"
 
-#import "UIView+Border.h"
-
 @interface CKCalendarCell ()
 
 /**
@@ -23,6 +21,7 @@
  The event indicator view.
  */
 @property (nonatomic, strong) UIView *dot;
+
 
 @end
 
@@ -59,10 +58,10 @@
         _selectedCellBorderColor = kCalendarColorSelectedCellBorder;
         
         // Label
-        _label = [UILabel new];
+        _label = [[UILabel alloc] init];
         
         //  Dot
-        _dot = [UIView new];
+        _dot = [[UIView alloc] init];
         [_dot setHidden:YES];
         _showDot = NO;
         
@@ -94,8 +93,7 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     [super willMoveToSuperview:newSuperview];
-    [self configureLabel];
-    [self configureDot];
+    
     [self applyColorsForState:self.state];
 }
 
@@ -107,12 +105,14 @@
     {
         [self.contentView addSubview:self.label];
         [self _constrainLabel];
+        [self configureLabel];
     }
     
     if(![self.subviews containsObject:self.dot])
     {
         [self.contentView addSubview:self.dot];
         [self _constrainDot];
+        [self configureDot];
     }
 }
 
@@ -232,10 +232,11 @@
     //  Alpha, by default, is 1.0
     self.label.alpha = 1.0;
     
-    self.state = CKCalendarCellContextIdentifierDefault;
-    
-    [self applyColorsForState:self.state];
-    [self showBorder];
+    if(self.state != CKCalendarCellContextIdentifierDefault)
+    {
+        self.state = CKCalendarCellContextIdentifierDefault;
+        [self applyColorsForState:self.state];
+    }
 }
 
 // MARK: - Label
@@ -266,88 +267,100 @@
 - (void)applyColorsForState:(CKCalendarMonthCellState)state
 {
     //  Default colors and shadows
-    self.label.textColor = self.textColor;
-    self.label.shadowColor = self.textShadowColor;
-    self.label.shadowOffset = CGSizeMake(0, 0.5);
+    UIColor *textColor = self.textColor;
+    UIColor *backgroundColor = self.normalBackgroundColor;
+    UIColor *borderColor = self.cellBorderColor;
     
-    self.backgroundColor = self.normalBackgroundColor;
+    UIColor *shadowColor = self.textShadowColor;
+    CGSize shadowOffset = CGSizeMake(0, 0.5);
+    
+    CGFloat alpha = 1.0;
     
     //  Today cell, selected
     if(state == CKCalendarCellContextIdentifierToday && (self.selected || self.highlighted))
     {
-        self.backgroundColor = self.todaySelectedBackgroundColor;
-        self.label.shadowColor = self.todayTextShadowColor;
-        self.label.textColor = self.todayTextColor;
-        [self setBorderColor:self.backgroundColor];
+        backgroundColor = self.todaySelectedBackgroundColor;
+        shadowColor = self.todayTextShadowColor;
+        textColor = self.todayTextColor;
+        borderColor = self.backgroundColor;
     }
     
     //  Today cell
     else if(state == CKCalendarCellContextIdentifierToday)
     {
-        self.backgroundColor = self.todayBackgroundColor;
-        self.label.shadowColor = self.todayTextShadowColor;
-        self.label.textColor = self.todayTextColor;
-        [self setBorderColor:self.backgroundColor];
-        [self showBorder];
+        backgroundColor = self.todayBackgroundColor;
+        shadowColor = self.todayTextShadowColor;
+        textColor = self.todayTextColor;
+        borderColor = self.backgroundColor;
     }
     
     //  Selected cells in the active month have a special background color
     else if(state == CKCalendarCellContextIdentifierDefault && self.highlighted)
     {
-        self.backgroundColor = self.selectedBackgroundColor;
-        [self setBorderColor:self.selectedCellBorderColor];
-        self.label.textColor = self.textSelectedColor;
-        self.label.shadowColor = self.textSelectedShadowColor;
-        self.label.shadowOffset = CGSizeMake(0, -0.5);
+        backgroundColor = self.selectedBackgroundColor;
+        borderColor = self.selectedCellBorderColor;
+        textColor = self.textSelectedColor;
+        shadowColor = self.textSelectedShadowColor;
+        shadowOffset = CGSizeMake(0, -0.5);
     }
     //  Selected cells in the active month have a special background color
     else if(state == CKCalendarCellContextIdentifierDefault && (self.highlighted || self.selected))
     {
-        self.backgroundColor = self.selectedBackgroundColor;
-        [self setBorderColor:self.selectedCellBorderColor];
-        self.label.textColor = self.textSelectedColor;
-        self.label.shadowColor = self.textSelectedShadowColor;
-        self.label.shadowOffset = CGSizeMake(0, -0.5);
+        backgroundColor = self.selectedBackgroundColor;
+        borderColor = self.selectedCellBorderColor;
+        textColor = self.textSelectedColor;
+        shadowColor = self.textSelectedShadowColor;
+        shadowOffset = CGSizeMake(0, -0.5);
     }
     else if (state == CKCalendarCellContextIdentifierOutOfCurrentScope && self.highlighted)
     {
-        self.label.alpha = 0.5;    //  Label alpha needs to be lowered
-        self.label.shadowOffset = CGSizeZero;
-        self.backgroundColor = self.inactiveSelectedBackgroundColor;
+        alpha = 0.5;    //  Label alpha needs to be lowered
+        shadowOffset = CGSizeZero;
+        backgroundColor = self.inactiveSelectedBackgroundColor;
     }
     else if(state == CKCalendarCellContextIdentifierOutOfRange && self.highlighted)
     {
-        self.label.alpha = 0.01;    //  Label alpha needs to be lowered
-        self.label.shadowOffset = CGSizeZero;
-        self.backgroundColor = self.inactiveSelectedBackgroundColor;
+        alpha = 0.01;    //  Label alpha needs to be lowered
+        shadowOffset = CGSizeZero;
+        backgroundColor = self.inactiveSelectedBackgroundColor;
     }
     else if (state == CKCalendarCellContextIdentifierOutOfRange)
     {
-        self.label.alpha = 0.01;    //  Label alpha needs to be lowered
-        self.label.shadowOffset = CGSizeZero;
-        self.backgroundColor = self.inactiveSelectedBackgroundColor;
+        alpha = 0.01;    //  Label alpha needs to be lowered
+        shadowOffset = CGSizeZero;
+        backgroundColor = self.inactiveSelectedBackgroundColor;
     }
     else if (state == CKCalendarCellContextIdentifierOutOfCurrentScope)
     {
-        self.label.alpha = 0.5;    //  Label alpha needs to be lowered
-        self.label.shadowOffset = CGSizeZero;
+        alpha = 0.5;    //  Label alpha needs to be lowered
+        shadowOffset = CGSizeZero;
     }
+    
+    self.label.textColor = textColor;
+    self.label.shadowColor = shadowColor;
+    self.label.shadowOffset = shadowOffset;
+    self.label.alpha = alpha;
+    
+    self.backgroundColor = backgroundColor;
     
     //  Make the dot follow the label's style
     self.dot.backgroundColor = self.label.textColor;
     self.dot.alpha = self.label.alpha;
     
     //  Set the border color
-    [self setBorderColor:self.cellBorderColor];
-    [self setBorderWidth:0.5];
-    
-    [self showBorder];
+    self.layer.borderColor = borderColor.CGColor;
+    self.layer.borderWidth = 0.5;
 }
 
 // MARK: - Collection View Cell Highlighting
 
 - (void)setSelected:(BOOL)selected
 {
+    if (selected == super.selected)
+    {
+        return;
+    }
+    
     super.selected = selected;
     
     [self applyColorsForState:self.state];
@@ -355,6 +368,11 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+    if (highlighted == super.highlighted)
+    {
+        return;
+    }
+    
     super.highlighted = highlighted;
     
     [self applyColorsForState:self.state];
@@ -367,6 +385,11 @@
  */
 - (void)setState:(CKCalendarCellContextIdentifier)state
 {
+    if (_state == state)
+    {
+        return;
+    }
+    
     if (state > CKCalendarCellContextIdentifierOutOfRange || state < CKCalendarCellContextIdentifierToday) {
         return;
     }
@@ -381,8 +404,12 @@
  */
 - (void)setSelected;
 {
+    if (self.selected)
+    {
+        return;
+    }
+    
     self.selected = YES;
-    [self applyColorsForState:self.state];
 }
 
 /**
@@ -390,8 +417,12 @@
  */
 - (void)setDeselected;
 {
+    if(!self.selected)
+    {
+        return;
+    }
+    
     self.selected = NO;
-    [self applyColorsForState:self.state];
 }
 
 /**

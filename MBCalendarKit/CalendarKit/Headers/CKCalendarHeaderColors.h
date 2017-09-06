@@ -9,17 +9,15 @@
 #ifndef MBCalendarKit_CKCalendarHeaderColors_h
 #define MBCalendarKit_CKCalendarHeaderColors_h
 
-#import "NSString+Color.h"
+#define kCalendarColorHeaderWeekdayTitle    [UIColor colorWithRed:0.33 green:0.33 blue:0.33 alpha:1.0]
+#define kCalendarColorHeaderWeekdayShadow   [UIColor colorWithRed:0.95 green:0.95 blue:0.96 alpha:1.0]
 
-#define kCalendarColorHeaderWeekdayTitle    [@"#545454" toColor]
-#define kCalendarColorHeaderWeekdayShadow   [@"#f3f3f4" toColor]
+#define kCalendarColorHeaderMonth           [UIColor colorWithRed:0.33 green:0.33 blue:0.33 alpha:1.0]
+#define kCalendarColorHeaderMonthShadow     [UIColor colorWithRed:0.96 green:0.96 blue:0.97 alpha:1.0]
 
-#define kCalendarColorHeaderMonth           [@"#545454" toColor]
-#define kCalendarColorHeaderMonthShadow     [@"#f6f6f7" toColor]
+#define kCalendarColorHeaderGradientLight   [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.0]
+#define kCalendarColorHeaderGradientDark    [UIColor colorWithRed:0.80 green:0.80 blue:0.82 alpha:1.0]
 
-#define kCalendarColorHeaderGradientLight   [@"#f4f4f5" toColor]
-#define kCalendarColorHeaderGradientDark    [@"#ccccd1" toColor]
-
-#define kCalendarColorHeaderTitleHighlightedBlue [@"#1980e5" toColor]
+#define kCalendarColorHeaderTitleHighlightedBlue [UIColor colorWithRed:0.10 green:0.50 blue:0.90 alpha:1.0]
 
 #endif

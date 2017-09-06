@@ -77,7 +77,7 @@
 
 /**
  Initializes the calendar with a display mode.
-
+ 
  @param CalendarDisplayMode How much content to display: a month, a week, or a day?
  @return An instance of CKCalendarView.
  */
@@ -94,7 +94,7 @@
 
 /**
  Calls `initWithMode:` with a mode of CKCalendarViewModeMonth.
-
+ 
  @param frame The frame. Doesn't matter because we drop this.
  @return An instance of CKCalendarView.
  */
@@ -139,7 +139,7 @@
     
     _gridView = [[CKCalendarGridView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     _gridView.userInteractionEnabled = NO;
-
+    
     
     //  Events for selected date
     _events = [NSMutableArray new];
@@ -150,7 +150,7 @@
     [self _installGridView];
     [self reload];
     
-//    https://stackoverflow.com/a/45467694/224988
+    //    https://stackoverflow.com/a/45467694/224988
 #if !TARGET_INTERFACE_BUILDER
     self.translatesAutoresizingMaskIntoConstraints = NO;
 #endif
@@ -209,7 +209,7 @@
 
 /**
  Calculates the length of a side of a single cell.
-
+ 
  @return The size of a square cell, based on the superview, adjusting for divisibility by the number of columns.
  */
 - (CGFloat)_lengthOfTheSideOfACell
@@ -219,7 +219,7 @@
     if (self.superview)
     {
         CGFloat parentBounds = CGRectGetWidth(self.superview.bounds);
-    
+        
         // We need this as a `CGFloat` for floating point division
         // This is very likely always 7.0
         CGFloat numberOfColumns = (CGFloat)self.calendarModel.numberOfColumns;
@@ -260,7 +260,7 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     self.temporaryDate = self.calendarModel.date;
-
+    
     [super touchesBegan:touches withEvent:event];
 }
 
@@ -326,7 +326,7 @@
 
 /**
  Determines if a touch is inside the bounds of another view.
-
+ 
  @param touch The touch to evaluate.
  @param view The view to evaluate against.
  @return The value of CGRectContainsPoint(view.frame, ...) returns for the location of the touch in `self`.
@@ -343,7 +343,7 @@
 
 /**
  Finds the grid cell beneath the user's touch.
-
+ 
  @param touches The touches to use to find the cell.
  @return A cell beneath the finger.
  */
@@ -360,7 +360,7 @@
 
 /**
  Finds the date who's cell is beneath the user's touch.
-
+ 
  @param touches The touches to use to find the cell.
  @return A date, represented by the cell beneath the finger.
  */
@@ -388,36 +388,36 @@
         [self addSubview:self.gridView];
         
         NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.gridView
-                                                                    attribute:NSLayoutAttributeTop
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:self.headerView
-                                                                    attribute:NSLayoutAttributeBottom
-                                                                   multiplier:1.0
-                                                                     constant:0.0];
-        
-        NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.gridView
-                                                               attribute:NSLayoutAttributeBottom
+                                                               attribute:NSLayoutAttributeTop
                                                                relatedBy:NSLayoutRelationEqual
-                                                                  toItem:self
+                                                                  toItem:self.headerView
                                                                attribute:NSLayoutAttributeBottom
                                                               multiplier:1.0
                                                                 constant:0.0];
         
-        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.gridView
-                                                                   attribute:NSLayoutAttributeLeading
+        NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:self.gridView
+                                                                  attribute:NSLayoutAttributeBottom
                                                                   relatedBy:NSLayoutRelationEqual
                                                                      toItem:self
-                                                                  attribute:NSLayoutAttributeLeading
+                                                                  attribute:NSLayoutAttributeBottom
                                                                  multiplier:1.0
                                                                    constant:0.0];
         
-        NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.gridView
-                                                                   attribute:NSLayoutAttributeTrailing
+        NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:self.gridView
+                                                                   attribute:NSLayoutAttributeLeading
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:self
-                                                                   attribute:NSLayoutAttributeTrailing
+                                                                   attribute:NSLayoutAttributeLeading
                                                                   multiplier:1.0
                                                                     constant:0.0];
+        
+        NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:self.gridView
+                                                                    attribute:NSLayoutAttributeTrailing
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:self
+                                                                    attribute:NSLayoutAttributeTrailing
+                                                                   multiplier:1.0
+                                                                     constant:0.0];
         
         
         [NSLayoutConstraint activateConstraints:@[trailing, top, bottom, leading]];
@@ -461,7 +461,7 @@
                                                                    multiplier:1.0
                                                                      constant:0.0];
         
-        [self addConstraints:@[top, leading, trailing]];
+        [NSLayoutConstraint activateConstraints:@[top, leading, trailing]];
     }
 }
 
@@ -503,7 +503,7 @@
 
 /**
  Reloads the cells, taking into account the change in dates.
-
+ 
  @param fromDate The date before reload.
  @param toDate The date after reload.
  */
@@ -558,24 +558,27 @@
 
 /**
  Invalidates the intrinsic content size to allow display of all cells.
-
+ 
  @param animated Should we animate the change.
  */
 - (void)_adjustToFitCells:(BOOL)animated
 {
-    NSTimeInterval duration = 0.0;
     
     if(animated)
     {
-        duration = 0.3;
+        [self.superview setNeedsLayout];
+        [UIView animateWithDuration:0.3 animations:^{
+            [self invalidateIntrinsicContentSize];
+            [self.superview setNeedsLayout];
+            [self.superview layoutIfNeeded];
+        }];
     }
-    
-    [self.superview setNeedsLayout];
-    [UIView animateWithDuration:duration animations:^{
+    else
+    {
         [self invalidateIntrinsicContentSize];
         [self.superview setNeedsLayout];
         [self.superview layoutIfNeeded];
-    }];
+    }
 }
 
 // MARK: - CKCalendarGridDelegate

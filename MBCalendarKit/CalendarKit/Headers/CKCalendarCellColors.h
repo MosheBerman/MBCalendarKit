@@ -19,26 +19,27 @@
  Text Gradient Top Color: #2b3540
  Text Gradient Bottom Color: #495a6d
  
+ As part of a performance audit on 9/5/17, the hex category was replaced with 
+ standard UIColors, converted ising http://uicolor.xyz.
+ 
  */
 
 
 #ifndef MBCalendarKit_CKCalendarCalendarCellColors_h
 #define MBCalendarKit_CKCalendarCalendarCellColors_h
 
-#import "NSString+Color.h"
+#define kCalendarColorBlue [UIColor colorWithRed:0.10 green:0.50 blue:0.90 alpha:1.0];
+#define kCalendarColorLightGray [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0]
+#define kCalendarColorDarkGray [UIColor colorWithRed:0.80 green:0.80 blue:0.82 alpha:1.0]
 
-#define kCalendarColorBlue [@"#1980e5" toColor]
-#define kCalendarColorLightGray [@"#e2e2e4" toColor]
-#define kCalendarColorDarkGray [@"#cccbd0" toColor]
+#define kCalendarColorBluishGray [UIColor colorWithRed:0.45 green:0.54 blue:0.65 alpha:1.0]
+#define kCalendarColorTodayShadowBlue [UIColor colorWithRed:0.22 green:0.27 blue:0.32 alpha:1.0]
+#define kCalendarColorSelectedShadowBlue [UIColor colorWithRed:0.16 green:0.31 blue:0.46 alpha:1.0]
 
-#define kCalendarColorBluishGray [@"#7389a5" toColor]
-#define kCalendarColorTodayShadowBlue [@"#394452" toColor]
-#define kCalendarColorSelectedShadowBlue [@"#294f75" toColor]
+#define kCalendarColorDarkTextGradient [UIColor colorWithRed:0.17 green:0.21 blue:0.25 alpha:1.0]
+#define kCalendarColorLightTextGradient [UIColor colorWithRed:0.29 green:0.35 blue:0.43 alpha:1.0]
 
-#define kCalendarColorDarkTextGradient [@"#2b3540" toColor]
-#define kCalendarColorLightTextGradient [@"#495a6d" toColor]
-
-#define kCalendarColorCellBorder [@"#9da0a9" toColor]
-#define kCalendarColorSelectedCellBorder [@"#293649" toColor]
+#define kCalendarColorCellBorder [UIColor colorWithRed:0.62 green:0.63 blue:0.66 alpha:1.0]
+#define kCalendarColorSelectedCellBorder [UIColor colorWithRed:0.16 green:0.21 blue:0.29 alpha:1.0]
 
 #endif
