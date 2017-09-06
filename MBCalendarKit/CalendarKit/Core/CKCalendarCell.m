@@ -58,10 +58,10 @@
         _selectedCellBorderColor = kCalendarColorSelectedCellBorder;
         
         // Label
-        _label = [UILabel new];
+        _label = [[UILabel alloc] init];
         
         //  Dot
-        _dot = [UIView new];
+        _dot = [[UIView alloc] init];
         [_dot setHidden:YES];
         _showDot = NO;
         
@@ -410,7 +410,6 @@
     }
     
     self.selected = YES;
-    [self applyColorsForState:self.state];
 }
 
 /**
@@ -424,7 +423,6 @@
     }
     
     self.selected = NO;
-    [self applyColorsForState:self.state];
 }
 
 /**
