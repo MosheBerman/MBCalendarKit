@@ -327,9 +327,12 @@
     
     self.backgroundColor = backgroundColor;
     
-    //  Make the dot follow the label's style
-    _dot.backgroundColor = self.label.textColor;
-    _dot.alpha = self.label.alpha;
+    if(_showDot)
+    {
+        //  Make the dot follow the label's style
+        _dot.backgroundColor = textColor;
+        _dot.alpha = alpha;
+    }
     
     //  Set the border color
     self.layer.borderColor = borderColor.CGColor;
