@@ -29,7 +29,8 @@
 
 - (instancetype)init
 {
-    self = [super initWithFrame:CGRectZero];
+    CGRect frame = CGRectZero;
+    self = [super initWithFrame:frame];
     if (self) {
     
         _state = CKCalendarCellContextIdentifierDefault;
@@ -58,14 +59,20 @@
         _selectedCellBorderColor = kCalendarColorSelectedCellBorder;
         
         // Label
-        _label = [[UILabel alloc] init];
+        _label = [[UILabel alloc] initWithFrame:frame];
         
         //  Dot
-        _dot = [[UIView alloc] init];
+        _dot = [[UIView alloc] initWithFrame:frame];
         [_dot setHidden:YES];
         _showDot = NO;
         
         [self buildViewHierarchy];
+        
+        _label.layer.shouldRasterize = YES;
+        _label.layer.rasterizationScale = UIScreen.mainScreen.scale;
+        
+        self.layer.shouldRasterize = YES;
+        self.layer.rasterizationScale = UIScreen.mainScreen.scale;
     }
     return self;
 }
