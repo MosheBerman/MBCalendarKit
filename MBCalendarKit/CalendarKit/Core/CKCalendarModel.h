@@ -37,6 +37,14 @@ NS_SWIFT_NAME(CalendarModel)
  */
 @property (nonatomic, strong, nonnull) NSDate *date;
 
+/**
+ Sets the date, and optionally bypasses broadcasting.
+ 
+ @param date The new date.
+ @param silently If `YES` we won't tell the observer about the change.
+ */
+- (void)setDate:(nonnull NSDate *)date silently:(BOOL)silently;
+
 // MARK: - Clamping Date with Minimum and Maximum
 
 /**
