@@ -9,6 +9,7 @@
 #import "CKCalendarCell.h"
 #import "CKCalendarCellContextIdentifier.h"
 #import "CKCalendarCellColors.h"
+#import "CKCache.h"
 
 @interface CKCalendarCell ()
 
@@ -222,28 +223,13 @@
     self.dot.hidden = !showDot;
 }
 
-// MARK: - Cell Recycling
-
-/**
- Called before the cell is dequeued by the calendar view.
- Use this to reset colors and opacities to their default values.
- */
--(void)prepareForReuse;
-{
-    [super prepareForReuse];
-    
-    //  Alpha, by default, is 1.0
-    self.label.alpha = 1.0;
-    self.state = CKCalendarCellContextIdentifierDefault;
-}
-
 // MARK: - Label
 
 - (void)configureLabel
 {
     UILabel *label = self.label;
     
-    label.font = [UIFont boldSystemFontOfSize:13];
+    label.font = CKCache.sharedCache.cellFont;
     label.textAlignment = NSTextAlignmentCenter;
     
     label.backgroundColor = [UIColor clearColor];
