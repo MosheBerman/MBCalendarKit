@@ -103,8 +103,6 @@
 
 - (nullable NSString *)keyForDate:(nonnull NSDate *)date
 {
-//    [CKCache.sharedCache.dateFormatter setDateFormat:@"YYYY-MM-dd"];
-
     NSCalendarUnit units = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
     NSDateComponents *components = [self.model.calendar components:units fromDate:date];
     
