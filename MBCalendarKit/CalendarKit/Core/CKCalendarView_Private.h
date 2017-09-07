@@ -9,6 +9,8 @@
 #ifndef CKCalendarView_Private_h
 #define CKCalendarView_Private_h
 
+@class CKCalendarModel;
+
 @interface CKCalendarView (Private)
 
 /**
