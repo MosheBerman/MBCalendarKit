@@ -40,6 +40,19 @@
  */
 @property (nonatomic, nonnull, strong) NSDate *lastVisibleDate;
 
+// MARK: - Index Paths
+
+/**
+ Cache of dates corresponding to index paths.
+ */
+@property (nonatomic, strong, nonnull) NSMutableDictionary<NSIndexPath *, NSDate *> *dateByIndexPath;
+
+/**
+ Cache of index paths corresponding to dates.
+ */
+@property (nonatomic, strong, nonnull) NSMutableDictionary<NSDate *, NSIndexPath *> *indexPathByDate;
+
+
 @end
 
 @implementation CKCalendarModel
@@ -55,6 +68,9 @@
         _date = [NSDate date];
         _firstVisibleDate = [self computedFirstVisibleDate];
         _lastVisibleDate = [self computedFirstVisibleDate];
+        
+        _indexPathByDate = [[NSMutableDictionary alloc] init];
+        _dateByIndexPath = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -100,8 +116,10 @@
     {
         _firstVisibleDate = [self computedFirstVisibleDate];
         _lastVisibleDate = [self computedFirstVisibleDate];
+        
+        [self purgeDateAndIndexPathCaches];
+        //    [self.cellContextCache handleChangeSelectedDateToDate:_date];
     }
-//    [self.cellContextCache handleChangeSelectedDateToDate:_date];
     
     if([self.observer respondsToSelector:@selector(calendarModel:didChangeFromDate:toNewDate:)])
     {
@@ -363,6 +381,14 @@
     }
     
     return sameScope;
+}
+
+// MARK: - Purge Caches
+
+- (void)purgeDateAndIndexPathCaches
+{
+    [self.dateByIndexPath removeAllObjects];
+    [self.indexPathByDate removeAllObjects];
 }
 
 @end

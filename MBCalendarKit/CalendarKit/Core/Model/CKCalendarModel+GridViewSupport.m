@@ -12,6 +12,13 @@
 
 @import UIKit;
 
+@interface CKCalendarModel ()
+
+- (NSMutableDictionary <NSDate *, NSIndexPath *> *)indexPathByDate;
+- (NSMutableDictionary <NSIndexPath *, NSDate *> *)dateByIndexPath;
+
+@end
+
 @implementation CKCalendarModel (GridViewSupport)
 
 // MARK: - Mapping Dates and Index Paths
@@ -25,14 +32,19 @@
  */
 - (nullable NSDate *)dateForIndexPath:(nonnull NSIndexPath *)indexPath;
 {
-    NSDate *correspondingDate = nil;
+    NSDate *date = self.dateByIndexPath[indexPath];
     
-    NSDate *firstVisible = self.firstVisibleDate;
-    NSInteger daysToAdd = (indexPath.section * self.daysPerWeek) + indexPath.item;
+    if(!date)
+    {
+        NSDate *firstVisible = self.firstVisibleDate;
+        NSInteger daysToAdd = (indexPath.section * self.daysPerWeek) + indexPath.item;
+        
+        date = [self.calendar dateByAddingUnit:NSCalendarUnitDay value:daysToAdd toDate:firstVisible options:0];
+        
+        self.dateByIndexPath[indexPath] = date;
+    }
     
-    correspondingDate = [self.calendar dateByAddingUnit:NSCalendarUnitDay value:daysToAdd toDate:firstVisible options:0];
-    
-    return correspondingDate;
+    return date;
 }
 
 /**
@@ -44,15 +56,18 @@
  */
 - (nullable NSIndexPath *)indexPathForDate:(NSDate *)date;
 {
-    NSIndexPath *indexPath = nil;
+    NSIndexPath *indexPath = self.indexPathByDate[date];
     
-    NSDate *firstDate = self.firstVisibleDate;
-    NSInteger weeks = [self.calendar components:NSCalendarUnitWeekOfYear fromDate:firstDate toDate:date options:0].weekOfYear;
-    NSInteger days = [self.calendar components:NSCalendarUnitDay fromDate:firstDate toDate:date options:0].day;
-    NSInteger daysPerWeek = self.daysPerWeek;
-    
-    indexPath = [NSIndexPath indexPathForRow:days % daysPerWeek inSection:weeks];
-    
+    if(!date)
+    {
+        NSDate *firstDate = self.firstVisibleDate;
+        NSInteger weeks = [self.calendar components:NSCalendarUnitWeekOfYear fromDate:firstDate toDate:date options:0].weekOfYear;
+        NSInteger days = [self.calendar components:NSCalendarUnitDay fromDate:firstDate toDate:date options:0].day;
+        NSInteger daysPerWeek = self.daysPerWeek;
+        
+        indexPath = [NSIndexPath indexPathForRow:days % daysPerWeek inSection:weeks];
+        self.indexPathByDate[date] = indexPath;
+    }
     return indexPath;
 }
 
@@ -74,5 +89,16 @@
     return [self numberOfRowsForDate:self.date];
 }
 
+// MARK: - Caching Date/Index Path Lookups
+
+
+/**
+ Empty the related caches.
+ */
+- (void)purgeIndexPathsAndDates
+{
+    [self.indexPathByDate removeAllObjects];
+    [self.dateByIndexPath removeAllObjects];
+}
 
 @end
