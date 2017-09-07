@@ -21,7 +21,7 @@
  @param calendarView The calendar view to use to calculate the context.
  @return The context object based on the current date and the configuration of the calendar view.
  */
-- (nonnull instancetype)initWithDate:(nonnull NSDate *)date andCalendarView:(nonnull CKCalendarView *)calendarView;
+- (nonnull instancetype)initWithDate:(nonnull NSDate *)date andCalendarView:(CKCalendarView *)calendarView;
 {
     self = [super init];
     
@@ -37,6 +37,15 @@
         [self _updateIdentifierBasedOnFlags];
     }
     
+    return self;
+}
+
+- (instancetype)init
+{
+    self = [self initWithDate:NSDate.date];
+    if (self) {
+        
+    }
     return self;
 }
 
@@ -93,5 +102,36 @@
     }
 }
 
+// MARK: -
+
+- (void)setIsToday:(BOOL)isToday
+{
+    _isToday = isToday;
+    [self _updateIdentifierBasedOnFlags];
+}
+
+- (void)setIsSelected:(BOOL)isSelected
+{
+    _isSelected = isSelected;
+    [self _updateIdentifierBasedOnFlags];
+}
+
+- (void)setIsInSameMonthAsToday:(BOOL)isInSameMonthAsToday
+{
+    _isInSameMonthAsToday = isInSameMonthAsToday;
+    [self _updateIdentifierBasedOnFlags];
+}
+
+-(void)setIsBeforeMinimumDate:(BOOL)isBeforeMinimumDate
+{
+    _isBeforeMinimumDate = isBeforeMinimumDate;
+    [self _updateIdentifierBasedOnFlags];
+}
+
+- (void)setIsAfterMaximumDate:(BOOL)isAfterMaximumDate
+{
+    _isAfterMaximumDate = isAfterMaximumDate;
+    [self _updateIdentifierBasedOnFlags];
+}
 
 @end
