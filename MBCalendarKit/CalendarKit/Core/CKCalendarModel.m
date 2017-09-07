@@ -104,6 +104,11 @@
         }
     }
     
+    if ([self.calendar isDate:date inSameDayAsDate:_date])
+    {
+        return;
+    }
+    
     if ([self.observer respondsToSelector:@selector(calendarModel:willChangeFromDate:toNewDate:)])
     {
         [self.observer calendarModel:self willChangeFromDate:self.date toNewDate:date];
