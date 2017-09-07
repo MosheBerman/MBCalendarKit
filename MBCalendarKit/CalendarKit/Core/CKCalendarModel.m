@@ -82,13 +82,6 @@
     
     [self.cellContextCache handleChangeSelectedDateToDate:_date];
     
-    BOOL newDateCrossesScopeBoundary = [self crossesScopeBoundaryWhenTransitioningFromDate:_previousDate toDate:_date];
-    
-    if (newDateCrossesScopeBoundary)
-    {
-        [self.cellContextCache handleScopeChangeForDate:_date];
-    }
-    
     if([self.observer respondsToSelector:@selector(calendarModel:didChangeFromDate:toNewDate:)])
     {
         [self.observer calendarModel:self didChangeFromDate:self.previousDate toNewDate:self.date];
@@ -98,7 +91,6 @@
 - (void)setDisplayMode:(CKCalendarViewDisplayMode)mode
 {
     _displayMode = mode;
-    [self.cellContextCache handleScopeChangeForDate:_date];
     [self informObserverOfInvalidatedState];
 }
 
@@ -171,7 +163,6 @@
     }
     
     _minimumDate = minimumDate;
-    [self.cellContextCache handleNewMinimumDate:_minimumDate];
     
     if (minimumDate && [self _dateIsBeforeMinimumDate:self.date])
     {
@@ -193,7 +184,6 @@
     }
     
     _maximumDate = maximumDate;
-    [self.cellContextCache handleNewMaximumDate:_maximumDate];
     if(maximumDate && [self _dateIsAfterMaximumDate:self.date])
     {
         self.date = maximumDate;
