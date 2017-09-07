@@ -554,22 +554,17 @@
         self.layout.transitionDirection = direction;
         self.layout.initialOffset = offset;
         
-        CKCalendarGridView *gridView = self.gridView;
+        __weak CKCalendarGridView *gridView = self.gridView;
         
-        [gridView performBatchUpdates:^{
-            
-            if (numberOfSectionsBefore > 0)
-            {
-                NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, numberOfSectionsBefore)];
-                [gridView deleteSections:indexSet];
-            }
-            if (numberOfSectionsAfter > 0)
-            {
-                NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, numberOfSectionsAfter)];
-                [gridView insertSections:indexSet];
-            }
-            
-        } completion:nil];
+        __weak CKCalendarView* weakSelf = self;
+        
+        id updateBlock = [self updateBlockForGridView:gridView WithBefore:numberOfSectionsBefore andAfter:numberOfSectionsAfter];
+        
+        id completionBlock = ^(BOOL finished) {
+            weakSelf.mostRecentlyHighlightedCell = [weakSelf cellFromDate:weakSelf.calendarModel.date];
+        };
+        
+        [self.gridView performBatchUpdates:updateBlock completion:completionBlock];
     }
     else
     {
@@ -577,6 +572,45 @@
     }
 }
 
+
+/**
+ Returns an update block
+
+ @param gridView The calendar grid view.
+ @param before The number of sections in the grid view before updating.
+ @param after The number of sections in the grid view after updating.
+ */
+- (nonnull void(^)())updateBlockForGridView:(CKCalendarGridView *)gridView WithBefore:(NSInteger)before andAfter:(NSInteger)after
+{
+    
+    id updateBlock = ^{ };
+    
+    if (before > 0 && after == 0)
+    {
+        updateBlock = ^ {
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, before)];
+            [gridView deleteSections:indexSet];
+        };
+    }
+    else if (after > 0 && before == 0)
+    {
+        updateBlock = ^{
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, after)];
+            [gridView insertSections:indexSet];
+        };
+    }
+    else
+    {
+        updateBlock = ^{
+            NSIndexSet *beforeSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, before)];
+            [gridView deleteSections:beforeSet];
+            
+            NSIndexSet *afterSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, after)];
+            [gridView insertSections:afterSet];
+        };
+    }
+    return updateBlock;
+}
 
 /**
  Invalidates the intrinsic content size to allow display of all cells.
@@ -587,20 +621,25 @@
 {
     NSTimeInterval duration = 0.0;
     
+    __weak CKCalendarView *weakSelf = self;
+    __weak UIView *superview = self.superview;
+    
+    id block = ^{
+        [weakSelf invalidateIntrinsicContentSize];
+        [superview setNeedsLayout];
+        [superview layoutIfNeeded];
+    };
+    
     if(animated)
     {
         [self.superview setNeedsLayout];
-        duration = 0.3;
+        
+    [UIView animateWithDuration:duration animations:block];
     }
-    
-    __weak CKCalendarView *weakSelf = self;
-    
-    [UIView animateWithDuration:duration animations:^{
-        [weakSelf invalidateIntrinsicContentSize];
-        [weakSelf.superview setNeedsLayout];
-        [weakSelf.superview layoutIfNeeded];
-    }];
-    
+    else
+    {
+        [UIView performWithoutAnimation:block];
+    }
 }
 
 // MARK: - CKCalendarGridDelegate
@@ -610,7 +649,7 @@
  */
 - (void)calendarGrid:(CKCalendarGridView *)gridView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date
 {
-    CKCalendarCellContext *calendarContext = [self.calendarModel contextForDate:date];
+    CKCalendarCellContext *calendarContext = [[CKCalendarCellContext alloc] initWithDate:date andCalendarView:self];
     
     cell.selected = calendarContext.isSelected;
     
