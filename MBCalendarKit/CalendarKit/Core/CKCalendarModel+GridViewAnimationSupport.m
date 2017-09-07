@@ -55,16 +55,14 @@ const void *kAnimatesWeekTransitionsKey = "com.mosheberman.calendarkit.animates-
 - (BOOL)shouldAnimateTransitionFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
 {
     BOOL isAppropriate = YES;
-    BOOL sameMonth = [self.calendar isDate:fromDate equalToDate:toDate toUnitGranularity:NSCalendarUnitMonth];
-    BOOL sameWeek = [self.calendar isDate:fromDate equalToDate:toDate toUnitGranularity:NSCalendarUnitWeekOfYear];
-    
-    if (self.displayMode == CKCalendarViewDisplayModeMonth && sameMonth)
+
+    if (self.displayMode == CKCalendarViewDisplayModeMonth)
     {
-        isAppropriate = NO;
+        isAppropriate = ![self.calendar isDate:fromDate equalToDate:toDate toUnitGranularity:NSCalendarUnitMonth];
     }
-    if (self.displayMode == CKCalendarViewDisplayModeWeek && (sameWeek || !self.animatesWeekTransitions))
+    if (self.displayMode == CKCalendarViewDisplayModeWeek)
     {
-        isAppropriate = NO;
+        isAppropriate = ![self.calendar isDate:fromDate equalToDate:toDate toUnitGranularity:NSCalendarUnitWeekOfYear] && self.animatesWeekTransitions;
     }
     
     return isAppropriate;

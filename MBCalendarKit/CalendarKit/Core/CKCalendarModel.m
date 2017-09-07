@@ -80,6 +80,15 @@
     _previousDate = self.date;
     _date = date;
     
+    [self.cellContextCache handleChangeSelectedDateToDate:_date];
+    
+    BOOL newDateCrossesScopeBoundary = [self crossesScopeBoundaryWhenTransitioningFromDate:_previousDate toDate:_date];
+    
+    if (newDateCrossesScopeBoundary)
+    {
+        [self.cellContextCache handleScopeChangeForDate:_date];
+    }
+    
     if([self.observer respondsToSelector:@selector(calendarModel:didChangeFromDate:toNewDate:)])
     {
         [self.observer calendarModel:self didChangeFromDate:self.previousDate toNewDate:self.date];
@@ -89,7 +98,7 @@
 - (void)setDisplayMode:(CKCalendarViewDisplayMode)mode
 {
     _displayMode = mode;
-    
+    [self.cellContextCache handleScopeChangeForDate:_date];
     [self informObserverOfInvalidatedState];
 }
 
@@ -162,6 +171,7 @@
     }
     
     _minimumDate = minimumDate;
+    [self.cellContextCache handleNewMinimumDate:_minimumDate];
     
     if (minimumDate && [self _dateIsBeforeMinimumDate:self.date])
     {
@@ -183,7 +193,7 @@
     }
     
     _maximumDate = maximumDate;
-    
+    [self.cellContextCache handleNewMaximumDate:_maximumDate];
     if(maximumDate && [self _dateIsAfterMaximumDate:self.date])
     {
         self.date = maximumDate;
@@ -289,4 +299,57 @@
 {
     return [self.cellContextCache contextForDate:date];
 }
+
+// MARK: - Checking If Date Changes Cross Scope Boundary
+
+
+/**
+ Determine if changing from one date to another crosses scope boundary. Scope is "month" or "week" (or "day.")
+
+ @param fromDate The date before changing.
+ @param toDate The date after changing.
+ @return `YES` or `NO`.
+ */
+- (BOOL)crossesScopeBoundaryWhenTransitioningFromDate:(nonnull NSDate *)fromDate toDate:(nonnull NSDate *)toDate;
+{
+    BOOL crosses = YES;
+    
+    if (self.displayMode == CKCalendarViewDisplayModeMonth)
+    {
+        crosses = ![self.calendar isDate:fromDate equalToDate:toDate toUnitGranularity:NSCalendarUnitMonth];
+    }
+    if (self.displayMode == CKCalendarViewDisplayModeWeek)
+    {
+        crosses = ![self.calendar isDate:fromDate equalToDate:toDate toUnitGranularity:NSCalendarUnitWeekOfYear];
+    }
+    
+    return crosses;
+}
+
+/**
+ Determines if some date is in the same scope as the visible date.
+
+ @param date The date to compare.
+ @return `YES` if the date is equal to self.date to thw appropriate granularity.
+ */
+- (BOOL)isDateInSameScopeAsVisibleDateForActiveDisplayMode:(NSDate *)date;
+{
+    BOOL sameScope = NO;
+    
+    if (_displayMode == CKCalendarViewDisplayModeDay)
+    {
+        sameScope = [_calendar isDate:date inSameDayAsDate:_date];
+    }
+    else if (_displayMode == CKCalendarViewDisplayModeWeek)
+    {
+        sameScope = [_calendar isDate:date equalToDate:_date toUnitGranularity:NSCalendarUnitWeekOfYear];
+    }
+    else if(_displayMode == CKCalendarViewDisplayModeMonth)
+    {
+        sameScope = [_calendar isDate:date equalToDate:_date toUnitGranularity:NSCalendarUnitMonth];
+    }
+    
+    return sameScope;
+}
+
 @end

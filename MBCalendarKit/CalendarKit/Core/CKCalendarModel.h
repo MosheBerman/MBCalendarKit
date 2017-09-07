@@ -67,6 +67,13 @@ NS_SWIFT_NAME(CalendarModel)
  */
 @property (nonatomic, assign) CKCalendarViewDisplayMode displayMode;
 
+/**
+ Determines if some date is in the same scope as the visible date.
+ 
+ @param date The date to compare.
+ @return `YES` if the date is equal to self.date to thw appropriate granularity.
+ */
+- (BOOL)isDateInSameScopeAsVisibleDateForActiveDisplayMode:(nonnull NSDate *)date;
 
 // MARK: - Getting the First Visible Date
 

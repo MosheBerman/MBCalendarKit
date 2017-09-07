@@ -20,9 +20,9 @@ NS_SWIFT_NAME(CalendarCellContext)
 // MARK: - The Date The Cell Represents
 
 /**
- The date that the cell represents.
+ The date that the context represents.
  */
-@property (nonatomic, strong, nonnull) NSDate *date;
+@property (nonatomic, strong, nonnull, readonly) NSDate *date;
 
 // MARK: - The State that the Cell Is In
 
@@ -46,7 +46,12 @@ NS_SWIFT_NAME(CalendarCellContext)
 /**
  `YES` if the date represented by the cell represents a date in the same month as `calendarView.date` on the calendar displayed by the calendar view. Otherwise, `NO`.
  */
-@property (nonatomic, assign, readonly) BOOL isInSameMonthAsToday;
+@property (nonatomic, assign, readonly) BOOL isInSameMonthAsToday DEPRECATED_MSG_ATTRIBUTE("Use `isInSameScopeAsVisibleDate` instead.");
+
+/**
+  `YES` if the date represented by the cell represents a date in the same month or week scope as `calendarView.date` on the calendar displayed by the calendar view. Otherwise, `NO`.
+ */
+@property (nonatomic, assign, readonly) BOOL isInSameScopeAsVisibleDate;
 
 /**
  `YES` if the date represented by the cell represents a date earlier than the date represented by the calendar view's `minimumDate` property.
@@ -60,6 +65,15 @@ NS_SWIFT_NAME(CalendarCellContext)
 
 
 // MARK: - Creating a Context Object
+
+/**
+ Create a context object. The `calendarView` is not retained.
+ 
+ @param date The date that we are contextualizing relative to the calendar view's current state.
+ @param calendarView The calendar view to calculate the context for.
+ @return The context object based on the current date and the configuration of the calendar view.
+ */
+- (nonnull instancetype)initWithDate:(nonnull NSDate *)date andCalendarView:(nonnull CKCalendarView *)calendarView;
 
 // Mark `init` as unavailable.
 - (nonnull instancetype)init NS_UNAVAILABLE;

@@ -10,7 +10,7 @@
 		4604E1471F4658CB00F1F50B /* MBCalendarKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A870F171F174D00E7AB19 /* MBCalendarKitTests.m */; };
 		46087AD81F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 46087AD61F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.h */; };
 		46087AD91F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 46087AD71F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m */; };
-		460BD68C1F5FA5E7001CBD75 /* CKCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 460BD68A1F5FA5E7001CBD75 /* CKCache.h */; };
+		460BD68C1F5FA5E7001CBD75 /* CKCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 460BD68A1F5FA5E7001CBD75 /* CKCache.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		460BD68D1F5FA5E7001CBD75 /* CKCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 460BD68B1F5FA5E7001CBD75 /* CKCache.m */; };
 		461C706D1F46292000E305E3 /* DemoApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 461C704D1F46292000E305E3 /* DemoApp.storyboard */; };
 		461C706E1F46292000E305E3 /* CKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 461C70521F46292000E305E3 /* CKAppDelegate.m */; };
@@ -31,8 +31,10 @@
 		461C707D1F46292000E305E3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 461C706A1F46292000E305E3 /* main.m */; };
 		461D49411F604E9900379937 /* CKCalendarModel+DaysPerWeek.h in Headers */ = {isa = PBXBuildFile; fileRef = 461D493F1F604E9900379937 /* CKCalendarModel+DaysPerWeek.h */; };
 		461D49421F604E9900379937 /* CKCalendarModel+DaysPerWeek.m in Sources */ = {isa = PBXBuildFile; fileRef = 461D49401F604E9900379937 /* CKCalendarModel+DaysPerWeek.m */; };
-		461D49451F60683400379937 /* CKContextCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 461D49431F60683400379937 /* CKContextCache.h */; };
-		461D49461F60683400379937 /* CKContextCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 461D49441F60683400379937 /* CKContextCache.m */; };
+		461D49451F60683400379937 /* CKCalendarCellContextCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 461D49431F60683400379937 /* CKCalendarCellContextCache.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		461D49461F60683400379937 /* CKCalendarCellContextCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 461D49441F60683400379937 /* CKCalendarCellContextCache.m */; };
+		46231E761F60EED2007CA3FD /* CKCalendarCellContext_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 46231E751F60EED2007CA3FD /* CKCalendarCellContext_Private.h */; };
+		46231E781F60FE1B007CA3FD /* CKCalendarView_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 46231E771F60FE1B007CA3FD /* CKCalendarView_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		46341C2C1F3A36380090FFAF /* CKCalendarGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = 46341C2A1F3A36380090FFAF /* CKCalendarGridView.h */; };
 		46341C2D1F3A36380090FFAF /* CKCalendarGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46341C2B1F3A36380090FFAF /* CKCalendarGridView.m */; };
 		46363C2C1F394393002BA215 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 46363C241F392295002BA215 /* CHANGELOG.md */; };
@@ -184,8 +186,10 @@
 		461C706C1F46292000E305E3 /* MBCalendarKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBCalendarKit-Prefix.pch"; sourceTree = "<group>"; };
 		461D493F1F604E9900379937 /* CKCalendarModel+DaysPerWeek.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKCalendarModel+DaysPerWeek.h"; sourceTree = "<group>"; };
 		461D49401F604E9900379937 /* CKCalendarModel+DaysPerWeek.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKCalendarModel+DaysPerWeek.m"; sourceTree = "<group>"; };
-		461D49431F60683400379937 /* CKContextCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKContextCache.h; path = Caches/CKContextCache.h; sourceTree = "<group>"; };
-		461D49441F60683400379937 /* CKContextCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKContextCache.m; path = Caches/CKContextCache.m; sourceTree = "<group>"; };
+		461D49431F60683400379937 /* CKCalendarCellContextCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKCalendarCellContextCache.h; path = Caches/CKCalendarCellContextCache.h; sourceTree = "<group>"; };
+		461D49441F60683400379937 /* CKCalendarCellContextCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKCalendarCellContextCache.m; path = Caches/CKCalendarCellContextCache.m; sourceTree = "<group>"; };
+		46231E751F60EED2007CA3FD /* CKCalendarCellContext_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarCellContext_Private.h; sourceTree = "<group>"; };
+		46231E771F60FE1B007CA3FD /* CKCalendarView_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarView_Private.h; sourceTree = "<group>"; };
 		46341C2A1F3A36380090FFAF /* CKCalendarGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarGridView.h; sourceTree = "<group>"; };
 		46341C2B1F3A36380090FFAF /* CKCalendarGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarGridView.m; sourceTree = "<group>"; };
 		46363C241F392295002BA215 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
@@ -313,8 +317,8 @@
 			children = (
 				460BD68A1F5FA5E7001CBD75 /* CKCache.h */,
 				460BD68B1F5FA5E7001CBD75 /* CKCache.m */,
-				461D49431F60683400379937 /* CKContextCache.h */,
-				461D49441F60683400379937 /* CKContextCache.m */,
+				461D49431F60683400379937 /* CKCalendarCellContextCache.h */,
+				461D49441F60683400379937 /* CKCalendarCellContextCache.m */,
 			);
 			name = Caches;
 			sourceTree = "<group>";
@@ -481,6 +485,7 @@
 				46087AD11F3C2CF1004655C6 /* Model */,
 				464A86F2171F174D00E7AB19 /* CKCalendarView.h */,
 				464A86F3171F174D00E7AB19 /* CKCalendarView.m */,
+				46231E771F60FE1B007CA3FD /* CKCalendarView_Private.h */,
 				468C693B1F42C5BC00CCD4E4 /* Custom Calendar Cells */,
 				46AA211C1F3DF13E00E5F832 /* Showing Events */,
 				460BD6851F5FA4C4001CBD75 /* Caches */,
@@ -527,6 +532,7 @@
 				464A86F9171F174D00E7AB19 /* CKCalendarCellContextIdentifier.h */,
 				468CDDDE1F42DE5B008E628D /* CKCalendarCellContext.h */,
 				468CDDDF1F42DE5B008E628D /* CKCalendarCellContext.m */,
+				46231E751F60EED2007CA3FD /* CKCalendarCellContext_Private.h */,
 				468C69391F42C57300CCD4E4 /* CKCustomCellProviding.h */,
 				468C69351F42C11D00CCD4E4 /* CKCalendarView+CustomCells.h */,
 				468C69361F42C11D00CCD4E4 /* CKCalendarView+CustomCells.m */,
@@ -626,6 +632,7 @@
 				467B12B81F2F547500CABA27 /* NSCalendar+DateManipulation.h in Headers */,
 				467B12BA1F2F547500CABA27 /* NSCalendar+Juncture.h in Headers */,
 				46AA21171F3D6C6500E5F832 /* CKCalendarModelObserver.h in Headers */,
+				46231E761F60EED2007CA3FD /* CKCalendarCellContext_Private.h in Headers */,
 				467B12BC1F2F547500CABA27 /* NSCalendar+Ranges.h in Headers */,
 				46363C341F3974BF002BA215 /* CKCalendarHeaderViewDelegate.h in Headers */,
 				467B12BE1F2F547500CABA27 /* NSCalendarCategories.h in Headers */,
@@ -634,10 +641,11 @@
 				467B12C31F2F547500CABA27 /* NSDateComponents+AllComponents.h in Headers */,
 				468CDDE01F42DE5B008E628D /* CKCalendarCellContext.h in Headers */,
 				46AA211F1F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.h in Headers */,
+				46231E781F60FE1B007CA3FD /* CKCalendarView_Private.h in Headers */,
 				46AA21221F3DF3EF00E5F832 /* CKCalendarGridTransitionDirection.h in Headers */,
 				463690371F4028DB00DFE9D5 /* CKCalendarModel+GridViewAnimationSupport.h in Headers */,
 				46341C2C1F3A36380090FFAF /* CKCalendarGridView.h in Headers */,
-				461D49451F60683400379937 /* CKContextCache.h in Headers */,
+				461D49451F60683400379937 /* CKCalendarCellContextCache.h in Headers */,
 				467B12CD1F2F547500CABA27 /* CKCalendarCell.h in Headers */,
 				467B12CF1F2F547500CABA27 /* CKCalendarEvent.h in Headers */,
 				467B12D11F2F547500CABA27 /* CKCalendarHeaderView.h in Headers */,
@@ -830,7 +838,7 @@
 				467B12D01F2F547500CABA27 /* CKCalendarEvent.m in Sources */,
 				467B12D21F2F547500CABA27 /* CKCalendarHeaderView.m in Sources */,
 				468CDDE11F42DE5B008E628D /* CKCalendarCellContext.m in Sources */,
-				461D49461F60683400379937 /* CKContextCache.m in Sources */,
+				461D49461F60683400379937 /* CKCalendarCellContextCache.m in Sources */,
 				467B12D41F2F547500CABA27 /* CKCalendarView.m in Sources */,
 				467B12D61F2F547500CABA27 /* CKTableViewCell.m in Sources */,
 				467B12D81F2F547500CABA27 /* MBPolygonView.m in Sources */,

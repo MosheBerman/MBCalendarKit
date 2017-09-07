@@ -7,9 +7,21 @@
 //
 
 @import Foundation;
-@class CKCalendarView;
+@class CKCalendarModel;
 @class CKCalendarCellContext;
 
+/**
+ The CKCalendarCellContextCache is a private class which
+ tracks the context of all of the cells being displayed.
+ 
+ It keeps a strong reference to an NSCalendar provided by 
+ the viewModel, as well as references to CKCalendarCellContext 
+ objects, which are vended through the view model.
+ 
+ When the CKCalendarModel changes, it informs its CKCalendarCellContextCache
+ which in turn updates the context objects as necessary.
+ */
+NS_SWIFT_NAME(CalendarCellContextCache)
 @interface CKCalendarCellContextCache : NSObject
 
 // MARK: - Initializing a Cache
@@ -17,10 +29,10 @@
 /**
  Initializes the context cache.
  
- @param calendarView The calendar view to cache for.
+ @param model The calendar model to use for computing state cache.
  @return A cell context cache.
  */
-- (nonnull instancetype)initWithCalendarView:(nonnull CKCalendarView *)calendarView;
+- (nonnull instancetype)initWithCalendarModel:(nonnull CKCalendarModel *)model;
 
 /**
  Looks up a context object by date.
@@ -33,8 +45,40 @@
 // MARK: - Purging the Cache
 
 /**
- Empties the cache.
+ Empties the cache. This is called in response to `UIApplicationSignificantTimeChangeNotification`.
  */
 - (void)purge;
+
+// MARK: - Handling State Modifying Changes
+
+// MARK: - Handling Selected Date Change
+
+/**
+ Called when the calendar's visible date changes.
+ 
+ @param date The new visible date.
+ */
+- (void)handleChangeSelectedDateToDate:(nonnull NSDate *)date;
+
+/**
+ Update the week/month scopes for the contexts.
+ 
+ @param date The date we're displaying.
+ */
+- (void)handleScopeChangeForDate:(nonnull NSDate *)date;
+
+/**
+ Updates the cache when the minimum date changes.
+ 
+ @param minimumDate The new minimum date.
+ */
+- (void)handleNewMinimumDate:(nullable NSDate *)minimumDate;
+
+/**
+ Updates the cache when the maximum date changes.
+ 
+ @param maximumDate The new maximum date.
+ */
+- (void)handleNewMaximumDate:(nullable NSDate *)maximumDate;
 
 @end
