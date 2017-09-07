@@ -98,6 +98,6 @@ NS_SWIFT_NAME(CalendarModel)
  @param date The date for which we want context.
  @return The context object describing the date.
  */
-- (nonnull CKCalendarCellContext *)contextForDate:(nonnull NSDate *)date;
+//- (nonnull CKCalendarCellContext *)contextForDate:(nonnull NSDate *)date;
 
 @end

@@ -292,15 +292,15 @@
 
 // MARK: - Vending Cell Contexts
 
-- (CKCalendarCellContextCache *)cellContextCache
-{
-    if(!_cellContextCache)
-    {
-        _cellContextCache = [[CKCalendarCellContextCache alloc] initWithCalendarModel:self];
-    }
-    
-    return _cellContextCache;
-}
+//- (CKCalendarCellContextCache *)cellContextCache
+//{
+//    if(!_cellContextCache)
+//    {
+//        _cellContextCache = [[CKCalendarCellContextCache alloc] initWithCalendarModel:self];
+//    }
+//    
+//    return _cellContextCache;
+//}
 
 /**
  Returns a context object for the supplied date.
@@ -308,10 +308,10 @@
  @param date The date for which we want context.
  @return The context object describing the date.
  */
-- (nonnull CKCalendarCellContext *)contextForDate:(nonnull NSDate *)date;
-{
-    return [self.cellContextCache contextForDate:date];
-}
+//- (nonnull CKCalendarCellContext *)contextForDate:(nonnull NSDate *)date;
+//{
+//    return  [self.cellContextCache contextForDate:date];
+//}
 
 // MARK: - Checking If Date Changes Cross Scope Boundary
 
