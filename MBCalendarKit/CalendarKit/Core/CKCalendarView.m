@@ -633,8 +633,7 @@
     if(animated)
     {
         [self.superview setNeedsLayout];
-        
-    [UIView animateWithDuration:duration animations:block];
+        [UIView animateWithDuration:duration animations:block];
     }
     else
     {
