@@ -89,6 +89,12 @@
         context = [[CKCalendarCellContext alloc] initWithDate:date andCalendarModel:self.model];
         self.cache[key] = context;
     }
+    else
+    {
+        context.isInSameScopeAsVisibleDate = [self.model isDateInSameScopeAsVisibleDateForActiveDisplayMode:context.date];
+        context.isBeforeMinimumDate = [self.model.calendar date:context.date isBeforeDate:self.model.minimumDate];
+        context.isAfterMaximumDate = [self.model.calendar date:context.date isAfterDate:self.model.maximumDate];
+    }
     
     return context;
 }
@@ -124,53 +130,6 @@
     CKCalendarCellContext *context = [self contextForDate:date];
     self.selected = context;
     context.isSelected = YES;
-}
-
-/**
- Update the week/month scopes for the contexts.
-
- @param date The date we're displaying.
- */
-- (void)handleScopeChangeForDate:(NSDate *)date
-{
-    for (NSString *key in self.cache.allKeys)
-    {
-        CKCalendarCellContext *context = self.cache[key];
-        context.isInSameScopeAsVisibleDate = [self.model isDateInSameScopeAsVisibleDateForActiveDisplayMode:context.date];
-    }
-}
-
-// MARK: - Handle Minimum/Maximum Date Change
-
-/**
- Updates the cache when the minimum date changes.
-
- @param minimumDate The new minimum date.
- */
-- (void)handleNewMinimumDate:(nullable NSDate *)minimumDate;
-{
-    for (NSString *key in self.cache.allKeys)
-    {
-        CKCalendarCellContext *context = self.cache[key];
-        // This method handles a null minimum date.
-        context.isBeforeMinimumDate = [self.model.calendar date:context.date isBeforeDate:minimumDate];
-        
-    }
-}
-
-/**
- Updates the cache when the maximum date changes.
- 
- @param maximumDate The new maximum date.
- */
-- (void)handleNewMaximumDate:(nullable NSDate *)maximumDate;
-{
-    for (NSString *key in self.cache.allKeys)
-    {
-        CKCalendarCellContext *context = self.cache[key];
-        // This method handles a null maximum date.
-        context.isAfterMaximumDate = [self.model.calendar date:context.date isAfterDate:maximumDate];
-    }
 }
 
 // MARK: - Handle Changes to NSDate.date

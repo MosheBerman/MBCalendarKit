@@ -60,25 +60,4 @@ NS_SWIFT_NAME(CalendarCellContextCache)
  */
 - (void)handleChangeSelectedDateToDate:(nonnull NSDate *)date;
 
-/**
- Update the week/month scopes for the contexts.
- 
- @param date The date we're displaying.
- */
-- (void)handleScopeChangeForDate:(nonnull NSDate *)date;
-
-/**
- Updates the cache when the minimum date changes.
- 
- @param minimumDate The new minimum date.
- */
-- (void)handleNewMinimumDate:(nullable NSDate *)minimumDate;
-
-/**
- Updates the cache when the maximum date changes.
- 
- @param maximumDate The new maximum date.
- */
-- (void)handleNewMaximumDate:(nullable NSDate *)maximumDate;
-
 @end
