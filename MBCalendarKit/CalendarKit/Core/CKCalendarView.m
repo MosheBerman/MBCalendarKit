@@ -66,11 +66,19 @@
  */
 @property (nonatomic, strong, nonnull) CKCalendarModel *calendarModel;
 
+// MARK: - Caching Highlight State for Scrubbing
+
 /**
  This date is set at the beginning of a scrub operation, and used to reset the model in the event of a cancelled scrub.
  It may be `nil`, or stale.
  */
 @property (nonatomic, strong, nullable) NSDate *temporaryDate;
+
+
+/**
+ Keep a reference to the most recently highlighted cell.
+ */
+@property (nonatomic, strong, nullable) UICollectionViewCell *mostRecentlyHighlightedCell;
 
 @end
 
@@ -271,11 +279,9 @@
 {
     UICollectionViewCell *cellFromTouch = [self cellFromTouches:touches];
     
-    for (UICollectionViewCell *cell in self.gridView.visibleCells)
-    {
-        BOOL cellIsBeneathFinger = [cell isEqual:cellFromTouch];
-        cell.highlighted = cellIsBeneathFinger;
-    }
+    self.mostRecentlyHighlightedCell.highlighted = NO;
+    cellFromTouch.highlighted = YES;
+    self.mostRecentlyHighlightedCell = cellFromTouch;
     
     [super touchesMoved:touches withEvent:event];
 }
@@ -375,6 +381,20 @@
     NSDate *date = [self.calendarModel dateForIndexPath:indexPath];
     
     return date;
+}
+
+/**
+ Finds the grid cell beneath the user's touch.
+ 
+ @param date The date to use to find the cell.
+ @return A cell beneath the finger.
+ */
+- (nullable UICollectionViewCell *)cellFromDate:(NSDate *)date
+{
+    NSIndexPath *indexPath = [self.calendarModel indexPathForDate:date];
+    UICollectionViewCell *cell = [self.gridView cellForItemAtIndexPath:indexPath];
+    
+    return cell;
 }
 
 // MARK: - Installing Internal Views
