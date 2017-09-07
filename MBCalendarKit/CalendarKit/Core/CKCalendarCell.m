@@ -158,7 +158,7 @@
                                                               multiplier:1.0
                                                                 constant:0.0];
     
-    [self.contentView addConstraints:@[centerY, centerX, top, leading]];
+    [NSLayoutConstraint activateConstraints:@[centerY, centerX, top, leading]];
     
 }
 
@@ -198,7 +198,7 @@
                                                             multiplier:1.0
                                                               constant:3.0];
     
-    [self.contentView addConstraints:@[centerX, bottom, ratio, width]];
+    [NSLayoutConstraint activateConstraints:@[centerX, bottom, ratio, width]];
     
 }
 
