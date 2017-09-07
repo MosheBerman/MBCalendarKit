@@ -11,6 +11,8 @@
 #import "CKCalendarViewDisplayMode.h"
 #import "CKCalendarModelObserver.h"
 
+@class CKCalendarCellContext;
+
 /**
  This class abstracts the data our from behind `CKCalendarView`, to seperate rendering from calculations.
  */
@@ -79,5 +81,16 @@ NS_SWIFT_NAME(CalendarModel)
  based on the value of displayMode.
  */
 @property (nonnull, nonatomic, readonly) NSDate *lastVisibleDate;
+
+
+// MARK: - Getting Context For a Given Date
+
+/**
+ Returns a context object for the supplied date.
+
+ @param date The date for which we want context.
+ @return The context object describing the date.
+ */
+- (nonnull CKCalendarCellContext *)contextForDate:(nonnull NSDate *)date;
 
 @end

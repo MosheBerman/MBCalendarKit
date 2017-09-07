@@ -10,12 +10,21 @@
 #import "NSCalendar+Juncture.h"
 #import "NSCalendarCategories.h"
 
+#import "CKCalendarCellContextCache.h"
+
 @interface CKCalendarModel ()
 
 /**
  The date that was last selected by the user, either by tapping on a cell or one of the arrows in the header.
  */
 @property (nonatomic, strong) NSDate *previousDate;
+
+// MARK: - Caching Cell Context
+
+/**
+ A cache which maintains the cell contexts and responds to date, calendar, and other changes.
+ */
+@property (nonnull, nonatomic, strong) CKCalendarCellContextCache *cellContextCache;
 
 @end
 
@@ -258,5 +267,26 @@
     }
 }
 
+// MARK: - Vending Cell Contexts
 
+- (CKCalendarCellContextCache *)cellContextCache
+{
+    if(!_cellContextCache)
+    {
+        _cellContextCache = [[CKCalendarCellContextCache alloc] initWithCalendarModel:self];
+    }
+    
+    return _cellContextCache;
+}
+
+/**
+ Returns a context object for the supplied date.
+ 
+ @param date The date for which we want context.
+ @return The context object describing the date.
+ */
+- (nonnull CKCalendarCellContext *)contextForDate:(nonnull NSDate *)date;
+{
+    return [self.cellContextCache contextForDate:date];
+}
 @end
