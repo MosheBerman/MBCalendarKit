@@ -157,6 +157,8 @@
     
     _calendarModel.observer = self;
     
+    self.customCellProvider = self;
+    
     [self _installHeader];
     [self _installGridView];
     
