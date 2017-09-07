@@ -21,7 +21,7 @@
  @param calendarView The calendar view to use to calculate the context.
  @return The context object based on the current date and the configuration of the calendar view.
  */
-- (nonnull instancetype)initWithDate:(nonnull NSDate *)date andCalendarView:(nonnull CKCalendarView *)calendarView
+- (nonnull instancetype)initWithDate:(nonnull NSDate *)date andCalendarView:(nonnull CKCalendarView *)calendarView;
 {
     self = [super init];
     
