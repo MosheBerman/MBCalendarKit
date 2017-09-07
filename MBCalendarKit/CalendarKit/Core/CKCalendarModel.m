@@ -24,7 +24,21 @@
 /**
  A cache which maintains the cell contexts and responds to date, calendar, and other changes.
  */
-@property (nonnull, nonatomic, strong) CKCalendarCellContextCache *cellContextCache;
+//@property (nonnull, nonatomic, strong) CKCalendarCellContextCache *cellContextCache;
+
+
+// MARK: - First / Last Visible Date
+
+/**
+ The most recently cached firstVisibleDate.
+ */
+@property (nonatomic, nonnull, strong) NSDate *firstVisibleDate;
+
+
+/**
+ The most recently cached lastVisibleDate.
+ */
+@property (nonatomic, nonnull, strong) NSDate *lastVisibleDate;
 
 @end
 
@@ -39,6 +53,8 @@
         _calendar = [NSCalendar autoupdatingCurrentCalendar];
         _displayMode = CKCalendarViewDisplayModeMonth;
         _date = [NSDate date];
+        _firstVisibleDate = [self computedFirstVisibleDate];
+        _lastVisibleDate = [self computedFirstVisibleDate];
     }
     return self;
 }
@@ -80,7 +96,12 @@
     _previousDate = self.date;
     _date = date;
     
-    [self.cellContextCache handleChangeSelectedDateToDate:_date];
+    if([self crossesScopeBoundaryWhenTransitioningFromDate:_previousDate toDate:_date])
+    {
+        _firstVisibleDate = [self computedFirstVisibleDate];
+        _lastVisibleDate = [self computedFirstVisibleDate];
+    }
+//    [self.cellContextCache handleChangeSelectedDateToDate:_date];
     
     if([self.observer respondsToSelector:@selector(calendarModel:didChangeFromDate:toNewDate:)])
     {
@@ -91,6 +112,8 @@
 - (void)setDisplayMode:(CKCalendarViewDisplayMode)mode
 {
     _displayMode = mode;
+    _firstVisibleDate = [self computedFirstVisibleDate];
+    _lastVisibleDate = [self computedFirstVisibleDate];
     [self informObserverOfInvalidatedState];
 }
 
@@ -101,7 +124,7 @@
  
  @return A date representing the first day of the week, respecting the calendar's start date.
  */
-- (nonnull NSDate *)firstVisibleDate;
+- (nonnull NSDate *)computedFirstVisibleDate;
 {
     CKCalendarViewDisplayMode displayMode = self.displayMode;
     NSDate *firstVisibleDate = self.date; /* Default to self.date */
@@ -130,7 +153,7 @@
  
  @return A date representing the first day of the week, respecting the calendar's start date.
  */
-- (nonnull NSDate *)lastVisibleDate;
+- (nonnull NSDate *)computedLastVisibleDate;
 {
     CKCalendarViewDisplayMode displayMode = self.displayMode;
     NSDate *lastVisibleDate = self.date; /* Default to self.date */
