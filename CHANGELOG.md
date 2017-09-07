@@ -1,7 +1,15 @@
 # Changelog
 
 ## [Unreleased]
-
+- If we try to set the view model's `date` to the same exact date that it already is, we return. This avoids firing off an entire layout pass.
+- `CKCalendarCell` now takes an integer for `setNumber` instead of an `NSNumber`.
+- Use `[NSLayoutConstraint activateConstraints:]` instead of `[self addConstraints:]` in `CKCalendarHeaderView`. The docs say that `activateConstraints:` is more efficient.
+- Use the ivar for getting the cell identifier inside `CKGridView` instead of the property accessor.
+- Compute the `initialOffset` once in the calendar model and cache it on the flow layout subclass, to avoid duplicating this computation per cell.
+- Cache the `CKCalendarCellContext` objects. 
+- `CKCalendarView` now checks for `self.window` before reloading.
+- `CKCalendarModel` now caches `dateForIndexPath` and `indexPathForDate` values.
+- Calling `setDate:` on `CKCalendarModel` passing a date that is the same day as the current date will short circuit after clamping to minimum/maximum dates, and the delegate methods will not get called.
 
 ## [5.0.4] 2017-09-05
 ### Added
