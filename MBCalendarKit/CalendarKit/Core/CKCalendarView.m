@@ -162,11 +162,6 @@
 
 // MARK: - View Lifecycle
 
-- (void)didMoveToSuperview
-{
-    [super didMoveToSuperview];
-}
-
 - (void)didMoveToWindow
 {
     [super didMoveToWindow];
@@ -196,6 +191,11 @@
 
 - (void)reloadAnimated:(BOOL)animated transitioningFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
 {
+    if(!self.window)
+    {
+        return;
+    }
+    
     /**
      *  TODO: Possibly add a delegate method here, per issue #20.
      */
@@ -791,6 +791,7 @@
 - (void)setDataSource:(id<CKCalendarViewDataSource>)dataSource
 {
     _dataSource = dataSource;
+    
     [self reload];
 }
 
