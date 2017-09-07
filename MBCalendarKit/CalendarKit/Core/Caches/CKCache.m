@@ -83,5 +83,16 @@
     return formatter;
 }
 
+// MARK: - Cell Font
+
+- (UIFont *)cellFont
+{
+    if(!_cellFont)
+    {
+        _cellFont = [UIFont boldSystemFontOfSize:13.0];
+    }
+    
+    return _cellFont;
+}
 
 @end

@@ -7,6 +7,7 @@
 //
 
 @import Foundation;
+@import UIKit;
 
 @interface CKCache : NSObject
 
@@ -29,5 +30,12 @@
  @return The format string.
  */
 - (nonnull NSDateFormatter *)dateFormatterWithFormat:(nonnull NSString *)formatString;
+
+// MARK: Font
+
+/**
+ A font to use in `CKCalendarCell` objects.
+ */
+@property (nonnull, nonatomic, strong) UIFont *cellFont;
 
 @end
