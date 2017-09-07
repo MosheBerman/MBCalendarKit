@@ -620,8 +620,6 @@
  */
 - (void)_adjustToFitCells:(BOOL)animated
 {
-    NSTimeInterval duration = 0.0;
-    
     __weak CKCalendarView *weakSelf = self;
     __weak UIView *superview = self.superview;
     
@@ -634,7 +632,7 @@
     if(animated)
     {
         [self.superview setNeedsLayout];
-        [UIView animateWithDuration:duration animations:block];
+        [UIView animateWithDuration:0.3 animations:block];
     }
     else
     {
