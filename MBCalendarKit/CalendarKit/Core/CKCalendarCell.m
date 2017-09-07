@@ -88,32 +88,25 @@
     return self;
 }
 
-// MARK: -
-
-- (void)willMoveToSuperview:(UIView *)newSuperview
-{
-    [super willMoveToSuperview:newSuperview];
-    
-    [self applyColorsForState:self.state];
-}
-
 // MARK: - Layout
 
 - (void)buildViewHierarchy
 {
-    if (![self.subviews containsObject:self.label])
+    if (![self.contentView.subviews containsObject:self.label])
     {
         [self.contentView addSubview:self.label];
         [self _constrainLabel];
         [self configureLabel];
     }
     
-    if(![self.subviews containsObject:self.dot])
+    if(![self.contentView.subviews containsObject:self.dot])
     {
         [self.contentView addSubview:self.dot];
         [self _constrainDot];
         [self configureDot];
     }
+    
+    [self applyColorsForState:self.state];
 }
 
 // MARK: - Autolayout
@@ -234,12 +227,7 @@
     
     //  Alpha, by default, is 1.0
     self.label.alpha = 1.0;
-    
-    if(self.state != CKCalendarCellContextIdentifierDefault)
-    {
-        self.state = CKCalendarCellContextIdentifierDefault;
-        [self applyColorsForState:self.state];
-    }
+    self.state = CKCalendarCellContextIdentifierDefault;
 }
 
 // MARK: - Label
@@ -339,16 +327,16 @@
         shadowOffset = CGSizeZero;
     }
     
-    self.label.textColor = textColor;
-    self.label.shadowColor = shadowColor;
-    self.label.shadowOffset = shadowOffset;
-    self.label.alpha = alpha;
+    _label.textColor = textColor;
+    _label.shadowColor = shadowColor;
+    _label.shadowOffset = shadowOffset;
+    _label.alpha = alpha;
     
     self.backgroundColor = backgroundColor;
     
     //  Make the dot follow the label's style
-    self.dot.backgroundColor = self.label.textColor;
-    self.dot.alpha = self.label.alpha;
+    _dot.backgroundColor = self.label.textColor;
+    _dot.alpha = self.label.alpha;
     
     //  Set the border color
     self.layer.borderColor = borderColor.CGColor;
