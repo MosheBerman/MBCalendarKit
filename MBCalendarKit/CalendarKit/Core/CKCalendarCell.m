@@ -212,7 +212,7 @@
     // although we get variable time, based on the size of the integer.
     char *buffer;
     asprintf(&buffer, "%li", (unsigned long)number);
-    self.label.text = [[NSString alloc] initWithCString:buffer encoding:NSUTF8StringEncoding];
+    self.label.text = [NSString stringWithUTF8String:buffer];
     free(buffer);
 }
 
