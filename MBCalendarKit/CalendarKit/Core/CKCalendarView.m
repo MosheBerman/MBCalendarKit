@@ -12,7 +12,6 @@
 #import "CKCalendarView+DefaultCellProviderImplementation.h"
 
 #import "CKCalendarCellContext.h"
-#import "CKCalendarCellContextCache.h"
 
 #import "CKCalendarModel.h"
 #import "CKCalendarModel+GridViewSupport.h"
@@ -72,14 +71,6 @@
  It may be `nil`, or stale.
  */
 @property (nonatomic, strong, nullable) NSDate *temporaryDate;
-
-
-// MARK: - Caching Cell Context
-
-/**
- A cache which maintains the cell contexts and responds to date, calendar, and other changes.
- */
-@property (nonnull, nonatomic, strong) CKCalendarCellContextCache *cellContextCache;
 
 @end
 
@@ -143,7 +134,6 @@
  */
 - (void)commonInitializer
 {
-    _cellContextCache = [[CKCalendarCellContextCache alloc] initWithCalendarView:self];
     _calendarModel = [[CKCalendarModel alloc] init];
     _headerView = [CKCalendarHeaderView new];
     
@@ -600,7 +590,7 @@
  */
 - (void)calendarGrid:(CKCalendarGridView *)gridView willDisplayCell:(UICollectionViewCell *)cell forDate:(NSDate *)date
 {
-    CKCalendarCellContext *calendarContext = [self.cellContextCache contextForDate:date];
+    CKCalendarCellContext *calendarContext = [self.calendarModel contextForDate:date];
     
     cell.selected = calendarContext.isSelected;
     
