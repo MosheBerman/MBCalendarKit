@@ -19,7 +19,13 @@
  */
 - (NSUInteger)daysPerWeek
 {
-    return [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length;
+    //  Normally I wouldn't do this, but while testing performance, this might actually improve performance significantly,
+    //  given how often this is called.
+    //
+    //  The "right" way to do this is to call
+    //  `[self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length`
+    
+    return 7; //
 }
 
 @end
