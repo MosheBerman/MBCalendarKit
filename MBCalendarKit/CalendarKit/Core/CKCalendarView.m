@@ -159,7 +159,6 @@
     
     [self _installHeader];
     [self _installGridView];
-    [self reload];
     
     //    https://stackoverflow.com/a/45467694/224988
 #if !TARGET_INTERFACE_BUILDER
@@ -652,14 +651,7 @@
     
     cell.selected = calendarContext.isSelected;
     
-    if([self.customCellProvider respondsToSelector:@selector(calendarView:willDisplayCell:inContext:)])
-    {
-        [self.customCellProvider calendarView:self willDisplayCell:cell inContext:calendarContext];
-    }
-    else
-    {
-        [self calendarView:self willDisplayCell:cell inContext:calendarContext];
-    }
+    [self.customCellProvider calendarView:self willDisplayCell:cell inContext:calendarContext];
 }
 
 
