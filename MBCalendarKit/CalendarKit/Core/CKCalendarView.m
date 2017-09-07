@@ -64,7 +64,7 @@
 /**
  *  A model, encapsulating the state of a calendar.
  */
-@property (nonatomic, strong) CKCalendarModel *calendarModel;
+@property (nonatomic, strong, nonnull) CKCalendarModel *calendarModel;
 
 /**
  This date is set at the beginning of a scrub operation, and used to reset the model in the event of a cancelled scrub.
