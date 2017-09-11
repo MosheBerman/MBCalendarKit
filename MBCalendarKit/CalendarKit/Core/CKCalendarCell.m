@@ -259,9 +259,11 @@
     CGSize shadowOffset = CGSizeMake(0, 0.5);
     
     CGFloat alpha = 1.0;
+    BOOL highlighted = self.highlighted;
+    BOOL selectedOrHighlighted = highlighted || self.selected;
     
     //  Today cell, selected
-    if(state == CKCalendarCellContextIdentifierToday && (self.selected || self.highlighted))
+    if(state == CKCalendarCellContextIdentifierToday && selectedOrHighlighted)
     {
         backgroundColor = self.todaySelectedBackgroundColor;
         shadowColor = self.todayTextShadowColor;
@@ -279,7 +281,7 @@
     }
     
     //  Selected cells in the active month have a special background color
-    else if(state == CKCalendarCellContextIdentifierDefault && self.highlighted)
+    else if(state == CKCalendarCellContextIdentifierDefault && highlighted)
     {
         backgroundColor = self.selectedBackgroundColor;
         borderColor = self.selectedCellBorderColor;
@@ -288,7 +290,7 @@
         shadowOffset = CGSizeMake(0, -0.5);
     }
     //  Selected cells in the active month have a special background color
-    else if(state == CKCalendarCellContextIdentifierDefault && (self.highlighted || self.selected))
+    else if(state == CKCalendarCellContextIdentifierDefault && selectedOrHighlighted)
     {
         backgroundColor = self.selectedBackgroundColor;
         borderColor = self.selectedCellBorderColor;
@@ -296,7 +298,7 @@
         shadowColor = self.textSelectedShadowColor;
         shadowOffset = CGSizeMake(0, -0.5);
     }
-    else if (state == CKCalendarCellContextIdentifierOutOfCurrentScope && self.highlighted)
+    else if (state == CKCalendarCellContextIdentifierOutOfCurrentScope && highlighted)
     {
         alpha = 0.5;    //  Label alpha needs to be lowered
         shadowOffset = CGSizeZero;
@@ -327,12 +329,10 @@
     
     self.backgroundColor = backgroundColor;
     
-    if(_showDot)
-    {
-        //  Make the dot follow the label's style
-        _dot.backgroundColor = textColor;
-        _dot.alpha = alpha;
-    }
+    //  Make the dot follow the label's style
+    _dot.backgroundColor = textColor;
+    _dot.alpha = alpha;
+    
     
     //  Set the border color
     self.layer.borderColor = borderColor.CGColor;
@@ -343,7 +343,7 @@
 
 - (void)setSelected:(BOOL)selected
 {
-    if (selected == super.selected)
+    if (selected == self.selected)
     {
         return;
     }
@@ -355,7 +355,7 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
-    if (highlighted == super.highlighted)
+    if (highlighted == self.highlighted)
     {
         return;
     }
