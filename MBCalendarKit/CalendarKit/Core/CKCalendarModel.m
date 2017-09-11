@@ -149,10 +149,13 @@
 
 - (void)setDisplayMode:(CKCalendarViewDisplayMode)mode
 {
+    CKCalendarViewDisplayMode oldMode = _displayMode;
+    
+    [self.observer calendarModel:self willChangeFromDisplayMode:oldMode toDisplayMode:mode];
     _displayMode = mode;
     _firstVisibleDate = [self computedFirstVisibleDate];
     _lastVisibleDate = [self computedLastVisibleDate];
-    [self informObserverOfInvalidatedState];
+    [self.observer calendarModel:self didChangeFromDisplayMode:oldMode toDisplayMode:mode];
 }
 
 // MARK: - Getting the First Visible Date

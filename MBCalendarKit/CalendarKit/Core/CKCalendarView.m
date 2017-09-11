@@ -514,6 +514,18 @@
     }
 }
 
+// MARK: - Handling Display Mode Changes
+
+- (void)calendarModel:(CKCalendarModel *)model willChangeFromDisplayMode:(CKCalendarViewDisplayMode)oldMode toDisplayMode:(CKCalendarViewDisplayMode)newMode;
+{
+    
+}
+
+- (void)calendarModel:(CKCalendarModel *)model didChangeFromDisplayMode:(CKCalendarViewDisplayMode)oldMode toDisplayMode:(CKCalendarViewDisplayMode)newMode;
+{
+    [self reloadAnimated:YES];
+}
+
 /**
  Called after the calendar model updates its `displayMode`, `calendar` or `locale` properties.
  
