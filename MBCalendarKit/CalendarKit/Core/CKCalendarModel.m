@@ -151,7 +151,7 @@
 {
     _displayMode = mode;
     _firstVisibleDate = [self computedFirstVisibleDate];
-    _lastVisibleDate = [self computedFirstVisibleDate];
+    _lastVisibleDate = [self computedLastVisibleDate];
     [self informObserverOfInvalidatedState];
 }
 
