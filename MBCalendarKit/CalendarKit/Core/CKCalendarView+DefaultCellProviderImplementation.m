@@ -56,8 +56,7 @@
     calendarCell.state = context.identifier;
     
     /* Show the day of the month in the cell. */
-    
-    NSUInteger day = [self.calendar daysInDate:context.date];
+    NSInteger day = [self.calendar component:NSCalendarUnitDay fromDate:context.date];
     calendarCell.number = day;
     
     if([self.dataSource respondsToSelector:@selector(calendarView:eventsForDate:)])
