@@ -116,8 +116,6 @@
     CGFloat widthAdjustForEvenDivisionByDaysPerWeek = width - (CGFloat)((NSInteger)width % numberOfDaysPerWeek);
     CGFloat side = widthAdjustForEvenDivisionByDaysPerWeek / (CGFloat)numberOfDaysPerWeek;
     
-    //    CGFloat extra = width - widthAdjustForEvenDivisionByDaysPerWeek;
-    
     CGFloat extraPixel = [self numberOfPixelsToAddToWidthAtIndexPath:indexPath];
     
     return CGSizeMake(side + extraPixel, side);
