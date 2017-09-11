@@ -30,6 +30,14 @@ NS_SWIFT_NAME(CalendarModel)
  */
 @property (nonatomic, strong, nonnull) NSCalendar *calendar;
 
+
+/**
+ The first day of the week that the calendar should use.
+ Backed by the self.calendar's property with the same name, 
+ but this setter dispatches updates to the calendar view.
+ */
+@property (nonatomic, assign) NSUInteger firstWeekday;
+
 // MARK: - Date Selection
 
 /**

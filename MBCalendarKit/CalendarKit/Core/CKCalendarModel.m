@@ -52,7 +52,6 @@
  */
 @property (nonatomic, strong, nonnull) NSMutableDictionary<NSDate *, NSIndexPath *> *indexPathByDate;
 
-
 @end
 
 @implementation CKCalendarModel
@@ -73,6 +72,22 @@
         _dateByIndexPath = [[NSMutableDictionary alloc] init];
     }
     return self;
+}
+
+// MARK: - Setting the Calendar
+
+- (void)setCalendar:(NSCalendar *)calendar
+{
+    _calendar = calendar;
+    [self updateVisibleDates];
+    [self informObserverOfInvalidatedState];
+}
+
+- (void)setFirstWeekday:(NSUInteger)firstWeekday
+{
+    self.calendar.firstWeekday = firstWeekday;
+    [self updateVisibleDates];
+    [self informObserverOfInvalidatedState];
 }
 
 // MARK: - Settings the Date
@@ -302,7 +317,6 @@
 {
     return [self.calendar date:date isAfterDate:self.maximumDate];
 }
-
 
 /**
  Determines if the supplied date is within range of the minimum and maximum dates. 
