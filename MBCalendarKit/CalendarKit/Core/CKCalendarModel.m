@@ -94,18 +94,6 @@
 
 - (void)setDate:(NSDate *)date
 {
-    [self setDate:date silently:NO];
-}
-
-
-/**
- Sets the date, and optionally bypasses broadcasting.
-
- @param date The new date.
- @param silently If `YES` we won't tell the observer about the change.
- */
-- (void)setDate:(NSDate *)date silently:(BOOL)silently;
-{
     if (!date) {
         date = [NSDate date];
     }
@@ -150,13 +138,12 @@
         //    [self.cellContextCache handleChangeSelectedDateToDate:_date];
     }
     
-    if(!silently)
+    
+    if([self.observer respondsToSelector:@selector(calendarModel:didChangeFromDate:toNewDate:)])
     {
-        if([self.observer respondsToSelector:@selector(calendarModel:didChangeFromDate:toNewDate:)])
-        {
-            [self.observer calendarModel:self didChangeFromDate:self.previousDate toNewDate:self.date];
-        }
+        [self.observer calendarModel:self didChangeFromDate:self.previousDate toNewDate:self.date];
     }
+    
 }
 
 - (void)setDisplayMode:(CKCalendarViewDisplayMode)mode
