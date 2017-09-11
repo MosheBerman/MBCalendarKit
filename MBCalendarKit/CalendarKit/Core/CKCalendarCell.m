@@ -205,14 +205,14 @@
 
 // MARK: - Setters
 
-- (void)setNumber:(NSUInteger)number
+- (void)setNumber:(NSInteger)number
 {
     _number = number;
     
     // Using a buffer is slightly faster than stringWithFormat,
     // although we get variable time, based on the size of the integer.
     char *buffer;
-    asprintf(&buffer, "%li", (unsigned long)number);
+    asprintf(&buffer, "%li", (long)number);
     self.label.text = [NSString stringWithUTF8String:buffer];
     free(buffer);
 }

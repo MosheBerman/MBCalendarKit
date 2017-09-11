@@ -27,7 +27,7 @@ NS_SWIFT_NAME(CalendarCell)
 /**
  The day of the month that is shown in the cell.
  */
-@property (nonatomic, assign) NSUInteger number;
+@property (nonatomic, assign) NSInteger number;
 
 /**
  A property which determines if the cell shows a dot for events.
