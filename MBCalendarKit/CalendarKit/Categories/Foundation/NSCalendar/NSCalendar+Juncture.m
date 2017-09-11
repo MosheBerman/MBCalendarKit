@@ -33,18 +33,15 @@
  *  If you pass a value larger than 7, it will probably wrap around, but no guarantees. :D
  *
  */
-
 - (NSDate *)firstDayOfTheWeekUsingReferenceDate:(NSDate *)date andStartDay:(NSInteger)day
 {
-    NSInteger weekday = [self weekdayInDate:date];
-    NSInteger daysToSubtract = 0;
+    NSInteger weekday = [self weekdayInDate:date]-day;
     
-    if (weekday > day)
-    {
-        daysToSubtract = weekday - day;
+    if (weekday < 0) {
+        weekday = weekday + 7;
     }
     
-    NSDate *newStartDate = [self dateBySubtractingDays:daysToSubtract fromDate:date];
+    NSDate *newStartDate = [self dateBySubtractingDays:weekday fromDate:date];
     
     return newStartDate;
 }
