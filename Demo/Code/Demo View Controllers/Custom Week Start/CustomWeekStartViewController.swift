@@ -54,7 +54,6 @@ class CustomWeekStartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      
         self.configureFormatter()
         self.configureSegmentedControl()
     }
@@ -80,6 +79,8 @@ class CustomWeekStartViewController: UIViewController {
         }
         
         self.weekStartSegmentedControl.addTarget(self, action: #selector(updateWeekStart), for: .valueChanged)
+        
+        self.weekStartSegmentedControl.selectedSegmentIndex = self.calendar.firstWeekday - 1
     }
     
     // MARK: - Updating the Day Of the Week
