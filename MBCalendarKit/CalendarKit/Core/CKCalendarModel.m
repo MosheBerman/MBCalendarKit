@@ -152,9 +152,13 @@
     CKCalendarViewDisplayMode oldMode = _displayMode;
     
     [self.observer calendarModel:self willChangeFromDisplayMode:oldMode toDisplayMode:mode];
+    
     _displayMode = mode;
+    
     _firstVisibleDate = [self computedFirstVisibleDate];
     _lastVisibleDate = [self computedLastVisibleDate];
+    
+    
     [self.observer calendarModel:self didChangeFromDisplayMode:oldMode toDisplayMode:mode];
 }
 
@@ -167,7 +171,7 @@
  */
 - (nonnull NSDate *)computedFirstVisibleDate;
 {
-    CKCalendarViewDisplayMode displayMode = _displayMode;
+    CKCalendarViewDisplayMode displayMode = self.displayMode;
     NSDate *firstVisibleDate = self.date; /* Default to self.date */
     
     // for the day mode, just return today
@@ -196,7 +200,7 @@
  */
 - (nonnull NSDate *)computedLastVisibleDate;
 {
-    CKCalendarViewDisplayMode displayMode = _displayMode;
+    CKCalendarViewDisplayMode displayMode = self.displayMode;
     NSDate *lastVisibleDate = self.date; /* Default to self.date */
     
     // for the day mode, just return today
