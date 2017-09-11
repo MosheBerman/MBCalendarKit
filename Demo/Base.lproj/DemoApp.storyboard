@@ -140,6 +140,26 @@
                                             <segue destination="Cec-6W-Nfr" kind="show" id="6dG-fz-Y4M"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Sr3-KL-HIJ" style="IBUITableViewCellStyleDefault" id="hjE-Oe-nEQ">
+                                        <rect key="frame" x="0.0" y="264" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hjE-Oe-nEQ" id="UB0-SW-fyM">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Custom Week Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Sr3-KL-HIJ">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="NJT-Sa-fxA" kind="show" id="Qlb-a1-MaE"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -255,6 +275,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vgv-L5-Vag" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1521" y="2345"/>
+        </scene>
+        <!--Custom Week Start View Controller-->
+        <scene sceneID="cia-d8-rWa">
+            <objects>
+                <viewController id="NJT-Sa-fxA" customClass="CustomWeekStartViewController" customModule="MBCalendarKit_Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hF4-cA-RzV"/>
+                        <viewControllerLayoutGuide type="bottom" id="wUP-ag-HgV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dPt-pM-LiU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view multipleTouchEnabled="YES" contentMode="bottom" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f6p-j6-drh" customClass="CKCalendarView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="309"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jbt-8I-X5k">
+                                <rect key="frame" x="0.0" y="373" width="375" height="250"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3Np-0J-KPS">
+                                <rect key="frame" x="127" y="507" width="121" height="29"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="3Np-0J-KPS" firstAttribute="centerY" secondItem="dPt-pM-LiU" secondAttribute="centerY" constant="187.5" id="Bha-j6-DJo"/>
+                            <constraint firstItem="Jbt-8I-X5k" firstAttribute="centerX" secondItem="f6p-j6-drh" secondAttribute="centerX" id="QG3-EH-fjP"/>
+                            <constraint firstItem="Jbt-8I-X5k" firstAttribute="width" secondItem="f6p-j6-drh" secondAttribute="width" id="YST-yl-jcG"/>
+                            <constraint firstItem="3Np-0J-KPS" firstAttribute="centerX" secondItem="dPt-pM-LiU" secondAttribute="centerX" id="c9s-Po-UzS"/>
+                            <constraint firstItem="wUP-ag-HgV" firstAttribute="top" secondItem="Jbt-8I-X5k" secondAttribute="bottom" id="dx0-C2-dUX"/>
+                            <constraint firstItem="f6p-j6-drh" firstAttribute="centerX" secondItem="dPt-pM-LiU" secondAttribute="centerX" id="hTf-6E-paa"/>
+                            <constraint firstItem="Jbt-8I-X5k" firstAttribute="top" secondItem="f6p-j6-drh" secondAttribute="bottom" id="i56-cB-s4Y"/>
+                            <constraint firstItem="f6p-j6-drh" firstAttribute="top" secondItem="hF4-cA-RzV" secondAttribute="bottom" id="n7c-B8-Ew8"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="calendarView" destination="f6p-j6-drh" id="cRd-CL-47B"/>
+                        <outlet property="weekStartSegmentedControl" destination="3Np-0J-KPS" id="l2h-QI-C3Z"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4HJ-Zd-xZ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="841" y="2345"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="omy-Op-OY0">

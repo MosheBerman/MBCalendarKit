@@ -12,6 +12,7 @@
 		46087AD91F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 46087AD71F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m */; };
 		460BD68C1F5FA5E7001CBD75 /* CKCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 460BD68A1F5FA5E7001CBD75 /* CKCache.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		460BD68D1F5FA5E7001CBD75 /* CKCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 460BD68B1F5FA5E7001CBD75 /* CKCache.m */; };
+		4618C4411F66D7E30033A9AF /* CustomWeekStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4618C4401F66D7E30033A9AF /* CustomWeekStartViewController.swift */; };
 		461C706D1F46292000E305E3 /* DemoApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 461C704D1F46292000E305E3 /* DemoApp.storyboard */; };
 		461C706E1F46292000E305E3 /* CKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 461C70521F46292000E305E3 /* CKAppDelegate.m */; };
 		461C706F1F46292000E305E3 /* AlternateCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C70551F46292000E305E3 /* AlternateCalendarViewController.swift */; };
@@ -161,6 +162,7 @@
 		46087AD71F3C2D80004655C6 /* CKCalendarModel+GridViewSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CKCalendarModel+GridViewSupport.m"; path = "Model/CKCalendarModel+GridViewSupport.m"; sourceTree = "<group>"; };
 		460BD68A1F5FA5E7001CBD75 /* CKCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKCache.h; path = Caches/CKCache.h; sourceTree = "<group>"; };
 		460BD68B1F5FA5E7001CBD75 /* CKCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKCache.m; path = Caches/CKCache.m; sourceTree = "<group>"; };
+		4618C4401F66D7E30033A9AF /* CustomWeekStartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomWeekStartViewController.swift; path = "Custom Week Start/CustomWeekStartViewController.swift"; sourceTree = "<group>"; };
 		461C704A1F46291100E305E3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MBCalendarKit/Info.plist; sourceTree = SOURCE_ROOT; };
 		461C704E1F46292000E305E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DemoApp.storyboard; sourceTree = "<group>"; };
 		461C70511F46292000E305E3 /* CKAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKAppDelegate.h; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 				461C705B1F46292000E305E3 /* Objective-C */,
 				461C705E1F46292000E305E3 /* Right To Left */,
 				461C70601F46292000E305E3 /* Swift */,
+				4618C4401F66D7E30033A9AF /* CustomWeekStartViewController.swift */,
 			);
 			path = "Demo View Controllers";
 			sourceTree = "<group>";
@@ -433,7 +436,6 @@
 		464A86CB171F174D00E7AB19 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				46C9172B1F5FB48C00C724CB /* UIKit */,
 				464A86CC171F174D00E7AB19 /* Foundation */,
 			);
 			path = Categories;
@@ -606,13 +608,6 @@
 				467B12F71F2F5B8A00CABA27 /* MBCalendarKitTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		46C9172B1F5FB48C00C724CB /* UIKit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UIKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -867,6 +862,7 @@
 				461C706F1F46292000E305E3 /* AlternateCalendarViewController.swift in Sources */,
 				461C70771F46292000E305E3 /* DemoRootTableViewController.swift in Sources */,
 				461C70721F46292000E305E3 /* CKCustomCellDemoViewController.swift in Sources */,
+				4618C4411F66D7E30033A9AF /* CustomWeekStartViewController.swift in Sources */,
 				461C70761F46292000E305E3 /* SwiftDemoViewController.swift in Sources */,
 				461C70731F46292000E305E3 /* CustomCalendarCell.swift in Sources */,
 				461C70701F46292000E305E3 /* AlternateCalendarViewModel.swift in Sources */,
