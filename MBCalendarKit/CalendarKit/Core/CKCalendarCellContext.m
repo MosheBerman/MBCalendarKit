@@ -64,19 +64,6 @@
 - (void)_updateContextForScopeEqualityWithDate:(NSDate *)date andCalendarModel:(nonnull CKCalendarModel *)model
 {
     _isInSameMonthAsToday = [model.calendar isDate:date equalToDate:model.date toUnitGranularity:NSCalendarUnitMonth];
-    
-    if (model.displayMode == CKCalendarViewDisplayModeDay)
-    {
-        _isInSameScopeAsVisibleDate = [model.calendar isDate:date inSameDayAsDate:model.date];
-    }
-    else if (model.displayMode == CKCalendarViewDisplayModeWeek)
-    {
-        _isInSameScopeAsVisibleDate = [model.calendar isDate:date equalToDate:model.date toUnitGranularity:NSCalendarUnitWeekOfYear];
-    }
-    else if(model.displayMode == CKCalendarViewDisplayModeMonth)
-    {
-        _isInSameScopeAsVisibleDate = _isInSameMonthAsToday;
-    }
 }
 
 /**
@@ -109,7 +96,7 @@
     {
         _identifier = CKCalendarCellContextIdentifierOutOfRange;
     }
-    else if(!_isInSameScopeAsVisibleDate)
+    else if(!_isInSameMonthAsToday)
     {
         _identifier = CKCalendarCellContextIdentifierOutOfCurrentScope;
     }
@@ -136,12 +123,6 @@
 - (void)setIsInSameMonthAsToday:(BOOL)isInSameMonthAsToday
 {
     _isInSameMonthAsToday = isInSameMonthAsToday;
-    [self _updateIdentifierBasedOnFlags];
-}
-
-- (void)setIsInSameScopeAsVisibleDate:(BOOL)isInSameScopeAsVisibleDate
-{
-    _isInSameScopeAsVisibleDate = isInSameScopeAsVisibleDate;
     [self _updateIdentifierBasedOnFlags];
 }
 

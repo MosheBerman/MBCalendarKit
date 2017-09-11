@@ -46,12 +46,7 @@ NS_SWIFT_NAME(CalendarCellContext)
 /**
  `YES` if the date represented by the cell represents a date in the same month as `calendarView.date` on the calendar displayed by the calendar view. Otherwise, `NO`.
  */
-@property (nonatomic, assign, readonly) BOOL isInSameMonthAsToday DEPRECATED_MSG_ATTRIBUTE("Use `isInSameScopeAsVisibleDate` instead.");
-
-/**
-  `YES` if the date represented by the cell represents a date in the same month or week scope as `calendarView.date` on the calendar displayed by the calendar view. Otherwise, `NO`.
- */
-@property (nonatomic, assign, readonly) BOOL isInSameScopeAsVisibleDate;
+@property (nonatomic, assign, readonly) BOOL isInSameMonthAsToday;
 
 /**
  `YES` if the date represented by the cell represents a date earlier than the date represented by the calendar view's `minimumDate` property.
