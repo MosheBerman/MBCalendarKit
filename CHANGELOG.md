@@ -1,7 +1,9 @@
 # Changelog
 
-## [Unreleased]
+## [unreleased]
+...
 
+## [5.1.0] 2017-09-11
 ### Added 
 - Added a demo for first day of the week handling.
 - Added a demo for animated week transitions.
@@ -21,6 +23,7 @@
 - Cache `firstVisibleDate` and `lastVisibleDate`
 - Cache the font used in the `CKCalendarCell` class.
 - Cache `CKCalendarModel`'s `dateForIndexPath` and `indexPathForDate` values.
+- Cache drawn polygon images in the next/back buttons.
 
 
 ## [5.0.4] 2017-09-05
@@ -163,6 +166,7 @@
 Initial release.
 
 [unreleased]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.4...HEAD
+[5.1.0]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.4...5.1.0
 [5.0.4]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.3...5.0.4
 [5.0.3]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.2...5.0.3
 [5.0.2]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.1...5.0.2
