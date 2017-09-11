@@ -677,11 +677,11 @@
     if(calendarContext.isSelected)
     {
         self.mostRecentlyHighlightedCell = cell;
-        cell.highlighted = YES;
+        cell.selected = YES;
     }
     else
     {
-        cell.highlighted = NO;
+        cell.selected = NO;
     }
     
     [self.customCellProvider calendarView:self willDisplayCell:cell inContext:calendarContext];
