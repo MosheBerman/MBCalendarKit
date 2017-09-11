@@ -571,20 +571,13 @@
         
         __weak CKCalendarGridView *gridView = self.gridView;
         
-        __weak __block CKCalendarView* weakSelf = self;
-        
         id updateBlock = [self updateBlockForGridView:gridView WithBefore:numberOfSectionsBefore andAfter:numberOfSectionsAfter];
         
-        id completionBlock = ^(BOOL finished) {
-            weakSelf.mostRecentlyHighlightedCell = [weakSelf cellFromDate:weakSelf.calendarModel.date];
-        };
-        
-        [self.gridView performBatchUpdates:updateBlock completion:completionBlock];
+        [self.gridView performBatchUpdates:updateBlock completion:nil];
     }
     else
     {
         [self.gridView reloadData];
-        self.mostRecentlyHighlightedCell = [self cellFromDate:self.calendarModel.date];
     }
 }
 
@@ -678,7 +671,15 @@
 {
     CKCalendarCellContext *calendarContext = [[CKCalendarCellContext alloc] initWithDate:date andCalendarView:self];
     
-    cell.selected = calendarContext.isSelected;
+    if(calendarContext.isSelected)
+    {
+        self.mostRecentlyHighlightedCell = cell;
+        cell.highlighted = YES;
+    }
+    else
+    {
+        cell.highlighted = NO;
+    }
     
     [self.customCellProvider calendarView:self willDisplayCell:cell inContext:calendarContext];
 }
