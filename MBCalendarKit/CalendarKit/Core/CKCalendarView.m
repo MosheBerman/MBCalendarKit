@@ -273,18 +273,12 @@
 {
     self.temporaryDate = self.calendarModel.date;
     
-    [super touchesBegan:touches withEvent:event];
+    [self highlightCellBeneathTouches:touches];
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    UICollectionViewCell *cellFromTouch = [self cellFromTouches:touches];
-    
-    self.mostRecentlyHighlightedCell.highlighted = NO;
-    cellFromTouch.highlighted = YES;
-    self.mostRecentlyHighlightedCell = cellFromTouch;
-    
-    [super touchesMoved:touches withEvent:event];
+    [self highlightCellBeneathTouches:touches];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -295,6 +289,7 @@
     
     if(isInGrid)
     {
+        [self highlightCellBeneathTouches:touches];
         NSDate *dateFromTouches = [self dateFromTouches:touches];
         
         self.calendarModel.date = dateFromTouches;
@@ -303,8 +298,6 @@
     {
         [self restoreDateFromBeforeInteraction];
     }
-    [super touchesEnded:touches withEvent:event];
-    
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -314,8 +307,17 @@
     {
         [self restoreDateFromBeforeInteraction];
     }
+}
+
+// MARK: -
+
+- (void)highlightCellBeneathTouches:(NSSet <UITouch *> *)touches
+{
+    UICollectionViewCell *cellFromTouch = [self cellFromTouches:touches];
     
-    [super touchesCancelled:touches withEvent:event];
+    self.mostRecentlyHighlightedCell.highlighted = NO;
+    cellFromTouch.highlighted = YES;
+    self.mostRecentlyHighlightedCell = cellFromTouch;
 }
 
 // MARK: - Cancelling Date Scrubbing
@@ -557,7 +559,7 @@
         
         __weak CKCalendarGridView *gridView = self.gridView;
         
-        __weak CKCalendarView* weakSelf = self;
+        __weak __block CKCalendarView* weakSelf = self;
         
         id updateBlock = [self updateBlockForGridView:gridView WithBefore:numberOfSectionsBefore andAfter:numberOfSectionsAfter];
         
@@ -570,6 +572,7 @@
     else
     {
         [self.gridView reloadData];
+        self.mostRecentlyHighlightedCell = [self cellFromDate:self.calendarModel.date];
     }
 }
 
