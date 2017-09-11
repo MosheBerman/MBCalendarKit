@@ -533,7 +533,7 @@
  */
 - (void)calendarModelDidInvalidate:(CKCalendarModel *)model;
 {
-    [self _adjustToFitCells:YES];
+    [self reload];
 }
 
 
