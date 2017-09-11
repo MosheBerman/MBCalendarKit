@@ -628,12 +628,26 @@
     return updateBlock;
 }
 
+
+/**
+ Invalidates the intrinsic content size to allow display of all cells. 
+ 
+ This method calls `_adjustToFitCells:completion:`, passing `nil` for the completion block.
+
+ @param animated Determines if the change is animated.
+ */
+- (void)_adjustToFitCells:(BOOL)animated
+{
+    [self _adjustToFitCells:animated completion:nil];
+}
+
 /**
  Invalidates the intrinsic content size to allow display of all cells.
  
- @param animated Should we animate the change.
- */
-- (void)_adjustToFitCells:(BOOL)animated
+ @param animated Determines if the change is animated.
+ @param completion A completion block passed to UIView for execution at the end of the animation. Not executed if animated is `NO`
+*/
+- (void)_adjustToFitCells:(BOOL)animated completion:(void(^ _Nullable)(BOOL finished))completion
 {
     __weak CKCalendarView *weakSelf = self;
     __weak UIView *superview = self.superview;
@@ -647,7 +661,7 @@
     if(animated)
     {
         [self.superview setNeedsLayout];
-        [UIView animateWithDuration:0.3 animations:block];
+        [UIView animateWithDuration:0.3 animations:block completion:completion];
     }
     else
     {
@@ -749,8 +763,6 @@
 - (void)setDisplayMode:(CKCalendarViewDisplayMode)mode animated:(BOOL)animated
 {
     self.calendarModel.displayMode = mode;
-    
-    [self reloadAnimated:animated];
 }
 
 // MARK: - Changing the Date
