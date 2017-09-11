@@ -325,6 +325,14 @@
 			name = Caches;
 			sourceTree = "<group>";
 		};
+		4618C4421F66DE0C0033A9AF /* First Day of the Week */ = {
+			isa = PBXGroup;
+			children = (
+				4618C4401F66D7E30033A9AF /* CustomWeekStartViewController.swift */,
+			);
+			name = "First Day of the Week";
+			sourceTree = "<group>";
+		};
 		461C704C1F46292000E305E3 /* Demo App */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,7 +378,7 @@
 				461C705B1F46292000E305E3 /* Objective-C */,
 				461C705E1F46292000E305E3 /* Right To Left */,
 				461C70601F46292000E305E3 /* Swift */,
-				4618C4401F66D7E30033A9AF /* CustomWeekStartViewController.swift */,
+				4618C4421F66DE0C0033A9AF /* First Day of the Week */,
 			);
 			path = "Demo View Controllers";
 			sourceTree = "<group>";
