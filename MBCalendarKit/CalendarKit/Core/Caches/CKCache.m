@@ -13,9 +13,10 @@
 @interface CKCache ()
 
 /**
- The date formatter is actually nullable.
+ A cache of NSDateFormatters by format string.
  */
-@property (strong, nonatomic, nullable) NSDateFormatter *dateFormatter;
+@property (nonatomic, strong, nonnull) NSMutableDictionary <NSString *, NSDateFormatter *> *formatters;
+
 
 @end
 
@@ -47,7 +48,7 @@
 {
     self = [super init];
     if (self) {
-
+        _formatters = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -56,24 +57,42 @@
 
 - (void)purge
 {
-    _dateFormatter = nil;
+    [_formatters removeAllObjects];
 }
 
 // MARK: - NSDateFormatter Caching
 
 /**
- Returns the date formatter. If one does not exist, creates it.
+ Returns a date formatter with the specified format string. 
+ If the formatter doesn't exist in the cache, we create one.
 
- @return The cached date formatter.
+ @param formatString A format string to use.
+ @return The format string.
  */
-- (NSDateFormatter *)dateFormatter
+- (nonnull NSDateFormatter *)dateFormatterWithFormat:(nonnull NSString *)formatString;
 {
-    if (!_dateFormatter)
+    NSDateFormatter *formatter = self.formatters[formatString];
+    
+    if (!formatter)
     {
-        _dateFormatter = [[NSDateFormatter alloc] init];
+        formatter = [[NSDateFormatter alloc] init];
+        [formatter setLocalizedDateFormatFromTemplate:formatString];
+        self.formatters[formatString] = formatter;
     }
     
-    return _dateFormatter;
+    return formatter;
+}
+
+// MARK: - Cell Font
+
+- (UIFont *)cellFont
+{
+    if(!_cellFont)
+    {
+        _cellFont = [UIFont boldSystemFontOfSize:13.0];
+    }
+    
+    return _cellFont;
 }
 
 @end

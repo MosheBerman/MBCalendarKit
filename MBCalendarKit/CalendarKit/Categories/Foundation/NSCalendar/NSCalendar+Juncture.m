@@ -22,21 +22,25 @@
 
 - (NSDate *)firstDayOfTheWeekUsingReferenceDate:(NSDate *)date
 {
-    return [self firstDayOfTheWeekUsingReferenceDate:date andStartDay:1];
+    return [self firstDayOfTheWeekUsingReferenceDate:date andStartDay:self.firstWeekday];
 }
 
 /**
  *  @return The first weekday of a given week as an NSDate.
  *
- *  @param data The date to use to calculate the start of the week.
+ *  @param date The date to use to calculate the start of the week.
  *  @param day An integer value 1-7 representing the weekday. 1 is Sunday, 2 is Monday, etc.
  *  If you pass a value larger than 7, it will probably wrap around, but no guarantees. :D
  *
  */
-
 - (NSDate *)firstDayOfTheWeekUsingReferenceDate:(NSDate *)date andStartDay:(NSInteger)day
 {
     NSInteger weekday = [self weekdayInDate:date]-day;
+    
+    if (weekday < 0) {
+        weekday = weekday + 7;
+    }
+    
     NSDate *newStartDate = [self dateBySubtractingDays:weekday fromDate:date];
     
     return newStartDate;
@@ -52,6 +56,8 @@
     
     NSDate *d = [self firstDayOfTheWeekUsingReferenceDate:date];
     NSUInteger daysPerWeek = [self daysPerWeekUsingReferenceDate:d];
+    
+    
     return [self dateByAddingDays:daysPerWeek-1 toDate:d];
 }
 
@@ -87,5 +93,4 @@
     return [self dateFromComponents:c];
 }
 
-#pragma mark 
 @end

@@ -9,6 +9,7 @@
 #import "CKCalendarCell.h"
 #import "CKCalendarCellContextIdentifier.h"
 #import "CKCalendarCellColors.h"
+#import "CKCache.h"
 
 @interface CKCalendarCell ()
 
@@ -29,7 +30,8 @@
 
 - (instancetype)init
 {
-    self = [super initWithFrame:CGRectZero];
+    CGRect frame = CGRectZero;
+    self = [super initWithFrame:frame];
     if (self) {
     
         _state = CKCalendarCellContextIdentifierDefault;
@@ -58,14 +60,20 @@
         _selectedCellBorderColor = kCalendarColorSelectedCellBorder;
         
         // Label
-        _label = [[UILabel alloc] init];
+        _label = [[UILabel alloc] initWithFrame:frame];
         
         //  Dot
-        _dot = [[UIView alloc] init];
+        _dot = [[UIView alloc] initWithFrame:frame];
         [_dot setHidden:YES];
         _showDot = NO;
         
         [self buildViewHierarchy];
+        
+        _label.layer.shouldRasterize = YES;
+        _label.layer.rasterizationScale = UIScreen.mainScreen.scale;
+        
+        self.layer.shouldRasterize = YES;
+        self.layer.rasterizationScale = UIScreen.mainScreen.scale;
     }
     return self;
 }
@@ -88,32 +96,25 @@
     return self;
 }
 
-// MARK: -
-
-- (void)willMoveToSuperview:(UIView *)newSuperview
-{
-    [super willMoveToSuperview:newSuperview];
-    
-    [self applyColorsForState:self.state];
-}
-
 // MARK: - Layout
 
 - (void)buildViewHierarchy
 {
-    if (![self.subviews containsObject:self.label])
+    if (![self.contentView.subviews containsObject:self.label])
     {
         [self.contentView addSubview:self.label];
         [self _constrainLabel];
         [self configureLabel];
     }
     
-    if(![self.subviews containsObject:self.dot])
+    if(![self.contentView.subviews containsObject:self.dot])
     {
         [self.contentView addSubview:self.dot];
         [self _constrainDot];
         [self configureDot];
     }
+    
+    [self applyColorsForState:self.state];
 }
 
 // MARK: - Autolayout
@@ -158,7 +159,7 @@
                                                               multiplier:1.0
                                                                 constant:0.0];
     
-    [self.contentView addConstraints:@[centerY, centerX, top, leading]];
+    [NSLayoutConstraint activateConstraints:@[centerY, centerX, top, leading]];
     
 }
 
@@ -198,19 +199,22 @@
                                                             multiplier:1.0
                                                               constant:3.0];
     
-    [self.contentView addConstraints:@[centerX, bottom, ratio, width]];
+    [NSLayoutConstraint activateConstraints:@[centerX, bottom, ratio, width]];
     
 }
 
 // MARK: - Setters
 
-- (void)setNumber:(NSNumber *)number
+- (void)setNumber:(NSInteger)number
 {
     _number = number;
     
-    //  TODO: Locale support?
-    NSString *stringVal = number.stringValue;
-    self.label.text = stringVal;
+    // Using a buffer is slightly faster than stringWithFormat,
+    // although we get variable time, based on the size of the integer.
+    char *buffer;
+    asprintf(&buffer, "%li", (long)number);
+    self.label.text = [NSString stringWithUTF8String:buffer];
+    free(buffer);
 }
 
 - (void)setShowDot:(BOOL)showDot
@@ -219,33 +223,13 @@
     self.dot.hidden = !showDot;
 }
 
-// MARK: - Cell Recycling
-
-/**
- Called before the cell is dequeued by the calendar view.
- Use this to reset colors and opacities to their default values.
- */
--(void)prepareForReuse;
-{
-    [super prepareForReuse];
-    
-    //  Alpha, by default, is 1.0
-    self.label.alpha = 1.0;
-    
-    if(self.state != CKCalendarCellContextIdentifierDefault)
-    {
-        self.state = CKCalendarCellContextIdentifierDefault;
-        [self applyColorsForState:self.state];
-    }
-}
-
 // MARK: - Label
 
 - (void)configureLabel
 {
     UILabel *label = self.label;
     
-    label.font = [UIFont boldSystemFontOfSize:13];
+    label.font = CKCache.sharedCache.cellFont;
     label.textAlignment = NSTextAlignmentCenter;
     
     label.backgroundColor = [UIColor clearColor];
@@ -275,9 +259,11 @@
     CGSize shadowOffset = CGSizeMake(0, 0.5);
     
     CGFloat alpha = 1.0;
+    BOOL highlighted = self.highlighted;
+    BOOL selectedOrHighlighted = highlighted || self.selected;
     
     //  Today cell, selected
-    if(state == CKCalendarCellContextIdentifierToday && (self.selected || self.highlighted))
+    if(state == CKCalendarCellContextIdentifierToday && selectedOrHighlighted)
     {
         backgroundColor = self.todaySelectedBackgroundColor;
         shadowColor = self.todayTextShadowColor;
@@ -295,7 +281,7 @@
     }
     
     //  Selected cells in the active month have a special background color
-    else if(state == CKCalendarCellContextIdentifierDefault && self.highlighted)
+    else if(state == CKCalendarCellContextIdentifierDefault && highlighted)
     {
         backgroundColor = self.selectedBackgroundColor;
         borderColor = self.selectedCellBorderColor;
@@ -304,7 +290,7 @@
         shadowOffset = CGSizeMake(0, -0.5);
     }
     //  Selected cells in the active month have a special background color
-    else if(state == CKCalendarCellContextIdentifierDefault && (self.highlighted || self.selected))
+    else if(state == CKCalendarCellContextIdentifierDefault && selectedOrHighlighted)
     {
         backgroundColor = self.selectedBackgroundColor;
         borderColor = self.selectedCellBorderColor;
@@ -312,7 +298,7 @@
         shadowColor = self.textSelectedShadowColor;
         shadowOffset = CGSizeMake(0, -0.5);
     }
-    else if (state == CKCalendarCellContextIdentifierOutOfCurrentScope && self.highlighted)
+    else if (state == CKCalendarCellContextIdentifierOutOfCurrentScope && highlighted)
     {
         alpha = 0.5;    //  Label alpha needs to be lowered
         shadowOffset = CGSizeZero;
@@ -336,16 +322,17 @@
         shadowOffset = CGSizeZero;
     }
     
-    self.label.textColor = textColor;
-    self.label.shadowColor = shadowColor;
-    self.label.shadowOffset = shadowOffset;
-    self.label.alpha = alpha;
+    _label.textColor = textColor;
+    _label.shadowColor = shadowColor;
+    _label.shadowOffset = shadowOffset;
+    _label.alpha = alpha;
     
     self.backgroundColor = backgroundColor;
     
     //  Make the dot follow the label's style
-    self.dot.backgroundColor = self.label.textColor;
-    self.dot.alpha = self.label.alpha;
+    _dot.backgroundColor = textColor;
+    _dot.alpha = alpha;
+    
     
     //  Set the border color
     self.layer.borderColor = borderColor.CGColor;
@@ -356,7 +343,7 @@
 
 - (void)setSelected:(BOOL)selected
 {
-    if (selected == super.selected)
+    if (selected == self.selected)
     {
         return;
     }
@@ -368,7 +355,7 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
-    if (highlighted == super.highlighted)
+    if (highlighted == self.highlighted)
     {
         return;
     }

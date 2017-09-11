@@ -11,6 +11,8 @@
 #import "CKCalendarViewDisplayMode.h"
 #import "CKCalendarModelObserver.h"
 
+@class CKCalendarCellContext;
+
 /**
  This class abstracts the data our from behind `CKCalendarView`, to seperate rendering from calculations.
  */
@@ -28,12 +30,22 @@ NS_SWIFT_NAME(CalendarModel)
  */
 @property (nonatomic, strong, nonnull) NSCalendar *calendar;
 
+
+
+/**
+ The first day of the week that the calendar should use.
+ Backed by the self.calendar's property with the same name, 
+ but this setter dispatches updates to the calendar view.
+ */
+@property (nonatomic, assign) NSUInteger firstWeekday;
+
 // MARK: - Date Selection
 
 /**
  The date being displayed by the calendar view.
  */
 @property (nonatomic, strong, nonnull) NSDate *date;
+
 
 // MARK: - Clamping Date with Minimum and Maximum
 
@@ -65,6 +77,13 @@ NS_SWIFT_NAME(CalendarModel)
  */
 @property (nonatomic, assign) CKCalendarViewDisplayMode displayMode;
 
+/**
+ Determines if some date is in the same scope as the visible date.
+ 
+ @param date The date to compare.
+ @return `YES` if the date is equal to self.date to thw appropriate granularity.
+ */
+- (BOOL)isDateInSameScopeAsVisibleDateForActiveDisplayMode:(nonnull NSDate *)date;
 
 // MARK: - Getting the First Visible Date
 
@@ -79,5 +98,16 @@ NS_SWIFT_NAME(CalendarModel)
  based on the value of displayMode.
  */
 @property (nonnull, nonatomic, readonly) NSDate *lastVisibleDate;
+
+
+// MARK: - Getting Context For a Given Date
+
+/**
+ Returns a context object for the supplied date.
+
+ @param date The date for which we want context.
+ @return The context object describing the date.
+ */
+//- (nonnull CKCalendarCellContext *)contextForDate:(nonnull NSDate *)date;
 
 @end
