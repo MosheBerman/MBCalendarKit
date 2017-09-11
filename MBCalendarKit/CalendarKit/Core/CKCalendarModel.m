@@ -131,10 +131,7 @@
     
     if([self crossesScopeBoundaryWhenTransitioningFromDate:_previousDate toDate:_date])
     {
-        _firstVisibleDate = [self computedFirstVisibleDate];
-        _lastVisibleDate = [self computedFirstVisibleDate];
-        
-        [self purgeDateAndIndexPathCaches];
+        [self updateVisibleDates];
         //    [self.cellContextCache handleChangeSelectedDateToDate:_date];
     }
     
@@ -151,15 +148,33 @@
 {
     CKCalendarViewDisplayMode oldMode = _displayMode;
     
-    [self.observer calendarModel:self willChangeFromDisplayMode:oldMode toDisplayMode:mode];
+    if([self.observer respondsToSelector:@selector(calendarModel:willChangeFromDisplayMode:toDisplayMode:)])
+    {
+        [self.observer calendarModel:self willChangeFromDisplayMode:oldMode toDisplayMode:mode];
+    }
     
     _displayMode = mode;
     
+    [self updateVisibleDates];
+    
+    if([self.observer respondsToSelector:@selector(calendarModel:didChangeFromDisplayMode:toDisplayMode:)])
+    {
+        [self.observer calendarModel:self didChangeFromDisplayMode:oldMode toDisplayMode:mode];
+    }
+}
+
+// MARK: - Updating Visible Dates in Response to Changes
+
+
+/**
+ This method updates the visible dates and purges the caches.
+ */
+- (void)updateVisibleDates
+{
     _firstVisibleDate = [self computedFirstVisibleDate];
-    _lastVisibleDate = [self computedLastVisibleDate];
+    _lastVisibleDate = [self computedFirstVisibleDate];
     
-    
-    [self.observer calendarModel:self didChangeFromDisplayMode:oldMode toDisplayMode:mode];
+    [self purgeDateAndIndexPathCaches];
 }
 
 // MARK: - Getting the First Visible Date
