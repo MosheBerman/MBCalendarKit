@@ -89,16 +89,4 @@
     return [self numberOfRowsForDate:self.date];
 }
 
-// MARK: - Caching Date/Index Path Lookups
-
-
-/**
- Empty the related caches.
- */
-- (void)purgeIndexPathsAndDates
-{
-    [self.indexPathByDate removeAllObjects];
-    [self.dateByIndexPath removeAllObjects];
-}
-
 @end
