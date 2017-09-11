@@ -13,6 +13,7 @@
 		460BD68C1F5FA5E7001CBD75 /* CKCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 460BD68A1F5FA5E7001CBD75 /* CKCache.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		460BD68D1F5FA5E7001CBD75 /* CKCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 460BD68B1F5FA5E7001CBD75 /* CKCache.m */; };
 		4618C4411F66D7E30033A9AF /* CustomWeekStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4618C4401F66D7E30033A9AF /* CustomWeekStartViewController.swift */; };
+		4618C4441F66E8E30033A9AF /* AnimatedWeekTransitionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4618C4431F66E8E30033A9AF /* AnimatedWeekTransitionsViewController.swift */; };
 		461C706D1F46292000E305E3 /* DemoApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 461C704D1F46292000E305E3 /* DemoApp.storyboard */; };
 		461C706E1F46292000E305E3 /* CKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 461C70521F46292000E305E3 /* CKAppDelegate.m */; };
 		461C706F1F46292000E305E3 /* AlternateCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C70551F46292000E305E3 /* AlternateCalendarViewController.swift */; };
@@ -163,6 +164,7 @@
 		460BD68A1F5FA5E7001CBD75 /* CKCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKCache.h; path = Caches/CKCache.h; sourceTree = "<group>"; };
 		460BD68B1F5FA5E7001CBD75 /* CKCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKCache.m; path = Caches/CKCache.m; sourceTree = "<group>"; };
 		4618C4401F66D7E30033A9AF /* CustomWeekStartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomWeekStartViewController.swift; path = "Custom Week Start/CustomWeekStartViewController.swift"; sourceTree = "<group>"; };
+		4618C4431F66E8E30033A9AF /* AnimatedWeekTransitionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimatedWeekTransitionsViewController.swift; path = "Optional Animated Week Transitions/AnimatedWeekTransitionsViewController.swift"; sourceTree = "<group>"; };
 		461C704A1F46291100E305E3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MBCalendarKit/Info.plist; sourceTree = SOURCE_ROOT; };
 		461C704E1F46292000E305E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DemoApp.storyboard; sourceTree = "<group>"; };
 		461C70511F46292000E305E3 /* CKAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKAppDelegate.h; sourceTree = "<group>"; };
@@ -333,6 +335,14 @@
 			name = "First Day of the Week";
 			sourceTree = "<group>";
 		};
+		4618C4451F66E8E80033A9AF /* Optional Animated Week Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				4618C4431F66E8E30033A9AF /* AnimatedWeekTransitionsViewController.swift */,
+			);
+			name = "Optional Animated Week Transitions";
+			sourceTree = "<group>";
+		};
 		461C704C1F46292000E305E3 /* Demo App */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,6 +389,7 @@
 				461C705E1F46292000E305E3 /* Right To Left */,
 				461C70601F46292000E305E3 /* Swift */,
 				4618C4421F66DE0C0033A9AF /* First Day of the Week */,
+				4618C4451F66E8E80033A9AF /* Optional Animated Week Transitions */,
 			);
 			path = "Demo View Controllers";
 			sourceTree = "<group>";
@@ -864,6 +875,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4618C4441F66E8E30033A9AF /* AnimatedWeekTransitionsViewController.swift in Sources */,
 				461C70711F46292000E305E3 /* CircleView.swift in Sources */,
 				461C70741F46292000E305E3 /* CKDemoViewController.m in Sources */,
 				461C706E1F46292000E305E3 /* CKAppDelegate.m in Sources */,
