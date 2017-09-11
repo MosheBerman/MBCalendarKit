@@ -830,9 +830,7 @@
 
 - (void)setFirstWeekDay:(NSUInteger)firstWeekDay
 {
-    self.calendarModel.calendar.firstWeekday = firstWeekDay;
-    
-    [self reload];
+    self.calendarModel.firstWeekday = firstWeekDay;
 }
 
 - (NSUInteger)firstWeekDay
