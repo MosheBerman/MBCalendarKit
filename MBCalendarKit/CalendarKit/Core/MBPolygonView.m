@@ -138,23 +138,15 @@ float degToRad(float deg)
     [super updateConstraints];
 }
 
-// MARK: - Drawing
+// MARK: - Layout Subviews
 
-/**
- Renders the rectangle.
- 
- @param rect The rectangle that needs drawing.
- */
-- (void)drawRect:(CGRect)rect
+- (void)layoutSubviews
 {
+    [super layoutSubviews];
     
-    //
-    //  Create a poly image
-    //
+    UIImage *image = [self polyImage];
     
-    UIImage *i = [self polyImage];
-    
-    self.imageView.image = i;
+    self.imageView.image = image;
     [self.imageView sizeToFit];
 }
 
