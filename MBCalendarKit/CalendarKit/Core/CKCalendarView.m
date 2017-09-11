@@ -315,9 +315,12 @@
 {
     UICollectionViewCell *cellFromTouch = [self cellFromTouches:touches];
     
-    self.mostRecentlyHighlightedCell.highlighted = NO;
-    cellFromTouch.highlighted = YES;
-    self.mostRecentlyHighlightedCell = cellFromTouch;
+    if(cellFromTouch)
+    {
+        self.mostRecentlyHighlightedCell.highlighted = NO;
+        cellFromTouch.highlighted = YES;
+        self.mostRecentlyHighlightedCell = cellFromTouch;
+    }
 }
 
 // MARK: - Cancelling Date Scrubbing
