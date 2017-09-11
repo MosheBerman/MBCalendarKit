@@ -4,9 +4,11 @@
 
 ### Added 
 - Added a demo for first day of the week handling.
+- Added a demo for animated week transitions.
 
 ### Changed
 - Fixes for `firstWeekday` bug. (#73, #110, #127)
+- Fix infinite loop in `CKCalendarViewController`'s delegate implementation.
 - If we try to set the view model's `date` to the same exact date that it already is, we return. This avoids firing off an entire layout pass.
 - `CKCalendarCell` now takes an integer for `setNumber` instead of an `NSNumber`. This method uses a `asprintf` to format the string. This can be faster in some cases.
 - Use `[NSLayoutConstraint activateConstraints:]` instead of `[self addConstraints:]` in `CKCalendarHeaderView`. The docs say that `activateConstraints:` is more efficient.
