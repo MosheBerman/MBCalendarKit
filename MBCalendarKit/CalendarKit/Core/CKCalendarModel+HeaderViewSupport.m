@@ -34,7 +34,7 @@
         [result appendString:[firstVisibleDay monthAndYearOnCalendar:self.calendar]];
         
         //  Show the day and year
-        
+        // TODO: Use NSDateIntervalFormatter on iOS 10+
         BOOL isSameMonth = [self.calendar isDate:firstVisibleDay equalToDate:lastVisibleDay toUnitGranularity:NSCalendarUnitMonth];
         if (!isSameMonth) {
             result = [[firstVisibleDay monthAbbreviationAndYearOnCalendar:self.calendar] mutableCopy];
