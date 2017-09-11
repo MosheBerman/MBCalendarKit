@@ -67,7 +67,7 @@
         _displayMode = CKCalendarViewDisplayModeMonth;
         _date = [NSDate date];
         _firstVisibleDate = [self computedFirstVisibleDate];
-        _lastVisibleDate = [self computedFirstVisibleDate];
+        _lastVisibleDate = [self computedLastVisibleDate];
         
         _indexPathByDate = [[NSMutableDictionary alloc] init];
         _dateByIndexPath = [[NSMutableDictionary alloc] init];
@@ -167,7 +167,7 @@
  */
 - (nonnull NSDate *)computedFirstVisibleDate;
 {
-    CKCalendarViewDisplayMode displayMode = self.displayMode;
+    CKCalendarViewDisplayMode displayMode = _displayMode;
     NSDate *firstVisibleDate = self.date; /* Default to self.date */
     
     // for the day mode, just return today
@@ -196,7 +196,7 @@
  */
 - (nonnull NSDate *)computedLastVisibleDate;
 {
-    CKCalendarViewDisplayMode displayMode = self.displayMode;
+    CKCalendarViewDisplayMode displayMode = _displayMode;
     NSDate *lastVisibleDate = self.date; /* Default to self.date */
     
     // for the day mode, just return today
