@@ -15,6 +15,14 @@
 @property CGFloat scalingFactor;
 @property CGFloat rotation;
 @property (strong) UIImageView *imageView;
+
+/**
+ Draws a polygon in a graphics context and returns it as a UIImage.
+ 
+ @return An image containing the polygon.
+ */
+@property (nonatomic, strong) UIImage *polyImage;
+
 @end
 
 @implementation MBPolygonView
@@ -117,12 +125,12 @@ float degToRad(float deg)
         
         
         NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:self.imageView
-                                                                  attribute:NSLayoutAttributeWidth
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:self
-                                                                  attribute:NSLayoutAttributeWidth
-                                                                 multiplier:1.0
-                                                                   constant:0.0];
+                                                                 attribute:NSLayoutAttributeWidth
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self
+                                                                 attribute:NSLayoutAttributeWidth
+                                                                multiplier:1.0
+                                                                  constant:0.0];
         
         [self addConstraints:@[centerX, centerY, height, width]];
     }
@@ -159,83 +167,86 @@ float degToRad(float deg)
  */
 - (UIImage *)polyImage;
 {
-    // Drawing code
-    
-    //Create an image context
-    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [UIScreen mainScreen].scale);
-    
-    //Get a context
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    //  Clear the background
-    CGContextClearRect(context, self.frame);
-    
-    //Save the state of the context
-    CGContextSaveGState(context);
-    
-    if (self.shouldRenderFlipped)
+    if(!_polyImage)
     {
-        CGContextTranslateCTM(context, self.bounds.size.width, 0.0);
-        CGContextScaleCTM(context, -1.0, 1.0);
-    }
-    
-    //Set the stroke to white
-    [self.fillColor set];
-    
-    //Define the number of degrees in a polygon
-    const CGFloat kDegreesInPoly = 360;
-    
-    //  Calculate the angle in degrees.
-    CGFloat angle = (kDegreesInPoly/self.numberOfSides);
-    
-    //  Calculate the starting point
-    CGPoint point = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
-    
-    //  We draw an extra line to connect the start and end points
-    for(int i=0; i<=self.numberOfSides; i++){
+        // Drawing code
         
-        //  Calculate the working angle in degrees
-        CGFloat workingAngle = i*angle;
+        //Create an image context
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [UIScreen mainScreen].scale);
         
-        //  Convert to radians
-        CGFloat angleInRadians = degToRad(workingAngle+self.rotation);
+        //Get a context
+        CGContextRef context = UIGraphicsGetCurrentContext();
         
-        //  Calculate the x and Y coordinates
-        point.x = sin(angleInRadians);
-        point.y = cos(angleInRadians);
+        //  Clear the background
+        CGContextClearRect(context, self.frame);
         
-        //  Apply the scale factor
-        point.x *= self.scalingFactor;
-        point.y *= self.scalingFactor;
+        //Save the state of the context
+        CGContextSaveGState(context);
         
-        //  Offset to the center
-        point.x += self.bounds.size.width/2;
-        point.y +=self.bounds.size.height/2;
-        
-        //  Set the starting point if we're working
-        //  the inital point. Core Graphics needs this.
-        if (i == 0) {
-            CGContextMoveToPoint(context, point.x, point.y);
+        if (self.shouldRenderFlipped)
+        {
+            CGContextTranslateCTM(context, self.bounds.size.width, 0.0);
+            CGContextScaleCTM(context, -1.0, 1.0);
         }
         
-        //  Add the new line to the context
-        CGContextAddLineToPoint(context, point.x, point.y);
+        //Set the stroke to white
+        [self.fillColor set];
+        
+        //Define the number of degrees in a polygon
+        const CGFloat kDegreesInPoly = 360;
+        
+        //  Calculate the angle in degrees.
+        CGFloat angle = (kDegreesInPoly/self.numberOfSides);
+        
+        //  Calculate the starting point
+        CGPoint point = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+        
+        //  We draw an extra line to connect the start and end points
+        for(int i=0; i<=self.numberOfSides; i++){
+            
+            //  Calculate the working angle in degrees
+            CGFloat workingAngle = i*angle;
+            
+            //  Convert to radians
+            CGFloat angleInRadians = degToRad(workingAngle+self.rotation);
+            
+            //  Calculate the x and Y coordinates
+            point.x = sin(angleInRadians);
+            point.y = cos(angleInRadians);
+            
+            //  Apply the scale factor
+            point.x *= self.scalingFactor;
+            point.y *= self.scalingFactor;
+            
+            //  Offset to the center
+            point.x += self.bounds.size.width/2;
+            point.y +=self.bounds.size.height/2;
+            
+            //  Set the starting point if we're working
+            //  the inital point. Core Graphics needs this.
+            if (i == 0) {
+                CGContextMoveToPoint(context, point.x, point.y);
+            }
+            
+            //  Add the new line to the context
+            CGContextAddLineToPoint(context, point.x, point.y);
+        }
+        
+        //  Render it all out
+        CGContextFillPath(context);
+        
+        //Restore the state
+        CGContextRestoreGState(context);
+        
+        //Grab an image from the context
+        _polyImage = UIGraphicsGetImageFromCurrentImageContext();
+        
+        //clean up the context
+        UIGraphicsEndImageContext();
+        
     }
-    
-    //  Render it all out
-    CGContextFillPath(context);
-    
-    //Restore the state
-    CGContextRestoreGState(context);
-    
-    //Grab an image from the context
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    
-    //clean up the context
-    UIGraphicsEndImageContext();
-    
     //return the image
-    return image;
+    return _polyImage;
 }
 
 // MARK: - Cleaning Up
@@ -253,6 +264,7 @@ float degToRad(float deg)
 - (void) cleanUp
 {
     self.isDeleted = YES;
+    _polyImage = nil;
 }
 
 // MARK: - RTL Support
@@ -260,8 +272,8 @@ float degToRad(float deg)
 
 /**
  Determines if the image should render flipped, checking NSLocale's `characterDirectionForLanguage` and `self.semanticContentAttribute`.
-
- @return `YES` if the view should be drawn right-to-left, otherwise, `NO` for left-to-right. 
+ 
+ @return `YES` if the view should be drawn right-to-left, otherwise, `NO` for left-to-right.
  */
 - (BOOL)shouldRenderFlipped
 {

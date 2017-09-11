@@ -41,6 +41,6 @@
 
  @return An image containing the polygon.
  */
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) UIImage *polyImage;
+@property (nonatomic, readonly, strong) UIImage *polyImage;
 
 @end
