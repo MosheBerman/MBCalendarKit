@@ -267,6 +267,7 @@
                             <constraint firstItem="YhW-KG-81g" firstAttribute="centerX" secondItem="4hK-HX-o8a" secondAttribute="centerX" id="Lx4-xd-nyh"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="calendarPicker" destination="q2m-zF-rIf" id="pui-Ud-5eJ"/>
                         <outlet property="calendarView" destination="YhW-KG-81g" id="NpW-O1-1Hg"/>
@@ -288,12 +289,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view multipleTouchEnabled="YES" contentMode="bottom" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f6p-j6-drh" customClass="CKCalendarView">
+                            <view multipleTouchEnabled="YES" contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="f6p-j6-drh" customClass="CKCalendarView">
                                 <rect key="frame" x="0.0" y="64" width="375" height="309"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jbt-8I-X5k">
-                                <rect key="frame" x="0.0" y="373" width="375" height="250"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jbt-8I-X5k">
+                                <rect key="frame" x="0.0" y="373" width="375" height="294"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3Np-0J-KPS">
