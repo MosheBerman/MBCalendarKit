@@ -6,6 +6,7 @@
 ## [5.2.0] 2017-09-14
 ### Added
 - Added a bridging header to the test target to allow for future tests to be written in Swift.
+- New target for UI Tests.
 
 ### Changed
 - Convert Demo app to Swift 4, and turned off @objc inference.
