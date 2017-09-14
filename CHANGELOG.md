@@ -3,6 +3,17 @@
 ## [unreleased]
 ...
 
+## [5.2.0] 2017-09-14
+### Added
+- Added a bridging header to the test target to allow for future tests to be written in Swift.
+
+### Changed
+- Convert Demo app to Swift 4, and turned off @objc inference.
+- Updated build settings for Xcode 9.
+- Fixed a "block literal is not a typealias" warning.
+- Update framework version to match tags and releases. 🙈
+
+
 ## [5.1.0] 2017-09-11
 ### Added 
 - Added a demo for first day of the week handling.
@@ -165,7 +176,8 @@
 ### Added
 Initial release.
 
-[unreleased]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.4...HEAD
+[unreleased]: https://github.com/mosheberman/MBCalendarKit/compare/5.2.0...HEAD
+[5.2.0]: https://github.com/mosheberman/MBCalendarKit/compare/5.1.0...5.2.0
 [5.1.0]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.4...5.1.0
 [5.0.4]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.3...5.0.4
 [5.0.3]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.2...5.0.3
