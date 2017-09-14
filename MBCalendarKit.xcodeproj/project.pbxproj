@@ -14,6 +14,7 @@
 		460BD68D1F5FA5E7001CBD75 /* CKCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 460BD68B1F5FA5E7001CBD75 /* CKCache.m */; };
 		4618C4411F66D7E30033A9AF /* CustomWeekStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4618C4401F66D7E30033A9AF /* CustomWeekStartViewController.swift */; };
 		4618C4441F66E8E30033A9AF /* AnimatedWeekTransitionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4618C4431F66E8E30033A9AF /* AnimatedWeekTransitionsViewController.swift */; };
+		461B58141F6AE911008EA00C /* MBCalendarKit_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461B58131F6AE911008EA00C /* MBCalendarKit_UITests.swift */; };
 		461C706D1F46292000E305E3 /* DemoApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 461C704D1F46292000E305E3 /* DemoApp.storyboard */; };
 		461C706E1F46292000E305E3 /* CKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 461C70521F46292000E305E3 /* CKAppDelegate.m */; };
 		461C706F1F46292000E305E3 /* AlternateCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C70551F46292000E305E3 /* AlternateCalendarViewController.swift */; };
@@ -121,6 +122,13 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
+		461B58161F6AE911008EA00C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46BFBCB71715FB3F00D4733E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 46BFBCBE1715FB3F00D4733E;
+			remoteInfo = "MBCalendarKit-Demo";
+		};
 		467B12AA1F2F544F00CABA27 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 46BFBCB71715FB3F00D4733E /* Project object */;
@@ -165,6 +173,9 @@
 		460BD68B1F5FA5E7001CBD75 /* CKCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKCache.m; path = Caches/CKCache.m; sourceTree = "<group>"; };
 		4618C4401F66D7E30033A9AF /* CustomWeekStartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomWeekStartViewController.swift; path = "Custom Week Start/CustomWeekStartViewController.swift"; sourceTree = "<group>"; };
 		4618C4431F66E8E30033A9AF /* AnimatedWeekTransitionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimatedWeekTransitionsViewController.swift; path = "Optional Animated Week Transitions/AnimatedWeekTransitionsViewController.swift"; sourceTree = "<group>"; };
+		461B58111F6AE911008EA00C /* MBCalendarKit-UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MBCalendarKit-UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		461B58131F6AE911008EA00C /* MBCalendarKit_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBCalendarKit_UITests.swift; sourceTree = "<group>"; };
+		461B58151F6AE911008EA00C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		461C704A1F46291100E305E3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MBCalendarKit/Info.plist; sourceTree = SOURCE_ROOT; };
 		461C704E1F46292000E305E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DemoApp.storyboard; sourceTree = "<group>"; };
 		461C70511F46292000E305E3 /* CKAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKAppDelegate.h; sourceTree = "<group>"; };
@@ -273,6 +284,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		461B580E1F6AE911008EA00C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		467B12A11F2F544F00CABA27 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -342,6 +360,15 @@
 				4618C4431F66E8E30033A9AF /* AnimatedWeekTransitionsViewController.swift */,
 			);
 			name = "Optional Animated Week Transitions";
+			sourceTree = "<group>";
+		};
+		461B58121F6AE911008EA00C /* MBCalendarKit-UITests */ = {
+			isa = PBXGroup;
+			children = (
+				461B58131F6AE911008EA00C /* MBCalendarKit_UITests.swift */,
+				461B58151F6AE911008EA00C /* Info.plist */,
+			);
+			path = "MBCalendarKit-UITests";
 			sourceTree = "<group>";
 		};
 		461C704C1F46292000E305E3 /* Demo App */ = {
@@ -617,6 +644,7 @@
 				461C704C1F46292000E305E3 /* Demo App */,
 				464A86CA171F174D00E7AB19 /* MBCalendarKit */,
 				464A870A171F174D00E7AB19 /* MBCalendarKitTests */,
+				461B58121F6AE911008EA00C /* MBCalendarKit-UITests */,
 				46BFBCC01715FB3F00D4733E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -627,6 +655,7 @@
 				46BFBCBF1715FB3F00D4733E /* MBCalendarKit-Demo.app */,
 				467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */,
 				467B12F71F2F5B8A00CABA27 /* MBCalendarKitTests.xctest */,
+				461B58111F6AE911008EA00C /* MBCalendarKit-UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -688,6 +717,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		461B58101F6AE911008EA00C /* MBCalendarKit-UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 461B58181F6AE911008EA00C /* Build configuration list for PBXNativeTarget "MBCalendarKit-UITests" */;
+			buildPhases = (
+				461B580D1F6AE911008EA00C /* Sources */,
+				461B580E1F6AE911008EA00C /* Frameworks */,
+				461B580F1F6AE911008EA00C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				461B58171F6AE911008EA00C /* PBXTargetDependency */,
+			);
+			name = "MBCalendarKit-UITests";
+			productName = "MBCalendarKit-UITests";
+			productReference = 461B58111F6AE911008EA00C /* MBCalendarKit-UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		467B12A41F2F544F00CABA27 /* MBCalendarKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 467B12AE1F2F544F00CABA27 /* Build configuration list for PBXNativeTarget "MBCalendarKit" */;
@@ -753,10 +800,16 @@
 			attributes = {
 				CLASSPREFIX = CK;
 				LastSwiftMigration = 0710;
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Moshe Berman";
 				TargetAttributes = {
+					461B58101F6AE911008EA00C = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = HK64RUWW3P;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 46BFBCBE1715FB3F00D4733E;
+					};
 					467B12A41F2F544F00CABA27 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = HK64RUWW3P;
@@ -793,11 +846,19 @@
 				46BFBCBE1715FB3F00D4733E /* MBCalendarKit-Demo */,
 				467B12A41F2F544F00CABA27 /* MBCalendarKit */,
 				467B12F61F2F5B8A00CABA27 /* MBCalendarKitTests */,
+				461B58101F6AE911008EA00C /* MBCalendarKit-UITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		461B580F1F6AE911008EA00C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		467B12A31F2F544F00CABA27 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -829,6 +890,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		461B580D1F6AE911008EA00C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				461B58141F6AE911008EA00C /* MBCalendarKit_UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		467B12A01F2F544F00CABA27 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -897,6 +966,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		461B58171F6AE911008EA00C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 46BFBCBE1715FB3F00D4733E /* MBCalendarKit-Demo */;
+			targetProxy = 461B58161F6AE911008EA00C /* PBXContainerItemProxy */;
+		};
 		467B12AB1F2F544F00CABA27 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 467B12A41F2F544F00CABA27 /* MBCalendarKit */;
@@ -946,6 +1020,102 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		461B58191F6AE911008EA00C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = HK64RUWW3P;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "MBCalendarKit-UITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mosheberman.MBCalendarKit-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "MBCalendarKit-Demo";
+			};
+			name = Debug;
+		};
+		461B581A1F6AE911008EA00C /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = HK64RUWW3P;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "MBCalendarKit-UITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mosheberman.MBCalendarKit-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "MBCalendarKit-Demo";
+			};
+			name = "Ad Hoc";
+		};
+		461B581B1F6AE911008EA00C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = HK64RUWW3P;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "MBCalendarKit-UITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mosheberman.MBCalendarKit-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "MBCalendarKit-Demo";
+			};
+			name = Release;
+		};
 		467B12AF1F2F544F00CABA27 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1392,6 +1562,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		461B58181F6AE911008EA00C /* Build configuration list for PBXNativeTarget "MBCalendarKit-UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				461B58191F6AE911008EA00C /* Debug */,
+				461B581A1F6AE911008EA00C /* Ad Hoc */,
+				461B581B1F6AE911008EA00C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		467B12AE1F2F544F00CABA27 /* Build configuration list for PBXNativeTarget "MBCalendarKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
