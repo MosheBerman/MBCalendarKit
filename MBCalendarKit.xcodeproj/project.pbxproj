@@ -87,6 +87,7 @@
 		467B12E11F2F547500CABA27 /* CKCalendarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86FC171F174D00E7AB19 /* CKCalendarViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		467B12E21F2F547500CABA27 /* CKCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A86FD171F174D00E7AB19 /* CKCalendarViewController.m */; };
 		467B12FC1F2F5B8A00CABA27 /* MBCalendarKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */; };
+		4683C0D51F6C1C6700154749 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4683C0D41F6C1C6700154749 /* Launch Screen.storyboard */; };
 		468C69371F42C11D00CCD4E4 /* CKCalendarView+CustomCells.h in Headers */ = {isa = PBXBuildFile; fileRef = 468C69351F42C11D00CCD4E4 /* CKCalendarView+CustomCells.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		468C69381F42C11D00CCD4E4 /* CKCalendarView+CustomCells.m in Sources */ = {isa = PBXBuildFile; fileRef = 468C69361F42C11D00CCD4E4 /* CKCalendarView+CustomCells.m */; };
 		468C693A1F42C57300CCD4E4 /* CKCustomCellProviding.h in Headers */ = {isa = PBXBuildFile; fileRef = 468C69391F42C57300CCD4E4 /* CKCustomCellProviding.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -258,6 +259,7 @@
 		467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MBCalendarKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		467B12A71F2F544F00CABA27 /* MBCalendarKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MBCalendarKit.h; path = ../MBCalendarKit.h; sourceTree = "<group>"; };
 		467B12F71F2F5B8A00CABA27 /* MBCalendarKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MBCalendarKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4683C0D41F6C1C6700154749 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		468C69351F42C11D00CCD4E4 /* CKCalendarView+CustomCells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKCalendarView+CustomCells.h"; sourceTree = "<group>"; };
 		468C69361F42C11D00CCD4E4 /* CKCalendarView+CustomCells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKCalendarView+CustomCells.m"; sourceTree = "<group>"; };
 		468C69391F42C57300CCD4E4 /* CKCustomCellProviding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCustomCellProviding.h; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 			isa = PBXGroup;
 			children = (
 				461C704D1F46292000E305E3 /* DemoApp.storyboard */,
+				4683C0D41F6C1C6700154749 /* Launch Screen.storyboard */,
 				461C704F1F46292000E305E3 /* Code */,
 				461C70631F46292000E305E3 /* Default-568h@2x.png */,
 				461C70641F46292000E305E3 /* Default.png */,
@@ -879,6 +882,7 @@
 			files = (
 				464A8744171F174D00E7AB19 /* InfoPlist.strings in Resources */,
 				461C706D1F46292000E305E3 /* DemoApp.storyboard in Resources */,
+				4683C0D51F6C1C6700154749 /* Launch Screen.storyboard in Resources */,
 				461C707C1F46292000E305E3 /* Images.xcassets in Resources */,
 				461C707A1F46292000E305E3 /* Default@2x.png in Resources */,
 				461C70781F46292000E305E3 /* Default-568h@2x.png in Resources */,
