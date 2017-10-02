@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [5.0.5] 2017-10-02
+### Changed
+- Upgraded to Swift 4
+- Update project settings to Xcode 9's defaults.
 
 ## [5.0.4] 2017-09-05
 ### Added
