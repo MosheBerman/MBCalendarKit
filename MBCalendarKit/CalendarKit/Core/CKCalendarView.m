@@ -592,7 +592,7 @@
  @param before The number of sections in the grid view before updating.
  @param after The number of sections in the grid view after updating.
  */
-- (nonnull void(^)())updateBlockForGridView:(CKCalendarGridView *)gridView WithBefore:(NSInteger)before andAfter:(NSInteger)after
+- (nonnull void(^)(void))updateBlockForGridView:(CKCalendarGridView *)gridView WithBefore:(NSInteger)before andAfter:(NSInteger)after
 {
     
     id updateBlock = ^{ };
