@@ -7,6 +7,7 @@
 //
 
 #import "CKCalendarModel+HeaderViewSupport.h"
+#import "CKCalendarModel+DaysPerWeek.h"
 #import "NSCalendarCategories.h"
 #import "NSDate+Description.h"
 
@@ -33,9 +34,10 @@
         [result appendString:[firstVisibleDay monthAndYearOnCalendar:self.calendar]];
         
         //  Show the day and year
-        
+        // TODO: Use NSDateIntervalFormatter on iOS 10+
         BOOL isSameMonth = [self.calendar isDate:firstVisibleDay equalToDate:lastVisibleDay toUnitGranularity:NSCalendarUnitMonth];
-        if (!isSameMonth) {
+        if (!isSameMonth)
+        {
             result = [[firstVisibleDay monthAbbreviationAndYearOnCalendar:self.calendar] mutableCopy];
             [result appendString:@" - "];
             [result appendString:[lastVisibleDay monthAbbreviationAndYearOnCalendar:self.calendar]];
@@ -51,7 +53,7 @@
 
 - (NSUInteger)numberOfColumnsForHeader:(CKCalendarHeaderView *)header
 {
-    NSInteger numberOfColumns = [self.calendar rangeOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfYear forDate:self.date].length;
+    NSInteger numberOfColumns = self.daysPerWeek;
     
     if (self.displayMode == CKCalendarViewDisplayModeDay)
     {
@@ -193,18 +195,30 @@
     
     else if(self.displayMode == CKCalendarViewDisplayModeWeek)
     {
-        
+        NSDate *oldDate = date;
         date = [self.calendar dateByAddingWeeks:1 toDate:date];                   //  Add a week
         
-        NSUInteger dayOfWeek = [self.calendar weekdayInDate:date];
-        date = [self.calendar dateBySubtractingDays:dayOfWeek-self.calendar.firstWeekday fromDate:date];   //  Jump to sunday
+        // If the first of the next month is in this week, jump to it.
+        NSDate *firstOfMonth = [self.calendar firstDayOfTheMonthUsingReferenceDate:date];
         
-        //  If today is in the visible week, jump to today
-        if ([self.calendar isDate:date equalToDate:[NSDate date] toUnitGranularity:NSCalendarUnitWeekOfYear]) {
-            NSUInteger distance = [self.calendar daysFromDate:date toDate:today];
-            date = [self.calendar dateByAddingDays:distance toDate:date];
+        BOOL firstOfTheMonthIsSameSameAsOldDate = [self.calendar isDate:oldDate equalToDate:firstOfMonth toUnitGranularity:NSCalendarUnitWeekOfYear];
+        BOOL isFirstOfMonthTheOldDate = [self.calendar isDate:oldDate inSameDayAsDate:firstOfMonth];
+        
+        if(firstOfTheMonthIsSameSameAsOldDate && !isFirstOfMonthTheOldDate)
+        {
+            date = firstOfMonth;
         }
-        
+        else
+        {
+            NSUInteger dayOfWeek = [self.calendar weekdayInDate:date];
+            date = [self.calendar dateBySubtractingDays:dayOfWeek-self.calendar.firstWeekday fromDate:date];   //  Jump to sunday
+            
+            //  If today is in the visible week, jump to today
+            if ([self.calendar isDate:date equalToDate:[NSDate date] toUnitGranularity:NSCalendarUnitWeekOfYear]) {
+                NSUInteger distance = [self.calendar daysFromDate:date toDate:today];
+                date = [self.calendar dateByAddingDays:distance toDate:date];
+            }
+        }
     }
     
     /*

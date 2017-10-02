@@ -10,6 +10,7 @@
 
 #import "CKCalendarView.h"
 #import "CKCalendarView+DefaultCellProviderImplementation.h"
+
 #import "CKCalendarCellContext.h"
 
 #import "CKCalendarModel.h"
@@ -29,6 +30,8 @@
 
 #import "NSCalendarCategories.h"
 #import "NSDate+Description.h"
+
+#import "CKCache.h"
 
 @interface CKCalendarView () <CKCalendarGridViewDelegate, CKCalendarModelObserver> {
     NSUInteger _firstWeekDay;
@@ -61,13 +64,21 @@
 /**
  *  A model, encapsulating the state of a calendar.
  */
-@property (nonatomic, strong) CKCalendarModel *calendarModel;
+@property (nonatomic, strong, nonnull) CKCalendarModel *calendarModel;
+
+// MARK: - Caching Highlight State for Scrubbing
 
 /**
  This date is set at the beginning of a scrub operation, and used to reset the model in the event of a cancelled scrub.
  It may be `nil`, or stale.
  */
 @property (nonatomic, strong, nullable) NSDate *temporaryDate;
+
+
+/**
+ Keep a reference to the most recently highlighted cell.
+ */
+@property (nonatomic, strong, nullable) UICollectionViewCell *mostRecentlyHighlightedCell;
 
 @end
 
@@ -146,9 +157,10 @@
     
     _calendarModel.observer = self;
     
+    self.customCellProvider = self;
+    
     [self _installHeader];
     [self _installGridView];
-    [self reload];
     
     //    https://stackoverflow.com/a/45467694/224988
 #if !TARGET_INTERFACE_BUILDER
@@ -158,11 +170,6 @@
 }
 
 // MARK: - View Lifecycle
-
-- (void)didMoveToSuperview
-{
-    [super didMoveToSuperview];
-}
 
 - (void)didMoveToWindow
 {
@@ -193,6 +200,11 @@
 
 - (void)reloadAnimated:(BOOL)animated transitioningFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
 {
+    if(!self.window)
+    {
+        return;
+    }
+    
     /**
      *  TODO: Possibly add a delegate method here, per issue #20.
      */
@@ -261,20 +273,12 @@
 {
     self.temporaryDate = self.calendarModel.date;
     
-    [super touchesBegan:touches withEvent:event];
+    [self highlightCellBeneathTouches:touches];
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    UICollectionViewCell *cellFromTouch = [self cellFromTouches:touches];
-    
-    for (UICollectionViewCell *cell in self.gridView.visibleCells)
-    {
-        BOOL cellIsBeneathFinger = [cell isEqual:cellFromTouch];
-        cell.highlighted = cellIsBeneathFinger;
-    }
-    
-    [super touchesMoved:touches withEvent:event];
+    [self highlightCellBeneathTouches:touches];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -285,6 +289,7 @@
     
     if(isInGrid)
     {
+        [self highlightCellBeneathTouches:touches];
         NSDate *dateFromTouches = [self dateFromTouches:touches];
         
         self.calendarModel.date = dateFromTouches;
@@ -293,8 +298,6 @@
     {
         [self restoreDateFromBeforeInteraction];
     }
-    [super touchesEnded:touches withEvent:event];
-    
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -304,8 +307,20 @@
     {
         [self restoreDateFromBeforeInteraction];
     }
+}
+
+// MARK: -
+
+- (void)highlightCellBeneathTouches:(NSSet <UITouch *> *)touches
+{
+    UICollectionViewCell *cellFromTouch = [self cellFromTouches:touches];
     
-    [super touchesCancelled:touches withEvent:event];
+    if(cellFromTouch)
+    {
+        self.mostRecentlyHighlightedCell.highlighted = NO;
+        cellFromTouch.highlighted = YES;
+        self.mostRecentlyHighlightedCell = cellFromTouch;
+    }
 }
 
 // MARK: - Cancelling Date Scrubbing
@@ -372,6 +387,20 @@
     NSDate *date = [self.calendarModel dateForIndexPath:indexPath];
     
     return date;
+}
+
+/**
+ Finds the grid cell beneath the user's touch.
+ 
+ @param date The date to use to find the cell.
+ @return A cell beneath the finger.
+ */
+- (nullable UICollectionViewCell *)cellFromDate:(NSDate *)date
+{
+    NSIndexPath *indexPath = [self.calendarModel indexPathForDate:date];
+    UICollectionViewCell *cell = [self.gridView cellForItemAtIndexPath:indexPath];
+    
+    return cell;
 }
 
 // MARK: - Installing Internal Views
@@ -488,6 +517,18 @@
     }
 }
 
+// MARK: - Handling Display Mode Changes
+
+- (void)calendarModel:(CKCalendarModel *)model willChangeFromDisplayMode:(CKCalendarViewDisplayMode)oldMode toDisplayMode:(CKCalendarViewDisplayMode)newMode;
+{
+    
+}
+
+- (void)calendarModel:(CKCalendarModel *)model didChangeFromDisplayMode:(CKCalendarViewDisplayMode)oldMode toDisplayMode:(CKCalendarViewDisplayMode)newMode;
+{
+    [self reloadAnimated:YES];
+}
+
 /**
  Called after the calendar model updates its `displayMode`, `calendar` or `locale` properties.
  
@@ -495,7 +536,7 @@
  */
 - (void)calendarModelDidInvalidate:(CKCalendarModel *)model;
 {
-    [self _adjustToFitCells:YES];
+    [self reload];
 }
 
 
@@ -518,36 +559,24 @@
         NSInteger numberOfSectionsBefore = [self.calendarModel numberOfRowsForDate:fromDate];
         NSInteger numberOfSectionsAfter = [self.calendarModel numberOfRowsForDate:toDate];
         
-        if ([self.calendarModel.calendar date:toDate isAfterDate:fromDate])
+        CKCalendarTransitionDirection direction = CKCalendarTransitionDirectionForward;
+        
+        if ([self.calendarModel.calendar date:fromDate isAfterDate:toDate])
         {
-            self.layout.transitionDirection = CKCalendarTransitionDirectionForward;
+            direction = CKCalendarTransitionDirectionBackward;
         }
-        else
-        {
-            self.layout.transitionDirection = CKCalendarTransitionDirectionBackward;
-        }
+        
+        CGPoint offset = [self.calendarModel initialOffsetForTargetDate:toDate forDirection:direction inContentSize:self.gridView.contentSize];
         
         self.layout.transitionAxis = self.calendarModel.transitionAxis;
+        self.layout.transitionDirection = direction;
+        self.layout.initialOffset = offset;
         
-        NSIndexSet *indexSetBefore = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, numberOfSectionsBefore)];
-        NSIndexSet *indexSetAfter = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, numberOfSectionsAfter)];
+        __weak CKCalendarGridView *gridView = self.gridView;
         
+        id updateBlock = [self updateBlockForGridView:gridView WithBefore:numberOfSectionsBefore andAfter:numberOfSectionsAfter];
         
-        CKCalendarGridView *gridView = self.gridView;
-        
-        [gridView performBatchUpdates:^{
-            
-            if (numberOfSectionsBefore > 0)
-            {
-                [gridView deleteSections:indexSetBefore];
-            }
-            if (numberOfSectionsAfter > 0)
-            {
-                [gridView insertSections:indexSetAfter];
-            }
-            
-        } completion:^(BOOL finished) {
-        }];
+        [self.gridView performBatchUpdates:updateBlock completion:nil];
     }
     else
     {
@@ -557,27 +586,82 @@
 
 
 /**
- Invalidates the intrinsic content size to allow display of all cells.
+ Returns an update block
+
+ @param gridView The calendar grid view.
+ @param before The number of sections in the grid view before updating.
+ @param after The number of sections in the grid view after updating.
+ */
+- (nonnull void(^)())updateBlockForGridView:(CKCalendarGridView *)gridView WithBefore:(NSInteger)before andAfter:(NSInteger)after
+{
+    
+    id updateBlock = ^{ };
+    
+    if (before > 0 && after == 0)
+    {
+        updateBlock = ^ {
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, before)];
+            [gridView deleteSections:indexSet];
+        };
+    }
+    else if (after > 0 && before == 0)
+    {
+        updateBlock = ^{
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, after)];
+            [gridView insertSections:indexSet];
+        };
+    }
+    else
+    {
+        updateBlock = ^{
+            NSIndexSet *beforeSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, before)];
+            [gridView deleteSections:beforeSet];
+            
+            NSIndexSet *afterSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, after)];
+            [gridView insertSections:afterSet];
+        };
+    }
+    return updateBlock;
+}
+
+
+/**
+ Invalidates the intrinsic content size to allow display of all cells. 
  
- @param animated Should we animate the change.
+ This method calls `_adjustToFitCells:completion:`, passing `nil` for the completion block.
+
+ @param animated Determines if the change is animated.
  */
 - (void)_adjustToFitCells:(BOOL)animated
 {
+    [self _adjustToFitCells:animated completion:nil];
+}
+
+/**
+ Invalidates the intrinsic content size to allow display of all cells.
+ 
+ @param animated Determines if the change is animated.
+ @param completion A completion block passed to UIView for execution at the end of the animation. Not executed if animated is `NO`
+*/
+- (void)_adjustToFitCells:(BOOL)animated completion:(void(^ _Nullable)(BOOL finished))completion
+{
+    __weak CKCalendarView *weakSelf = self;
+    __weak UIView *superview = self.superview;
+    
+    id block = ^{
+        [weakSelf invalidateIntrinsicContentSize];
+        [superview setNeedsLayout];
+        [superview layoutIfNeeded];
+    };
     
     if(animated)
     {
         [self.superview setNeedsLayout];
-        [UIView animateWithDuration:0.3 animations:^{
-            [self invalidateIntrinsicContentSize];
-            [self.superview setNeedsLayout];
-            [self.superview layoutIfNeeded];
-        }];
+        [UIView animateWithDuration:0.3 animations:block completion:completion];
     }
     else
     {
-        [self invalidateIntrinsicContentSize];
-        [self.superview setNeedsLayout];
-        [self.superview layoutIfNeeded];
+        [UIView performWithoutAnimation:block];
     }
 }
 
@@ -590,16 +674,17 @@
 {
     CKCalendarCellContext *calendarContext = [[CKCalendarCellContext alloc] initWithDate:date andCalendarView:self];
     
-    cell.selected = [self.calendar isDate:date equalToDate:self.date toUnitGranularity:NSCalendarUnitDay];
-    
-    if([self.customCellProvider respondsToSelector:@selector(calendarView:willDisplayCell:inContext:)])
+    if(calendarContext.isSelected)
     {
-        [self.customCellProvider calendarView:self willDisplayCell:cell inContext:calendarContext];
+        self.mostRecentlyHighlightedCell = cell;
+        cell.selected = YES;
     }
     else
     {
-        [self calendarView:self willDisplayCell:cell inContext:calendarContext];
+        cell.selected = NO;
     }
+    
+    [self.customCellProvider calendarView:self willDisplayCell:cell inContext:calendarContext];
 }
 
 
@@ -682,8 +767,6 @@
 - (void)setDisplayMode:(CKCalendarViewDisplayMode)mode animated:(BOOL)animated
 {
     self.calendarModel.displayMode = mode;
-    
-    [self reloadAnimated:animated];
 }
 
 // MARK: - Changing the Date
@@ -750,9 +833,7 @@
 
 - (void)setFirstWeekDay:(NSUInteger)firstWeekDay
 {
-    self.calendarModel.calendar.firstWeekday = firstWeekDay;
-    
-    [self reload];
+    self.calendarModel.firstWeekday = firstWeekDay;
 }
 
 - (NSUInteger)firstWeekDay
@@ -789,6 +870,7 @@
 - (void)setDataSource:(id<CKCalendarViewDataSource>)dataSource
 {
     _dataSource = dataSource;
+    
     [self reload];
 }
 

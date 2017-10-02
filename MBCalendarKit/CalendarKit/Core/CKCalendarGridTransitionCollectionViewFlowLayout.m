@@ -22,11 +22,6 @@
 
 // MARK: - Animating
 
-- (void)prepareForCollectionViewUpdates:(NSArray<UICollectionViewUpdateItem *> *)updateItems
-{
-    [super prepareForCollectionViewUpdates:updateItems];
-}
-
 - (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
 {
     UICollectionViewLayoutAttributes *attr = [super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
@@ -35,11 +30,11 @@
     
     if (self.transitionAxis == CKCalendarGridTransitionAxisVertical)
     {
-        frame.origin.y += -self.initialOffset;
+        frame.origin.y -= self.initialOffset.y;
     }
     else
     {
-        frame.origin.x += -self.initialOffset;
+        frame.origin.x -= self.initialOffset.x;
     }
     
     attr.frame = frame;
@@ -57,41 +52,17 @@
     
     if (self.transitionAxis == CKCalendarGridTransitionAxisVertical)
     {
-        frame.origin.y += self.initialOffset;
+        frame.origin.y += self.initialOffset.y;
     }
     else
     {
-        frame.origin.x += self.initialOffset;
+        frame.origin.x += self.initialOffset.x;
     }
+    
     attr.frame = frame;
     attr.alpha = 1.0;
     
     return attr;
-}
-
-// MARK: -
-
-- (NSInteger)initialOffset
-{
-    CGSize bounds = self.collectionView.contentSize;
-    
-    CGFloat distance = 0.0;
-    
-    if (self.transitionAxis == CKCalendarGridTransitionAxisVertical)
-    {
-        distance = bounds.height;
-    }
-    else /* Horizontal */
-    {
-        distance = bounds.width;
-    }
-    
-    if (self.transitionDirection == CKCalendarTransitionDirectionForward)
-    {
-        distance = -distance;
-    }
-    
-    return distance;
 }
 
 @end

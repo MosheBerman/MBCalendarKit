@@ -27,7 +27,7 @@ NS_SWIFT_NAME(CalendarModelObserver)
 - (void)calendarModel:(CKCalendarModel *)model willChangeFromDate:(NSDate *)fromDate toNewDate:(NSDate *)toDate;
 
 /**
- Called before the calendar model will change the its date.
+ Called after the calendar model will change the its date.
  
  @param model The model object that did change.
  @param fromDate The old date.
@@ -36,7 +36,28 @@ NS_SWIFT_NAME(CalendarModelObserver)
 - (void)calendarModel:(CKCalendarModel *)model didChangeFromDate:(NSDate *)fromDate toNewDate:(NSDate *)toDate;
 
 
-// MARK: - Handling Mode Changes
+// MARK: - Handling Display Mode Changes
+
+/**
+ Called before the calendar model changes the displayMode.
+
+ @param model The model
+ @param oldMode The display mode before the change.
+ @param newMode The display mode after the change.
+ */
+- (void)calendarModel:(CKCalendarModel *)model willChangeFromDisplayMode:(CKCalendarViewDisplayMode)oldMode toDisplayMode:(CKCalendarViewDisplayMode)newMode;
+
+/**
+ Called after the calendar model changes the displayMode.
+ 
+ @param model The model
+ @param oldMode The display mode before the change.
+ @param newMode The display mode after the change.
+ */
+- (void)calendarModel:(CKCalendarModel *)model didChangeFromDisplayMode:(CKCalendarViewDisplayMode)oldMode toDisplayMode:(CKCalendarViewDisplayMode)newMode;
+
+
+// MARK: - Handling Other Model Changes
 
 /**
  Called after the calendar model updates its `displayMode`, `calendar` or `locale` properties.

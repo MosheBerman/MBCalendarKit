@@ -75,9 +75,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSInteger itemCount = self.gridDataSource.numberOfColumns;
-    
-    return itemCount;
+    return self.gridDataSource.numberOfColumns;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -89,9 +87,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.reuseIdentifier forIndexPath:indexPath];
-    
-    return cell;
+    return [collectionView dequeueReusableCellWithReuseIdentifier:_reuseIdentifier forIndexPath:indexPath];
 }
 
 // MARK: - UICollectionViewDelegate
@@ -119,8 +115,6 @@
     CGFloat width = CGRectGetWidth(self.superview.bounds);
     CGFloat widthAdjustForEvenDivisionByDaysPerWeek = width - (CGFloat)((NSInteger)width % numberOfDaysPerWeek);
     CGFloat side = widthAdjustForEvenDivisionByDaysPerWeek / (CGFloat)numberOfDaysPerWeek;
-    
-    //    CGFloat extra = width - widthAdjustForEvenDivisionByDaysPerWeek;
     
     CGFloat extraPixel = [self numberOfPixelsToAddToWidthAtIndexPath:indexPath];
     

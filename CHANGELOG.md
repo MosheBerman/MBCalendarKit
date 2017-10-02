@@ -1,6 +1,29 @@
 # Changelog
 
-## [Unreleased]
+## [unreleased]
+...
+
+## [5.1.0] 2017-09-11
+### Added 
+- Added a demo for first day of the week handling.
+- Added a demo for animated week transitions.
+
+### Changed
+- Fixes for `firstWeekday` bug. (#73, #110, #127)
+- Fix infinite loop in `CKCalendarViewController`'s delegate implementation.
+- If we try to set the view model's `date` to the same exact date that it already is, we return. This avoids firing off an entire layout pass.
+- `CKCalendarCell` now takes an integer for `setNumber` instead of an `NSNumber`. This method uses a `asprintf` to format the string. This can be faster in some cases.
+- Use `[NSLayoutConstraint activateConstraints:]` instead of `[self addConstraints:]` in `CKCalendarHeaderView`. The docs say that `activateConstraints:` is more efficient.
+- Use the ivar for getting the cell identifier inside `CKGridView` instead of the property accessor.
+- Compute the `initialOffset` once in the calendar model and cache it on the flow layout subclass, to avoid duplicating this computation per cell. 
+- `CKCalendarView` now checks for `self.window` before reloading.
+- Calling `setDate:` on `CKCalendarModel` passing a date that is the same day as the current date will short circuit after clamping to minimum/maximum dates, and the delegate methods will not get called.
+- No longer call `reload` in `CKCalendarView`'s init. We call it later in the object's lifecycle anyway.
+- Removed calls to `super` in `touchesBegan:`, `touchesMoved:` and friends. Much faster! 
+- Cache `firstVisibleDate` and `lastVisibleDate`
+- Cache the font used in the `CKCalendarCell` class.
+- Cache `CKCalendarModel`'s `dateForIndexPath` and `indexPathForDate` values.
+- Cache drawn polygon images in the next/back buttons.
 
 ## [5.0.5] 2017-10-02
 ### Changed
@@ -24,11 +47,14 @@
 - Made some more adjustments to Xcode schemes for tests.
 - Reformatted changelog to match keepachangelog.com
 
+
 ## [5.0.2] 2017-08-18
 - Corrected test target configuration so test target knows about the host app.
 
+
 ## [5.0.1] 2017-08-18
 - Minor updates to readme.
+
 
 ## [5.0.0] 2017-08-17
 ### Added
@@ -144,6 +170,7 @@
 Initial release.
 
 [unreleased]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.4...HEAD
+[5.1.0]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.4...5.1.0
 [5.0.4]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.3...5.0.4
 [5.0.3]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.2...5.0.3
 [5.0.2]: https://github.com/mosheberman/MBCalendarKit/compare/5.0.1...5.0.2

@@ -8,6 +8,9 @@
 
 #import "CKCalendarModel.h"
 #import "CKCalendarGridTransitionAxis.h"
+#import "CKCalendarGridTransitionDirection.h"
+
+@import CoreGraphics;
 
 @interface CKCalendarModel (GridViewAnimationSupport)
 
@@ -51,4 +54,17 @@
  */
 - (NSUInteger)numberOfRowsForDate:(NSDate *)date;
 
+
+// MARK: - Calculating Animation Offset
+/**
+ Computes and returns the offset we want to start cells at.
+ We pass X and Y back to allow us to avoid checking the axis
+ in the flow layout.
+ 
+ @param date The final date being displayed at the end of the animation.
+ @param direction Are we moving forward or backward in time?
+ @param contentSize The size of the display.
+ @return The offset from the final position to use for cell animation.
+ */
+- (CGPoint)initialOffsetForTargetDate:(NSDate *)date forDirection:(CKCalendarTransitionDirection)direction inContentSize:(CGSize)contentSize;
 @end
