@@ -39,6 +39,16 @@
                ReferencedContainer = "container:MBCalendarKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F5A8F00E22412138008889F3"
+               BuildableName = "MBCalendarKit-DemoTests.xctest"
+               BlueprintName = "MBCalendarKit-DemoTests"
+               ReferencedContainer = "container:MBCalendarKit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
