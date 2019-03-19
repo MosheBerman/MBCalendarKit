@@ -97,7 +97,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+#ifdef TARGET_OS_TV
+    self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+#else
     self.automaticallyAdjustsScrollViewInsets = NO;
+#endif
     
     if(!self.title)
     {
@@ -141,7 +145,7 @@
     NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.calendarView
                                                            attribute:NSLayoutAttributeTop
                                                            relatedBy:NSLayoutRelationEqual
-                                                              toItem:self.topLayoutGuide
+                                                              toItem:self.view.safeAreaLayoutGuide.topAnchor
                                                            attribute:NSLayoutAttributeBottom
                                                           multiplier:1.0
                                                             constant:0.0];
@@ -226,12 +230,15 @@
 
 - (void)installToolbar
 {
+    
+    #ifndef TARGET_OS_TV
     NSString *todayTitle = NSLocalizedString(@"Today", @"A button which sets the calendar to today.");
     UIBarButtonItem *todayButton = [[UIBarButtonItem alloc] initWithTitle:todayTitle style:UIBarButtonItemStylePlain target:self action:@selector(todayButtonTapped:)];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:self.modePicker];
-    
+
     [self setToolbarItems:@[todayButton, item] animated:NO];
     [self.navigationController setToolbarHidden:NO animated:NO];
+#endif
 }
 
 // MARK: - Toolbar Items
