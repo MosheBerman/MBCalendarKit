@@ -20,7 +20,7 @@
  Text Gradient Bottom Color: #495a6d
  
  As part of a performance audit on 9/5/17, the hex category was replaced with 
- standard UIColors, converted ising http://uicolor.xyz.
+ standard UIColors, converted using http://uicolor.xyz.
  
  */
 
