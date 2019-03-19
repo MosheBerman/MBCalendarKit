@@ -97,11 +97,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-#ifdef TARGET_OS_TV
-    self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-#else
-    self.automaticallyAdjustsScrollViewInsets = NO;
-#endif
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    
     
     if(!self.title)
     {
@@ -141,12 +142,17 @@
 
 - (void)layoutCalendar
 {
+    id topLayoutGuide = self.topLayoutGuide;
+    
+    if (@available(iOS 11.0, *)) {
+        topLayoutGuide = self.view.safeAreaLayoutGuide.topAnchor;
+    }
+    
     self.calendarView.translatesAutoresizingMaskIntoConstraints = NO;
     NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.calendarView
                                                            attribute:NSLayoutAttributeTop
                                                            relatedBy:NSLayoutRelationEqual
-                                                              toItem:self.view.safeAreaLayoutGuide.topAnchor
-                                                           attribute:NSLayoutAttributeBottom
+                                                              toItem:topLayoutGuide attribute:NSLayoutAttributeBottom
                                                           multiplier:1.0
                                                             constant:0.0];
     
