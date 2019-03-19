@@ -39,9 +39,6 @@
 		46231E781F60FE1B007CA3FD /* CKCalendarView_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 46231E771F60FE1B007CA3FD /* CKCalendarView_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		46341C2C1F3A36380090FFAF /* CKCalendarGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = 46341C2A1F3A36380090FFAF /* CKCalendarGridView.h */; };
 		46341C2D1F3A36380090FFAF /* CKCalendarGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 46341C2B1F3A36380090FFAF /* CKCalendarGridView.m */; };
-		46363C2C1F394393002BA215 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 46363C241F392295002BA215 /* CHANGELOG.md */; };
-		46363C2D1F394393002BA215 /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 46363C251F392295002BA215 /* LICENSE.md */; };
-		46363C2E1F394393002BA215 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 46363C261F392295002BA215 /* README.md */; };
 		46363C341F3974BF002BA215 /* CKCalendarHeaderViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 46363C331F3974BE002BA215 /* CKCalendarHeaderViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		46363C351F397501002BA215 /* CKCalendarHeaderViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 46363C321F39745B002BA215 /* CKCalendarHeaderViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		463690371F4028DB00DFE9D5 /* CKCalendarModel+GridViewAnimationSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 463690351F4028DB00DFE9D5 /* CKCalendarModel+GridViewAnimationSupport.h */; };
@@ -102,7 +99,6 @@
 		46AA21201F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AA211E1F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.m */; };
 		46AA21221F3DF3EF00E5F832 /* CKCalendarGridTransitionDirection.h in Headers */ = {isa = PBXBuildFile; fileRef = 46AA21211F3DF3EF00E5F832 /* CKCalendarGridTransitionDirection.h */; };
 		46AA21241F3E0FA000E5F832 /* CKCalendarGridTransitionAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 46AA21231F3E0FA000E5F832 /* CKCalendarGridTransitionAxis.h */; };
-		46AF0D711F39D4D4005F37EC /* MIGRATIONGUIDE.md in Sources */ = {isa = PBXBuildFile; fileRef = 46AF0D701F39D4D4005F37EC /* MIGRATIONGUIDE.md */; };
 		46EF359B1F3C295700095A9E /* CKCalendarModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EF35991F3C295700095A9E /* CKCalendarModel.h */; };
 		46EF359C1F3C295700095A9E /* CKCalendarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF359A1F3C295700095A9E /* CKCalendarModel.m */; };
 /* End PBXBuildFile section */
@@ -752,7 +748,7 @@
 				CLASSPREFIX = CK;
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Moshe Berman";
 				TargetAttributes = {
 					467B12A41F2F544F00CABA27 = {
@@ -845,9 +841,7 @@
 				468C69381F42C11D00CCD4E4 /* CKCalendarView+CustomCells.m in Sources */,
 				46EF359C1F3C295700095A9E /* CKCalendarModel.m in Sources */,
 				46AA20DD1F3D36C800E5F832 /* CKCalendarModel+HeaderViewSupport.m in Sources */,
-				46363C2E1F394393002BA215 /* README.md in Sources */,
 				468CDDCE1F42CBEC008E628D /* CKCalendarView+DefaultCellProviderImplementation.m in Sources */,
-				46363C2D1F394393002BA215 /* LICENSE.md in Sources */,
 				467B12CE1F2F547500CABA27 /* CKCalendarCell.m in Sources */,
 				467B12D01F2F547500CABA27 /* CKCalendarEvent.m in Sources */,
 				467B12D21F2F547500CABA27 /* CKCalendarHeaderView.m in Sources */,
@@ -856,8 +850,6 @@
 				467B12D41F2F547500CABA27 /* CKCalendarView.m in Sources */,
 				467B12D61F2F547500CABA27 /* CKTableViewCell.m in Sources */,
 				467B12D81F2F547500CABA27 /* MBPolygonView.m in Sources */,
-				46AF0D711F39D4D4005F37EC /* MIGRATIONGUIDE.md in Sources */,
-				46363C2C1F394393002BA215 /* CHANGELOG.md in Sources */,
 				461D49421F604E9900379937 /* CKCalendarModel+DaysPerWeek.m in Sources */,
 				467B12E21F2F547500CABA27 /* CKCalendarViewController.m in Sources */,
 			);
@@ -1167,11 +1159,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -1243,11 +1237,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -1291,11 +1287,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
