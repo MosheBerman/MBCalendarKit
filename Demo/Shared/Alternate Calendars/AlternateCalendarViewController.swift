@@ -9,15 +9,22 @@
 import UIKit
 import MBCalendarKit
 
-class AlternateCalendarViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+#if os(tvOS)
+protocol PickerDelegate {
+    // Stub out for tvOS
+}
+#else
+typealias PickerDelegate = UIPickerViewDelegate & UIPickerViewDataSource
+#endif
+class AlternateCalendarViewController: UIViewController, PickerDelegate {
 
-    
+    #if os(tvOS)
+    #else
     /// The picker for picking calendars.
     @IBOutlet weak var calendarPicker: UIPickerView!
-    
+    #endif
     // The calendar view.
     @IBOutlet weak var calendarView: CalendarView!
-    
     
     private let viewModel = AlternateCalendarViewModel()
     
@@ -38,13 +45,17 @@ class AlternateCalendarViewController: UIViewController, UIPickerViewDelegate, U
     
     func installPicker()
     {
+        #if os(tvOS)
+        #else
         self.calendarPicker.dataSource = self
         self.calendarPicker.delegate = self
+        #endif
     }
 
     
     // MARK: - UIPickerViewDelegate
-    
+    #if os(tvOS)
+    #else
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return self.viewModel.title(for: row)
     }
@@ -65,6 +76,7 @@ class AlternateCalendarViewController: UIViewController, UIPickerViewDelegate, U
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
+    #endif
     
     @IBAction func localeToggleChanged(_ sender: UISegmentedControl)
     {
