@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBCalendarKit
 
 class AnimatedWeekTransitionsViewController: UIViewController {
 
