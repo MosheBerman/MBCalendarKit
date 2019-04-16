@@ -33,12 +33,16 @@ class RTLDemo: CalendarViewController {
     
     func informUserAboutDemoRequirement()
     {
-        let title = NSLocalizedString("iOS 8", comment: "")
+        let title = NSLocalizedString("Unsupported System Version", comment: "")
         let message = NSLocalizedString("This demo requires iOS 9.0 or higher, because it relies on semanticContentAttribute. To see right-to-left support, change your device's language in Settings.app and then come back.", comment: "A note about RTL demo not being supported on iOS 8.")
         let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         let openSettings = UIAlertAction(title: "Settings", style: .default) { (action: UIAlertAction) in
             let url = URL(string:UIApplication.openSettingsURLString)!
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url, options: [UIApplication.OpenExternalURLOptionsKey.universalLinksOnly : false], completionHandler: { (success) in
+                if (!success) {
+                    print("Oops!")
+                }
+            })
         }
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(ok)
