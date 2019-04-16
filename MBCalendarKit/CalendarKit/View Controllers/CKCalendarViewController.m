@@ -142,17 +142,22 @@
 
 - (void)layoutCalendar
 {
-    id topLayoutGuide = self.topLayoutGuide;
+    id topLayoutGuide = nil;
+    NSLayoutAttribute attribute = NSLayoutAttributeBottom;
     
     if (@available(iOS 11.0, *)) {
-        topLayoutGuide = self.view.safeAreaLayoutGuide.topAnchor;
+        topLayoutGuide = self.view.safeAreaLayoutGuide;
+        attribute = NSLayoutAttributeTop;
+    } else {
+        topLayoutGuide = self.topLayoutGuide;
     }
     
     self.calendarView.translatesAutoresizingMaskIntoConstraints = NO;
     NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:self.calendarView
                                                            attribute:NSLayoutAttributeTop
                                                            relatedBy:NSLayoutRelationEqual
-                                                              toItem:topLayoutGuide attribute:NSLayoutAttributeBottom
+                                                              toItem:topLayoutGuide
+                                                           attribute:attribute
                                                           multiplier:1.0
                                                             constant:0.0];
     
