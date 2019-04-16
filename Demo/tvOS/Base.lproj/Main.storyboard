@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14490.70" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gqb-Pb-M2s">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14490.70" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Sa-86-lNR">
     <device id="appleTV" orientation="landscape">
         <adaptation id="light"/>
     </device>
@@ -15,20 +15,20 @@
             <objects>
                 <tableViewController id="S5p-uL-w3H" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="66" sectionFooterHeight="66" id="iKB-y2-6Ja">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <rect key="frame" x="0.0" y="0.0" width="634" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <sections>
                             <tableViewSection id="ezP-TV-esW">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="T0x-ye-uCe" style="IBUITableViewCellStyleDefault" id="WbR-ax-n1d">
-                                        <rect key="frame" x="110" y="0.0" width="1700" height="66"/>
+                                        <rect key="frame" x="90" y="0.0" width="499" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WbR-ax-n1d" id="ESG-cu-c5P">
-                                            <rect key="frame" x="0.0" y="0.0" width="1700" height="66"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="499" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="A Calendar Control, in Objective-C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="T0x-ye-uCe">
-                                                    <rect key="frame" x="20" y="0.0" width="1660" height="66"/>
+                                                    <rect key="frame" x="20" y="0.0" width="459" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                                     <nil key="textColor"/>
@@ -37,35 +37,18 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="s9e-Yu-f3e" kind="show" id="uoq-70-aBy"/>
+                                            <segue destination="s9e-Yu-f3e" kind="showDetail" id="uoq-70-aBy"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="qan-9o-N15" style="IBUITableViewCellStyleDefault" id="aMQ-oc-O1l">
-                                        <rect key="frame" x="110" y="80" width="1700" height="66"/>
+                                        <rect key="frame" x="90" y="80" width="499" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aMQ-oc-O1l" id="Rks-Pl-mky">
-                                            <rect key="frame" x="0.0" y="0.0" width="1700" height="66"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="499" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="With Great Swift Interoperability" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qan-9o-N15">
-                                                    <rect key="frame" x="20" y="0.0" width="1660" height="66"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="38"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="tzx-cu-VX4" style="IBUITableViewCellStyleDefault" id="9r0-on-j7r">
-                                        <rect key="frame" x="110" y="160" width="1700" height="66"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9r0-on-j7r" id="eUt-vA-WbH">
-                                            <rect key="frame" x="0.0" y="0.0" width="1700" height="66"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Interface Builder with IBDesignable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tzx-cu-VX4">
-                                                    <rect key="frame" x="20" y="0.0" width="1660" height="66"/>
+                                                    <rect key="frame" x="20" y="0.0" width="459" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                                     <nil key="textColor"/>
@@ -74,18 +57,18 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="LzN-lh-1hG" kind="show" id="fab-Se-Q3R"/>
+                                            <segue destination="cOx-ER-ara" kind="showDetail" id="Lnc-xL-xBe"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="N9u-ak-iiY" style="IBUITableViewCellStyleDefault" id="iTb-TM-WON">
-                                        <rect key="frame" x="110" y="240" width="1700" height="66"/>
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="tzx-cu-VX4" style="IBUITableViewCellStyleDefault" id="9r0-on-j7r">
+                                        <rect key="frame" x="90" y="160" width="499" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iTb-TM-WON" id="xOv-PN-8Uu">
-                                            <rect key="frame" x="0.0" y="0.0" width="1700" height="66"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9r0-on-j7r" id="eUt-vA-WbH">
+                                            <rect key="frame" x="0.0" y="0.0" width="499" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="A Custom Cell API" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="N9u-ak-iiY">
-                                                    <rect key="frame" x="20" y="0.0" width="1660" height="66"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Interface Builder with IBDesignable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tzx-cu-VX4">
+                                                    <rect key="frame" x="20" y="0.0" width="459" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                                     <nil key="textColor"/>
@@ -93,16 +76,39 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="LzN-lh-1hG" kind="showDetail" id="fab-Se-Q3R"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="N9u-ak-iiY" style="IBUITableViewCellStyleDefault" id="iTb-TM-WON">
+                                        <rect key="frame" x="90" y="240" width="499" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iTb-TM-WON" id="xOv-PN-8Uu">
+                                            <rect key="frame" x="0.0" y="0.0" width="499" height="66"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="A Custom Cell API" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="N9u-ak-iiY">
+                                                    <rect key="frame" x="20" y="0.0" width="459" height="66"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="9jO-5m-yx8" kind="showDetail" id="hLw-l2-wLP"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="xUt-ic-pFb" style="IBUITableViewCellStyleDefault" id="BFU-2t-kpu">
-                                        <rect key="frame" x="110" y="320" width="1700" height="66"/>
+                                        <rect key="frame" x="90" y="320" width="499" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BFU-2t-kpu" id="8jE-vt-I30">
-                                            <rect key="frame" x="0.0" y="0.0" width="1700" height="66"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="499" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Localization and Right-to-Left Rendering" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xUt-ic-pFb">
-                                                    <rect key="frame" x="20" y="0.0" width="1660" height="66"/>
+                                                    <rect key="frame" x="20" y="0.0" width="459" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                                     <nil key="textColor"/>
@@ -112,14 +118,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="wyK-Ch-Mra" style="IBUITableViewCellStyleDefault" id="Em9-c0-A8g">
-                                        <rect key="frame" x="110" y="400" width="1700" height="66"/>
+                                        <rect key="frame" x="90" y="400" width="499" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Em9-c0-A8g" id="ezc-G7-QrO">
-                                            <rect key="frame" x="0.0" y="0.0" width="1700" height="66"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="499" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Use Any NSCalendarIdentifier You Want" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wyK-Ch-Mra">
-                                                    <rect key="frame" x="20" y="0.0" width="1660" height="66"/>
+                                                    <rect key="frame" x="20" y="0.0" width="459" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                                     <nil key="textColor"/>
@@ -127,16 +133,19 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="MrA-UK-vfj" kind="showDetail" id="gzL-uF-PB2"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="JO6-nM-9sI" style="IBUITableViewCellStyleDefault" id="LVJ-Ve-nBH">
-                                        <rect key="frame" x="110" y="480" width="1700" height="66"/>
+                                        <rect key="frame" x="90" y="480" width="499" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LVJ-Ve-nBH" id="2Fu-Zd-erx">
-                                            <rect key="frame" x="0.0" y="0.0" width="1700" height="66"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="499" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Custom Week Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JO6-nM-9sI">
-                                                    <rect key="frame" x="20" y="0.0" width="1660" height="66"/>
+                                                    <rect key="frame" x="20" y="0.0" width="459" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                                     <nil key="textColor"/>
@@ -144,16 +153,19 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Zz8-8a-ErB" kind="showDetail" id="aHJ-nG-bsQ"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="VHZ-g2-CSt" style="IBUITableViewCellStyleDefault" id="fUS-Hd-RHo">
-                                        <rect key="frame" x="110" y="560" width="1700" height="66"/>
+                                        <rect key="frame" x="90" y="560" width="499" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fUS-Hd-RHo" id="V8Q-sh-Sx6">
-                                            <rect key="frame" x="0.0" y="0.0" width="1700" height="66"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="499" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Animated Transitions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VHZ-g2-CSt">
-                                                    <rect key="frame" x="20" y="0.0" width="1660" height="66"/>
+                                                    <rect key="frame" x="20" y="0.0" width="459" height="66"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                                     <nil key="textColor"/>
@@ -161,6 +173,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="tmV-lJ-fT0" kind="showDetail" id="vXf-E1-uUb"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -174,25 +189,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EcI-a7-ooE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2020" y="704"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="iIY-T9-knr">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Gqb-Pb-M2s" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="93U-fw-ryk">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="145"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="S5p-uL-w3H" kind="relationship" relationship="rootViewController" id="8Ey-NP-PoB"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Tsp-Oj-9Mx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-112" y="704"/>
+            <point key="canvasLocation" x="3384" y="5700"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Dem-rk-diq">
@@ -206,8 +203,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view multipleTouchEnabled="YES" contentMode="bottom" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PyZ-65-NPf" customClass="CKCalendarView">
-                                <rect key="frame" x="0.0" y="64" width="1920" height="1016"/>
+                            <view multipleTouchEnabled="YES" contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="PyZ-65-NPf" customClass="CKCalendarView">
+                                <rect key="frame" x="90" y="145" width="1740" height="875"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -223,7 +220,124 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7W-fM-pca" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5241" y="704"/>
+            <point key="canvasLocation" x="7332" y="-174"/>
+        </scene>
+        <!--Custom Cell Demo View Controller-->
+        <scene sceneID="Cw6-He-REg">
+            <objects>
+                <viewController id="9jO-5m-yx8" customClass="CKCustomCellDemoViewController" customModule="MBCalendarKit_Demo" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2q3-DJ-Dsq"/>
+                        <viewControllerLayoutGuide type="bottom" id="KI0-Kd-gCp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bqI-IA-ZWO">
+                        <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="hoW-sj-VPm"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lCr-8c-jBN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7332" y="1258"/>
+        </scene>
+        <!--Alternate Calendar View Controller-->
+        <scene sceneID="XBG-SP-IYn">
+            <objects>
+                <viewController id="MrA-UK-vfj" customClass="AlternateCalendarViewController" customModule="MBCalendarKit_Demo" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vhZ-vX-vBJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="mUz-n6-eZ8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eIf-nY-tyb">
+                        <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Q2Q-J9-dsM"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PVe-VX-ygO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7332" y="2806"/>
+        </scene>
+        <!--Custom Week Start View Controller-->
+        <scene sceneID="U7n-1Q-J7h">
+            <objects>
+                <viewController id="Zz8-8a-ErB" customClass="CustomWeekStartViewController" customModule="Calendar" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cvo-dN-A8i"/>
+                        <viewControllerLayoutGuide type="bottom" id="OCB-Ho-0Qy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VOu-cc-lHU">
+                        <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cgg-cL-i8n">
+                                <rect key="frame" x="465" y="505" width="354" height="69"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lKX-Xg-41v" customClass="CKCalendarView" customModule="Calendar">
+                                <rect key="frame" x="295" y="479" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="lKX-Xg-41v" secondAttribute="height" multiplier="1:1" id="4XY-S1-0sD"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="lKX-Xg-41v" firstAttribute="centerX" secondItem="GUk-KI-7Bi" secondAttribute="centerX" id="3Ec-Ws-P7q"/>
+                            <constraint firstItem="lKX-Xg-41v" firstAttribute="centerY" secondItem="GUk-KI-7Bi" secondAttribute="centerY" id="5Up-4x-ahF"/>
+                            <constraint firstItem="lKX-Xg-41v" firstAttribute="width" secondItem="VOu-cc-lHU" secondAttribute="width" id="Dnt-8G-LLY"/>
+                            <constraint firstItem="GUk-KI-7Bi" firstAttribute="leading" secondItem="lKX-Xg-41v" secondAttribute="trailing" constant="-535" id="IFw-s1-Uu4"/>
+                            <constraint firstItem="lKX-Xg-41v" firstAttribute="width" secondItem="lKX-Xg-41v" secondAttribute="height" multiplier="1:1" id="U5b-0k-tOR"/>
+                            <constraint firstItem="GUk-KI-7Bi" firstAttribute="bottom" secondItem="cgg-cL-i8n" secondAttribute="bottom" id="dCp-VN-n6w"/>
+                            <constraint firstItem="cgg-cL-i8n" firstAttribute="centerX" secondItem="GUk-KI-7Bi" secondAttribute="centerX" id="qXj-Yn-SB6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="GUk-KI-7Bi"/>
+                    </view>
+                    <connections>
+                        <outlet property="calendarView" destination="lKX-Xg-41v" id="8OL-ZS-rXs"/>
+                        <outlet property="weekStartSegmentedControl" destination="cgg-cL-i8n" id="Cj2-lr-ERM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bia-6K-aPi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7370" y="4362"/>
+        </scene>
+        <!--Animated Week Transitions View Controller-->
+        <scene sceneID="B9Q-4W-G8m">
+            <objects>
+                <viewController id="tmV-lJ-fT0" customClass="AnimatedWeekTransitionsViewController" customModule="Calendar" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VQp-NP-ssR"/>
+                        <viewControllerLayoutGuide type="bottom" id="G2P-Ug-CxT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rKZ-QU-WRl">
+                        <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DuH-Xn-Hx5" customClass="CKCalendarView" customModule="MBCalendarKit">
+                                <rect key="frame" x="522" y="227" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="DuH-Xn-Hx5" firstAttribute="height" secondItem="rKZ-QU-WRl" secondAttribute="height" id="9Pe-ma-hOm"/>
+                            <constraint firstItem="DuH-Xn-Hx5" firstAttribute="width" secondItem="rKZ-QU-WRl" secondAttribute="width" id="N7E-J6-aDf"/>
+                            <constraint firstItem="DuH-Xn-Hx5" firstAttribute="centerX" secondItem="AT7-5f-KBV" secondAttribute="centerX" id="NM3-6r-SKC"/>
+                            <constraint firstItem="DuH-Xn-Hx5" firstAttribute="centerY" secondItem="AT7-5f-KBV" secondAttribute="centerY" id="YdB-lt-Mhu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="AT7-5f-KBV"/>
+                    </view>
+                    <connections>
+                        <outlet property="calendarView" destination="DuH-Xn-Hx5" id="Rcu-Dk-MxF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dVH-I6-EC3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7418" y="5850"/>
         </scene>
         <!--Demo View Controller-->
         <scene sceneID="j6P-05-RFz">
@@ -234,7 +348,7 @@
                         <viewControllerLayoutGuide type="bottom" id="b0y-Xq-ls9"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="JTU-ju-QgW">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="C8B-qT-KkC"/>
@@ -242,7 +356,74 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xy8-Rx-aaK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5241" y="-1173"/>
+            <point key="canvasLocation" x="7373" y="-3084"/>
+        </scene>
+        <!--Swift Demo View Controller-->
+        <scene sceneID="HuN-KY-l7B">
+            <objects>
+                <viewController id="cOx-ER-ara" customClass="SwiftDemoViewController" customModule="Calendar" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="llE-eq-a91"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ld5-e7-F30"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PUg-zC-1fr">
+                        <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="YKj-kB-PQy"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rXz-3I-NGR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7332" y="-1594"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="qfn-x3-GXM">
+            <objects>
+                <viewController id="c8F-i0-3hf" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uUa-Ni-gmD"/>
+                        <viewControllerLayoutGuide type="bottom" id="k8Z-dB-bMo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="S7A-ZU-7Fn">
+                        <rect key="frame" x="0.0" y="0.0" width="1285" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="tRv-Ko-Jw1"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mmc-9h-Rb5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-32" y="7334"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="iWf-bg-Cd4">
+            <objects>
+                <splitViewController id="9Sa-86-lNR" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="c8F-i0-3hf" kind="relationship" relationship="detailViewController" id="4Jo-8u-K66"/>
+                        <segue destination="INZ-KJ-h6H" kind="relationship" relationship="masterViewController" id="Jld-Jv-fzb"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ghx-67-UT5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3010" y="7334"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="2hJ-PC-I1o">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="INZ-KJ-h6H" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="oNN-GS-Gbb">
+                        <rect key="frame" x="0.0" y="0.0" width="634" height="145"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="S5p-uL-w3H" kind="relationship" relationship="rootViewController" id="z9j-CF-Gkk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JQt-Gy-zcf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-32" y="5700"/>
         </scene>
     </scenes>
 </document>
