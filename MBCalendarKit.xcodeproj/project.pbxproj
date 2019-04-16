@@ -44,6 +44,15 @@
 		463690371F4028DB00DFE9D5 /* CKCalendarModel+GridViewAnimationSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 463690351F4028DB00DFE9D5 /* CKCalendarModel+GridViewAnimationSupport.h */; };
 		463690381F4028DB00DFE9D5 /* CKCalendarModel+GridViewAnimationSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 463690361F4028DB00DFE9D5 /* CKCalendarModel+GridViewAnimationSupport.m */; };
 		464A8744171F174D00E7AB19 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 464A870B171F174D00E7AB19 /* InfoPlist.strings */; };
+		4671CBB4226448B200AE2C3A /* MBCalendarKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */; };
+		4671CBB52264491500AE2C3A /* CKDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 461C705D1F46292000E305E3 /* CKDemoViewController.m */; };
+		4671CBB62264491B00AE2C3A /* RTLDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C705F1F46292000E305E3 /* RTLDemo.swift */; };
+		4671CBB72264493C00AE2C3A /* SwiftDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C70611F46292000E305E3 /* SwiftDemoViewController.swift */; };
+		4671CBB82264493F00AE2C3A /* AnimatedWeekTransitionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4618C4431F66E8E30033A9AF /* AnimatedWeekTransitionsViewController.swift */; };
+		4671CBB92264494400AE2C3A /* DemoRootTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C70621F46292000E305E3 /* DemoRootTableViewController.swift */; };
+		4671CBBA2264494A00AE2C3A /* CustomWeekStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4618C4401F66D7E30033A9AF /* CustomWeekStartViewController.swift */; };
+		4671CBBB2264495000AE2C3A /* AlternateCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C70561F46292000E305E3 /* AlternateCalendarViewModel.swift */; };
+		4671CBBE2264499900AE2C3A /* MBCalendarKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		467B12A91F2F544F00CABA27 /* MBCalendarKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 467B12A71F2F544F00CABA27 /* MBCalendarKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		467B12AC1F2F544F00CABA27 /* MBCalendarKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */; };
 		467B12AD1F2F544F00CABA27 /* MBCalendarKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -123,6 +132,13 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
+		4671CBBF2264499900AE2C3A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46BFBCB71715FB3F00D4733E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 467B12A41F2F544F00CABA27;
+			remoteInfo = MBCalendarKit;
+		};
 		467B12AA1F2F544F00CABA27 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 46BFBCB71715FB3F00D4733E /* Project object */;
@@ -161,6 +177,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		4671CBC12264499900AE2C3A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4671CBBE2264499900AE2C3A /* MBCalendarKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		467B12B21F2F544F00CABA27 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -327,6 +354,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4671CBB4226448B200AE2C3A /* MBCalendarKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,8 +441,6 @@
 			isa = PBXGroup;
 			children = (
 				461C70501F46292000E305E3 /* App Delegate */,
-				461C70531F46292000E305E3 /* Demo View Controllers */,
-				461C70621F46292000E305E3 /* DemoRootTableViewController.swift */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -428,9 +454,10 @@
 			path = "App Delegate";
 			sourceTree = "<group>";
 		};
-		461C70531F46292000E305E3 /* Demo View Controllers */ = {
+		461C70531F46292000E305E3 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				461C70621F46292000E305E3 /* DemoRootTableViewController.swift */,
 				461C70541F46292000E305E3 /* Alternate Calendars */,
 				461C70571F46292000E305E3 /* Custom Cell Provider */,
 				461C705B1F46292000E305E3 /* Objective-C */,
@@ -439,7 +466,7 @@
 				4618C4421F66DE0C0033A9AF /* First Day of the Week */,
 				4618C4451F66E8E80033A9AF /* Optional Animated Week Transitions */,
 			);
-			path = "Demo View Controllers";
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		461C70541F46292000E305E3 /* Alternate Calendars */ = {
@@ -595,6 +622,13 @@
 			path = MBCalendarKitTests;
 			sourceTree = "<group>";
 		};
+		4671CBB3226448B200AE2C3A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		468C693B1F42C5BC00CCD4E4 /* Custom Calendar Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -666,6 +700,7 @@
 				F5A8EFEF22409D75008889F3 /* CalendarTests */,
 				F5A8EFFA22409D75008889F3 /* CalendarUITests */,
 				46BFBCC01715FB3F00D4733E /* Products */,
+				4671CBB3226448B200AE2C3A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -715,6 +750,7 @@
 		F5A8F00A22409DC9008889F3 /* Demo Apps */ = {
 			isa = PBXGroup;
 			children = (
+				461C70531F46292000E305E3 /* Shared */,
 				461C704C1F46292000E305E3 /* iOS */,
 				F5A8EFDD22409D6E008889F3 /* tvOS */,
 			);
@@ -843,10 +879,12 @@
 				F5A8EFD822409D6E008889F3 /* Sources */,
 				F5A8EFD922409D6E008889F3 /* Frameworks */,
 				F5A8EFDA22409D6E008889F3 /* Resources */,
+				4671CBC12264499900AE2C3A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4671CBC02264499900AE2C3A /* PBXTargetDependency */,
 			);
 			name = Calendar;
 			productName = Calendar;
@@ -941,6 +979,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				he,
@@ -1080,8 +1119,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4671CBB92264494400AE2C3A /* DemoRootTableViewController.swift in Sources */,
+				4671CBB52264491500AE2C3A /* CKDemoViewController.m in Sources */,
+				4671CBBA2264494A00AE2C3A /* CustomWeekStartViewController.swift in Sources */,
 				F5A8EFE122409D6E008889F3 /* ViewController.swift in Sources */,
+				4671CBB82264493F00AE2C3A /* AnimatedWeekTransitionsViewController.swift in Sources */,
 				F5A8EFDF22409D6E008889F3 /* AppDelegate.swift in Sources */,
+				4671CBB62264491B00AE2C3A /* RTLDemo.swift in Sources */,
+				4671CBB72264493C00AE2C3A /* SwiftDemoViewController.swift in Sources */,
+				4671CBBB2264495000AE2C3A /* AlternateCalendarViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1104,6 +1150,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4671CBC02264499900AE2C3A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 467B12A41F2F544F00CABA27 /* MBCalendarKit */;
+			targetProxy = 4671CBBF2264499900AE2C3A /* PBXContainerItemProxy */;
+		};
 		467B12AB1F2F544F00CABA27 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 467B12A41F2F544F00CABA27 /* MBCalendarKit */;
@@ -1210,7 +1261,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos iphonesimulator iphoneos watchos watchsimulator appletvos appletvsimulator";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1257,7 +1308,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos iphonesimulator iphoneos watchos watchsimulator appletvos appletvsimulator";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1304,7 +1355,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos iphonesimulator iphoneos watchos watchsimulator appletvos appletvsimulator";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1448,7 +1499,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/iOS/MBCalendarKit-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Demo/iOS/MBCalendarKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mosheberman.${PRODUCT_NAME:rfc1034identifier}";
@@ -1571,7 +1622,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/iOS/MBCalendarKit-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Demo/iOS/MBCalendarKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mosheberman.${PRODUCT_NAME:rfc1034identifier}";
@@ -1600,7 +1651,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/iOS/MBCalendarKit-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Demo/iOS/MBCalendarKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mosheberman.${PRODUCT_NAME:rfc1034identifier}";
@@ -1629,13 +1680,15 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = HK64RUWW3P;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = Calendar/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1646,7 +1699,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.1;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
 		};
@@ -1664,6 +1717,8 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Moshe Berman (JFYZ2Q7278)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1672,7 +1727,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = Calendar/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1681,7 +1736,7 @@
 				SDKROOT = appletvos;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.1;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = "Ad Hoc";
 		};
@@ -1699,6 +1754,8 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1707,7 +1764,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = Calendar/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1716,7 +1773,7 @@
 				SDKROOT = appletvos;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.1;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
 		};
