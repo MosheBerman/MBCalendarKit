@@ -309,7 +309,7 @@
     }
 }
 
-// MARK: -
+// MARK: - Highlight Scrubbing
 
 - (void)highlightCellBeneathTouches:(NSSet <UITouch *> *)touches
 {
