@@ -4,7 +4,7 @@ xcode_scheme: MBCalendarKit
 xcode_sdk: iphonesimulator9.3
 env:
   global:
-  - FRAMEWORK_NAME=MBCalendarKit>
+  - FRAMEWORK_NAME=MBCalendarKit
 before_install:
 - brew update
 - brew outdated carthage || brew upgrade carthage
