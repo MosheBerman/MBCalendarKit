@@ -1,4 +1,13 @@
 language: objective-c
 xcode_project: MBCalendarKit.xcodeproj # path to your xcodeproj folder
 xcode_scheme: MBCalendarKit
-xcode_destination: platform=iOS Simulator,OS=10.1,name=iPad Pro (9.7-inch)
+xcode_sdk: iphonesimulator9.3
+env:
+  global:
+    - FRAMEWORK_NAME=MBCalendarKit>
+before_install:
+  - brew update
+  - brew outdated carthage || brew upgrade carthage
+before_deploy:
+  - carthage build --no-skip-current
+  - carthage archive $FRAMEWORK_NAME
