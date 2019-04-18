@@ -1,0 +1,21 @@
+
+/* Class = "UILabel"; text = "Use Any NSCalendarIdentifier You Want"; ObjectID = "IZV-bu-mtz"; */
+"IZV-bu-mtz.text" = "Any NSCalendar";
+
+/* Class = "UILabel"; text = "A Calendar Control, in Objective-C"; ObjectID = "LxB-78-eLn"; */
+"LxB-78-eLn.text" = "Objective-C Calendar Control";
+
+/* Class = "UILabel"; text = "A Custom Cell API"; ObjectID = "W5d-eE-rug"; */
+"W5d-eE-rug.text" = "Custom Cells";
+
+/* Class = "UILabel"; text = "Interface Builder with IBDesignable"; ObjectID = "YD0-l6-rBA"; */
+"YD0-l6-rBA.text" = "Interface Builder";
+
+/* Class = "UINavigationItem"; title = "Feature"; ObjectID = "Zmz-Az-KoM"; */
+"Zmz-Az-KoM.title" = "Features";
+
+/* Class = "UILabel"; text = "With Great Swift Interoperability"; ObjectID = "f43-dC-ZXO"; */
+"f43-dC-ZXO.text" = "Swift Interoperability";
+
+/* Class = "UILabel"; text = "Localization & RTL Rendering"; ObjectID = "y8L-Ln-BS5"; */
+"y8L-Ln-BS5.text" = "Localization & RTL";
