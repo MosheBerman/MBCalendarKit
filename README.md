@@ -29,7 +29,7 @@ It offers a flexible calendar control, with support for displaying any calendar 
 You'll need to target iOS 8+. There are ~three~ four ways to integrate MBCalendarKit:
 
 1. Cocoapods: `pod 'MBCalendarKit', '~> 5.0.0'`
-2. Carthage: `github MosheBerman/MBCalendarKit ~> 5.0.1`    
+2. Carthage: `github MosheBerman/MBCalendarKit ~> 5.2.0`    
 3. Drag this Xcode project in to your own, and add the framework as a dependency.
 4. If you really want to drag the raw source in, the framework code is in `MBCalendarKit/CalendarKit`.
 
