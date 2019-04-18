@@ -19,5 +19,4 @@ deploy:
   skip_cleanup: true
   on:
     repo: MosheBerman/MBCalendarKit
-    branch: moshe/carthage-support
     tags: true
