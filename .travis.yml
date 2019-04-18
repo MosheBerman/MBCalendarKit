@@ -1,13 +1,23 @@
 language: objective-c
-xcode_project: MBCalendarKit.xcodeproj # path to your xcodeproj folder
+xcode_project: MBCalendarKit.xcodeproj
 xcode_scheme: MBCalendarKit
 xcode_sdk: iphonesimulator9.3
 env:
   global:
-    - FRAMEWORK_NAME=MBCalendarKit>
+  - FRAMEWORK_NAME=MBCalendarKit>
 before_install:
-  - brew update
-  - brew outdated carthage || brew upgrade carthage
+- brew update
+- brew outdated carthage || brew upgrade carthage
 before_deploy:
-  - carthage build --no-skip-current
-  - carthage archive $FRAMEWORK_NAME
+- carthage build --no-skip-current
+- carthage archive $FRAMEWORK_NAME
+deploy:
+  provider: releases
+  api_key:
+    secure: ELUu9CDdFbRyXl3vFXUhevsYSG/UDg7C3k0ApHYb9njH7zaEWhGRytcsfkntJmt+psQBhpjr5r/bcDE3u4xI+rxVyfPfwD73sRMSQvQ8xcLXdm1W/uBfx2V3g/J8Vu/zBSta07RHF4lwxdpl4a2k1VSLp5ttH0PXlU7QE78mLTA=
+  file: "$FRAMEWORK_NAME.framework.zip"
+  skip_cleanup: true
+  on:
+    repo: MosheBerman/MBCalendarKit
+    branch: moshe/carthage-support
+    tags: true
