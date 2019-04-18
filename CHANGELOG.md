@@ -3,6 +3,11 @@
 ## [unreleased]
 ...
 
+## [5.2.0] 2019-04-18
+### Added
+- Added .travis.yml to augment Carthage support.
+
+
 ## [5.1.0] 2017-09-11
 ### Added 
 - Added a demo for first day of the week handling.

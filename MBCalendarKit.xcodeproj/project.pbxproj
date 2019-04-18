@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -83,6 +83,7 @@
 		467B12E11F2F547500CABA27 /* CKCalendarViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 464A86FC171F174D00E7AB19 /* CKCalendarViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		467B12E21F2F547500CABA27 /* CKCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 464A86FD171F174D00E7AB19 /* CKCalendarViewController.m */; };
 		467B12FC1F2F5B8A00CABA27 /* MBCalendarKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467B12A51F2F544F00CABA27 /* MBCalendarKit.framework */; };
+		468186AE226842010065BB32 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 46363C251F392295002BA215 /* LICENSE.md */; };
 		468C69371F42C11D00CCD4E4 /* CKCalendarView+CustomCells.h in Headers */ = {isa = PBXBuildFile; fileRef = 468C69351F42C11D00CCD4E4 /* CKCalendarView+CustomCells.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		468C69381F42C11D00CCD4E4 /* CKCalendarView+CustomCells.m in Sources */ = {isa = PBXBuildFile; fileRef = 468C69361F42C11D00CCD4E4 /* CKCalendarView+CustomCells.m */; };
 		468C693A1F42C57300CCD4E4 /* CKCustomCellProviding.h in Headers */ = {isa = PBXBuildFile; fileRef = 468C69391F42C57300CCD4E4 /* CKCustomCellProviding.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -112,7 +113,7 @@
 			isEditable = 1;
 			outputFiles = (
 			);
-			script = "";
+			script = "# Type a script or drag a script file from your workspace to insert its path.\n";
 		};
 /* End PBXBuildRule section */
 
@@ -770,10 +771,11 @@
 				};
 			};
 			buildConfigurationList = 46BFBCBA1715FB3F00D4733E /* Build configuration list for PBXProject "MBCalendarKit" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				he,
@@ -795,6 +797,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				468186AE226842010065BB32 /* LICENSE.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
