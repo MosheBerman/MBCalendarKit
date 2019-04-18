@@ -6,6 +6,9 @@ MBCalendarKit is a calendar control written in Objective-C with modern best prac
 
 It offers a flexible calendar control, with support for displaying any calendar system supported by `NSCalendar`. It also includes an API to  customize the calendar cells. It also ships with a prebuilt view controller, inspired by the original iOS calendar. 
 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Build Status](https://travis-ci.com/MosheBerman/MBCalendarKit.svg?branch=master)](https://travis-ci.com/MosheBerman/MBCalendarKit)
+
 ## Features
 - Interactive Calendar Control
 - Autolayout Support
@@ -23,11 +26,12 @@ It offers a flexible calendar control, with support for displaying any calendar 
 
 # Getting Started:
 
-You'll need to target iOS 8+. There are three ways to integrate MBCalendarKit:
+You'll need to target iOS 8+. There are ~three~ four ways to integrate MBCalendarKit:
 
 1. Cocoapods: `pod 'MBCalendarKit', '~> 5.0.0'`
-2. Drag this Xcode project in to your own, and add the framework as a dependency.
-3. If you really want to drag the raw source in, the framework code is in `MBCalendarKit/CalendarKit`.
+2. Carthage: `github MosheBerman/MBCalendarKit ~> 5.0.1`    
+3. Drag this Xcode project in to your own, and add the framework as a dependency.
+4. If you really want to drag the raw source in, the framework code is in `MBCalendarKit/CalendarKit`.
 
 If there are any problems, please head over to issue #48 and leave a comment. 
 
