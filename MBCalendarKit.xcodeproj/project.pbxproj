@@ -108,6 +108,10 @@
 		46AA21201F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 46AA211E1F3DF35300E5F832 /* CKCalendarGridTransitionCollectionViewFlowLayout.m */; };
 		46AA21221F3DF3EF00E5F832 /* CKCalendarGridTransitionDirection.h in Headers */ = {isa = PBXBuildFile; fileRef = 46AA21211F3DF3EF00E5F832 /* CKCalendarGridTransitionDirection.h */; };
 		46AA21241F3E0FA000E5F832 /* CKCalendarGridTransitionAxis.h in Headers */ = {isa = PBXBuildFile; fileRef = 46AA21231F3E0FA000E5F832 /* CKCalendarGridTransitionAxis.h */; };
+		46B72F4222656071005E0FFF /* CKCustomCellDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C70591F46292000E305E3 /* CKCustomCellDemoViewController.swift */; };
+		46B72F4322656074005E0FFF /* CustomCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C705A1F46292000E305E3 /* CustomCalendarCell.swift */; };
+		46B72F4422656076005E0FFF /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C70581F46292000E305E3 /* CircleView.swift */; };
+		46B72F45226560DD005E0FFF /* AlternateCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C70551F46292000E305E3 /* AlternateCalendarViewController.swift */; };
 		46EF359B1F3C295700095A9E /* CKCalendarModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EF35991F3C295700095A9E /* CKCalendarModel.h */; };
 		46EF359C1F3C295700095A9E /* CKCalendarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF359A1F3C295700095A9E /* CKCalendarModel.m */; };
 		F5A8EFDF22409D6E008889F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A8EFDE22409D6E008889F3 /* AppDelegate.swift */; };
@@ -976,10 +980,9 @@
 			};
 			buildConfigurationList = 46BFBCBA1715FB3F00D4733E /* Build configuration list for PBXProject "MBCalendarKit" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 				he,
@@ -1119,6 +1122,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46B72F4422656076005E0FFF /* CircleView.swift in Sources */,
 				4671CBB92264494400AE2C3A /* DemoRootTableViewController.swift in Sources */,
 				4671CBB52264491500AE2C3A /* CKDemoViewController.m in Sources */,
 				4671CBBA2264494A00AE2C3A /* CustomWeekStartViewController.swift in Sources */,
@@ -1127,6 +1131,9 @@
 				F5A8EFDF22409D6E008889F3 /* AppDelegate.swift in Sources */,
 				4671CBB62264491B00AE2C3A /* RTLDemo.swift in Sources */,
 				4671CBB72264493C00AE2C3A /* SwiftDemoViewController.swift in Sources */,
+				46B72F4322656074005E0FFF /* CustomCalendarCell.swift in Sources */,
+				46B72F45226560DD005E0FFF /* AlternateCalendarViewController.swift in Sources */,
+				46B72F4222656071005E0FFF /* CKCustomCellDemoViewController.swift in Sources */,
 				4671CBBB2264495000AE2C3A /* AlternateCalendarViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1262,6 +1269,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos iphonesimulator iphoneos watchos watchsimulator appletvos appletvsimulator";
 				TARGETED_DEVICE_FAMILY = "1,2,3";
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1309,6 +1317,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos iphonesimulator iphoneos watchos watchsimulator appletvos appletvsimulator";
 				TARGETED_DEVICE_FAMILY = "1,2,3";
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1356,6 +1365,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos iphonesimulator iphoneos watchos watchsimulator appletvos appletvsimulator";
 				TARGETED_DEVICE_FAMILY = "1,2,3";
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
