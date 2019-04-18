@@ -14,7 +14,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: ELUu9CDdFbRyXl3vFXUhevsYSG/UDg7C3k0ApHYb9njH7zaEWhGRytcsfkntJmt+psQBhpjr5r/bcDE3u4xI+rxVyfPfwD73sRMSQvQ8xcLXdm1W/uBfx2V3g/J8Vu/zBSta07RHF4lwxdpl4a2k1VSLp5ttH0PXlU7QE78mLTA=
+    secure: JC1U4FLamU4QgLYxsQYm2WJ5rUw12+Mica1ktjhih1GKyyyidQ6xx/duuXL//AgMnDUM/5RyC8zDo0icWL1cDf9itpyW+Hhco89uw39aUboGll56WIY2go9sZ8Tpv6nZlPR0wA71izO7uhWiUFDX+dLuAVIgJFjOT6OQA55tTZM=
   file: "$FRAMEWORK_NAME.framework.zip"
   skip_cleanup: true
   on:
