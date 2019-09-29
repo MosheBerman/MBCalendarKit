@@ -28,6 +28,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>DemoApp</string>
 	<key>UIMainStoryboardFile</key>
 	<string>DemoApp</string>
 	<key>UIPrerenderedIcon</key>

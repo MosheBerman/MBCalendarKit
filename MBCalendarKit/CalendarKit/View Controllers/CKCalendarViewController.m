@@ -269,7 +269,9 @@
     self.calendarView.dataSource = dataSource;
 
     [self updateCacheWithSortedEvents];
-    [self.tableView reloadData];
+    if (self.tableView.window) {
+        [self.tableView reloadData];
+    }
 }
 
 /**
@@ -313,7 +315,9 @@
 - (void)calendarView:(CKCalendarView *)calendarView didSelectDate:(NSDate *)date
 {
     [self updateCacheWithSortedEvents];
-    [self.tableView reloadData];
+    if (self.tableView.window) {
+        [self.tableView reloadData];
+    }
 
     if ([self isEqual:self.delegate])
     {
